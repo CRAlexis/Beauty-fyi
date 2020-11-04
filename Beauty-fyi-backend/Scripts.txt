@@ -1,0 +1,3 @@
+adonis:
+Execution policy
+Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy Unrestricted
