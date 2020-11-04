@@ -1,3 +1,17 @@
 adonis:
 Execution policy
 Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy Unrestricted
+
+
+Generate Key:
+adonis key:generate
+
+Authentication:
+adonis install @adonisjs/validator
+npm install random-string
+
+Mail:
+adonis install @adonis/mail
+
+Mysql:
+npm install mysql --save
