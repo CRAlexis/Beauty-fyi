@@ -16,6 +16,11 @@ adonis install @adonis/mail
 Mysql:
 npm install mysql --save
 
+other scripts that you may need to run:
+npm install @adonisjs/ignitor
+npm install @adonisjs/fold
+npm install @adonisjs/framework/providers/AppProvider
+
 
 HOST=127.0.0.1
 PORT=3333
