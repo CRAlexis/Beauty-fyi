@@ -19,3 +19,9 @@ const Route = use('Route')
 Route.get('/', () => {
   return { greeting: 'Hello world in JSON' }
 })
+
+Route.get('register', 'Auth/RegisterController.showRegisterForm')
+Route.post('register', 'Auth/RegisterController.register').as('register')
+Route.get('tregister/confirm/:token', 'Auth/RegisterController.confirmEmail')
+Route.get('login', 'Auth/LoginController.showLoginForm')
+Route.post('login', 'Auth/LoginController.login').as('login')
