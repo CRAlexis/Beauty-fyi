@@ -12,7 +12,7 @@ class RegisterController {
 
   async register ({ request, session, response }) {
     //Validate form inputs
-    const validation = await validateAll(request.all() {
+    const validation = await validateAll(request.all(), {
       username: 'required|unique:user,username',
       email: 'required|email|unique:user,email',
       password: 'required'
