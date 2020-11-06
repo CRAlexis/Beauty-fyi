@@ -9,7 +9,6 @@ curl_setopt($ch, CURLOPT_POST,1);
 #curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
 #curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
 $response = curl_exec($ch); print_r($response); curl_close($ch);
-dd();
 
 ?>
 C:\Users\jxmyster\Documents\GitHub\Beauty-fyi\Beauty-fyi-backend\test.php

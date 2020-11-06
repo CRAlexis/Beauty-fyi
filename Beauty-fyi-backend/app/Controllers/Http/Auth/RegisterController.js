@@ -3,27 +3,21 @@
 const { validateAll } = use('Validator')
 const User = use('App/Models/User')
 const randomString = require('random-string')
-const Mail = use('Mail')
+//const Mail = use('Mail')
 
 class RegisterController {
-  showRegisterForm ({ view }) {
-    return view.render('auth.register')
-  }
 
   async register ({ request, session, response }) {
     //Validate form inputs
     const validation = await validateAll(request.all(), {
-      username: 'required|unique:user,username',
-      email: 'required|email|unique:user,email',
+      username: 'required|unique:users,username',
+      email: 'required|email|unique:users,email',
       password: 'required'
     })
+    //return "here";
 
     if(validation.fails()){
-      session.withErrors(validation.messages()).flashExcept(['password'])
-
-      return response.redirect('back')
     }
-
     // create user
     const user =  await User.create({
       username: request.input('username'),
@@ -32,21 +26,13 @@ class RegisterController {
       confirmation_token: randomString({ length: 40 })
     })
     // send confirmation email
-    await Mail.send('auth.emails.confirm_email', user.toJSON(), message => {
+    /*await Mail.send('auth.emails.confirm_email', user.toJSON(), message => {
       message.to(user.email)
       .from('hello@Beauty-fyi.com')
       .subject('Please confirm your email address')
-    })
-
-    //display success message
-    session.flash({
-      notification: {
-        type: 'success',
-        message: 'Registration successful! A mail has been sent to your email address, please confirm your ermail address.'
-      }
-    })
-
-    return response.redirect('back')
+    })*/
+    console.log("Success")
+    return "Completed"
   }
 
 
