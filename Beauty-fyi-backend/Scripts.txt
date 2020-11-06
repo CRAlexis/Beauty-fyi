@@ -10,6 +10,7 @@ Authentication:
 adonis install @adonisjs/validator
 adonis install @adonisjs/auth
 npm install random-string
+adonis install @adonisjs/shield
 
 Mail:
 adonis install @adonis/mail
