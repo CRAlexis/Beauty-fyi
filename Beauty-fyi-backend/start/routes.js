@@ -26,3 +26,5 @@ Route.get('register/confirm/:token', 'Auth/RegisterController.confirmEmail')
 Route.get('login', 'Auth/LoginController.showLoginForm')
 Route.post('login', 'Auth/LoginController.login').as('login')
 Route.post('landing', 'Landing/LandingController.getCSRF').as('getCSRF')
+
+//Route.post('landing', 'Landing/LandingController.getCSRF').as('getCSRF').middleware(['auth'])

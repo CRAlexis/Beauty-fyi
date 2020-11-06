@@ -2,6 +2,8 @@ adonis:
 Execution policy
 Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy Unrestricted
 
+//model and Database creation
+adonis make:model encryption --migration
 
 Generate Key:
 adonis key:generate
