@@ -1,0 +1,43 @@
+<ScrollView height="100%">
+    <StackLayout xmlns:Card="nativescript-cardview">
+        <StackLayout orientation="horizontal" style="margin-top: 70px; margin-left: 100px: margin-right: 100px; margin-bottom: 45px">
+            <Label textWrap="true" text="">
+                <FormattedString>
+                    <Span text="&#xf133;" class="far" style="font-size: 30;"></Span>
+                    <Span text="@@" style="color: #fff"></Span>
+                    <Span class="font-regular h1" text="Welcome" textWrap="true"></Span>
+                </FormattedString>
+            </Label>
+        </StackLayout>
+        <StackLayout orientation="horizontal">
+          <Card:CardView class="cardStyle" margin="20" elevation="40" radius="10" style="width: 90%;">
+               <StackLayout margin="20">
+                   <Label class="h3" text="Your activity feed" textWrap="true" />
+                   <Label class="body" text="This is where you will find to-dos and other notifications" textWrap="true" />
+                   <Label text="swipe left to dismiss" textWrap="true" style="color: #dedede" />
+               </StackLayout>
+           </Card:CardView>
+       </StackLayout>
+       <StackLayout borderRadius="1" borderColor="#d4d4d4" borderWidth="1.5" margin="50px">
+           <GridLayout rows="auto, 15, auto, 15, auto" columns="20, *, auto, 30" margin="20px">
+                <Label tap="{{ addYourServicesTapped }}" text="Add your services" class="h4" row="0" col="1"></Label>
+                <Label id="addYourServicesArrowId" tap="{{ addYourServicesTapped }}" text="&#xf061;" class="fas" row="0" col="2" style="font-size: 30;" textWrap="true" />
+
+                <Label text="" class="line" row="1" colSpan="4" style="width: 100%" textWrap="true" />
+
+
+                <Label tap="{{ setYourScheduleTapped }}" text="Set your schedule" class="h4" row="2" col="1"></Label>
+                <Label id="setYourScheduleArrowId" tap="{{ setYourScheduleTapped }}" text="&#xf061;" class="fas" row="2" col="2" style="font-size: 30;" textWrap="true" />
+
+                <Label text="" class="line" row="3" colSpan="4" style="width: 100%" textWrap="true" />
+
+                <Label tap="{{ addYourIntakeFormTapped }}" text="Add your intake form" class="h4" row="4" col="1"></Label>
+                <Label id="addYourIntakeFormArrowId" tap="{{ addYourIntakeFormTapped }}" text="&#xf061;" class="fas" row="4" col="2" style="font-size: 30;" textWrap="true" />
+           </GridLayout> 
+       </StackLayout>
+    </StackLayout>
+</ScrollView>
+<!--
+
+tns plugin add nativescript-cardview
+-->

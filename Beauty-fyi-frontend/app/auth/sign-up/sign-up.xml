@@ -9,6 +9,10 @@
             </StackLayout>
                 
             <StackLayout class="form" style="margin-top: 90px">
+                <StackLayout class="">
+                  <TextField class="textFieldInput" hint="Username" text="{{ username }}" width="90%" style=""></TextField>
+                </StackLayout>
+
                 <StackLayout class="" style="margin-top: 30px">
                   <TextField class="textFieldInput" KeyboardType="email" hint="Email" text="{{ email }}" width="90%" style=""></TextField>
                 </StackLayout>
@@ -17,18 +21,18 @@
                   <TextField class="textFieldInput" hint="Password" text="{{ password }}" secure="true" width="90%" style=""></TextField>
                 </StackLayout>
 
-                <Button tap="{{ signInTapped }}" class="btn btn-primary" text="Sign in" style="font-size: 20px; height: 150px; margin-top: 30px"></Button>
+                <Button tap="{{ signUpTapped }}" class="btn btn-primary" text="Sign up" style="font-size: 20px; height: 150px; margin-top: 30px"></Button>
 
             </StackLayout>
             <StackLayout orientation="horizontal" style="margin-top: 30px">
-                <Label text="Dont have an account?" textAlignment="center"></Label>
-                <Label tap=" {{ navigateToSignUpPage }}" class="font-bold" text=" Sign up" textWrap="true" textAlignment="center"/> 
+                <Label text="Already have an account?" textAlignment="center"></Label>
+                <Label tap=" {{ navigateToSignInPage }}" class="font-bold" text=" Sign in" textWrap="true" textAlignment="center"/> 
             </StackLayout>
 
             <StackLayout style="margin-top: 100px; margin-left: 60px; margin-right: 60px">
                 <StackLayout orientation="horizontal">
                     <Label class="line" text="" width="30%"/>
-                    <Label text="Or sign in via" textWrap="true" textAlignment="center" width="40%"/>
+                    <Label text="Or sign up via" textWrap="true" textAlignment="center" width="40%"/>
                     <Label class="line" text="" width="30%"/>
                 </StackLayout>
 
@@ -51,4 +55,5 @@
             </StackLayout>
         </FlexboxLayout>
     </ScrollView> 
+        
 </Page>

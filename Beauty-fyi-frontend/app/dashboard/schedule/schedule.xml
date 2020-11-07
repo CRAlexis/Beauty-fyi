@@ -1,0 +1,52 @@
+<Page navigatingTo="onNavigatedTo" loaded="onPageLoaded"  actionBarHidden="true" xmlns:lv="nativescript-ui-listview" >
+        <StackLayout>
+            <StackLayout orientation="horizontal" style="margin-top: 70px; margin-left: 60px: margin-right: 100px; margin-bottom: 45px">
+                <GridLayout rows="auto" columns="auto, 20, *, auto, 20">
+                    <Label text="&#xf063;" class="fas" row="0" col="0" style="font-size: 15; padding-top: 25px" />
+                    <Label text="Schedule" class="font-regular h3" row="0" col="2"  textWrap="true" />
+                    <Label text="SETTINGS" class="font-bold h5" row="0" col="3" style="padding-top: 30px" textWrap="true" />
+                </GridLayout>
+            </StackLayout>
+            <StackLayout>
+                <lv:RadListView id="listview" class="list-group" > 
+                    <lv:RadListView.listViewLayout>
+                        <lv:ListViewLinearLayout scrollDirection="Vertical"/>
+                    </lv:RadListView.listViewLayout>
+                    <lv:RadListView.itemTemplate>
+                        <GridLayout class="list-group-item" rows="auto, auto, auto" columns="15, 45, 20, *, 20">
+                            
+                            <Label text="{{ timeHeader }}" visibility="{{ headerVissibilty ? 'visible' : 'collapsed' }}" class="h5 font-bold" row="0" col="1" textWrap="true"/>
+                            <Label text="{{ dayHeader }}" visibility="{{ headerVissibilty ? 'visible' : 'collapsed' }}" class="h5 font-bold" row="0" col="3" style="padding-left: 20px" textWrap="true"/>
+
+                            <Label text="{{ startTime }}" visibility="{{ startVissibility ? 'visible' : 'collapsed' }}" class="" row="0" col="1" textWrap="true" color="#949494"/>
+                            <Label text="" class="{{ startLine }}" visibility="{{ startVissibility ? 'visible' : 'collapsed' }}" row="0" col="3" width="100%" textWrap="true"/>
+
+                            <StackLayout row="1" col="3" backgroundColor="{{ backgroundColor }}">
+                                <Label text="{{ itemDesc }}" visibility="{{ endVissibility ? 'visible' : 'collapsed' }}" class="{{ itemDescClass }}"  style="margin: -5" textWrap="true" />
+                            </StackLayout>
+
+                            <Label text="{{ endTime }}" visibility="{{ endVissibility ? 'visible' : 'collapsed' }}" class="" row="2" col="1" textWrap="true" color="#949494"/>
+                            <Label text="" class="{{ endLine }}" visibility="{{ endVissibility ? 'visible' : 'collapsed' }}" row="2" col="3" width="100%" textWrap="true"/>
+                        </GridLayout>                
+                    </lv:RadListView.itemTemplate>
+                </lv:RadListView>
+            </StackLayout>
+        </StackLayout>
+</Page>
+
+<!--
+    <StackLayout height="60%">
+        <calendar:RadCalendar
+            id="scheudleCalander" 
+            eventSource="{{ events }}" 
+            eventsViewMode="Inline" 
+            selectionMode="Single"
+            viewMode="Month"
+            dateSelected="{{ onDateSelected }}" 
+            dateDeselected="{{ onDateDeselected }}"
+            navigatedToDate="{{ onNavigatedToDate }}"
+            navigatingToDateStarted="{{ onNavigatingToDateStarted }}"
+            viewModeChanged="{{ onViewModeChanged }}"
+            inlineEventSelected="{{ onInlineEventSelected }}"/>
+    </StackLayout>
+-->

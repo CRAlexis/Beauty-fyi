@@ -1,0 +1,30 @@
+<Page navigatingTo="onNavigatedTo" loaded="onPageLoaded" actionBarHidden="true" xmlns:tabs="dashboard/tabs" >
+    <TabView 
+        loaded="onLoaded" 
+        selectedIndex="{{tabSelectedIndex}}" 
+        selectedIndexChanged="onSelectedIndexChanged" 
+        androidTabsPosition="bottom"
+        tabBackgroundColor="#fff"
+        selectedTabTextColor="#9900ff">
+        <TabViewItem title="Home">
+            <StackLayout class="bottom-gradient">
+                <tabs:home/>
+            </StackLayout>
+        </TabViewItem>
+        <TabViewItem title="Clients">
+            <StackLayout>
+                <tabs:clients/>
+            </StackLayout>
+        </TabViewItem>
+        <TabViewItem title="Services">
+            <StackLayout>
+                <tabs:services/>
+            </StackLayout>
+        </TabViewItem>
+        <TabViewItem title="Website">
+            <StackLayout>
+                <tabs:website/>
+            </StackLayout>
+        </TabViewItem>
+    </TabView>
+</Page>
