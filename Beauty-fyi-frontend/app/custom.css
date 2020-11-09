@@ -78,7 +78,6 @@ font-size: 14;
 
 .h1 {
 font-size: 40;
-letter-spacing: 0.1;
 }
 
 .h2 {
@@ -237,7 +236,7 @@ color: #000000;
 }
 
 .bottom-gradient {
-    background: linear-gradient(to bottom right, rgb(245, 249, 255), rgba(229, 101, 255, 0.11));
+    background: linear-gradient(to bottom right, rgb(255, 255, 255), rgb(255, 255, 255), rgb(255, 255, 255), rgba(229, 101, 255, 0.055));
 }
 
 .img-container {
@@ -253,4 +252,20 @@ color: #000000;
 .line {
     background: #d4d4d4;
     height: 2px;
+}
+
+.letterSpacing {
+    letter-spacing: 0.1;
+}
+
+.listViewNote {
+    font-size: 16px;
+    font-family: 'Roboto', 'Roboto-Regular';
+    color: #545454;
+}
+.listViewBuffer {
+    font-size: 13;
+    
+    font-family: 'Roboto', 'Roboto-Regular';
+    color: #545454;
 }

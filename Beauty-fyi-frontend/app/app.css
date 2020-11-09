@@ -38,6 +38,10 @@ Button.-primary {
     font-family: 'Roboto', 'Roboto-Regular';
 }
 
+.font-thin {
+    font-family: 'Roboto', 'Roboto-Thin';
+}
+
 .far {
     font-family: Font Awesome 5 Free, fa-regular-400;
     font-weight: 400;
