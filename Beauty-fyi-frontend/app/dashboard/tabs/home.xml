@@ -1,43 +1,54 @@
-<ScrollView height="100%">
-    <StackLayout xmlns:Card="nativescript-cardview">
-        <StackLayout orientation="horizontal" style="margin-top: 70px; margin-left: 100px: margin-right: 100px; margin-bottom: 45px">
-            <Label textWrap="true" text="">
-                <FormattedString>
-                    <Span text="&#xf133;" class="far" style="font-size: 30;"></Span>
-                    <Span text="@@" style="color: #fff"></Span>
-                    <Span class="font-regular h1" text="Welcome" textWrap="true"></Span>
-                </FormattedString>
-            </Label>
-        </StackLayout>
-        <StackLayout orientation="horizontal">
-          <Card:CardView class="cardStyle" margin="20" elevation="40" radius="10" style="width: 90%;">
-               <StackLayout margin="20">
-                   <Label class="h3" text="Your activity feed" textWrap="true" />
-                   <Label class="body" text="This is where you will find to-dos and other notifications" textWrap="true" />
-                   <Label text="swipe left to dismiss" textWrap="true" style="color: #dedede" />
-               </StackLayout>
+<ScrollView height="100%" xmlns:Card="nativescript-cardview" xmlns:lv="nativescript-ui-listview">
+    <GridLayout rows="50, *, auto, auto">
+        <StackLayout  row="0">
+           <Card:CardView class="cardStyle" elevation="10" radius="10" style="margin-bottom: 25px">
+                <GridLayout row="80" columns="30, 100, *, 100, 30">
+                    <Label col="1" row="0" text="&#xf002;" class="fas" textWrap="true" style="font-size: 25px; padding-top: 20px" textAlignment="left"/>
+                    <Label col="2" row="0" class="font" text="Beauty-fyi" textWrap="true" style="font-size: 25px" textAlignment="center" />
+                    <Label col="3" row="0" text="&#xf2b6;" class="far" style="font-size: 25px; padding-top: 32px" textAlignment="right"/>
+                </GridLayout>
            </Card:CardView>
-       </StackLayout>
-       <StackLayout borderRadius="1" borderColor="#d4d4d4" borderWidth="1.5" margin="50px">
-           <GridLayout rows="auto, 15, auto, 15, auto" columns="20, *, auto, 30" margin="20px">
-                <Label tap="{{ addYourServicesTapped }}" text="Add your services" class="h4" row="0" col="1"></Label>
-                <Label id="addYourServicesArrowId" tap="{{ addYourServicesTapped }}" text="&#xf061;" class="fas" row="0" col="2" style="font-size: 30;" textWrap="true" />
-
-                <Label text="" class="line" row="1" colSpan="4" style="width: 100%" textWrap="true" />
-
-
-                <Label tap="{{ setYourScheduleTapped }}" text="Set your schedule" class="h4" row="2" col="1"></Label>
-                <Label id="setYourScheduleArrowId" tap="{{ setYourScheduleTapped }}" text="&#xf061;" class="fas" row="2" col="2" style="font-size: 30;" textWrap="true" />
-
-                <Label text="" class="line" row="3" colSpan="4" style="width: 100%" textWrap="true" />
-
-                <Label tap="{{ addYourIntakeFormTapped }}" text="Add your intake form" class="h4" row="4" col="1"></Label>
-                <Label id="addYourIntakeFormArrowId" tap="{{ addYourIntakeFormTapped }}" text="&#xf061;" class="fas" row="4" col="2" style="font-size: 30;" textWrap="true" />
-           </GridLayout> 
-       </StackLayout>
-    </StackLayout>
+        </StackLayout>
+        <Card:CardView row="1" class="cardStyle" margin="5" elevation="30" radius="10" width="97%" style="padding-bottom: 25px">
+            <StackLayout margin="30">
+                <Label text="SATURDAY 7th NOVEMBER 2020" class="h5" textWrap="true" />
+                <Label text="Hey Klerissa," class="h3 font-bold" textWrap="true" />
+                <Label text="So far you have made £100 today and £800 this week" class="h3 font-bold" textWrap="true" />
+            </StackLayout>   
+        </Card:CardView>  
+        <Card:CardView row="2" class="cardStyle" margin="5" elevation="30" radius="10" width="97%" style="padding-bottom: 25px">
+            <StackLayout margin="20">
+                <lv:RadListView id="notificationList" class="list-group" width="100%" style="background-color: transparent"> 
+                    <lv:RadListView.listViewLayout>
+                        <lv:ListViewLinearLayout scrollDirection="Vertical" itemInsertAnimation="fade"/>
+                    </lv:RadListView.listViewLayout>
+                    <lv:RadListView.itemTemplate style="background-color: transparent">
+                        <GridLayout rows="auto" columns="*, auto" style="padding-bottom: 30px">
+                            <Label text="" textWrap="true" />
+                            
+                        </GridLayout>
+                    </lv:RadListView.itemTemplate>
+                </lv:RadListView>
+            </StackLayout>
+        </Card:CardView>
+        <Card:CardView row="3" class="cardStyle" margin="5" elevation="30" radius="10" width="97%" style="padding-bottom: 25px">
+            <StackLayout style="padding: 60px">
+                <Label text="Up coming bookings" class="h4" textWrap="true" />
+                <lv:RadListView id="bookingList" class="list-group" width="100%" style="background-color: transparent"> 
+                    <lv:RadListView.listViewLayout>
+                        <lv:ListViewLinearLayout scrollDirection="Vertical" itemInsertAnimation="fade"/>
+                    </lv:RadListView.listViewLayout>
+                    <lv:RadListView.itemTemplate style="background-color: transparent">
+                        <GridLayout rows="30, 30" columns="auto, *, auto" style="padding-bottom: 30px">
+                            <Image id="{{ id }}" tap="{{ ontest }}" src="{{ clientImage }}" rowSpan="2" col="0" class="img-circle img-container" stretch="none"/>
+                            <Label id="{{ id }}" tap="{{ ontest }}" text="{{ clientName }}" row="0" col="1" class="font-bold h4" style="margin-top: -8px; margin-bottom: -8px" textWrap="true" />
+                            <Label id="{{ id }}" tap="{{ ontest }}" text="{{ service }}" row="1" col="1" class="h5" style="margin-top: -8px; margin-bottom: -8px" textWrap="true" />
+                            <Label id="{{ id }}" tap="{{ ontest }}" text="{{ time }}" rowSpan="2" col="2" class="h4" textWrap="true" />                
+                        </GridLayout>
+                    </lv:RadListView.itemTemplate>
+                </lv:RadListView>
+            </StackLayout>
+       </Card:CardView>  
+    </GridLayout>
 </ScrollView>
-<!--
 
-tns plugin add nativescript-cardview
--->

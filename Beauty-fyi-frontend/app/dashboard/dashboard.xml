@@ -1,4 +1,5 @@
 <Page navigatingTo="onNavigatedTo" loaded="onPageLoaded" actionBarHidden="true" xmlns:tabs="dashboard/tabs" >
+    
     <TabView 
         loaded="onLoaded" 
         selectedIndex="{{tabSelectedIndex}}" 
@@ -7,7 +8,7 @@
         tabBackgroundColor="#fff"
         selectedTabTextColor="#9900ff">
         <TabViewItem title="Home">
-            <StackLayout class="bottom-gradient">
+            <StackLayout class="plain-background">
                 <tabs:home/>
             </StackLayout>
         </TabViewItem>
@@ -21,7 +22,7 @@
                 <tabs:services/>
             </StackLayout>
         </TabViewItem>
-        <TabViewItem title="Website">
+        <TabViewItem title="Schedule">
             <StackLayout>
                 <tabs:website/>
             </StackLayout>

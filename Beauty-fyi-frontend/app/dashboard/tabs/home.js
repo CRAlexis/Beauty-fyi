@@ -1,28 +1,45 @@
-source.set("addYourServicesTapped", async function (args) {
-    const button = page.getViewById("addYourServicesArrowId");
-    try {
-        const page = button.page;
-        await animation(button, "arrow swipe").then(function(){
-            const navEntryWithContext = {
-                moduleName: "~/dashboard/schedule/schedule",
-                clearHistory: false,
-                context: {
-                    placeholder: "placeholder",  
-                },
-            };
-            page.frame.navigate(navEntryWithContext); 
-        })   
-    } catch (error) {
-        console.log(error)
-    }
-})
+const bookingModal = "~/dashboard/modals/booking-modal";
+exports.loadNotifications = function(page){ // am not able to get page object
+    page.bindingContext = source;
+    const notifications = [];
+    notifications.push(
+        {
+            clientImage: "~/temp.png",
+            clientName: "Tiffany",
+            service: "Washing hair and style",
+            time: "2 hours",
+            id: "1"
+        },
+        {
+            clientImage: "res://logo",
+            clientName: "Phoebe",
+            service: "Styling and treatment",
+            time: "4 hours",
+            id: "2"
+        },
+        {
+            clientImage: "res://logo",
+            clientName: "Amie",
+            service: "Massage",
+            time: "10 hours",
+            id: "3"
+        },
+    )
 
-source.set("setYourScheduleTapped", function (args) {
-    const button = page.getViewById("setYourScheduleArrowId");
-    animation(button, "arrow swipe");
-})
+    var listview = page.getViewById("bookingList");
+    listview.items = notifications;
+}
 
-source.set("addYourIntakeFormTapped", function (args) {
-    const button = page.getViewById("addYourIntakeFormArrowId");
-    animation(button, "arrow swipe");
-})
+source.set("ontest", function (args){
+    console.log(args.object.id);
+    const mainView = args.object;
+    const option = {
+        context: { username: "test_username", password: "test" },
+        closeCallback: (username, password) => {
+            // Receive data from the modal view. e.g. username & password
+            //alert(`Username: ${username} : Password: ${password}`);
+        },
+        fullscreen: false
+    };
+    mainView.showModal(bookingModal, option);
+});

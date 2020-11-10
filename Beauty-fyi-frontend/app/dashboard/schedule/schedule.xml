@@ -8,11 +8,12 @@
                 </GridLayout>
             </StackLayout>
             <StackLayout>
-                <lv:RadListView id="listview" class="list-group" > 
+                <lv:RadListView pullToRefresh="true"  id="listview" class="list-group" > 
                     <lv:RadListView.listViewLayout>
                         <lv:ListViewLinearLayout scrollDirection="Vertical"/>
                     </lv:RadListView.listViewLayout>
-                    <lv:RadListView.itemTemplate>
+                    
+                    <lv:RadListView.itemTemplate swipeActions="true">
                         <GridLayout class="list-group-item" rows="auto, auto, auto" columns="15, 45, 20, *, 20">
                             
                             <Label text="{{ timeHeader }}" visibility="{{ headerVissibilty ? 'visible' : 'collapsed' }}" class="h5 font-bold" row="0" col="1" textWrap="true"/>
@@ -29,6 +30,16 @@
                             <Label text="" class="{{ endLine }}" visibility="{{ endVissibility ? 'visible' : 'collapsed' }}" row="2" col="3" width="100%" textWrap="true"/>
                         </GridLayout>                
                     </lv:RadListView.itemTemplate>
+                    <lv:RadListView.itemSwipeTemplate>
+                        <GridLayout columns="auto, *, auto">
+                            <StackLayout col="0" class="save-btn" tap="onLeftSwipe" orientation="horizontal">
+                                <Label text="Save" verticalAlignment="center" horizontalAlignment="center"/>
+                            </StackLayout>
+                            <StackLayout col="2" class="delete-btn" tap="onRightSwipe" orientation="horizontal">
+                                <Label text="Delete" verticalAlignment="center" horizontalAlignment="center" />
+                            </StackLayout>
+                        </GridLayout>
+                    </lv:RadListView.itemSwipeTemplate>
                 </lv:RadListView>
             </StackLayout>
         </StackLayout>

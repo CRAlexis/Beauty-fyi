@@ -2,5 +2,6 @@ tns plugin add nativescript-dom
 tns plugin add nativescript-cardview
 tns plugin add nativescript-ui-calendar
 tns plugin add nativescript-ui-listview
+npm i nativescript-checkbox-ns-7
 
 npm install random-string

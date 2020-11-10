@@ -26,6 +26,7 @@
     "@nativescript/theme": "~2.3.0",
     "nativescript-cardview": "^3.2.0",
     "nativescript-ui-calendar": "^7.0.2",
+    "nativescript-ui-dataform": "^7.0.4",
     "nativescript-ui-listview": "^9.0.4",
     "random-string": "^0.2.0"
   },

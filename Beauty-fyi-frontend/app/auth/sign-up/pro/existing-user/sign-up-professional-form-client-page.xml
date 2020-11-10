@@ -1,0 +1,71 @@
+<Page navigatingTo="onNavigatingTo" actionBarHidden="true" xmlns:CheckBox="nativescript-checkbox-ns-7" xmlns:df="nativescript-ui-dataform">
+    <ActionBar title="" icon=""></ActionBar>
+        <GridLayout rows="*, 60, auto, auto, 160" class="bottom-gradient" >
+        
+            <StackLayout row="0"> 
+                <Label text=" " textWrap="true" />
+            </StackLayout>
+            <StackLayout row="1" style="padding-left: 40px">
+                <GridLayout columns="30, auto">
+                    <Label tap="{{ navigateBack }}" text="&#xf104;" class="fas" col="0" style="font-size: 19; padding-top: 15px" textWrap="true" />
+                    <Label tap="{{ navigateBack }}" class="h4" col="1" text="Back"/>
+                </GridLayout>    
+            </StackLayout>
+            <StackLayout row="2" style="padding-left: 40px; padding-right: 40px">
+                <Label class="font-regular h1 letterSpacing" text="Sign in" textWrap="true"/>
+                <label class="font-regular h4" text="Create an account to run your beauty business with" textWrap="true"/>
+            </StackLayout>
+            <StackLayout row="3">
+                <StackLayout class="form" style="margin-top: 60px">
+                    <StackLayout class="">
+                      <TextField class="textFieldInput" hint="Username1" text="{{ username }}" width="90%" style=""></TextField>
+                    </StackLayout>
+
+                    <StackLayout>
+                        <df:RadDataForm id="myDataForm" source="{{ checkBox }}" style="margin-left: 15px; margin-right: 15px">
+                            <df:RadDataForm.properties>
+                                <df:EntityProperty name="checkBox" displayName="I accept the terms and conditions" index="0" />
+                            </df:RadDataForm.properties>
+                        </df:RadDataForm>
+                    </StackLayout>
+
+                    <Button tap="{{ signUpTapped }}" class="btn btn-primary" text="Continue" style="font-size: 20px; height: 150px; margin-top: 30px"></Button>
+                </StackLayout>
+            </StackLayout>
+            <Label row="4" text="{{ printValidationError }}" textWrap="true" color="red"/>
+            
+            <!--<StackLayout row="4">
+                <StackLayout orientation="horizontal" style="margin-top: 30px">
+                    <Label text="I already have a client account" textAlignment="center"></Label>
+                    <Label tap="{{ clientRegisterAsPro }}" class="font-bold" text=" Sign in" textWrap="true" />
+                </StackLayout>
+
+                <StackLayout style="margin-top: 100px">
+                    <StackLayout orientation="horizontal">
+                        <Label class="line" text="" width="30%"/>
+                        <Label text="Or sign up via" textWrap="true" textAlignment="center" width="40%"/>
+                        <Label class="line" text="" width="30%"/>
+                    </StackLayout>
+
+                    <FlexboxLayout flexDirection="row" height="60" justifyContent="center" style="margin-top: 30px">
+                        <Button tap="onTap" class="btn btn-white" width="40%">
+                            <FormattedString>
+                                <Span text="&#xf1a0;" class="fab" style="padding-right: 30px"></Span>     
+                                <Span text="  " color="white"></Span>  
+                                <Span class="font-bold" text="Google"></Span>         
+                            </FormattedString>
+                        </Button>
+                        <Button tap="onTap" class="btn btn-white" width="40%">
+                            <FormattedString>
+                                <Span text="&#xf16d;" class="fab" style="padding-right: 30px"></Span>   
+                                <Span text="  " color="white"></Span>  
+                                <Span class="font-bold" text="Instagram"></Span>         
+                            </FormattedString>
+                        </Button>
+                    </FlexboxLayout>  
+                </StackLayout>
+            </StackLayout>-->
+            
+        </GridLayout>
+    
+</Page>

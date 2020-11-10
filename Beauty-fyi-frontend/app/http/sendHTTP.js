@@ -8,14 +8,17 @@ function sendHTTP(httpParameters) {
                 headers: { "Content-Type": "application/json" },
                 content: httpParameters.content,
             }).then((response) => {
-                if (!response.statusCode >= 400 ){
+                console.log("code: " + response.statusCode)
+                if (parseInt(response.statusCode) < 300 ){
                     const responseString = response.content.toString();
                     const reponseJSON = response.content.toJSON()
                     resolveRequest(reponseJSON, responseString)
                 }else{
+                    console.log("2")
                     rejectRequest(response.statusCode)
                 }
             }, (e) => {
+                console.log("1")
                 // send to database
                 rejectRequest(e)
             });

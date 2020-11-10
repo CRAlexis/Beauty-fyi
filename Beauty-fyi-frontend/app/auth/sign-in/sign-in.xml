@@ -1,9 +1,76 @@
 <Page navigatingTo="onNavigatingTo" actionBarHidden="true">
     <ActionBar title="" icon=""></ActionBar>
-    <ScrollView>
-        <FlexboxLayout class="page bottom-gradient">
+    <GridLayout rows="30, 60, auto, auto, 160," class="bottom-gradient" >
+        <ActivityIndicator busy="{{ processingHTTPRequest }}" color="purple" width="100" height="100" row="3"></ActivityIndicator>
+            <StackLayout row="0"> 
+                <Label text=" " textWrap="true" />
+            </StackLayout>
+            <StackLayout row="1" style="padding-left: 40px">
+                <GridLayout columns="30, auto" tap="{{ navigateBack }}">
+                    <Label  text="&#xf104;" class="fas" col="0" style="font-size: 19; padding-top: 15px" textWrap="true" />
+                    <Label tap="{{ navigateBack }}" class="h4" col="1" text="Back"/>
+                </GridLayout>    
+            </StackLayout>
+            <StackLayout row="2" style="padding-left: 40px; padding-right: 40px">
+                <Label class="font-regular h1 letterSpacing" text="Sign in" textWrap="true"/>
+                <label class="font-regular h4" text="and start connecting with people around the world" textWrap="true"/>
+            </StackLayout>
+            <StackLayout row="3">
+                <StackLayout class="form" style="margin-top: 60px">
+                    <StackLayout class="">
+                      <TextField class="textFieldInput" hint="Email" keyboardType="email" autocorrect="false" autocapitalizationType="none" text="{{ email }}" width="90%" style="" isEnabled="{{ !processingHTTPRequest }}"></TextField>
+                    </StackLayout>
+
+                    <StackLayout class="" style="margin-top: 30px">
+                      <TextField class="textFieldInput" hint="Password" text="{{ password }}" secure="true" width="90%" style="" isEnabled="{{ !processingHTTPRequest }}" visibility="{{ forgotPasswordVisibility ? 'visible' : 'collapsed' }}"></TextField>
+                    </StackLayout>
+                    <Label tap="{{ forgotPasswordTapped }} " text="Forgot password?" textWrap="true" textAlignment="right" visibility="{{ forgotPasswordVisibility ? 'visible' : 'collapsed' }}" style="margin-top: 20px; padding-right: 40px"/>
+                    <Button tap="{{ signInTapped }}" class="btn btn-primary" text="{{ signInButtonText}}" style="font-size: 20px; height: 150px; margin-top: 30px"></Button>
+                </StackLayout>
+            </StackLayout>
+            <Label tap="{{ signUpTapped }}" row="4" class="font-bold" text="Dont have an account? Sign up" class="h4" visibility="{{ forgotPasswordVisibility ? 'visible' : 'collapsed' }}" style="margin-top: 30px" textAlignment="center"></Label>
+            
+            <!--<Label row="4" text="{{ printValidationError }}" class="h5" textWrap="true" style="padding-left: 40px" color="red"/>-->
+            
+            
+            
+            <!--<StackLayout row="4">
+                <StackLayout orientation="horizontal" style="margin-top: 30px">
+                    <Label text="I already have a client account" textAlignment="center"></Label>
+                    <Label tap="{{ clientRegisterAsPro }}" class="font-bold" text=" Sign in" textWrap="true" />
+                </StackLayout>
+
+                <StackLayout style="margin-top: 100px">
+                    <StackLayout orientation="horizontal">
+                        <Label class="line" text="" width="30%"/>
+                        <Label text="Or sign up via" textWrap="true" textAlignment="center" width="40%"/>
+                        <Label class="line" text="" width="30%"/>
+                    </StackLayout>
+
+                    <FlexboxLayout flexDirection="row" height="60" justifyContent="center" style="margin-top: 30px">
+                        <Button tap="onTap" class="btn btn-white" width="40%">
+                            <FormattedString>
+                                <Span text="&#xf1a0;" class="fab" style="padding-right: 30px"></Span>     
+                                <Span text="  " color="white"></Span>  
+                                <Span class="font-bold" text="Google"></Span>         
+                            </FormattedString>
+                        </Button>
+                        <Button tap="onTap" class="btn btn-white" width="40%">
+                            <FormattedString>
+                                <Span text="&#xf16d;" class="fab" style="padding-right: 30px"></Span>   
+                                <Span text="  " color="white"></Span>  
+                                <Span class="font-bold" text="Instagram"></Span>         
+                            </FormattedString>
+                        </Button>
+                    </FlexboxLayout>  
+                </StackLayout>
+            </StackLayout>-->
+            
+        </GridLayout>
+        </Page>
+        <!--<FlexboxLayout class="page bottom-gradient">
             <StackLayout style="margin-top: 370px" >
-                <!--<Image src="~/logoart.png" width="60" height="60" />-->
+                <Image src="~/logoart.png" width="60" height="60" />
                 <Label class="font-regular h1 letterSpacing" text="BEAUTY-FYI" style="color: #9900ff;" horizontalAlignment="center" textWrap="true"/>
                 <label class="font-regular h3" text="Your digital beauty assistant" textWrap="true"/>
             </StackLayout>
@@ -25,7 +92,14 @@
                 <Label tap=" {{ navigateToSignUpPage }}" class="font-bold" text=" Sign up" textWrap="true" textAlignment="center"/> 
             </StackLayout>
 
-            <StackLayout style="margin-top: 100px; margin-left: 60px; margin-right: 60px">
+            
+        </FlexboxLayout>
+
+
+
+
+
+<StackLayout style="margin-top: 100px; margin-left: 60px; margin-right: 60px">
                 <StackLayout orientation="horizontal">
                     <Label class="line" text="" width="30%"/>
                     <Label text="Or sign in via" textWrap="true" textAlignment="center" width="40%"/>
@@ -48,7 +122,4 @@
                         </FormattedString>
                     </Button>
                 </FlexboxLayout>  
-            </StackLayout>
-        </FlexboxLayout>
-    </ScrollView> 
-</Page>
+            </StackLayout>-->

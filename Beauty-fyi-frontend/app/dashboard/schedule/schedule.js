@@ -149,6 +149,7 @@ exports.onPageLoaded = function (args) {
     var page = args.object;
     var listview = page.getViewById("listview");
     listview.items = items;
+    console.log(listview.items);
 }
 
 

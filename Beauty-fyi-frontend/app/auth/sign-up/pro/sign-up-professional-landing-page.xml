@@ -1,0 +1,23 @@
+<Page navigatingTo="onNavigatingTo" actionBarHidden="true">
+    <ActionBar title="" icon=""></ActionBar>
+    <GridLayout rows="30, 100, 400, *, 150" class="bottom-gradient-two">
+        <StackLayout row="0"> 
+            <Label text="" textWrap="true" />
+        </StackLayout>
+        <StackLayout row="1" style="padding-left: 80px">
+            <GridLayout columns="30, auto">
+                <Label tap="{{ navigateBack }}" text="&#xf104;" class="fas" col="0" style="font-size: 19; padding-top: 15px" textWrap="true" />
+                <Label tap="{{ navigateBack }}" class="h4" col="1" text="Back"/>
+            </GridLayout>    
+        </StackLayout>
+        <StackLayout row="2" style="padding-left: 80px; padding-right: 80px">
+            <Label class="font-regular h1 letterSpacing" text="Become a Beauty-fyi Pro" style="color: #9900ff;" horizontalAlignment="center" textWrap="true"/>
+            <label class="font-regular h4" text="Sign up now to join our community of Beauty Professionals! Sell your services with Beauty-fyi" horizontalAlignment="center" textWrap="true"/>
+        </StackLayout>
+        <StackLayout class="form" row="4">
+            <Button tap="{{ signUpAsProfessional }}" class="btn btn-white-outline btn-rounded-sm font-bold" text="Sign up" style="font-size: 18px; height: 150px; margin-top: 15px"></Button>
+            <!--<label tap="{{ clientRegisterAsPro }}" class="font-bold h4" text="I already have a client account" color="white" style="margin-top: 20px" horizontalAlignment="center" textWrap="true"/>-->
+        </StackLayout>
+    </GridLayout>
+</Page>
+
