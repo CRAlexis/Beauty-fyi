@@ -12,9 +12,10 @@ exports.onNavigatedTo = function (args) {
     //}
     const loadNotifications = require("~/dashboard/tabs/home")
     loadNotifications.loadNotifications(page);
-    console.log("page: " + page)
-    
+    const loadClients = require("~/dashboard/tabs/clients")
+    loadClients.loadClients(page);
 }
+
 exports.onLoaded = function() {
     return true;
 }

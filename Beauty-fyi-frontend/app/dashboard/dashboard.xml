@@ -1,5 +1,4 @@
-<Page navigatingTo="onNavigatedTo" loaded="onPageLoaded" actionBarHidden="true" xmlns:tabs="dashboard/tabs" >
-    
+<Page navigatingTo="onNavigatedTo" loaded="onPageLoaded" actionBarHidden="true" xmlns:tabs="dashboard/tabs" xmlns:Card="nativescript-cardview">
     <TabView 
         loaded="onLoaded" 
         selectedIndex="{{tabSelectedIndex}}" 

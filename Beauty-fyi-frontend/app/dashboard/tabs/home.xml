@@ -1,13 +1,13 @@
 <ScrollView height="100%" xmlns:Card="nativescript-cardview" xmlns:lv="nativescript-ui-listview">
-    <GridLayout rows="50, *, auto, auto">
+    <GridLayout rows="70, *, auto, auto">
         <StackLayout  row="0">
-           <Card:CardView class="cardStyle" elevation="10" radius="10" style="margin-bottom: 25px">
-                <GridLayout row="80" columns="30, 100, *, 100, 30">
-                    <Label col="1" row="0" text="&#xf002;" class="fas" textWrap="true" style="font-size: 25px; padding-top: 20px" textAlignment="left"/>
-                    <Label col="2" row="0" class="font" text="Beauty-fyi" textWrap="true" style="font-size: 25px" textAlignment="center" />
-                    <Label col="3" row="0" text="&#xf2b6;" class="far" style="font-size: 25px; padding-top: 32px" textAlignment="right"/>
+            <Card:CardView class="cardStyle" elevation="10" radius="10" style="margin-bottom: 25px">
+                <GridLayout row="auto" columns="30, 100, *, 100, 30">
+                    <Label col="1" row="0" text="&#xf002;" class="fas" textWrap="true" style="font-size: 25px; padding-top: 25px" textAlignment="left"/>
+                    <Label col="2" row="0" class="font" text="Beauty-fyi" textWrap="true" style="font-size: 25px; padding-top: 15px" textAlignment="center" />
+                    <Label col="3" row="0" text="&#xf2b6;" class="far" style="font-size: 25px; padding-top: 25px" textAlignment="right"/>
                 </GridLayout>
-           </Card:CardView>
+            </Card:CardView>
         </StackLayout>
         <Card:CardView row="1" class="cardStyle" margin="5" elevation="30" radius="10" width="97%" style="padding-bottom: 25px">
             <StackLayout margin="30">

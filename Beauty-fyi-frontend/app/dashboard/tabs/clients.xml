@@ -1,6 +1,18 @@
-<StackLayout class="p-20">
-    <Label text="This custom component binding is coming from the parent page" textWrap="true" />
-    <Label text="Tap the button (custom component)" class="h1 text-center"/>
-    <Button text="TAP" tap="{{ onTap }}" class="btn btn-primary btn-active"/>
-    <Label text="{{ message }}" class="h2 text-center" textWrap="true"/>
+<StackLayout xmlns:lv="nativescript-ui-listview">
+    <lv:RadListView id="clientList" class="list-group" style="background-color: transparent" loadOnDemandMode="Auto"> 
+        <lv:RadListView.listViewLayout>
+            <lv:ListViewLinearLayout  spanCount="2" />
+        </lv:RadListView.listViewLayout>
+        <lv:RadListView.itemTemplate >    
+            <GridLayout rows="5, 70, 5" columns="10, 70, auto" class="list-group-borders">
+            <Image src="{{ clientImage }}" row="1" col="1" decodeWidth="70" style="border-radius: 200px" />  
+            <GridLayout verticalAlignment="bottom" row="1" col="2">
+                <Label text="{{ clientName}}" class="font-bold h4" textWrap="true" />
+            </GridLayout>
+               
+            </GridLayout>
+        </lv:RadListView.itemTemplate>
+    </lv:RadListView>
 </StackLayout>
+
+ <!--<Label text="" textWrap="true" row="0" backgroundImage="{{ clientImage }}" backgroundSize="contain" backgroundPosition="center center;"/>--> <!-- Might need to change the color of text from white to black-->
