@@ -15,7 +15,7 @@ npm install random-string
 adonis install @adonisjs/shield
 
 Mail:
-adonis install @adonis/mail
+adonis install @adonisjs/mail
 
 So you can run migration commands:
 adonis install @adonisjs/lucid
