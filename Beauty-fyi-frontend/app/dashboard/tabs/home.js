@@ -1,4 +1,4 @@
-const bookingModal = "~/dashboard/modals/booking-modal";
+const bookingModal = "~/dashboard/modals/appointments/booking-modal";
 exports.loadNotifications = function(page){ // am not able to get page object
     page.bindingContext = source;
     const notifications = [];

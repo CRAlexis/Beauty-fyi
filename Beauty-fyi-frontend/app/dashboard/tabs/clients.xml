@@ -1,18 +1,31 @@
-<StackLayout xmlns:lv="nativescript-ui-listview">
-    <lv:RadListView id="clientList" class="list-group" style="background-color: transparent" loadOnDemandMode="Auto"> 
-        <lv:RadListView.listViewLayout>
-            <lv:ListViewLinearLayout  spanCount="2" />
-        </lv:RadListView.listViewLayout>
-        <lv:RadListView.itemTemplate >    
-            <GridLayout rows="5, 70, 5" columns="10, 70, auto" class="list-group-borders">
-            <Image src="{{ clientImage }}" row="1" col="1" decodeWidth="70" style="border-radius: 200px" />  
-            <GridLayout verticalAlignment="bottom" row="1" col="2">
-                <Label text="{{ clientName}}" class="font-bold h4" textWrap="true" />
-            </GridLayout>
-               
-            </GridLayout>
-        </lv:RadListView.itemTemplate>
-    </lv:RadListView>
-</StackLayout>
-
- <!--<Label text="" textWrap="true" row="0" backgroundImage="{{ clientImage }}" backgroundSize="contain" backgroundPosition="center center;"/>--> <!-- Might need to change the color of text from white to black-->
+<ScrollView height="100%" xmlns:Card="@nstudio/nativescript-cardview" xmlns:lv="nativescript-ui-listview">
+    <GridLayout rows="70, auto, auto">
+        <StackLayout row="0">
+            <Card:CardView class="cardStyle" elevation="10" radius="0" style="margin-bottom: 25px">
+                <GridLayout row="auto" columns="30, 100, *, 100, 30" class="header-gradient" color="white">
+                    <Label col="1" row="0" text="&#xf002;" class="fas" textWrap="true" style="font-size: 25px; padding-top: 45px" textAlignment="left"/>
+                    <Label col="2" row="0" class="font" text="Beauty-fyi" textWrap="true" style="font-size: 25px; padding-top: 35px" textAlignment="center" />
+                    <Label col="3" row="0" text="&#xf2b6;" class="far" style="font-size: 25px; padding-top: 45px" textAlignment="right"/>
+                </GridLayout>
+            </Card:CardView>
+        </StackLayout>
+        <StackLayout row="1">
+            <lv:RadListView id="clientList" class="list-group" style="background-color: transparent" loadOnDemandMode="Auto" loadMoreDataRequested="{{onLoadMoreItemsRequested}}"> 
+                <lv:RadListView.listViewLayout>
+                    <lv:ListViewLinearLayout  spanCount="2" />
+                </lv:RadListView.listViewLayout>
+                <lv:RadListView.itemTemplate >    
+                    <GridLayout id="{{ id }}" tap="{{ viewClientProfile }}" rows="5, 70, 5" columns="10, 70, auto" class="list-group-borders">
+                    <Image src="{{ clientImage }}" row="1" col="1" decodeWidth="70" style="border-radius: 200px" />  
+                    <GridLayout verticalAlignment="bottom" row="1" col="2">
+                        <Label text="{{ clientName }}" class="font-bold h4" textWrap="true" />
+                    </GridLayout>
+                    </GridLayout>
+                </lv:RadListView.itemTemplate>
+            </lv:RadListView>
+        </StackLayout>
+            <StackLayout row="2" orientation="horizontal" horizontalAlignment="center" verticalAlignment="bottom">
+                <Button class="btn btn-primary" text="Filter" tap="{{ toggleFilter }}" width="50%" />
+            </StackLayout>
+    </GridLayout>
+</ScrollView>

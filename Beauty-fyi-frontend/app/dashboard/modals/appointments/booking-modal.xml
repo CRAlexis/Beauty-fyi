@@ -1,0 +1,34 @@
+<Page shownModally="onShownModally" xmlns:Card="@nstudio/nativescript-cardview">
+    <StackLayout width="97%">
+        <Card:CardView  class="cardStyle" elevation="10" radius="10" style="margin-bottom: 10px">
+            <StackLayout style="padding-left: 20; padding-right: 20; padding-top: 30">
+                <Image src="~/temp.png" horizontalAlignment="center" style="height: 100; width: 100; border-radius: 50" stretch="fill" />
+                <Label text="Charles Alexis" class="h4 font-bold" textAlignment="center" textWrap="true" />
+                <StackLayout orientation="horizontal">
+                    <Button class="btn" text="Cancel booking"></Button>
+                    <Button class="btn" text="Message"></Button>
+                </StackLayout>
+            </StackLayout>
+        </Card:CardView>
+        <StackLayout style="background-color: rgba(224, 224, 224, 0.219); padding: 10">
+            <StackLayout>
+                <Label text="SERVICE" class="font-bold" color="rgb(83, 83, 83)" textWrap="true" />
+                <Label class="h4" text="Washing hair and style" textWrap="true" />
+                <Label text="" textWrap="true" />
+                
+            </StackLayout>
+            <StackLayout>
+                <Label text="LOCATION" color="rgb(83, 83, 83)" textWrap="true" />
+                <Label class="h4" text="137 St Johns Road Wembley" textWrap="true" />
+            </StackLayout>
+            <StackLayout>
+                <Label text="FEE" color="rgb(83, 83, 83)" textWrap="true" />
+                <Label class="h4" text="£300" textWrap="true" />
+            </StackLayout>
+             <StackLayout>
+                <Label text="TIME" color="rgb(83, 83, 83)" textWrap="true" />
+                <Label class="h4" text="3:15 Thu 13th April 2020" textWrap="true" />
+            </StackLayout>
+        </StackLayout>
+    </StackLayout>
+</Page>

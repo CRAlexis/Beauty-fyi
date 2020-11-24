@@ -1,0 +1,16 @@
+<Page xmlns="http://www.nativescript.org/tns.xsd" shownModally="onShownModally" xmlns:lv="nativescript-ui-listview">
+<ScrollView >
+    <StackLayout>
+        <lv:RadListView id="optionList" class="list-group" style="background-color: transparent">  
+            <lv:RadListView.listViewLayout>
+                <lv:ListViewLinearLayout  spanCount="1"  />
+            </lv:RadListView.listViewLayout>
+            <lv:RadListView.itemTemplate >    
+                <StackLayout width="150">
+                    <Label id="{{ id }}" tap="selectedOption" text="{{ optionList }}" textWrap="true" fontSize="18" />    
+                </StackLayout>
+            </lv:RadListView.itemTemplate>
+        </lv:RadListView>
+    </StackLayout>
+    </ScrollView>
+</Page>

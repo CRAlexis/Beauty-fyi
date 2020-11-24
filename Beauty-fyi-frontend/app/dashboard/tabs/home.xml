@@ -1,22 +1,22 @@
-<ScrollView height="100%" xmlns:Card="nativescript-cardview" xmlns:lv="nativescript-ui-listview">
+<ScrollView height="100%" xmlns:Card="@nstudio/nativescript-cardview" xmlns:lv="nativescript-ui-listview">
     <GridLayout rows="70, *, auto, auto">
-        <StackLayout  row="0">
-            <Card:CardView class="cardStyle" elevation="10" radius="10" style="margin-bottom: 25px">
-                <GridLayout row="auto" columns="30, 100, *, 100, 30">
-                    <Label col="1" row="0" text="&#xf002;" class="fas" textWrap="true" style="font-size: 25px; padding-top: 25px" textAlignment="left"/>
-                    <Label col="2" row="0" class="font" text="Beauty-fyi" textWrap="true" style="font-size: 25px; padding-top: 15px" textAlignment="center" />
-                    <Label col="3" row="0" text="&#xf2b6;" class="far" style="font-size: 25px; padding-top: 25px" textAlignment="right"/>
+        <StackLayout row="0">
+            <Card:CardView class="cardStyle" elevation="10" radius="0" style="margin-bottom: 25px">
+                <GridLayout row="auto" columns="30, 100, *, 100, 30" class="header-gradient" color="white">
+                    <Label col="1" row="0" text="&#xf002;" class="fas" textWrap="true" style="font-size: 25px; padding-top: 45px" textAlignment="left"/>
+                    <Label col="2" row="0" class="font" text="Beauty-fyi" textWrap="true" style="font-size: 25px; padding-top: 35px" textAlignment="center" />
+                    <Label col="3" row="0" text="&#xf2b6;" class="far" style="font-size: 25px; padding-top: 45px" textAlignment="right"/>
                 </GridLayout>
             </Card:CardView>
         </StackLayout>
-        <Card:CardView row="1" class="cardStyle" margin="5" elevation="30" radius="10" width="97%" style="padding-bottom: 25px">
+        <Card:CardView row="1" class="cardStyle" margin="5" elevation="10" radius="10" width="97%" style="padding-bottom: 25px">
             <StackLayout margin="30">
                 <Label text="SATURDAY 7th NOVEMBER 2020" class="h5" textWrap="true" />
                 <Label text="Hey Klerissa," class="h3 font-bold" textWrap="true" />
                 <Label text="So far you have made £100 today and £800 this week" class="h3 font-bold" textWrap="true" />
             </StackLayout>   
         </Card:CardView>  
-        <Card:CardView row="2" class="cardStyle" margin="5" elevation="30" radius="10" width="97%" style="padding-bottom: 25px">
+        <Card:CardView row="2" class="cardStyle" margin="5" elevation="10" radius="10" width="97%" style="padding-bottom: 25px">
             <StackLayout margin="20">
                 <lv:RadListView id="notificationList" class="list-group" width="100%" style="background-color: transparent"> 
                     <lv:RadListView.listViewLayout>
@@ -31,7 +31,7 @@
                 </lv:RadListView>
             </StackLayout>
         </Card:CardView>
-        <Card:CardView row="3" class="cardStyle" margin="5" elevation="30" radius="10" width="97%" style="padding-bottom: 25px">
+        <Card:CardView row="3" class="cardStyle" margin="5" elevation="10" radius="10" width="97%" style="padding-bottom: 25px">
             <StackLayout style="padding: 60px">
                 <Label text="Up coming bookings" class="h4" textWrap="true" />
                 <lv:RadListView id="bookingList" class="list-group" width="100%" style="background-color: transparent"> 

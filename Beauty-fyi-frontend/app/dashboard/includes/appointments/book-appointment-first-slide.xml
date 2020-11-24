@@ -1,0 +1,85 @@
+<ScrollView id="bookAppointmentFirstSlideContainer" height="100%" xmlns:CheckBox="@nstudio/nativescript-checkbox" marginBottom="20" xmlns:Card="@nstudio/nativescript-cardview">
+    <StackLayout>
+    </StackLayout>
+    <StackLayout paddingTop="20" paddingBottom="20" id="bookAppointmentFirstSlideButtonContainer" >
+    
+        
+        <Card:CardView width="90%" margin="10" class="cardStyle" elevation="10">
+           <StackLayout storeId="1" id="1" tap="{{serviceTapped}}" height="60" serviceTapped="false">
+            <Label text="" class="" textWrap="true"  textAlignment="left"  paddingLeft="13" paddingTop="13" paddingRight="13">
+                <Label.formattedText>
+                  <FormattedString>
+                    <FormattedString.spans>
+                      <Span text="Colouring and trim" class="font-bold h4" color="black" />
+                      <Span text="    from £100" class="font-bold h5" color="gray" />
+                    </FormattedString.spans>
+                  </FormattedString>
+                </Label.formattedText>
+            </Label>
+            <StackLayout visibility="collapsed" padding="5">
+                <StackLayout>
+                    <Image src="~/temp7.png" class="btn-light-grey-outline" height="40%" stretch="aspectFill" load="async" margin="5"/>
+                </StackLayout>
+                <StackLayout>
+                    
+                    <StackLayout orientation="horizontal" paddingLeft="4">
+                        <Label text="&#xf017;" class="far" fontSize="16"/>
+                        <Label text="2 hours" textWrap="true" paddingLeft="10"/>
+                        
+                    </StackLayout>
+                    <Label textAlignment="left" class="h4" textWrap="true" paddingLeft="4">
+                    <Label.formattedText>
+                      <FormattedString>
+                        <FormattedString.spans>
+                          <Span text="The desription of the service would go here... Im not sure how many letters we would limit it to?" />
+                        </FormattedString.spans>
+                      </FormattedString>
+                    </Label.formattedText>
+                    </Label>
+                    <CheckBox:CheckBox storeAddonId="1" text="Addon one (£30)" fontSize="16" checked="false" />
+                    <CheckBox:CheckBox storeAddonId="2" text="Addon two (£50)" fontSize="16" checked="false" />
+                </StackLayout>              
+            </StackLayout>
+            </StackLayout>
+        </Card:CardView>
+        
+        <Card:CardView width="90%" margin="10" class="cardStyle" elevation="10">
+           <StackLayout storeId="2" id="2" tap="{{serviceTapped}}" height="60" serviceTapped="false">
+            <Label text="" class="" textWrap="true"  textAlignment="left"  paddingLeft="13" paddingTop="13" paddingRight="13">
+                <Label.formattedText>
+                  <FormattedString>
+                    <FormattedString.spans>
+                      <Span text="Washing" class="font-bold h4" color="black" />
+                      <Span text="    from £200" class="font-bold h5" color="gray" />
+                    </FormattedString.spans>
+                  </FormattedString>
+                </Label.formattedText>
+            </Label>
+            <StackLayout visibility="collapsed" padding="5">
+                <StackLayout>
+                    <Image src="~/temp7.png" class="btn-light-grey-outline" height="40%" stretch="aspectFill" load="async" margin="5"/>
+                </StackLayout>
+                <StackLayout>
+                    
+                    <StackLayout orientation="horizontal" paddingLeft="4">
+                        <Label text="&#xf017;" class="far" fontSize="16"/>
+                        <Label text="2 hours" textWrap="true" paddingLeft="10"/>
+                        
+                    </StackLayout>
+                    <Label textAlignment="left" class="h4" textWrap="true" paddingLeft="4">
+                    <Label.formattedText>
+                      <FormattedString>
+                        <FormattedString.spans>
+                          <Span text="The desription of the service would go here... Im not sure how many letters we would limit it to?" />
+                        </FormattedString.spans>
+                      </FormattedString>
+                    </Label.formattedText>
+                    </Label>
+                    <CheckBox:CheckBox storeAddonId="3" text="Addon one (£30)" fontSize="16" checked="false" />
+                    <CheckBox:CheckBox storeAddonId="4" text="Addon two (£50)" fontSize="16" checked="false" />
+                </StackLayout>              
+            </StackLayout>
+            </StackLayout>
+        </Card:CardView>
+    </StackLayout>
+</ScrollView>

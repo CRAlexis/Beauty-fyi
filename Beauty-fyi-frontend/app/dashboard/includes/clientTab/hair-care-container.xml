@@ -1,0 +1,25 @@
+<StackLayout id="hairCareContainer" visibility="{{ hairCareContainerVisbility ? 'visible' : 'collapsed' }}" paddingTop="20">
+    <GridLayout id="haircareUndditable" rows="80, 80, 80, auto" columns="*, *, *" horizontalAlignment="center" width="100%" >
+        <StackLayout id="hairCare0" row="0" col="0" tap="{{ editClientInformation }}" >
+            <Label text="No poo" class="h4 font-bold" textWrap="true" textAlignment="center" />
+            <Label text="Practices" class="h5" textWrap="true" textAlignment="center" />
+        </StackLayout>
+        <StackLayout id="hairCare1" tap="{{ editClientInformation }}" row="0" col="1" class="">
+            <Label text="Heat" class="h4 font-bold " textWrap="true" textAlignment="center" />
+            <Label text="Enimies" class="h5" textWrap="true" textAlignment="center" />
+        </StackLayout>
+        <StackLayout id="hairCare2" tap="{{ editClientInformation }}" row="0" col="2" class="">
+            <Label text="Free form locs" class="h4 font-bold " textWrap="true" textAlignment="center" />
+            <Label text="Enimies" class="h5" textWrap="true" textAlignment="center" />
+        </StackLayout>
+        <StackLayout id="hairCare3" tap="{{ editClientInformation }}" row="1" col="1">
+            <Label text="Braids" class="h4 font-bold" textWrap="true" textAlignment="center" />
+            <Label text="Style" class="h5" textWrap="true" textAlignment="center" />
+        </StackLayout>
+    </GridLayout>
+</StackLayout>
+
+
+
+
+

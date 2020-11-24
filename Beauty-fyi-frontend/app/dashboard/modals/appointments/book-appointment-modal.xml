@@ -1,0 +1,20 @@
+<Page shownModally="onShownModally" loaded="loaded" xmlns:Card="@nstudio/nativescript-cardview">
+    <GridLayout rows="70, *, auto" columns="">
+        <Card:CardView class="cardStyle" elevation="10" radius="0" style="margin-bottom: 25px">
+            <StackLayout padding="15" class="header-gradient">
+                <Label row="0" class="h4 font-bold" color="white" text="{{ slideTitle }}" textWrap="true" />    
+            </StackLayout>
+            
+        </Card:CardView>
+        <StackLayout row="1" xmlns:includes="dashboard/includes/appointments">
+            <includes:book-appointment-first-slide/>
+            <includes:book-appointment-second-slide/>
+            <includes:book-appointment-third-slide/>
+            <includes:book-appointment-fourth-slide/>
+        </StackLayout>
+        <StackLayout row="2" orientation="horizontal" horizontalAligment="center">
+            <Button class="btn btn-primary" width="30%" text="Back" tap="{{ goToPreviousSlide }}" />
+            <Button class="btn btn-primary" width="60%" text="{{ nextSlideTitle }}" tap="{{ goToNextSlide }}" />
+        </StackLayout>
+    </GridLayout>
+</Page>

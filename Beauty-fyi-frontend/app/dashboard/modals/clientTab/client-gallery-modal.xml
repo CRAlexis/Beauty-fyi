@@ -1,0 +1,20 @@
+<Page shownModally="onShownModally" loaded="onPageLoaded" xmlns:lv="nativescript-ui-listview" >
+    <ScrollView height="100%">
+        <GridLayout rows="auto, auto" >
+            <GridLayout row="0" columns="10, 13, auto" tap="{{ navigateBack }}" paddingTop="10"  backgroundColor="rgb(247,247,247)">
+                <Label text="&#xf104;" class="fas" col="1" style="font-size: 19; padding-top: 15px" textWrap="true" />
+                <Label tap="{{ navigateBack }}" class="h4" col="2" text="Back"/>
+            </GridLayout>  
+            <StackLayout row="1">
+                <lv:RadListView id="clientGalleryList" class="list-group" style="background-color: transparent" loadOnDemandMode="Manual" loadMoreDataRequested="{{onLoadMoreItemsRequested}}" itemReorder="true"  reorderMode="Drag"> 
+                    <lv:RadListView.listViewLayout>
+                        <lv:ListViewGridLayout  spanCount="3" />
+                    </lv:RadListView.listViewLayout>
+                    <lv:RadListView.itemTemplate >    
+                        <Image id="{{ index }}" tap="{{imageTapped}}" src="{{ image }}" height="{{ height }}" stretch="aspectFill" load="async" margin="5" />
+                    </lv:RadListView.itemTemplate>
+                </lv:RadListView>
+            </StackLayout>
+        </GridLayout>
+    </ScrollView>
+</Page>

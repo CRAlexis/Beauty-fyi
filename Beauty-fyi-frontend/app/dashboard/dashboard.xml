@@ -6,7 +6,7 @@
         androidTabsPosition="bottom"
         tabBackgroundColor="#fff"
         selectedTabTextColor="#9900ff">
-        <TabViewItem title="Home">
+        <TabViewItem title="Dashboard">
             <StackLayout class="plain-background">
                 <tabs:home/>
             </StackLayout>
