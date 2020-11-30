@@ -1,7 +1,7 @@
 const Observable = require("tns-core-modules/data/observable").Observable; // This is so you can do '{{ myFunction }}' on the xml page
 const source = new Observable();
 
-
+//Everything in here is javascript
 exports.onShownModally = function (args) { // This is called when your modal is loaded - you can ignore this for now
     const context = args.context;
     closeCallback = args.closeCallback;
@@ -11,6 +11,7 @@ exports.onShownModally = function (args) { // This is called when your modal is 
 
 exports.loaded = function (args) { //This is called when the page is loaded
     // You can do what you want here
+    console.log("Tapped")
 }
 
 source.set("goToCamera", function(args){
