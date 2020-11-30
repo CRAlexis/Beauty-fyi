@@ -28,7 +28,8 @@
     "@adonisjs/validator": "^5.0.6",
     "mysql": "^2.18.1",
     "random-string": "^0.2.0",
-    "save": "^2.4.0"
+    "save": "^2.4.0",
+    "stripe": "^8.126.0"
   },
   "devDependencies": {},
   "autoload": {
