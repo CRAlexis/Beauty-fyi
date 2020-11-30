@@ -1,7 +1,7 @@
 const Observable = require("tns-core-modules/data/observable").Observable;
 const clientGalleryModal = "~/dashboard/modals/clientTab/client-gallery-modal";
 const editClientInformationModal = "~/dashboard/modals/clientTab/edit-client-information-modal";
-const bookingModal = "~/dashboard/modals/appointments/book-appointment-modal";
+
 const source = new Observable();
 source.set("selectedIndex", 0)
 source.set("editHairType", false)
@@ -124,7 +124,7 @@ source.set("openClientGallery", function (args){
 })
 
 source.set("bookClient", function (args) {
-
+    const bookingModal = "~/dashboard/modals/appointments/book-appointment-modal"; // Need to somehow kill the entire page
 
     const mainView = args.object;
     const option = {
@@ -133,12 +133,13 @@ source.set("bookClient", function (args) {
             test: "test",
         },
         closeCallback: () => {
+            console.log(source)
             // Receive data from the modal view. e.g. username & password
             //alert(`Username: ${username} : Password: ${password}`);
         },
         fullscreen: true
     };
-    mainView.showModal(bookingModal, option);
+    mainView.showModal("/dashboard/modals/appointments/book-appointment-modal", option);
 })
 
 source.set("editClientInformation", function (args) {

@@ -27,7 +27,7 @@ exports.onShownModally = function (args) {
 }
 
 function initVariables(args){
-    dropDownlist = "~/dashboard/modals/form/drop-down-list-modal";
+    //dropDownlist = "~/dashboard/modals/form/drop-down-list-modal";
     //bookAppointmentSlideTransition = require("~/dashboard/modals/appointments/book-appointment-slide-transition.js");
     //firstSlide = require("~/dashboard/modals/appointments/first-slide.js")
     //secondSlide = require("~/dashboard/modals/appointments/second-slide.js")
@@ -38,8 +38,8 @@ function initVariables(args){
     slideIndex = 1
     dateSelected;
     timeSelected;
-    source.set("slideTitle", "Choose appointment")
-    source.set("nextSlideTitle", "Choose a date")
+    //source.set("slideTitle", "Choose appointment")
+    //source.set("nextSlideTitle", "Choose a date")
     //secondSlide.initAvailableTimes(args) // This will change, cause ill get the times from JJ when they choose a date  
 }
 
@@ -134,3 +134,72 @@ source.set("expandSectionFifthSlide", function(args){
     console.log(1)
     //fifthSlide.expandSection(args, source)
 })
+
+
+
+/* ----------- Choose Date ---------------------------*/
+const dateFormat = require('dateformat');
+let lastSelectedTime = null
+exports.initAvailableTimes = function (args) {
+    const page = args.object.page
+    let times = []
+    times.push(
+        {
+            time: '13:30'
+        },
+        {
+            time: '14:30'
+        },
+        {
+            time: '15:00'
+        },
+        {
+            time: '16:30'
+        },
+        {
+            time: '17:00'
+        },
+        {
+            time: '18:30'
+        },
+
+    )
+    //format photos when uploading
+    var listview = page.getViewById("bookAppointmentAvaliableTimes");
+    listview.items = times;
+}
+
+exports.dateSelected = function (args) {
+    const page = args.object.page
+
+    return new Promise(resolve => {
+        const date = dateFormat(args.date, "dddd, mmmm dS, yyyy");
+        const day = dateFormat(args.date, "d")
+        const month = dateFormat(args.date, "mmmm")
+        page.getViewById("bookAppointmentAvaliableTimes").visibility = "visible";
+        page.getViewById("onTimeSelectedText").text = "Availability on the " + day + "th of " + month;
+        resolve(date)
+    })
+}
+
+exports.timeSelected = function (args) {
+    const timeLabel = args.object.getChildAt(0)
+
+    return new Promise(resolve => {
+        if (timeLabel == lastSelectedTime) { // This deselects the current time if clicked twice
+            timeLabel.color = "black"
+            lastSelectedTime = null;
+            timeLabel.id = ""
+            resolve(null)
+            return;
+        } else if (lastSelectedTime != null) { // This changes previous time to black when new time is clicked
+            lastSelectedTime.color = "black"
+            lastSelectedTime.id = ""
+        }
+        timeLabel.id = "currentSelectedTimeLabel" // This sets new time clicked and sets it to preivousTime
+        timeLabel.color = "purple"; // this will change
+        lastSelectedTime = timeLabel;
+        resolve(timeLabel.text)
+    })
+}
+

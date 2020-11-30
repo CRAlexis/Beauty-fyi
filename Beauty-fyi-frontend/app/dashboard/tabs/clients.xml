@@ -1,13 +1,7 @@
-<ScrollView height="100%" xmlns:Card="@nstudio/nativescript-cardview" xmlns:lv="nativescript-ui-listview">
+<ScrollView height="100%" xmlns:Card="@nstudio/nativescript-cardview" xmlns:lv="nativescript-ui-listview" xmlns:topBar="dashboard/includes/topBar">
     <GridLayout rows="70, auto, auto">
         <StackLayout row="0">
-            <Card:CardView class="cardStyle" elevation="10" radius="0" style="margin-bottom: 25px">
-                <GridLayout row="auto" columns="30, 100, *, 100, 30" class="header-gradient" color="white">
-                    <Label col="1" row="0" text="&#xf002;" class="fas" textWrap="true" style="font-size: 25px; padding-top: 45px" textAlignment="left"/>
-                    <Label col="2" row="0" class="font" text="Beauty-fyi" textWrap="true" style="font-size: 25px; padding-top: 35px" textAlignment="center" />
-                    <Label col="3" row="0" text="&#xf2b6;" class="far" style="font-size: 25px; padding-top: 45px" textAlignment="right"/>
-                </GridLayout>
-            </Card:CardView>
+            <topBar:main-top-bar/>
         </StackLayout>
         <StackLayout row="1">
             <lv:RadListView id="clientList" class="list-group" style="background-color: transparent" loadOnDemandMode="Auto" loadMoreDataRequested="{{onLoadMoreItemsRequested}}"> 

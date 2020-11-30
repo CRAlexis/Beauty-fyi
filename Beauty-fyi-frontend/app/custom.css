@@ -270,11 +270,15 @@ color: #000000;
 .plain-background {
     background-color: rgba(183, 157, 255, 0.411)
 }
-.cardOrange {
-    background-color: rgba(255, 243, 228, 0.555)
+.cardOrange { /* All these cards will change */
+    background-color: rgba(253, 217, 174, 0.164)
 }
 .cardPurple {
-    background-color: rgb(249, 234, 255);
+    background-color: rgba(232, 174, 255, 0.151);
+}
+
+.cardBlue {
+    background-color: rgba(182, 174, 255, 0.151);
 }
 
 .img-container {
@@ -286,6 +290,12 @@ color: #000000;
     font-size: 20;
     border-color: #d3d3d3
 }
+
+.textFieldInputSmall {
+    font-size: 16;
+    border-color: #d3d3d3
+}
+
 
 .line {
     background: #d4d4d4;

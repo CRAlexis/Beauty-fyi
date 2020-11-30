@@ -1,0 +1,92 @@
+<ScrollView id="bookAppointmentThirdSlideContainer" xmlns:CheckBox="@nstudio/nativescript-checkbox" visibility="collapsed" xmlns:Card="@nstudio/nativescript-cardview">
+    <StackLayout paddingTop="20" paddingBottom="20">
+        <Card:CardView width="90%" margin="10" class="cardStyle" elevation="10">
+            <StackLayout paddingBottom="20" paddingTop="10" id="bookAppointmentThirdSlideFormContainer">
+                <StackLayout formActive="true">
+                    <Label text="How would you describe the health of your hair?" color="gray" textWrap="true" paddingLeft="20" fontSize="14"/> <!-- Need to create a css file for this stuff sometimes-->
+                    <TextField formId="1"  textFieldInput="0" class="textFieldInput" marginBottom="10" hint="" text="" editable="true"/>
+                </StackLayout>
+
+                <StackLayout formActive="false" visibility="collapsed">
+                    <Label text="How would you describe the health of your hair?" color="gray" textWrap="true" paddingLeft="20" fontSize="14"/> <!-- Need to create a css file for this stuff sometimes-->
+                    <TextField formId="1"  textFieldInput="1" class="textFieldInput" marginBottom="10" hint="" text="" editable="true"/>
+                </StackLayout>
+
+                <StackLayout formActive="false" visibility="collapsed">
+                    <Label text="How would you describe the health of your hair?" color="gray" textWrap="true" paddingLeft="20" fontSize="14"/> <!-- Need to create a css file for this stuff sometimes-->
+                    <TextField formId="1"  textFieldInput="2" class="textFieldInput" marginBottom="10" hint="" text="" editable="true"/>
+                </StackLayout>
+
+                <StackLayout formActive="false" visibility="collapsed">
+                    <Label text="How would you describe the health of your hair?" color="gray" textWrap="true" paddingLeft="20" fontSize="14"/> <!-- Need to create a css file for this stuff sometimes-->
+                    <TextField formId="1"  textFieldInput="3" class="textFieldInput" marginBottom="10" hint="" text="" editable="true"/>
+                </StackLayout>
+
+                <StackLayout formActive="false" visibility="collapsed">
+                    <Label text="How would you describe the health of your hair?" color="gray" textWrap="true" paddingLeft="20" fontSize="14"/> <!-- Need to create a css file for this stuff sometimes-->
+                    <TextField formId="1"  textFieldInput="4" class="textFieldInput" marginBottom="10" hint="" text="" editable="true"/>
+                </StackLayout>
+               
+                <StackLayout formActive="true">
+                     <Label text="What is your favourite type of music?" color="gray" textWrap="true"  paddingLeft="20" fontSize="14"/>
+                     <TextField formId="5"  dropDownInput="0"  class="textFieldInput" tap="{{ dropDownClicked }}" marginBottom="10" hint="Select" editable="false"/>
+                </StackLayout>
+
+                <StackLayout formActive="false" visibility="collapsed">
+                     <Label text="What is your favourite type of music?" color="gray" textWrap="true"  paddingLeft="20" fontSize="14"/>
+                     <TextField formId="5"  dropDownInput="1"  class="textFieldInput" tap="{{ dropDownClicked }}" marginBottom="10" hint="Select" editable="false"/>
+                </StackLayout>
+
+                <StackLayout formActive="false" visibility="collapsed">
+                     <Label text="What is your favourite type of music?" color="gray" textWrap="true"  paddingLeft="20" fontSize="14"/>
+                     <TextField formId="5"  dropDownInput="2"  class="textFieldInput" tap="{{ dropDownClicked }}" marginBottom="10" hint="Select" editable="false"/>
+                </StackLayout>
+
+                <StackLayout formActive="false" visibility="collapsed">
+                     <Label text="What is your favourite type of music?" color="gray" textWrap="true"  paddingLeft="20" fontSize="14"/>
+                     <TextField formId="5"  dropDownInput="3"  class="textFieldInput" tap="{{ dropDownClicked }}" marginBottom="10" hint="Select" editable="false"/>
+                </StackLayout>
+
+                <StackLayout formActive="false" visibility="collapsed">
+                     <Label text="What is your favourite type of music?" color="gray" textWrap="true"  paddingLeft="20" fontSize="14"/>
+                     <TextField formId="5"  dropDownInput="4"  class="textFieldInput" tap="{{ dropDownClicked }}" marginBottom="10" hint="Select" editable="false"/>
+                </StackLayout>
+                
+                <StackLayout formActive="true">
+                    <Label text="Do you own a pair of headphones?" color="gray" textWrap="true" paddingLeft="20" visibility="collapsed"/>
+                    <CheckBox:CheckBox formId="6"  checkBoxInput="0" class="textFieldInput" text="Do you own a pair of headphones?" color="gray" checked="false" margin="10"/>
+                </StackLayout>
+
+                <StackLayout formActive="false" visibility="collapsed">
+                    <Label text="Do you own a pair of headphones?" color="gray" textWrap="true" paddingLeft="20" visibility="collapsed"/>
+                    <CheckBox:CheckBox formId="6"  checkBoxInput="1" class="textFieldInput" text="Do you own a pair of headphones?" color="gray" checked="false" margin="10"/>
+                </StackLayout>
+
+                <StackLayout formActive="false" visibility="collapsed">
+                    <Label text="Do you own a pair of headphones?" color="gray" textWrap="true" paddingLeft="20" visibility="collapsed"/>
+                    <CheckBox:CheckBox formId="6"  checkBoxInput="2" class="textFieldInput" text="Do you own a pair of headphones?" color="gray" checked="false" margin="10"/>
+                </StackLayout>
+
+                <StackLayout formActive="false" visibility="collapsed">
+                    <Label text="Do you own a pair of headphones?" color="gray" textWrap="true" paddingLeft="20" visibility="collapsed"/>
+                    <CheckBox:CheckBox formId="6"  checkBoxInput="3" class="textFieldInput" text="Do you own a pair of headphones?" color="gray" checked="false" margin="10"/>
+                </StackLayout>
+
+                <StackLayout formActive="false" visibility="collapsed">
+                    <Label text="Do you own a pair of headphones?" color="gray" textWrap="true" paddingLeft="20" visibility="collapsed"/>
+                    <CheckBox:CheckBox formId="6"  checkBoxInput="4" class="textFieldInput" text="Do you own a pair of headphones?" color="gray" checked="false" margin="10"/>
+                </StackLayout>
+               
+               
+               
+            </StackLayout>
+        </Card:CardView>
+        <Card:CardView width="90%" margin="10" class="cardStyle" elevation="10">
+            <StackLayout paddingBottom="30">
+                <TextView id="appointmentNotes" class="textFieldInput" hint="Appointment Notes.." text="" editable="true" />
+            </StackLayout>    
+        </Card:CardView>
+    </StackLayout>
+</ScrollView>
+
+<!-- <Switch checked="true"></Switch>-->

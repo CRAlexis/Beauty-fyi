@@ -1,1 +1,1 @@
-<Label text="hey" textWrap="true" />
+<Label tap="goToJJPage" fontSize="30" text="Click here JJ" textWrap="true" />

@@ -1,6 +1,7 @@
 const Observable = require("tns-core-modules/data/observable").Observable;
 enums = require("tns-core-modules/ui/enums");
 animation = require("~/animations").loadAnimation;
+inAppNotifiationAlert = require("~/notifications/inApp/notification-alert.js")
 sortArray = require("~/sort-array").sortArray;
 navigation = require("~/navigation/navigation")
 source = new Observable();

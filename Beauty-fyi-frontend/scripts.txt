@@ -8,4 +8,7 @@ npm i nativescript-ui-listview
 tns plugin add nativescript-photoviewer
 tns plugin add nativescript-status-bar
 tns plugin add nativescript-social-share
+tns plugin add nativescript-cfalert-dialog
 npm i array-sort
+npm i dateformat
+tns plugin add nativescript-windowed-modal
