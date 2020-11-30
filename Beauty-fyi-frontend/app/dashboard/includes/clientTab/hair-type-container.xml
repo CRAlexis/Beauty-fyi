@@ -1,0 +1,62 @@
+<StackLayout id="hairTypeContainer" visibility="{{ hairTypeContainerVisbility ? 'visible' : 'collapsed' }}" xmlns:df="nativescript-ui-dataform" xmlns:Card="@nstudio/nativescript-cardview" xmlns:lv="nativescript-ui-listview" paddingTop="20">
+        <!--<GridLayout row="0" id="hairTypeUneditable" rows="40, 40" columns="*, *, *" horizontalAlignment="center" width="100%" visibility="{{ editHairType ? 'collapsed' : 'visible' }}">
+            <StackLayout id="hairType0" row="0" col="0" tap="{{ editClientInformation }}" >
+                <Label text="4C" class="h4 font-bold" textWrap="true" textAlignment="center" />
+                <Label text="Hair Pattern" class="h5" textWrap="true" textAlignment="center" />
+            </StackLayout>
+            <StackLayout id="hairType1" tap="{{ editClientInformation }}" row="0" col="1" class="">
+                <Label text="Curly" class="h4 font-bold " textWrap="true" textAlignment="center" />
+                <Label text="Hair Thickness" class="h5" textWrap="true" textAlignment="center" />
+            </StackLayout>
+            <StackLayout id="hairType2" tap="{{ editClientInformation }}" row="0" col="2">
+                <Label text="15cm" class="h4 font-bold" textWrap="true" textAlignment="center" />
+                <Label text="Hair Density" class="h5" textWrap="true" textAlignment="center" />
+            </StackLayout>
+            <StackLayout id="hairType3" tap="{{ editClientInformation }}" row="1" col="0" >
+                <Label text="Brown" class="h4 font-bold" textWrap="true" textAlignment="center" />
+                <Label text="Hair Length" class="h5" textWrap="true" textAlignment="center" />
+            </StackLayout>
+            <StackLayout id="hairType4" tap="{{ editClientInformation }}" row="1" col="1" class="">
+                <Label text="Corase" class="h4 font-bold " textWrap="true" textAlignment="center" />
+                <Label text="Hair Color" class="h5" textWrap="true" textAlignment="center" />
+            </StackLayout>
+            <StackLayout id="hairType5" tap="{{ editClientInformation }}" row="1" col="2">
+                <Label text="Healthy" class="h4 font-bold" textWrap="true" textAlignment="center" />
+                <Label text="Hair Sebum" class="h5" textWrap="true" textAlignment="center" />
+            </StackLayout>
+            <StackLayout id="hairType6" tap="{{ editClientInformation }}" row="2" col="1">
+                <Label text="Retains moisture well" class="h4 font-bold" textWrap="true" textAlignment="center" />
+                <Label text="Hair Porosity" class="h5" textWrap="true" textAlignment="center" />
+            </StackLayout>
+        </GridLayout>-->
+        <StackLayout>
+        <Label textAlignment="center" class="h4" padding="20" textWrap="true">
+            <Label.formattedText>
+              <FormattedString>
+                <FormattedString.spans>
+                  <Span text="I wear " />
+                  <Span text="locks " class="font-bold" />
+                  <Span text="and I prefer to style in " />
+                  <Span text="free form locs " class="font-bold" />
+                  <Span text="and also use " />
+                  <Span text="wigs." class="font-bold" />
+                </FormattedString.spans>
+              </FormattedString>
+            </Label.formattedText>
+        </Label>
+            <lv:RadListView id="clientGalleryList" class="list-group" style="background-color: transparent"> 
+                <lv:RadListView.listViewLayout>
+                    <lv:ListViewGridLayout  spanCount="3" />
+                </lv:RadListView.listViewLayout>
+                <lv:RadListView.itemTemplate >    
+                    <Image id="{{ index }}" longpress="{{ longPressImage }}" tap="{{imageTapped}}" src="{{ image }}" height="{{ height }}" stretch="aspectFill" load="async" margin="5" />
+                </lv:RadListView.itemTemplate>
+            </lv:RadListView>
+            <Label textAlignment="center" class="Font-bold h5" text="View more" textWrap="true" />
+        </StackLayout>
+</StackLayout>
+
+
+
+
+

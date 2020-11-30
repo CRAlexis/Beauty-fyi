@@ -1,0 +1,20 @@
+<!--<ScrollView id="bookAppointmentFourthSlideContainer" height="100%" xmlns:CheckBox="@nstudio/nativescript-checkbox" visibility="collapsed" xmlns:Card="@nstudio/nativescript-cardview">
+    <StackLayout paddingTop="20" paddingBottom="20">
+        <Card:CardView width="90%" margin="10" class="cardStyle" elevation="10">
+            <StackLayout paddingTop="0" paddingBottom="20" id="bookAppointmentFourthSlidePaymentContainer">
+                <TextField class="textFieldInput" width="90%" hint="Card Holder Name" text="" />
+                <TextField class="textFieldInput" width="90%" hint="Card Number" keyboardType="number" text="" maxLength="16" />
+                <TextField class="textFieldInput" width="90%" hint="MM expiration" keyboardType="number"  maxLength="2"/>
+                <TextField class="textFieldInput" width="90%" hint="yyyy expiration" keyboardType="number" maxLength="4"/>
+                <TextField class="textFieldInput" width="90%" hint="CVC" keyboardType="number" maxLength="3" />
+                
+            </StackLayout>
+            <StackLayout>
+                <Label text="We would put some terms and conditions over here..." color="gray" padding="20" textWrap="true" />
+            </StackLayout>
+            
+        </Card:CardView>
+    </StackLayout>
+</ScrollView>
+
+Switch checked="true"></Switch>-->

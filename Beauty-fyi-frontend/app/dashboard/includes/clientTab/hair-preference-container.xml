@@ -1,0 +1,35 @@
+<StackLayout id="hairPreferenceContainer" visibility="{{ hairPreferenceContainerVisbility ? 'visible' : 'collapsed' }}" paddingTop="20" height="513px">
+    <GridLayout id="hairPreferenceUndditable" rows="auto, 20, auto" columns="*" horizontalAlignment="center" width="100%" visibility="{{ editHairType ? 'collapsed' : 'visible' }}">
+        
+        <Label row="1" class="line" text="" width="30%" textWrap="true" />
+        <Label row="2"  class="h4" textWrap="true" paddingLeft="25" paddingTop="20">
+          <Label.formattedText>
+              <FormattedString>
+                <FormattedString.spans>
+                  <Span text="Hair goal: " />
+                  <Span text="Healthy and long hair" class="font-bold" />
+                </FormattedString.spans>
+              </FormattedString>
+            </Label.formattedText>
+        </Label>
+        
+        
+    </GridLayout>
+</StackLayout>
+
+
+
+
+
+<!--<StackLayout id="hairPreference0" row="0" col="0" tap="{{ editClientInformation }}" >
+            <Label text="Locked" class="h4 font-bold" textWrap="true" textAlignment="center" />
+            <Label text="Hairdress" class="h5" textWrap="true" textAlignment="center" />
+        </StackLayout>
+        <StackLayout id="hairPreference1" tap="{{ editClientInformation }}" row="0" col="1" class="">
+            <Label text="Free form locs" class="h4 font-bold " textWrap="true" textAlignment="center" />
+            <Label text="Style" class="h5" textWrap="true" textAlignment="center" />
+        </StackLayout>
+        <StackLayout id="hairPreference2" tap="{{ editClientInformation }}" row="0" col="2">
+            <Label text="Wigs" class="h4 font-bold" textWrap="true" textAlignment="center" />
+            <Label text="Tools" class="h5" textWrap="true" textAlignment="center" />
+        </StackLayout>-->

@@ -1,0 +1,27 @@
+<Page xmlns="http://www.nativescript.org/tns.xsd" shownModally="onShownModally" backgroundColor="black" swipe="swipe" tap="pageTapped">
+    <GridLayout rows="*, auto, *" columns="">
+        <StackLayout id="galleryViewTopBar" verticalAlignment="top" row="0" opacity="0">
+                <GridLayout columns="20, 20, auto" tap="navigateBack" paddingTop="20">
+                    <Label  text="&#xf104;" class="fas" col="1" style="font-size: 28; padding-top: 13px" textWrap="true" />
+                    <Label text="18th November 2020" class="h3" col="2" textWrap="true" />
+                </GridLayout>  
+               
+            
+        </StackLayout>
+        
+        <StackLayout verticalAlignment="middle" row="1">
+            <Image id="currentImage" src="{{ imageUrl }}" stretch="aspectFit" />
+        </StackLayout>
+
+        <StackLayout id="galleryViewBottomBar" row="2" verticalAlignment="bottom" opacity="0">
+            <GridLayout rows="" columns="*, auto, auto, *" verticalAlignment="bottom">
+                <Button tap="deleteImage" col="1" text="&#xf1f8;" class="fas btn" fontSize="20" />
+                <Button tap="shareImage" col="2" text="&#xf064;" class="fas btn" fontSize="20" paddingTop="4" />
+            </GridLayout>
+        </StackLayout>
+        
+        
+    </GridLayout>
+    
+    
+</Page>

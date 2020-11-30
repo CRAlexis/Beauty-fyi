@@ -1,18 +1,25 @@
-<StackLayout xmlns:lv="nativescript-ui-listview">
-    <lv:RadListView id="clientList" class="list-group" style="background-color: transparent" loadOnDemandMode="Auto"> 
-        <lv:RadListView.listViewLayout>
-            <lv:ListViewLinearLayout  spanCount="2" />
-        </lv:RadListView.listViewLayout>
-        <lv:RadListView.itemTemplate >    
-            <GridLayout rows="5, 70, 5" columns="10, 70, auto" class="list-group-borders">
-            <Image src="{{ clientImage }}" row="1" col="1" decodeWidth="70" style="border-radius: 200px" />  
-            <GridLayout verticalAlignment="bottom" row="1" col="2">
-                <Label text="{{ clientName}}" class="font-bold h4" textWrap="true" />
-            </GridLayout>
-               
-            </GridLayout>
-        </lv:RadListView.itemTemplate>
-    </lv:RadListView>
-</StackLayout>
-
- <!--<Label text="" textWrap="true" row="0" backgroundImage="{{ clientImage }}" backgroundSize="contain" backgroundPosition="center center;"/>--> <!-- Might need to change the color of text from white to black-->
+<ScrollView height="100%" xmlns:Card="@nstudio/nativescript-cardview" xmlns:lv="nativescript-ui-listview" xmlns:topBar="dashboard/includes/topBar">
+    <GridLayout rows="70, auto, auto">
+        <StackLayout row="0">
+            <topBar:main-top-bar/>
+        </StackLayout>
+        <StackLayout row="1">
+            <lv:RadListView id="clientList" class="list-group" style="background-color: transparent" loadOnDemandMode="Auto" loadMoreDataRequested="{{onLoadMoreItemsRequested}}"> 
+                <lv:RadListView.listViewLayout>
+                    <lv:ListViewLinearLayout  spanCount="2" />
+                </lv:RadListView.listViewLayout>
+                <lv:RadListView.itemTemplate >    
+                    <GridLayout id="{{ id }}" tap="{{ viewClientProfile }}" rows="5, 70, 5" columns="10, 70, auto" class="list-group-borders">
+                    <Image src="{{ clientImage }}" row="1" col="1" decodeWidth="70" style="border-radius: 200px" />  
+                    <GridLayout verticalAlignment="bottom" row="1" col="2">
+                        <Label text="{{ clientName }}" class="font-bold h4" textWrap="true" />
+                    </GridLayout>
+                    </GridLayout>
+                </lv:RadListView.itemTemplate>
+            </lv:RadListView>
+        </StackLayout>
+            <StackLayout row="2" orientation="horizontal" horizontalAlignment="center" verticalAlignment="bottom">
+                <Button class="btn btn-primary" text="Filter" tap="{{ toggleFilter }}" width="50%" />
+            </StackLayout>
+    </GridLayout>
+</ScrollView>

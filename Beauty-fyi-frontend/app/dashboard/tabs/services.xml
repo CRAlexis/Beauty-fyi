@@ -1,1 +1,1 @@
-<Label text="hey" textWrap="true" />
+<Label text="hey" fontSize="30" tap="{{ goToProfile }}" textWrap="true" />

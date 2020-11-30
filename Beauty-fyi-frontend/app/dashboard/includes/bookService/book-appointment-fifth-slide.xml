@@ -1,0 +1,151 @@
+<!--<ScrollView id="bookAppointmentFifthSlideContainer" xmlns:CheckBox="@nstudio/nativescript-checkbox" visibility="collapsed" xmlns:Card="@nstudio/nativescript-cardview">
+    <StackLayout paddingTop="20" paddingBottom="20"><bookAppointmentFifthSlideFormContainer
+        <Card:CardView width="90%" margin="10" class="cardStyle" elevation="10">
+            <StackLayout sectionName="serviceVisibillity" tap="{{ expandSectionFifthSlide }}" padding="20">
+                <GridLayout  rows="" columns="*, auto">
+                    <Label textWrap="true"  textAlignment="left" col="0" >
+                        <Label.formattedText>
+                          <FormattedString>
+                            <FormattedString.spans>
+                              <Span text="Service" class="font-bold h4" color="{{ serviceVisibillity ? 'black' : 'gray' }}" />
+                            </FormattedString.spans>
+                          </FormattedString>
+                        </Label.formattedText>
+                    </Label>
+                    <Label text="{{ serviceVisibillity ? '&#xf0d8;' : '&#xf0d7;' }}" class="fas" textWrap="true" col="1" fontSize="20" />
+                </GridLayout>
+                <StackLayout visibility="{{ serviceVisibillity ? 'visible' : 'collapsed' }}">
+                    <Label textWrap="true"  textAlignment="left">
+                        <Label.formattedText>
+                          <FormattedString>
+                            <FormattedString.spans>
+                              <Span text="Service: " class="h4" color="black" />
+                              <Span text="{{ serivceSelected }}" class="h4" color="gray" />
+                            </FormattedString.spans>
+                          </FormattedString>
+                        </Label.formattedText>
+                    </Label>
+                    <StackLayout orientation="horizontal">
+                        <Label textWrap="true"  textAlignment="left">
+                            <Label.formattedText>
+                              <FormattedString>
+                                <FormattedString.spans>
+                                  <Span text="Addons: " class="h4" color="black" />
+                                </FormattedString.spans>
+                              </FormattedString>
+                            </Label.formattedText>
+                        </Label>
+                        <Repeater items="{{ addons }}">
+                            <Repeater.itemsLayout>
+                                <StackLayout />
+                            </Repeater.itemsLayout>
+                            <Repeater.itemTemplate>
+                                <Label text="{{ addonName }}" class="h4" color="gray"/>
+                            </Repeater.itemTemplate>
+                        </Repeater>
+                    </StackLayout>  
+                     <Label textWrap="true"  textAlignment="left">
+                        <Label.formattedText>
+                          <FormattedString>
+                            <FormattedString.spans>
+                              <Span text="Date: " class="h4" color="black" />
+                              <Span text="{{ dateSelected }}" class="h4" color="gray" />
+                            </FormattedString.spans>
+                          </FormattedString>
+                        </Label.formattedText>
+                    </Label>
+                    <Label textWrap="true"  textAlignment="left">
+                        <Label.formattedText>
+                          <FormattedString>
+                            <FormattedString.spans>
+                              <Span text="Time: " class="h4" color="black" />
+                              <Span text="{{ timeSelected }}" class="h4" color="gray" />
+                            </FormattedString.spans>
+                          </FormattedString>
+                        </Label.formattedText>
+                    </Label>
+                    <Label textWrap="true"  textAlignment="left">
+                        <Label.formattedText>
+                          <FormattedString>
+                            <FormattedString.spans>
+                              <Span text="Duration: " class="h4" color="black" />
+                              <Span text="{{ duration }}" class="h4" color="gray" />
+                            </FormattedString.spans>
+                          </FormattedString>
+                        </Label.formattedText>
+                    </Label>
+                </StackLayout>
+            </StackLayout>  
+        </Card:CardView>
+
+        <Card:CardView width="90%" margin="10" class="cardStyle" elevation="10">
+            <StackLayout sectionName="formIntakeVisibillity" tap="{{ expandSectionFifthSlide }}" padding="20">
+                <GridLayout rows="" columns="*, auto">
+                    <Label textWrap="true"  textAlignment="left" col="0" >
+                        <Label.formattedText>
+                          <FormattedString>
+                            <FormattedString.spans>
+                              <Span text="Consultation" class="font-bold h4" color="{{ formIntakeVisibillity ? 'black' : 'gray' }}" />
+                            </FormattedString.spans>
+                          </FormattedString>
+                        </Label.formattedText>
+                    </Label>
+                    <Label text="{{ formIntakeVisibillity ? '&#xf0d8;' : '&#xf0d7;' }}" class="fas" textWrap="true" col="1" fontSize="20" />
+                </GridLayout>
+                <StackLayout visibility="{{ formIntakeVisibillity ? 'visible' : 'collapsed' }}">
+                    <ListView id="questionsAndAnswersList" items="{{ questionsAndAnswers }}" height="400">
+                        <ListView.itemTemplate>
+                            <StackLayout>
+                                <Label text="{{question}}" textWrap="true" class="h4" color="black" />
+                                <Label text="{{value ? value : 'No'}}" textWrap="true" class="h4" color="gray" />
+                            </StackLayout>
+                        </ListView.itemTemplate>
+                    </ListView>               
+                </StackLayout>
+            </StackLayout>
+        </Card:CardView>
+
+
+
+        <Card:CardView width="90%" margin="10" class="cardStyle" elevation="10"> payment details
+            <StackLayout sectionName="paymentPreviewReceiptVisibillity" tap="{{ expandSectionFifthSlide }}" padding="20">
+                <GridLayout rows="" columns="*, auto">
+                    <Label textWrap="true"  textAlignment="left" col="0">
+                        <Label.formattedText>
+                          <FormattedString>
+                            <FormattedString.spans>
+                              <Span text="Total " class="font-bold h4" color="{{ paymentPreviewReceiptVisibillity ? 'black' : 'gray' }}" />
+                              <Span text="{{ paymentTotal }}" class="font-bold h4" color="{{ paymentPreviewReceiptVisibillity ? 'black' : 'gray' }}" />
+                            </FormattedString.spans>
+                          </FormattedString>
+                        </Label.formattedText>
+                    </Label>
+                    <Label text="{{ paymentPreviewReceiptVisibillity ? '&#xf0d8;' : '&#xf0d7;' }}" class="fas" textWrap="true" col="1" fontSize="20" />
+                </GridLayout>
+                <StackLayout visibility="{{ paymentPreviewReceiptVisibillity ? 'visible' : 'collapsed' }}">
+                    <ListView id="paymentPreviewReceipt" items="{{ paymentPreviewReceipt }}" height="120">
+                        <ListView.itemTemplate>
+                            <GridLayout columns="*, auto">
+                                <Label col="0" text="{{ product }}" textWrap="true" class="{{ class }}" color="black" />
+                                <Label col="1" text="{{ value }}" textWrap="true" class="h4" color="black" />
+                            </GridLayout>
+                        </ListView.itemTemplate>
+                    </ListView>    
+                    <Label textWrap="true"  textAlignment="left" paddingTop="30">
+                        <Label.formattedText>
+                          <FormattedString>
+                            <FormattedString.spans>
+                              <Span text="Pay With " class="h5" color="black" />
+                              <Span text="{{ cardHolderName }}" class="h5" color="black" />
+                              <Span text="{{ cardNumberRedacted }}" class="h5" color="black" />
+                            </FormattedString.spans>
+                          </FormattedString>
+                        </Label.formattedText>
+                    </Label>
+                </StackLayout>
+            </StackLayout>
+        </Card:CardView>
+    </StackLayout>
+</ScrollView>
+-->
+<!-- <Switch checked="true"></Switch>-->

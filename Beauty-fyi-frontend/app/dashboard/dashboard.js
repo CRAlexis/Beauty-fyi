@@ -1,10 +1,15 @@
 const Observable = require("tns-core-modules/data/observable").Observable;
 enums = require("tns-core-modules/ui/enums");
 animation = require("~/animations").loadAnimation;
+inAppNotifiationAlert = require("~/notifications/inApp/notification-alert.js")
+sortArray = require("~/sort-array").sortArray;
 navigation = require("~/navigation/navigation")
 source = new Observable();
+const statusBar = require("nativescript-status-bar");
+statusBar.hide();
 
 exports.onNavigatedTo = function (args) {
+    
     page = args.object;
     //const navigationContext = page.navigationContext;
     //for (let i = 0; i < Object.keys(navigationContext).length; i++) {

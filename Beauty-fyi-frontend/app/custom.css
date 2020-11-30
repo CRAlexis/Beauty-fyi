@@ -133,27 +133,18 @@ z-index: 0
 }
 
 .btn-primary {
-background-color: #9900ff;
+    background-color: #9900ff;
+    border-color: #9900ff;
+    color: #ffffff;
 }
 
-.btn-primary {
-border-color: #9900ff;
-}
 
-.btn-primary {
-color: #ffffff;
-}
 .btn-white {
     background-color: #ffffff;
-}
-
-.btn-white {
     border-color: #868686;
-}
-
-.btn-white {
     color: #000000;
 }
+
 
 .btn-transparent {
     color: white;
@@ -166,21 +157,18 @@ color: #ffffff;
     border-width: 1.5;
 }
 
+.btn-light-grey-outline {
+    border-color: rgb(236, 236, 236);
+    border-width: 1;
+}
+
 .btn-outline {
 border-color: #ff00ff;
-}
-
-.btn-outline {
 background-color: transparent;
-}
-
-.btn-outline {
 border-width: 0;
-}
-
-.btn-outline {
 color: #9900ff;
 }
+
 
 .btn[isEnabled=false] {
 background-color: #9900ff;
@@ -200,6 +188,13 @@ border-radius: 4;
 
 .btn-rounded-lg {
 border-radius: 20;
+}
+
+.btn-circle {
+    border-radius: 70;
+    height: 70;
+    width: 70;
+    color: black
 }
 
 .label {
@@ -254,6 +249,9 @@ background-color: #fafeff;
 color: #000000;
 }
 
+
+
+
 .bottom-gradient {
     background: linear-gradient(to bottom right, rgb(255, 255, 255), rgb(255, 255, 255), rgb(255, 255, 255), rgba(229, 101, 255, 0.055));
 }
@@ -261,15 +259,26 @@ color: #000000;
 .bottom-gradient-two {
     background: linear-gradient(to bottom right, rgba(143, 42, 226, 0.048), rgba(142, 30, 165, 0.007), rgba(193, 99, 255, 0.226), rgba(229, 101, 255, 0.123));
 }
+.header-gradient {
+    background: linear-gradient(to right, rgba(186, 102, 255, 0.123), rgba(242, 102, 255, 0.288), rgba(169, 64, 255, 0.295), rgba(123, 68, 252, 0.425));
+}
+
+.sqaure-button-gradient { /* book appointment first slide */
+    background: linear-gradient(to bottom, rgba(123, 68, 252, 0), rgba(185, 68, 252, 0.171), rgba(185, 68, 252, 0.37));
+}
 
 .plain-background {
-    background-color: rgba(219, 157, 255, 0.411)
+    background-color: rgba(183, 157, 255, 0.411)
 }
-.cardOrange {
-    background-color: rgba(255, 243, 228, 0.555)
+.cardOrange { /* All these cards will change */
+    background-color: rgba(253, 217, 174, 0.164)
 }
 .cardPurple {
-    background-color: rgb(249, 234, 255);
+    background-color: rgba(232, 174, 255, 0.151);
+}
+
+.cardBlue {
+    background-color: rgba(182, 174, 255, 0.151);
 }
 
 .img-container {
@@ -281,6 +290,12 @@ color: #000000;
     font-size: 20;
     border-color: #d3d3d3
 }
+
+.textFieldInputSmall {
+    font-size: 16;
+    border-color: #d3d3d3
+}
+
 
 .line {
     background: #d4d4d4;
@@ -307,3 +322,21 @@ color: #000000;
     color: rgb(53, 53, 53);
     background-color: rgba(221, 221, 221, 0.281);
 }
+
+.borderLeftAndRight {
+    border-color: rgb(223, 223, 223);
+    border-left-width: 1px ;
+    border-right-width: 1px ;
+}
+
+.borderTop {
+    border-top-left-radius: 20;
+    border-top-right-radius: 20;
+    
+}
+
+.borderBottom {
+    border-bottom-left-radius: 20;
+    border-bottom-right-radius: 20;
+}
+

@@ -1,7 +1,14 @@
 tns plugin add nativescript-dom  
-tns plugin add nativescript-cardview
+ns plugin add @nstudio/nativescript-cardview
 tns plugin add nativescript-ui-calendar
 tns plugin add nativescript-ui-listview
-npm i nativescript-checkbox-ns-7
+ns plugin add @nstudio/nativescript-checkbox
 npm install random-string
 npm i nativescript-ui-listview
+tns plugin add nativescript-photoviewer
+tns plugin add nativescript-status-bar
+tns plugin add nativescript-social-share
+tns plugin add nativescript-cfalert-dialog
+npm i array-sort
+npm i dateformat
+tns plugin add nativescript-windowed-modal

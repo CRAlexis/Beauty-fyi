@@ -1,0 +1,16 @@
+<Page shownModally="onShownModally" loaded="loaded" xmlns:Card="@nstudio/nativescript-cardview">
+    <GridLayout rows="70, *, auto" columns="" backgroundColor="rgb(247,247,247)">
+        <Card:CardView class="cardStyle" elevation="10" radius="0" >
+            <StackLayout padding="15" class="header-gradient">
+                <Label row="0" class="h4 font-bold" color="white" text="{{ slideTitle }}" textWrap="true" />    
+            </StackLayout>
+            
+        </Card:CardView>
+        <StackLayout row="1" xmlns:includes="dashboard/includes/bookService">
+            <includes:choose-date/>
+        </StackLayout>
+        <StackLayout row="2" orientation="horizontal" horizontalAligment="center" backgroundColor="white">
+            <Button text="{{ nextSlideTitle }}" tap="{{ goToNextSlide }}" class="btn btn-white"/>
+        </StackLayout>
+    </GridLayout>
+</Page>
