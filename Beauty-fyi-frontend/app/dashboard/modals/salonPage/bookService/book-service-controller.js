@@ -1,4 +1,6 @@
 const Observable = require("tns-core-modules/data/observable").Observable;
+const mPicker = require("nativescript-mediafilepicker");
+const mediafilepicker = new mPicker.Mediafilepicker();
 const application = require('application');
 let dropDownlist;
 let bookAppointmentSlideTransition;
@@ -10,12 +12,30 @@ const source = new Observable();
 let serviceDropDownActive;
 let closeCallback;
 let slideIndex;
-let dateSelected;
-let timeSelected;
+let selectedDate;
+let selectedTime;
 // Need to keep an eye on this just incase multiple instances are still open
 
+let ImagePickerOptions = {
+    android: {
+        isCaptureMood: false, // if true then camera will open directly.
+        isNeedCamera: true,
+        maxNumberFiles: 10,
+        isNeedFolderList: true
+    }, ios: {
+        isCaptureMood: false, // if true then camera will open directly.
+        isNeedCamera: true,
+        maxNumberFiles: 10
+    }
+};
 
+let mediafilepicker = new Mediafilepicker();
+mediafilepicker.openImagePicker(options);
 
+mediafilepicker.on("getFiles", function (res) {
+    let results = res.object.get('results');
+    console.dir(results);
+});
 
 
 exports.onShownModally = function (args) {
@@ -27,20 +47,16 @@ exports.onShownModally = function (args) {
 }
 
 function initVariables(args){
-    //dropDownlist = "~/dashboard/modals/form/drop-down-list-modal";
-    //bookAppointmentSlideTransition = require("~/dashboard/modals/appointments/book-appointment-slide-transition.js");
-    //firstSlide = require("~/dashboard/modals/appointments/first-slide.js")
-    //secondSlide = require("~/dashboard/modals/appointments/second-slide.js")
-    //thirdSlide = require("~/dashboard/modals/appointments/third-slide.js")
-    //fifthSlide = require("~/dashboard/modals/appointments/fifth-slide.js")
+    dropDownlist = "~/dashboard/modals/form/drop-down-list-modal";
+    bookAppointmentSlideTransition = require("~/dashboard/modals/salonPage/bookService/book-appointment-slide-transition.js");
     serviceDropDownActive = [false, false];
     closeCallback;
     slideIndex = 1
-    dateSelected;
-    timeSelected;
-    //source.set("slideTitle", "Choose appointment")
-    //source.set("nextSlideTitle", "Choose a date")
-    //secondSlide.initAvailableTimes(args) // This will change, cause ill get the times from JJ when they choose a date  
+    selectedDate;
+    selectedTime;
+    source.set("slideTitle", "Choose appointment")
+    source.set("nextSlideTitle", "Choose a date")
+    initAvailableTimes(args) // This will change, cause ill get the times from JJ when they choose a date  
 }
 
 exports.loaded = function (args){ //third slide
@@ -78,17 +94,17 @@ exports.exitExport = function (args, string) { // What if someone accidently cli
 }
 
 source.set("goToNextSlide", function(args){
-    bookAppointmentSlideTransition.goToNextSlide(args, slideIndex, serviceDropDownActive, dateSelected, timeSelected, source).then(function(result){
+    bookAppointmentSlideTransition.goToNextSlide(args, slideIndex, source).then(function(result){
         slideIndex = result;
     })
 })
 
 source.set("goToPreviousSlide", function (args) {
-    bookAppointmentSlideTransition.goToPreviousSlide(args, slideIndex, serviceDropDownActive, dateSelected, timeSelected, source).then(function (result) {
+    bookAppointmentSlideTransition.goToPreviousSlide(args, slideIndex, serviceDropDownActive, selectedDate, selectedTime, source).then(function (result) {
         slideIndex = result;
         if (slideIndex == 1) {//Because the times may have refreshed and dates may have refreshed
-            dateSelected = null; // I will need to remove calalnde date selected and also remove the times (rad list)
-            timeSelected = null;
+            selectedDate = null; // I will need to remove calalnde date selected and also remove the times (rad list)
+            selectedTime = null;
         }
         
     })
@@ -118,17 +134,7 @@ source.set("dropDownClicked", function (args){
     mainView.showModal(dropDownlist, option);
 })
 
-source.set("onDateSelected",  function (args) {
-    //secondSlide.dateSelected(args).then(function (result){
-    //    dateSelected = result;
-    //})
-})
 
-source.set("onTimeSelected", function (args){
-    //secondSlide.timeSelected(args).then(function (result){
-    //    timeSelected = result;
-    //})
-})
 
 source.set("expandSectionFifthSlide", function(args){
     console.log(1)
@@ -140,7 +146,7 @@ source.set("expandSectionFifthSlide", function(args){
 /* ----------- Choose Date ---------------------------*/
 const dateFormat = require('dateformat');
 let lastSelectedTime = null
-exports.initAvailableTimes = function (args) {
+function initAvailableTimes (args) {
     const page = args.object.page
     let times = []
     times.push(
@@ -169,7 +175,19 @@ exports.initAvailableTimes = function (args) {
     listview.items = times;
 }
 
-exports.dateSelected = function (args) {
+source.set("onDateSelected", function (args) {
+    dateSelected(args).then(function (result){
+        selectedDate = result;
+    })
+})
+
+source.set("onTimeSelected", function (args) {
+    timeSelected(args).then(function (result){
+        selectedTime = result;
+    })
+})
+
+function dateSelected (args) {
     const page = args.object.page
 
     return new Promise(resolve => {
@@ -182,7 +200,7 @@ exports.dateSelected = function (args) {
     })
 }
 
-exports.timeSelected = function (args) {
+function timeSelected (args) {
     const timeLabel = args.object.getChildAt(0)
 
     return new Promise(resolve => {

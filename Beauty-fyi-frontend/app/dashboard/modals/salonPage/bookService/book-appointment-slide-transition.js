@@ -1,35 +1,11 @@
-const shoppingCart = require("~/dashboard/modals/appointments/shopping-cart.js")
-exports.goToNextSlide = function (args, slideIndex, serviceDropDownActive, dateSelected, timeSelected, source){
+exports.goToNextSlide = function (args, slideIndex, source){
     return new Promise(resolve => {
     const page = args.object.page
     switch (slideIndex) {
-        case 4:
-            shoppingCart.addToShoppingCart(args, slideIndex, serviceDropDownActive, dateSelected, timeSelected, source).then(function () {
-                slideIndex++
-                animateToNextSlide(page.getViewById('bookAppointmentFourthSlideContainer'), page.getViewById('bookAppointmentFifthSlideContainer'), slideIndex, source)
-                resolve(slideIndex)
-            })
-            break;
-        case 3:
-            shoppingCart.addToShoppingCart(args, slideIndex, serviceDropDownActive, dateSelected, timeSelected, source).then(function () {
-                slideIndex++
-                animateToNextSlide(page.getViewById('bookAppointmentThirdSlideContainer'), page.getViewById('bookAppointmentFourthSlideContainer'), slideIndex, source)
-                resolve(slideIndex)
-            })
-            break;
-        case 2:
-            shoppingCart.addToShoppingCart(args, slideIndex, serviceDropDownActive, dateSelected, timeSelected, source).then(function () {
-                slideIndex++
-                animateToNextSlide(page.getViewById('bookAppointmentSecondSlideContainer'), page.getViewById('bookAppointmentThirdSlideContainer'), slideIndex, source)
-                resolve(slideIndex)
-            })    
-            break;
         case 1:
-            shoppingCart.addToShoppingCart(args, slideIndex, serviceDropDownActive, dateSelected, timeSelected, source).then(function(){
-                slideIndex++
-                animateToNextSlide(page.getViewById('bookAppointmentFirstSlideContainer'), page.getViewById('bookAppointmentSecondSlideContainer'), slideIndex, source)
-                resolve(slideIndex)
-            })    
+            slideIndex++
+            animateToNextSlide(page.getViewById('chooseDatePageContainer'), page.getViewById('consultationPageContainer'), slideIndex, source)
+            resolve(slideIndex)  
             break; 
         }
     })

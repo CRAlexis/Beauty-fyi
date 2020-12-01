@@ -1,6 +1,5 @@
-<ScrollView id="bookAppointmentThirdSlideContainer" xmlns:CheckBox="@nstudio/nativescript-checkbox" visibility="collapsed" xmlns:Card="@nstudio/nativescript-cardview">
+<ScrollView id="consultationPageContainer" xmlns:CheckBox="@nstudio/nativescript-checkbox" visibility="collapsed" xmlns:Card="@nstudio/nativescript-cardview">
     <StackLayout paddingTop="20" paddingBottom="20">
-        <Card:CardView width="90%" margin="10" class="cardStyle" elevation="10">
             <StackLayout paddingBottom="20" paddingTop="10" id="bookAppointmentThirdSlideFormContainer">
                 <StackLayout formActive="true">
                     <Label text="How would you describe the health of your hair?" color="gray" textWrap="true" paddingLeft="20" fontSize="14"/> <!-- Need to create a css file for this stuff sometimes-->
@@ -80,12 +79,9 @@
                
                
             </StackLayout>
-        </Card:CardView>
-        <Card:CardView width="90%" margin="10" class="cardStyle" elevation="10">
             <StackLayout paddingBottom="30">
                 <TextView id="appointmentNotes" class="textFieldInput" hint="Appointment Notes.." text="" editable="true" />
             </StackLayout>    
-        </Card:CardView>
     </StackLayout>
 </ScrollView>
 

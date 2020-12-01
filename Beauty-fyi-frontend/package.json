@@ -30,6 +30,7 @@
     "dateformat": "^4.0.0",
     "nativescript-cardview": "^3.2.0",
     "nativescript-cfalert-dialog": "^1.0.15",
+    "nativescript-mediafilepicker": "^4.0.2",
     "nativescript-photoviewer": "^2.1.5",
     "nativescript-social-share": "^1.6.0",
     "nativescript-status-bar": "^1.2.0",

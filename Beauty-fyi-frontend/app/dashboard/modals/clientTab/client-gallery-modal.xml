@@ -2,7 +2,7 @@
     <ScrollView height="100%">
         <GridLayout rows="auto, auto" >
             <GridLayout row="0" columns="10, 13, auto" tap="{{ navigateBack }}" paddingTop="10"  backgroundColor="rgb(247,247,247)">
-                <Label text="&#xf104;" class="fas" col="1" style="font-size: 19; padding-top: 15px" textWrap="true" />
+                
                 <Label tap="{{ navigateBack }}" class="h4" col="2" text="Back"/>
             </GridLayout>  
             <StackLayout row="1">
