@@ -38,6 +38,10 @@ class User extends Model {
   encryptionKey () {
     return this.hasMany('App/Models/Encryption')
   }
+
+  userAttr () {
+    return this.hasMany('App/Models/UserAttr')
+  }
 }
 
 module.exports = User
