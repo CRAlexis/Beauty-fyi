@@ -1,5 +1,6 @@
-const bookingModal = "~/dashboard/modals/appointments/booking-modal";
-exports.loadNotifications = function(page){ // am not able to get page object
+const navigation = require("~/controllers/navigationController")
+exports.homeLoaded = function(args){ // am not able to get page object
+    const page = args.object.page
     page.bindingContext = source;
     const notifications = [];
     notifications.push(
@@ -31,15 +32,10 @@ exports.loadNotifications = function(page){ // am not able to get page object
 }
 
 source.set("ontest", function (args){
-    console.log(args.object.id);
     const mainView = args.object;
-    const option = {
-        context: { username: "test_username", password: "test" },
-        closeCallback: (username, password) => {
-            // Receive data from the modal view. e.g. username & password
-            //alert(`Username: ${username} : Password: ${password}`);
-        },
-        fullscreen: false
-    };
-    mainView.showModal(bookingModal, option);
+    const context = ""
+    navigation.navigateToModal(context, mainView, 8, false).then(function (result) {
+        console.log(result)
+    })
 });
+

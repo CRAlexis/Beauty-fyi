@@ -1,0 +1,11 @@
+<GridLayout rows="auto, auto" columns="">
+    <StackLayout row="0" marginBottom="30" paddingLeft="25" paddingRight="25">
+        <Label  text="Padding and processing times" class="h3"  textWrap="true" />
+        <Label text="Padding time will block out additional time in your calander before and after your appointment." class="h5" textWrap="true" />
+    </StackLayout>
+    <GridLayout row="1" rows="auto, auto" paddingLeft="9">
+        <TextField id="paddingBefore" row="0" hint="Padding before (minutes)" class="textFieldInputSmall" keyboardType="number"/>
+        <TextField id="paddingAfter" row="1" hint="Padding after (minutes)" class="textFieldInputSmall" keyboardType="number" />
+    </GridLayout>
+    
+</GridLayout>

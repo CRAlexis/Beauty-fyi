@@ -1,18 +1,15 @@
-<Page xmlns="http://www.nativescript.org/tns.xsd" shownModally="onShownModally" xmlns:CheckBox="@nstudio/nativescript-checkbox">
-    <GridLayout rows="auto, auto, 40" paddingTop="20">
+<Page xmlns="http://www.nativescript.org/tns.xsd" shownModally="onShownModally" xmlns:CheckBox="@nstudio/nativescript-checkbox" backgroundColor="transparent" >
+    <GridLayout rows="auto, auto, 40" class="mainstack">
         <StackLayout row="0">
             <GridLayout rows="auto, auto">
                 <Label row="0" class="h4 font-bold" textAlignment="center" text="Sort by" textWrap="true" />
-                <StackLayout orientation="horizontal" row="1">
-                    <Button class="btn" width="25%" text="Name" color="{{ sortByName ? '#9900ff' : 'black' }}" tap="{{sortByNameClicked}}" />
-                    <Button class="btn" width="25%" text="Last Name" tap="" />
-                    <Button class="btn" width="25%" text="Something" tap="" />
-                    <Button class="btn" width="25%" text="Something" tap="" />
+                <StackLayout row="1">
+                    
                 </StackLayout>
             </GridLayout>
         </StackLayout>
 
-        <StackLayout row="1">
+        <!--<StackLayout row="1">
             <GridLayout rows="auto, auto">
                 <Label row="0" class="h4 font-bold" textAlignment="center" text="Filters" textWrap="true" />
                 <GridLayout row="1" rows="auto, auto, auto, auto">
@@ -22,9 +19,9 @@
                     <CheckBox:CheckBox row="3" text="Something" checked="false" />
                 </GridLayout>
             </GridLayout>
-        </StackLayout>
+        </StackLayout>-->
 
-        <Button row="2" class="btn btn-primary" text="Apply" tap="{{ initSorting }}" width="100%" />
+        <Button row="2" class="btn btn-white" text="Apply" tap="{{ initSorting }}" width="100%" />
         
     </GridLayout>
 </Page>

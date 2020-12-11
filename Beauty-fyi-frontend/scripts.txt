@@ -12,3 +12,4 @@ tns plugin add nativescript-cfalert-dialog
 npm i array-sort
 npm i dateformat
 tns plugin add nativescript-windowed-modal
+nativescript-telerik-ui-pro/calendar

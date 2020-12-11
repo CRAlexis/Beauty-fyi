@@ -1,10 +1,7 @@
 <Page shownModally="onShownModally" loaded="onPageLoaded" xmlns:lv="nativescript-ui-listview" >
     <ScrollView height="100%">
-        <GridLayout rows="auto, auto" >
-            <GridLayout row="0" columns="10, 13, auto" tap="{{ navigateBack }}" paddingTop="10"  backgroundColor="rgb(247,247,247)">
-                
-                <Label tap="{{ navigateBack }}" class="h4" col="2" text="Back"/>
-            </GridLayout>  
+        <GridLayout rows="auto, auto" xmlns:topBar="dashboard/includes/topBar">
+            <topBar:menu-header row="0" header="Name of client" tap="goBack"/> 
             <StackLayout row="1">
                 <lv:RadListView id="clientGalleryList" class="list-group" style="background-color: transparent" loadOnDemandMode="Manual" loadMoreDataRequested="{{onLoadMoreItemsRequested}}" itemReorder="true"  reorderMode="Drag"> 
                     <lv:RadListView.listViewLayout>

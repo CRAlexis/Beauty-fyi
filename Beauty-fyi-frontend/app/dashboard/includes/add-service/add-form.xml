@@ -1,0 +1,25 @@
+<ScrollView>
+    <StackLayout paddingTop="35">
+        <StackLayout row="0" paddingLeft="25" paddingRight="25"  marginBottom="25">
+            <Label row="0" text="Intake Form" class="h3" textWrap="true"/>
+            <Label row="0" text="Create a intake for reasons that Klerissa will think of." class="h5" textWrap="true"/>
+        </StackLayout>
+        <StackLayout xmlns:lv="nativescript-ui-listview">
+            <lv:RadListView id="addFormListView" class="list-group" style="background-color: transparent"> 
+            <lv:RadListView.listViewLayout>
+                <lv:ListViewGridLayout  spanCount="1" />
+            </lv:RadListView.listViewLayout>
+            <lv:RadListView.itemTemplate >    
+                <StackLayout marginBottom="25">
+                    <TextField id="{{id}}" questionType="{{questionType}}" hint="What do you want to ask?" text="{{text}}" class="textFieldInputSmall" />
+                    <TextView id="{{id2}}" questionType="{{questionType}}"  hint="Seperate answers by comma (,)" text="{{textViewText}}"  borderColor="#DEDEDE" borderWidth="1" class="textFieldInputSmall" visibility="{{ visibilityDropDown }}"></TextView>
+                    <Label id="{{id}}" index="{{index}}" class="h5" paddingLeft="18" paddingTop="5" text="Remove question" tap="removeQuestion" textWrap="true" />
+                </StackLayout>
+            </lv:RadListView.itemTemplate>
+            </lv:RadListView>
+        </StackLayout>
+        <StackLayout>
+            <Label id="" optionContext="Textbox,Drop down list,Yes/No choice" class="h5" paddingTop="10" text="Add Question" textAlignment="center" tap="addQuestion" textWrap="true" />    
+        </StackLayout>
+    </StackLayout>
+</ScrollView>

@@ -1,5 +1,5 @@
 const Observable = require("tns-core-modules/data/observable").Observable;
-const navigation = require("~/navigation/navigation")
+const navigation = require("~/controllers/navigationController")
 const source = new Observable()
 
 exports.onNavigatingTo = function onNavigatingTo(args) {

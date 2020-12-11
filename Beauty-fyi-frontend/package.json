@@ -28,6 +28,7 @@
     "@nstudio/nativescript-checkbox": "^2.0.4",
     "array-sort": "^1.0.0",
     "dateformat": "^4.0.0",
+    "fs": "0.0.1-security",
     "nativescript-cardview": "^3.2.0",
     "nativescript-cfalert-dialog": "^1.0.15",
     "nativescript-mediafilepicker": "^4.0.2",

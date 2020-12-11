@@ -6,7 +6,7 @@
                 <lv:ListViewLinearLayout  spanCount="1"  />
             </lv:RadListView.listViewLayout>
             <lv:RadListView.itemTemplate >    
-                <StackLayout width="150">
+                <StackLayout width="250">
                     <Label id="{{ id }}" tap="selectedOption" text="{{ optionList }}" textWrap="true" fontSize="18" />    
                 </StackLayout>
             </lv:RadListView.itemTemplate>

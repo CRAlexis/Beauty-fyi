@@ -19,7 +19,7 @@
             <StackLayout row="3">
                 <StackLayout class="form" style="margin-top: 60px">
                     <StackLayout class="">
-                      <TextField class="textFieldInput" hint="Username" text="{{ username }}" width="90%" style="" isEnabled="{{ !processingHTTPRequest }}"></TextField>
+                      <TextField class="textFieldInput" hint="Name" text="{{ username }}" width="90%" style="" isEnabled="{{ !processingHTTPRequest }}"></TextField>
                     </StackLayout>
 
                     <StackLayout class="" style="margin-top: 30px">

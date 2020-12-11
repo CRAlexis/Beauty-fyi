@@ -1,0 +1,21 @@
+<Page shownModally="onShownModally" loaded="loaded">
+    <GridLayout rows="50, 50, 50" columns="50, 50, 50, 50, 50">
+        <StackLayout tap="colorTapped" col="0" row="0" backgroundColor="rgb(216,216,255)" colorId="0" margin="2"></StackLayout>
+        <StackLayout tap="colorTapped" col="1" row="0" backgroundColor="rgb(255,168,255)" colorId="1" margin="2"></StackLayout>
+        <StackLayout tap="colorTapped" col="2" row="0" backgroundColor="rgb(255,216,216)" colorId="2" margin="2"></StackLayout>
+        <StackLayout tap="colorTapped" col="3" row="0" backgroundColor="rgb(255,234,196)" colorId="3" margin="2"></StackLayout>
+        <StackLayout tap="colorTapped" col="4" row="0" backgroundColor="rgb(167,255,167)" colorId="4" margin="2"></StackLayout>
+
+        <StackLayout tap="colorTapped" col="0" row="1" backgroundColor="rgb(137,137,255)" colorId="5" margin="2"></StackLayout>
+        <StackLayout tap="colorTapped" col="1" row="1" backgroundColor="rgb(246, 0, 246)" colorId="6" margin="2"></StackLayout>
+        <StackLayout tap="colorTapped" col="2" row="1" backgroundColor="rgb(255,118,118)" colorId="7" margin="2"></StackLayout>
+        <StackLayout tap="colorTapped" col="3" row="1" backgroundColor="rgb(255,200,98)" colorId="8" margin="2"></StackLayout>
+        <StackLayout tap="colorTapped" col="4" row="1" backgroundColor="rgb(108,255,108)" colorId="9" margin="2"></StackLayout>
+
+        <StackLayout tap="colorTapped" col="0" row="2" backgroundColor="rgb(20,20,255)" colorId="10" margin="2"></StackLayout>
+        <StackLayout tap="colorTapped" col="1" row="2" backgroundColor="rgb(128,0,128)" colorId="11" margin="2"></StackLayout>
+        <StackLayout tap="colorTapped" col="2" row="2" backgroundColor="rgb(196,0,0)" colorId="12" margin="2"></StackLayout>
+        <StackLayout tap="colorTapped" col="3" row="2" backgroundColor="rgb(255,172,20)" colorId="13" margin="2"></StackLayout>
+        <StackLayout tap="colorTapped" col="4" row="2" backgroundColor="rgb(0,226,0)" colorId="14" margin="2"></StackLayout>
+    </GridLayout>
+</Page>

@@ -46,7 +46,7 @@ background-color: #35478c;
 }
 
 .activity-indicator {
-color: #35478c;
+color: #9900ff;
 }
 
 .slider {
@@ -260,7 +260,7 @@ color: #000000;
     background: linear-gradient(to bottom right, rgba(143, 42, 226, 0.048), rgba(142, 30, 165, 0.007), rgba(193, 99, 255, 0.226), rgba(229, 101, 255, 0.123));
 }
 .header-gradient {
-    background: linear-gradient(to right, rgba(186, 102, 255, 0.123), rgba(242, 102, 255, 0.288), rgba(169, 64, 255, 0.295), rgba(123, 68, 252, 0.425));
+    background: linear-gradient(to right, rgba(186, 102, 255, 0.432), rgba(185, 68, 252, 0.432), rgba(156, 35, 255, 0.521));
 }
 
 .clear-header {
@@ -283,7 +283,16 @@ color: #000000;
 }
 
 .cardBlue {
-    background-color: rgba(182, 174, 255, 0.151);
+    background-color: rgb(211, 206, 255)
+}
+.cardGreen {
+    background-color: rgb(75, 255, 114)
+}
+.cardYellow {
+    background-color: rgb(96, 79, 255)
+}
+.cardRed {
+    background-color: rgb(255, 189, 189)
 }
 
 .img-container {
@@ -337,11 +346,30 @@ color: #000000;
 .border-top-grey {
     border-top-color: rgb(207, 207, 207);
     border-top-width: 1;
-    
 }
+
+
 
 .borderBottom {
     border-bottom-left-radius: 20;
     border-bottom-right-radius: 20;
 }
 
+.mainstack {
+    margin-left: 25;
+    margin-right: 25;
+    margin-top: 25;
+    background-color: transparent;
+    opacity: 0.8;
+    border-radius: 25;
+}
+
+.tab-view-styling {
+    border-top-color: rgb(228, 228, 228);
+    border-top-width: 1;
+    background-color: rgb(252, 252, 252);
+}
+
+.tab-view-selected {
+    color: #9900ff
+}

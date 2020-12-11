@@ -1,0 +1,10 @@
+<GridLayout rows="auto, auto" columns="auto, auto, auto, auto, auto, auto, auto">
+    <Label tap="applyThisToDay" row="0" col="0" width="14.2%" class="h5 font-bold" textAlignment="center" text="M" textWrap="true" />
+    <Label tap="applyThisToDay" row="0" col="1" width="14.2%" class="h5 font-bold" textAlignment="center" text="T" textWrap="true" />
+    <Label tap="applyThisToDay" row="0" col="2" width="14.2%" class="h5 font-bold" textAlignment="center" text="W" textWrap="true" />
+    <Label tap="applyThisToDay" row="0" col="3" width="14.2%" class="h5 font-bold" textAlignment="center" text="T" textWrap="true" />
+    <Label tap="applyThisToDay" row="0" col="4" width="14.2%" class="h5 font-bold" textAlignment="center" text="F" textWrap="true" />
+    <Label tap="applyThisToDay" row="0" col="5" width="14.2%" class="h5 font-bold" textAlignment="center" text="S" textWrap="true" />
+    <Label tap="applyThisToDay" row="0" col="6" width="14.2%" class="h5 font-bold" textAlignment="center" text="S" textWrap="true" />     
+    <Label row="1" colSpan="7" class="line" width="100%" marginBottom="20" marginTop="17" textWrap="true" />               
+</GridLayout>   

@@ -1,18 +1,14 @@
 <Page shownModally="onShownModally" loaded="loaded" xmlns:Card="@nstudio/nativescript-cardview">
-    <GridLayout rows="60, *, auto" columns="">
-        <Card:CardView row="0" class="cardStyle" elevation="10" radius="0" >
-            <StackLayout orientation="horizontal" padding="15" class="">
-                <Label text="&#xf104;" class="fas" style="font-size: 19; padding-top: 15px; padding-right: 15" textWrap="true" />
-                <Label class="h4 font-bold" color="black" text="{{ slideTitle }}" textWrap="true" />    
-            </StackLayout>
-            
-        </Card:CardView>
+    <GridLayout rows="auto, *, auto" columns="" xmlns:topBar="dashboard/includes/topBar">
+        <topBar:menu-header row="0" header="Book a service" tap="goBack"/><!--{{title}}-->
         <StackLayout row="1" xmlns:includes="dashboard/includes/bookService">
-            <includes:choose-date/>
-            <includes:consultation/>
+            <includes:choose-date paddingTop="35" id="chooseDateSlide"/>
+            <includes:consultation visibility="collapsed" opacity="0" paddingTop="10" id="consultationSlide"/>
+            <includes:confirmation visibility="collapsed" opacity="0" paddingTop="10" id="confirmationSlide"/>
+            <includes:add-payment visibility="collapsed" opacity="0" paddingTop="10" id="addPaymentSlide"/>
         </StackLayout>
         <StackLayout row="2" backgroundColor="white">
-            <Button text="{{ nextSlideTitle}} " tap="{{ goToNextSlide }}" class="btn btn-white" width="90%"/>
+            <Button id="continueButton" text="" tap="goToNextSlide" class="btn btn-white" width="90%"/>
         </StackLayout>
     </GridLayout>
 </Page>

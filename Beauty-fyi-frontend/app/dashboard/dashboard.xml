@@ -1,30 +1,35 @@
 <Page navigatingTo="onNavigatedTo" loaded="onPageLoaded" actionBarHidden="true" xmlns:tabs="dashboard/tabs" xmlns:Card="nativescript-cardview">
-    <TabView 
-        loaded="onLoaded" 
-        selectedIndex="{{tabSelectedIndex}}" 
-        selectedIndexChanged="onSelectedIndexChanged" 
-        androidTabsPosition="bottom"
-        tabBackgroundColor="#fff"
-        selectedTabTextColor="#9900ff">
-        <TabViewItem title="Dashboard">
-            <StackLayout class="plain-background">
-                <tabs:home/>
+    <GridLayout rows="70, *, auto" xmlns:topBar="dashboard/includes/topBar">
+        <StackLayout row="0">
+            <topBar:dashboard-header/>
+        </StackLayout>
+        <StackLayout row="1">
+            <tabs:home id="homeTab" opacity="1"/>
+            <tabs:clients id="clientsTab" opacity="0" visibility="collapsed"/>          
+            <tabs:schedule id="scheduleTab" opacity="0" visibility="collapsed"/>
+            <tabs:profile id="profileTab" opacity="0" visibility="collapsed"/>
+        </StackLayout>
+        <GridLayout row="2" rows="5, auto" columns="auto, auto, auto, auto" class="tab-view-styling">
+            <StackLayout id="tab0" tabIndex="0" row="1" col="0" width="25%" tap="goToTab">
+                <Label fontSize="15"  class="fas" textAlignment="center" text="&#xf015;" textWrap="true" />
+                <Label fontSize="15" textAlignment="center" text="Dashboard" textWrap="true" />
             </StackLayout>
-        </TabViewItem>
-        <TabViewItem title="Clients">
-            <StackLayout>
-                <tabs:clients/>
+            
+            <StackLayout id="tab1" tabIndex="1" row="1" col="1" width="25%" tap="goToTab" >         
+                <Label fontSize="15" class="fas"  textAlignment="center" text="&#xf0c0;" textWrap="true" />
+                <Label id="clientTabButton" fontSize="15" textAlignment="center" text="Clients" textWrap="true" />
             </StackLayout>
-        </TabViewItem>
-        <TabViewItem title="Services">
-            <StackLayout>
-                <tabs:services/>
+
+            <StackLayout id="tab2" tabIndex="2" row="1" col="2" width="25%" tap="goToTab">       
+                <Label fontSize="15" class="far"  textAlignment="center" text="&#xf073;" textWrap="true" />
+                <Label id="scheduleTabButton" fontSize="15" textAlignment="center" text="Schedule" textWrap="true" />
             </StackLayout>
-        </TabViewItem>
-        <TabViewItem title="Schedule">
-            <StackLayout>
-                <tabs:website/>
+
+
+            <StackLayout id="tab3" tabIndex="3" row="1" col="3" width="25%" tap="goToTab">       
+                <Label fontSize="15" class="fas"  textAlignment="center" text="&#xf2bd;" textWrap="true" />
+                <Label id="profileTabButton" fontSize="15"  textAlignment="center" text="Profile" textWrap="true" />
             </StackLayout>
-        </TabViewItem>
-    </TabView>
+        </GridLayout>
+    </GridLayout>
 </Page>

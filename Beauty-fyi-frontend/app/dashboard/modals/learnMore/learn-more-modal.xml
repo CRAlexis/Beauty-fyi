@@ -1,0 +1,10 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" shownModally="onShownModally" backgroundColor="transparent" >
+    <GridLayout class="mainstack" rows="auto, auto, auto, auto, auto">
+        <Label row="0" text="Learn more" class="h4" textWrap="true" />
+        <Label row="1" text="{{textOne}}" class="h5" textWrap="true" />
+        <Label row="2" text="{{textTwo}}" class="h5" textWrap="true" />
+        <Label row="3" text="{{textThree}}" class="h5" textWrap="true" />
+        <Label row="4" text="{{textFour}}" class="h5" textWrap="true" />
+        <Label row="5" text="{{textFive}}" class="h5" textWrap="true" />
+    </GridLayout>
+</Page>

@@ -1,0 +1,15 @@
+<GridLayout id="serviceName" rows="auto, auto, auto, auto, auto" columns="">
+    <StackLayout row="0" paddingLeft="25" paddingRight="25"  marginBottom="25">
+        <Label  text="Service details" class="h3"  textWrap="true"/>
+        <Label  text="Set the name, price, category and description of your service." class="h5" textWrap="true"/>
+    </StackLayout>
+    <StackLayout row="1" paddingLeft="9">
+        <TextField maxLength="60" id="serviceName" row="1" hint="Service name" class="textFieldInputSmall" paddingBottom="10" blur="validateSecondPage" returnPress="validateSecondPage"/>
+        <TextField keyboardType="number" maxLength="6" id="servicePrice" row="2" resetText="" hint="Service price" blur="servicePriceReturn" focus="servicePriceFocus" returnPress="servicePriceReturn" textChange="servicePriceTextChange" class="textFieldInputSmall" paddingBottom="10"/>
+        <TextField id="serviceCategory" row="3" optionContext="Children,Natural Hair,Extensions,Coaching,Loc Care,Colouring,Treatments" class="textFieldInputSmall" tap="{{ dropDownClicked }}" blur="validateSecondPage" returnPress="validateSecondPage" textChange="validateSecondPage" hint="Category" editable="false" paddingBottom="10"/>
+        <TextField id="serviceColor" class="textFieldInputSmall" color="black" colorId="0" text="Service Color" tap="openColorPicker"  hint="Service color" editable="false" paddingBottom="10" editable="false"/>
+        <TextView  maxLength="255" id="serviceDescription" row="4" borderColor="#DEDEDE" borderWidth="1" hint="Service description" class="textFieldInputSmall" paddingBottom="10"></TextView>
+        
+    </StackLayout>
+    
+</GridLayout>

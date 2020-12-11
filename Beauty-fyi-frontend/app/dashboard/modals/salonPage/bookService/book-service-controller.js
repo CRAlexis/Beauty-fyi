@@ -1,223 +1,175 @@
 const Observable = require("tns-core-modules/data/observable").Observable;
-const mPicker = require("nativescript-mediafilepicker");
-const mediafilepicker = new mPicker.Mediafilepicker();
 const application = require('application');
-let dropDownlist;
-let bookAppointmentSlideTransition;
-let firstSlide;
-let secondSlide;
-let thirdSlide;
-let fifthSlide;
+const navigation = require("~/controllers/navigationController")
+const inAppNotifiationAlert = require("~/controllers/notifications/inApp/notification-alert.js")
+const slideTransition = require("~/controllers/slide-transitionController");
 const source = new Observable();
-let serviceDropDownActive;
+let sourceForm;
 let closeCallback;
 let slideIndex;
-let selectedDate;
-let selectedTime;
-// Need to keep an eye on this just incase multiple instances are still open
-
-let ImagePickerOptions = {
-    android: {
-        isCaptureMood: false, // if true then camera will open directly.
-        isNeedCamera: true,
-        maxNumberFiles: 10,
-        isNeedFolderList: true
-    }, ios: {
-        isCaptureMood: false, // if true then camera will open directly.
-        isNeedCamera: true,
-        maxNumberFiles: 10
-    }
-};
-
-let mediafilepicker = new Mediafilepicker();
-mediafilepicker.openImagePicker(options);
-
-mediafilepicker.on("getFiles", function (res) {
-    let results = res.object.get('results');
-    console.dir(results);
-});
-
+let slides = []
+let context;
+let chooseDate;
 
 exports.onShownModally = function (args) {
-    initVariables(args)
-    const context = args.context;
+    context = args.context;
     closeCallback = args.closeCallback;
     const page = args.object;
     page.bindingContext = source
-}
-
-function initVariables(args){
-    dropDownlist = "~/dashboard/modals/form/drop-down-list-modal";
-    bookAppointmentSlideTransition = require("~/dashboard/modals/salonPage/bookService/book-appointment-slide-transition.js");
-    serviceDropDownActive = [false, false];
-    closeCallback;
-    slideIndex = 1
-    selectedDate;
-    selectedTime;
-    source.set("slideTitle", "Choose appointment")
-    source.set("nextSlideTitle", "Choose a date")
-    initAvailableTimes(args) // This will change, cause ill get the times from JJ when they choose a date  
-}
-
-exports.loaded = function (args){ //third slide
-    // We only want to register the event in Android
-        if (application.android) {
-            application.android.on(application.AndroidApplication.activityBackPressedEvent, backEvent);
-        }
+    setTimeout(function () { source.set("width", (page.getMeasuredWidth() / 3)) }, 500)
+    formatContext(context)
     
-      
 }
 
-exports.pageUnloaded = function () {
-    // We only want to un-register the event on Android
-    if (application.android) {
-        application.android.off(application.AndroidApplication.activityBackPressedEvent, backEvent);
-    }
-};
+exports.loaded = function (args) { //third slide
+    if (application.android) { application.android.on(application.AndroidApplication.activityBackPressedEvent, backEvent); }
+    const page = args.object.page
+    sourceForm = new Observable()
+    chooseDate = require("~/dashboard/modals/salonPage/bookService/js/choose-date")
+    consultation = require("~/dashboard/modals/salonPage/bookService/js/consultation")
+    slideIndex = 0
+    console.log("Resetsetset")
+    slides = [page.getViewById("chooseDateSlide"), page.getViewById("consultationSlide"), page.getViewById("confirmationSlide"), page.getViewById("addPaymentSlide") ]
+}
 
-function backEvent(args) {//Show modal
+function formatContext(context){
+    // In here I need to request the length of the service - price and other details - addons etc
+    // I would need to cycle through the services in order - Might be best after payment to close the entire modal with context to re open it
+    console.log(context.servicesTapped)
+    console.log(context.addonsTapped)
+    // Here send a request to jj to get available times and information about the services picked
+    // Going back and multiple services
+}
+
+
+
+exports.goBack = function (args) {
+    backEvent(args)
+}
+
+function backEvent(args) { // This event is a bit funny
+    console.log("Here")
     args.cancel = true;
-    inAppNotifiationAlert.areYouSure("Are you sure you want to exit?").then(function(result){
-        console.log(result)
-        if (result) { exitModal() }
-    })
-
+    if (slideIndex == 0) {
+        inAppNotifiationAlert.areYouSure("Are you sure you want to exit?").then(function (result) {
+            if (result) { exitModal(args) }
+        })
+    } else {
+        slideTransition.goToPreviousSlide(args, slideIndex, source, slides).then(function (result) {
+            slideIndex = result
+        })
+    }
 }
 
-function exitModal(){
-    console.log("here")
-    closeCallback();
-}
+exports.goToNextSlide = (args) => { goToNextSlide(args) }
 
-exports.exitExport = function (args, string) { // What if someone accidently clicks of the modal - Might have to save it to device memory
-    
-}
-
-source.set("goToNextSlide", function(args){
-    bookAppointmentSlideTransition.goToNextSlide(args, slideIndex, source).then(function(result){
-        slideIndex = result;
-    })
-})
-
-source.set("goToPreviousSlide", function (args) {
-    bookAppointmentSlideTransition.goToPreviousSlide(args, slideIndex, serviceDropDownActive, selectedDate, selectedTime, source).then(function (result) {
-        slideIndex = result;
-        if (slideIndex == 1) {//Because the times may have refreshed and dates may have refreshed
-            selectedDate = null; // I will need to remove calalnde date selected and also remove the times (rad list)
-            selectedTime = null;
+function goToNextSlide(args){
+    switch (slideIndex) {
+        case 0:
+            slideTransition.goToNextSlide(args, slideIndex, source, slides).then(function (result) {
+                changeContinueButtontext(args, "")
+                slideIndex = result
+            })
+            break;
+        case 1:
+            slideTransition.goToNextSlide(args, slideIndex, source, slides).then(function (result) {
+                changeContinueButtontext(args, "")
+                slideIndex = result
+            })
+            break;
+        case 2:
+            slideTransition.goToNextSlide(args, slideIndex, source, slides).then(function (result) {
+                changeContinueButtontext(args, "")
+                slideIndex = result
+            })
+            break;
+        case 3:
+            //successx
+            break;
         }
-        
-    })
-})
-
-source.set("serviceTapped", function (args){
-    //firstSlide.serviceTapped(args, serviceDropDownActive)
-})
+}
 
 source.set("dropDownClicked", function (args){
     const mainView = args.object;
-    let optionContext = [];
-    optionContext = ['Option 1', 'Option 2', 'Option 3', 'Option 4'];
-    const option = {
-        // Gona need to send a http request to JJ to get client information
-        context: {
-            optionContext
-        },
-        closeCallback: (option) => {
-            // Receive data from the modal view. e.g. username & password
-
-            console.log(`${option}`)
-            args.object.text = option
-        },
-        fullscreen: false
-    };
-    mainView.showModal(dropDownlist, option);
+    let context = mainView.optionContext.split(",")
+    navigation.navigateToModal(context, mainView, 4, false).then(function (result) {
+       
+    })
 })
 
-
-
-source.set("expandSectionFifthSlide", function(args){
-    console.log(1)
-    //fifthSlide.expandSection(args, source)
-})
+function changeContinueButtontext(args, text) {
+    const page = args.object.page;
+    page.getViewById("continueButton").text = text
+}
 
 
 
 /* ----------- Choose Date ---------------------------*/
-const dateFormat = require('dateformat');
-let lastSelectedTime = null
-function initAvailableTimes (args) {
-    const page = args.object.page
-    let times = []
-    times.push(
-        {
-            time: '13:30'
-        },
-        {
-            time: '14:30'
-        },
-        {
-            time: '15:00'
-        },
-        {
-            time: '16:30'
-        },
-        {
-            time: '17:00'
-        },
-        {
-            time: '18:30'
-        },
-
-    )
-    //format photos when uploading
-    var listview = page.getViewById("bookAppointmentAvaliableTimes");
-    listview.items = times;
-}
+exports.onCalanderLoad = function (args) { setTimeout(function () { chooseDate.initialise(args)}, 250)  }
 
 source.set("onDateSelected", function (args) {
-    dateSelected(args).then(function (result){
-        selectedDate = result;
+    chooseDate.dateSelected(args).then(function (result){
+        
     })
 })
 
 source.set("onTimeSelected", function (args) {
-    timeSelected(args).then(function (result){
-        selectedTime = result;
+    const page = args.object.page
+    chooseDate.timeSelected(args).then(function (result){
+        page.getViewById("continueButton").text = "continue"
     })
 })
 
-function dateSelected (args) {
-    const page = args.object.page
+/*-----------------Consultation--------------------*/
 
-    return new Promise(resolve => {
-        const date = dateFormat(args.date, "dddd, mmmm dS, yyyy");
-        const day = dateFormat(args.date, "d")
-        const month = dateFormat(args.date, "mmmm")
-        page.getViewById("bookAppointmentAvaliableTimes").visibility = "visible";
-        page.getViewById("onTimeSelectedText").text = "Availability on the " + day + "th of " + month;
-        resolve(date)
+source.set("uploadReferenceImage", function(args){
+    consultation.uploadeReferenceImage(args)
+})
+
+source.set("uploadedImageTapped", function(args){
+    consultation.referenceimageTapped(args)
+})
+
+/*---------------------Confirmation-------------------*/
+
+source.set("openCardModal", function(args){
+    bookAppointmentSlideTransition.goToNextSlide(args, slideIndex, source).then(function (result) {
+        slideIndex = result;
     })
-}
+})
 
-function timeSelected (args) {
-    const timeLabel = args.object.getChildAt(0)
-
-    return new Promise(resolve => {
-        if (timeLabel == lastSelectedTime) { // This deselects the current time if clicked twice
-            timeLabel.color = "black"
-            lastSelectedTime = null;
-            timeLabel.id = ""
-            resolve(null)
-            return;
-        } else if (lastSelectedTime != null) { // This changes previous time to black when new time is clicked
-            lastSelectedTime.color = "black"
-            lastSelectedTime.id = ""
+function initConfirmationPage(args){
+    const page = args.object.page;
+    let paymentItems = []
+    paymentItems.push(
+        {
+            serviceName: 'Braid Installation',
+            servicePrice: "£100",
+            class: "h5"
+        },
+        {
+            serviceName: '24 inch hair',
+            servicePrice: "£30",
+            class: "h5"
+        },
+        {
+            serviceName: 'To pay now',
+            servicePrice: "£75",
+            class: "h5 font-bold"
+        },
+        {
+            serviceName: 'Total',
+            servicePrice: "£150",
+            class: "h5 font-bold"
         }
-        timeLabel.id = "currentSelectedTimeLabel" // This sets new time clicked and sets it to preivousTime
-        timeLabel.color = "purple"; // this will change
-        lastSelectedTime = timeLabel;
-        resolve(timeLabel.text)
-    })
-}
+    )
+    //context.addonsTapped.forEach(element => {
+    //    paymentItems.push({
+    //        serviceName: element.addonId,
+    //        servicePrice: element.serviceId
+    //    })
+    //});
 
+    var listview = page.getViewById("paymentList");
+    listview.items = paymentItems;
+}

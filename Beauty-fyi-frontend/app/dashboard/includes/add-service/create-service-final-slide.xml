@@ -1,0 +1,32 @@
+<ScrollView>
+    <GridLayout rows="auto" columns="">
+        <StackLayout row="0" paddingTop="35" id="addFormContainer">
+            <StackLayout paddingLeft="25" paddingRight="25"  marginBottom="25">
+                <Label text="Form" class="h3"  textWrap="true"/>
+                <Label text="Include a intake form with your service." class="h5" textWrap="true" />
+            </StackLayout>
+
+            <StackLayout marginBottom="45" paddingLeft="9"> 
+                <TextField id="serviceForm" optionContext="Add new form, test" row="3" class="textFieldInputSmall" tap="{{ dropDownClicked }}" marginBottom="10" hint="Select a form" editable="false"/>
+            </StackLayout>
+
+            <StackLayout paddingLeft="25" paddingRight="25"  marginBottom="25">
+                <Label text="Optional Question" class="h4" textWrap="true"/>
+                <Label text="If you require specific information from the customer when this service is booked, enter the details here." class="h5" textWrap="true"/>
+            </StackLayout>
+
+            <StackLayout marginBottom="45" paddingLeft="9">
+                <TextView id="serviceOptionalQuestion" row="4" borderColor="#DEDEDE" borderWidth="1" hint="Optional question" class="textFieldInputSmall"></TextView>
+            </StackLayout>
+
+            <StackLayout paddingLeft="25" paddingRight="25"  marginBottom="25">
+                <Label text="Payments" class="h4" textWrap="true"/>
+                <Label text="Choose how customers can pay for online bookings" class="h5" textWrap="true"/>
+            </StackLayout>
+            <StackLayout paddingLeft="9">
+                <TextField id="servicePaymentSetting" row="3" optionContext="Require 50% deposit,Require full payment,Do not accept online payments" class="textFieldInputSmall" tap="{{ dropDownClicked }}" marginBottom="10" hint="" text="Require 50% deposit" editable="false"/>
+            </StackLayout>
+        </StackLayout>
+        <ActivityIndicator id="addFormActivityIndicator" row="0" class="activity-indicator" busy="false"></ActivityIndicator>
+    </GridLayout>
+</ScrollView>
