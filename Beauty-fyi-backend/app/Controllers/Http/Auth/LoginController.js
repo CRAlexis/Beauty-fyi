@@ -4,7 +4,7 @@
 const User = use('App/Models/User')
 const Hash = use('Hash')
 const Database = use('Database')
-const cleanStrings = require('~/sanitize/cleanStrings').cleanStrings
+const cleanStrings = use('App/Controllers/sanitize/cleanStrings').cleanStrings
 
 class LoginController {
   showLoginForm ({ view }){

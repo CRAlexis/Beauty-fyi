@@ -1,4 +1,4 @@
-tns plugin add nativescript-dom  
+tns plugin add nativescript-dom
 ns plugin add @nstudio/nativescript-cardview
 tns plugin add nativescript-ui-calendar
 tns plugin add nativescript-ui-listview
@@ -12,3 +12,4 @@ tns plugin add nativescript-cfalert-dialog
 npm i array-sort
 npm i dateformat
 tns plugin add nativescript-windowed-modal
+tns plugin add nativescript-background-http

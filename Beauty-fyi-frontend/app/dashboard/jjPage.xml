@@ -1,7 +1,9 @@
 <Page shownModally="onShownModally" loaded="loaded">
+
     <StackLayout marginTop="100">
-        <Button class="btn btn-white" fontSize="25" text="Go To Camera" tap="{{ goToCamera }}" />
+        <Button class="btn btn-white" fontSize="25" text="Go To Camera" tap="goToCamera" />
         <Button class="btn btn-white" fontSize="25" text="Go To Video" tap="goToVideo" />
     </StackLayout>
-    
+
+
 </Page>

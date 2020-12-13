@@ -19,6 +19,8 @@ const Route = use('Route')
 Route.get('/', () => {
   return { greeting: 'Hello world in JSON' }
 })
+Route.get('test', 'Auth/RegisterController.test').as('test')
+Route.get('stripeTest', 'Payment/StripeController.test').as('stripeTest')
 Route.group(() => {
   Route.get('register', 'Auth/RegisterController.showRegisterForm')
   Route.post('register', 'Auth/RegisterController.register').as('register')

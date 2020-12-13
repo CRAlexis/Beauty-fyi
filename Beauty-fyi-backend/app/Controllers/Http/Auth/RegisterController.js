@@ -4,7 +4,7 @@ const { validateAll } = use('Validator')
 const User = use('App/Models/User')
 const Validator = use('Validator')
 const randomString = require('random-string')
-const cleanStrings = require('~/sanitize/cleanStrings').cleanStrings
+const cleanStrings = use('App/Controllers/sanitize/cleanStrings').cleanStrings
 const Mail = use('Mail')
 const Database = use('Database')
 
@@ -93,6 +93,12 @@ class RegisterController {
         }
       })*/
   }
+
+  async test ( {request  }){
+    console.dir(request )
+    //console.log(params)
+    return "hey";
+}
 
 }
 

@@ -42,6 +42,10 @@ class User extends Model {
   userAttr () {
     return this.hasMany('App/Models/UserAttr')
   }
+
+  userAttr () {
+    return this.hasMany('App/Models/UserMedia')
+  }
 }
 
 module.exports = User

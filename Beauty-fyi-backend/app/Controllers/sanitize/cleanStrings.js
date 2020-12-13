@@ -1,7 +1,7 @@
 
-class cleanStrings {
 
-  async cleanStrings( {variable, type} ){
+
+exports.cleanStrings = function(variable, type) {
     type = type.toLowerCase();
     //Sanitization Rules
     const sanitizationStringRules = {
@@ -11,6 +11,12 @@ class cleanStrings {
     const sanitizationEmailRules = {
       email: 'normalize_email'
     }
+    const sanitizationIntegerRules = {
+      age: 'to_int'
+    }
+    const sanitizationBooleanRules = {
+      isAdmin: 'to_boolean'
+    }
 
     if(type === "string"){
       return Validator.sanitize(variable, sanitizationStringRules)
@@ -18,6 +24,11 @@ class cleanStrings {
     if(type === "email"){
       return Validator.sanitize(variable, sanitizationEmailRules)
     }
+    if(type === "int"){
+      return Validator.sanitize(variable, sanitizationIntegerRules)
+    }
+    if(type === "boolean"){
+      return Validator.sanitize(variable, sanitizationBooleanRules)
+    }
   }
 
-}
