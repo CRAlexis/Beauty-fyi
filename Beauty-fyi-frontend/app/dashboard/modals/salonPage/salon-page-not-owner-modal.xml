@@ -2,7 +2,7 @@
     <ScrollView>
         <GridLayout rows="250, auto, auto, auto, auto" columns="">
             <StackLayout row="0">
-                <Image src="~/temp7.png" stretch="aspectFill" />
+                <Image src="~/images/temp7.png" stretch="aspectFill" />
                 
             </StackLayout>
             <StackLayout row="1">

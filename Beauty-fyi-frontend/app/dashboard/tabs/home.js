@@ -5,7 +5,7 @@ exports.homeLoaded = function(args){ // am not able to get page object
     const notifications = [];
     notifications.push(
         {
-            clientImage: "~/temp.png",
+            clientImage: "~/images/temp.png",
             clientName: "Tiffany",
             service: "Washing hair and style",
             time: "2 hours",

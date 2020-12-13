@@ -5,18 +5,19 @@
             <Label text="" class="line" width="97%" textWrap="true" marginBottom="10"/>
         </StackLayout>
         <StackLayout row="1"> 
-            <lv:RadListView id="serviceList" class="list-group" width="100%"> 
+            <lv:RadListView id="scehduleListView" class="list-group" width="100%"> 
                 <lv:RadListView.listViewLayout>
                     <lv:ListViewLinearLayout scrollDirection="Vertical" itemInsertAnimation="fade"/>
                 </lv:RadListView.listViewLayout>
                 <lv:RadListView.itemTemplate >
                     <Card:CardView serviceId="{{ serviceId }}" backgroundColor="{{ backgroundColor }}"  elevation="6" radius="20" margin="8">
                         <StackLayout>
-                            <GridLayout rows="auto, auto, auto, auto, auto" columns="">
-                            <Label row="0" text="{{ clientName }}" class="h4 font-bold" marginTop="-5" marginBottom="-5" color="white" textWrap="true" />
-                                <Label row="1" text="{{ serviceName }}" class="h4 font-bold" marginTop="-5" marginBottom="-5" color="white" textWrap="true" />
-                                <!--<Label row="2" text="{{ serviceLocation }}" class="h4 font-bold" marginTop="-5" marginBottom="-5" color="white" textWrap="true" />  -->   
-                                <Label row="2" text="" class="" textWrap="true" marginTop="-5" marginBottom="-5">
+                            <GridLayout rows="auto, auto, auto, auto, auto" columns="*, auto, 15">
+                             <Image rowSpan="5" col="1" src="{{ serviceImage }}" stretch="aspectFill"  width="90" height="90" stretch="aspectFill" borderRadius="60" class="btn-white-outline"/>
+                            
+                            <Label row="0" col="0" text="{{ clientName }}" class="h4 font-bold" marginTop="-5" marginBottom="-5" color="white" textWrap="true" />
+                                <Label row="1" col="0" text="{{ serviceName }}" class="h4 font-bold" marginTop="-5" marginBottom="-5" color="white" textWrap="true" /> 
+                                <Label row="2" col="0" text="" class="" textWrap="true" marginTop="-5" marginBottom="-5">
                                     <Label.formattedText>
                                       <FormattedString>
                                         <FormattedString.spans>
@@ -27,7 +28,7 @@
                                       </FormattedString>
                                     </Label.formattedText>
                                 </Label>                                          
-                                <Label row="3" text="" class="" textWrap="true" marginTop="-5" marginBottom="-5">
+                                <Label row="3" col="0" text="" class="" textWrap="true" marginTop="-5" marginBottom="-5">
                                     <Label.formattedText>
                                       <FormattedString>
                                         <FormattedString.spans>

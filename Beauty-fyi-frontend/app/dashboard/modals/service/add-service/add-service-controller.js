@@ -139,37 +139,33 @@ function setLoadingStyle(args, index){
 }
 function sendData(args){
     return new Promise((resolve, reject) =>{
-        try {
-            const httpParameters = {
-                url: "url",
-                method: 'POST',
-                headers: { "Content-Type": "application/json" },
-                content: {
-                    image: sourceForm.get("serviceImage"),
-                    serviceName: sourceForm.get("serviceName"),
-                    servicePrice: sourceForm.get("servicePrice"),
-                    serviceCategory: sourceForm.get("serviceCategory"),
-                    serviceDescription: sourceForm.get("serviceDescription"),
-                    rgbaColour: null,
-                    serviceSteps: sourceForm.get("serviceSteps"),
-                    paddingBefore: sourceForm.get("paddingBefore"),
-                    paddingAfter: sourceForm.get("paddingAfter"),
-                    serviceAddons: sourceForm.get("serviceAddons"),
-                    serviceForm: sourceForm.get("serviceForm"),
-                    optionalQuestion: sourceForm.get("serviceOptionalQuestion"),
-                    paymentType: sourceForm.get("servicePaymentSetting"),
-                }
+        const httpParameters = {
+            url: "url",
+            method: 'POST',
+            headers: { "Content-Type": "application/json" },
+            content: {
+                image: sourceForm.get("serviceImage"),
+                serviceName: sourceForm.get("serviceName"),
+                servicePrice: sourceForm.get("servicePrice"),
+                serviceCategory: sourceForm.get("serviceCategory"),
+                serviceDescription: sourceForm.get("serviceDescription"),
+                rgbaColour: sourceForm.get("serviceColor"),
+                serviceSteps: sourceForm.get("serviceSteps"),
+                paddingBefore: sourceForm.get("paddingBefore"),
+                paddingAfter: sourceForm.get("paddingAfter"),
+                serviceAddons: sourceForm.get("serviceAddons"),
+                serviceForm: sourceForm.get("serviceForm"),
+                optionalQuestion: sourceForm.get("serviceOptionalQuestion"),
+                paymentType: sourceForm.get("servicePaymentSetting"),
             }
-        } catch (error) {
-            reject()
         }
         resolve()
-        //sendHTTP(httpParameters).then(function (result) {
-            //resolve("Done")
-        //}, error => {   
-        //    reject(error)
-            // probably try again later
-        //})
+        sendHTTP(httpParameters).then(function (result) {
+      //resolve("Done")
+        }, error => {   
+            reject(error)
+      // probably try again later
+        })
     })
     
 }

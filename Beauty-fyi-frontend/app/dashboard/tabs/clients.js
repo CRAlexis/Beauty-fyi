@@ -5,12 +5,12 @@ exports.clientPageLoaded = (args) => {
     const page = args.object.page
     clients.push(
         {
-            clientImage: "~/temp.png",
+            clientImage: "~/images/temp.png",
             clientName: "Chiedza Kamabarami",
             id: "1"
         },
         {
-            clientImage: "~/temp1.png",
+            clientImage: "~/images/temp1.png",
             clientName: "Charles Alexis",
             id: "2"
         },
@@ -31,7 +31,7 @@ function addMoreItemsFromSource(radListView, chunkSize) {
     //let clientHolder = clients;
     //const newItems = []
     //newItems.push({
-    //    clientImage: "~/temp2.png",
+    //    clientImage: "~/images/temp2.png",
     //    clientName: "NEw Character",
     //    id: "4"
     //})

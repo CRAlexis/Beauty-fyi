@@ -1,7 +1,7 @@
 <Page navigatingTo="onNavigatedTo" loaded="onPageLoaded" actionBarHidden="true" xmlns:tabs="dashboard/tabs" xmlns:Card="nativescript-cardview">
     <GridLayout rows="70, *, auto" xmlns:topBar="dashboard/includes/topBar">
         <StackLayout row="0">
-            <topBar:dashboard-header/>
+            <topBar:dashboard-header id="dashboardHeader" header="Beauty-fyi"/>
         </StackLayout>
         <StackLayout row="1">
             <tabs:home id="homeTab" opacity="1"/>

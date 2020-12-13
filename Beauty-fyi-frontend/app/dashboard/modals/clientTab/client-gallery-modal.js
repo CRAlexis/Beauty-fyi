@@ -25,19 +25,19 @@ exports.onPageLoaded = function (args){
 function loadImages(page) { // am not able to get page object
     images.push(
         {
-            image: "~/temp.png",
+            image: "~/images/temp.png",
             height: source.get("height") + "px",
             index: 1,
             date: "19th November 2020"
         },
         {
-            image: "~/temp5.png",
+            image: "~/images/temp4.png",
             height: source.get("height") + "px",
             index: 2,
             date: "20th November 2020"
         },
         {
-            image: "~/temp1.png",
+            image: "~/images/temp1.png",
             height: source.get("height") + "px",
             index: 3,
             date: "21th November 2020"

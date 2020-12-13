@@ -55,19 +55,19 @@ function loadImages(page) {
     let images = []
     images.push(
         {
-            image: "~/temp.png",
+            image: "~/images/temp.png",
             height: source.get("height") + "px",
             index: 1,
             date: "19th November 2020"
         },
         {
-            image: "~/temp5.png",
+            image: "~/images/temp5.png",
             height: source.get("height") + "px",
             index: 2,
             date: "20th November 2020"
         },
         {
-            image: "~/temp6.png",
+            image: "~/images/temp6.png",
             height: source.get("height") + "px",
             index: 3,
             date: "21th November 2020"
