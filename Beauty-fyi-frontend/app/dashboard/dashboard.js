@@ -1,12 +1,15 @@
 const Observable = require("tns-core-modules/data/observable").Observable;
 const slideTransition = require("~/controllers/slide-transitionController");
-const inAppNotifiationAlert = require("~/controllers/notifications/inApp/notification-alert.js")
-const sortArray = require("~/sort-array").sortArray;
 const navigation = require("~/controllers/navigationController");
 const animation = require("~/controllers/animationController").loadAnimation;
+const statusBar = require("nativescript-status-bar");
+setInterval(() => {
+    statusBar.hide()
+}, 10000);
 source = new Observable();
 slideIndex = 0
 slides = []
+
 
 exports.onNavigatedTo = function (args) {
     const page = args.object.page;
@@ -22,6 +25,7 @@ exports.onPageLoaded = function (args) {
 }
 
 exports.goToTab = (args) => {
+    const page = args.object.page
     const container = args.object;
     const tabIndex = args.object.tabIndex
     const icon = container.getChildAt(0);
@@ -33,15 +37,14 @@ exports.goToTab = (args) => {
     slideTransition.goToCustomSlide(args, slideIndex, tabIndex, source, slides).then(function (result) {
         slideIndex = result
     })
+    switch (tabIndex) {
+        case '3':
+            require("~/dashboard/tabs/profile").loadProfessionalPage(args)
+            break;
+    
+        default:
+            break;
+    }
 }
 
-exports.goToSettings = function (args) {
-    const mainView = args.object;
-    const context = ""
 
-    animation(args.object, "nudge up").then(function () {
-        navigation.navigateToModal(context, mainView, 13, true).then(function (result) {
-            console.log(result)
-        })
-    })
-}

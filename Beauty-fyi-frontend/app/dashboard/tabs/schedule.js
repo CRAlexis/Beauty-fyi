@@ -6,6 +6,7 @@ exports.schedulePageLoaded = (args) =>{
     scehduleListView.push(
         {
             serviceName: "Wash and Go",
+            serviceImage: '~/images/temp.png',
             clientName: 'Client Name',
             serviceLocation: "At the salon",
             serviceTime: "9:50 AM",
@@ -16,6 +17,7 @@ exports.schedulePageLoaded = (args) =>{
         },
         {
             serviceName: "Braid Installation",
+            serviceImage: '~/images/temp1.png',
             clientName: 'Client Name',
             serviceLocation: "At the salon",
             serviceTime: "11:50 AM",
@@ -26,6 +28,7 @@ exports.schedulePageLoaded = (args) =>{
         },
         {
             serviceName: "Lunch Break",
+            serviceImage: '~/images/temp2.png',
             clientName: 'Client Name',
             serviceLocation: "At the salon",
             serviceTime: "13:20 PM",
@@ -36,6 +39,7 @@ exports.schedulePageLoaded = (args) =>{
         },
         {
             serviceName: "Dreadlocks Retwist",
+            serviceImage: '~/images/temp3.png',
             clientName: 'Client Name',
             serviceLocation: "137 St Johns Road, Wembley, London, HA9 7JP",
             serviceTime: "18:50 PM",
@@ -46,7 +50,7 @@ exports.schedulePageLoaded = (args) =>{
         },
     )
 
-    var listview = page.getViewById("serviceList");
+    var listview = page.getViewById("scehduleListView");
     listview.items = scehduleListView;
 }
 

@@ -2,7 +2,7 @@
     <StackLayout width="97%">
         <Card:CardView  class="cardStyle" elevation="10" radius="10" style="margin-bottom: 10px">
             <StackLayout style="padding-left: 20; padding-right: 20; padding-top: 30">
-                <Image src="~/temp.png" horizontalAlignment="center" style="height: 100; width: 100; border-radius: 50" stretch="fill" />
+                <Image src="~/images/temp.png" horizontalAlignment="center" style="height: 100; width: 100; border-radius: 50" stretch="fill" />
                 <Label text="Charles Alexis" class="h4 font-bold" textAlignment="center" textWrap="true" />
                 <StackLayout orientation="horizontal">
                     <Button class="btn" text="Cancel booking"></Button>
