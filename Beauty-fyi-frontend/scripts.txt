@@ -13,3 +13,4 @@ npm i array-sort
 npm i dateformat
 tns plugin add nativescript-windowed-modal
 tns plugin add nativescript-background-http
+nativescript-telerik-ui-pro/calendar

@@ -1,7 +1,7 @@
 const Observable = require("tns-core-modules/data/observable").Observable;
 const appSettings = require("tns-core-modules/application-settings");
-const sendHTTP = require("~/http/sendHTTP").sendHTTP;
-const navigation = require("~/navigation/navigation")
+const sendHTTP = require("~/controllers/HTTPControllers/sendHTTP").sendHTTP;
+const navigation = require("~/controllers/navigationController")
 const source = new Observable();
 
 source.set("email", "")

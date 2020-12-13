@@ -1,0 +1,7 @@
+<Card:CardView class="cardStyle" elevation="10" radius="0" style="margin-bottom: 25px" xmlns:Card="@nstudio/nativescript-cardview">
+    <GridLayout row="auto" columns="30, 100, *, 100, 30" class="header-gradient" color="white">
+        <Label col="1" row="0" texta="&#xf002;" class="fas" textWrap="true" style="font-size: 25px; padding-top: 45px" textAlignment="left"/>
+        <Label col="2" row="0" class="font" text="Beauty-fyi" textWrap="true" style="font-size: 25px; padding-top: 35px" textAlignment="center" />
+        <Label col="3" row="0" tap="goToSettings" text="&#xf013;" class="fas" style="font-size: 25px; padding-top: 45px" textAlignment="right"/>
+    </GridLayout>
+</Card:CardView>

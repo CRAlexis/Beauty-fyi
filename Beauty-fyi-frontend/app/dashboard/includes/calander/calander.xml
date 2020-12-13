@@ -1,0 +1,70 @@
+<StackLayout xmlns:calendar="nativescript-ui-calendar">
+    
+
+<calendar:RadCalendar
+    id="scheduleTabCalander" 
+    height="350"
+    eventSource="{{ scheduleTabCalanderEvents }}" 
+    eventsViewMode="Inline" 
+    selectionMode="Single"
+    viewMode="Week"
+    dateSelected="{{onDateSelected}}"
+    weekViewStyle="weekViewStyle"
+    viewModeChanged="onViewModeChanged">
+    <!-- Calander inline events will need some styling-->
+    <calendar:RadCalendar.weekViewStyle>
+        <calendar:CalendarWeekViewStyle backgroundColor="white" showTitle="true" showWeekNumbers="false" showDayNames="true" selectionShape="Round" selectionShapeSize="0" selectionShapeColor="blue">
+            <calendar:CalendarWeekViewStyle.todayCellStyle> <!-- -->
+                <calendar:DayCellStyle cellBackgroundColor="white" cellBorderWidth="0" cellBorderColor="white" cellTextColor="#ededed" cellTextFontName="Times New Roman" cellTextFontStyle="Bold" cellTextSize="17" cellAlignment="Center" />
+            </calendar:CalendarWeekViewStyle.todayCellStyle>
+
+    <calendar:CalendarWeekViewStyle.dayCellStyle>
+        <calendar:DayCellStyle showEventsText="false"  eventFontName="Times New Roman" eventFontStyle="BoldItalic" eventTextSize="32"
+                               cellBackgroundColor="white" cellBorderWidth="0" cellBorderColor="white" cellTextColor="black" cellTextFontName="Times New Roman" cellTextFontStyle="Bold" cellTextSize="17" cellAlignment="Center" />
+    </calendar:CalendarWeekViewStyle.dayCellStyle>
+
+    <calendar:CalendarWeekViewStyle.anotherMonthCellStyle>
+        <calendar:DayCellStyle showEventsText="false"  eventFontName="Times New Roman" eventFontStyle="BoldItalic" eventTextSize="38"
+                                cellPaddingHorizontal="10" cellPaddingVertical="5" cellBackgroundColor="#9ebd9e"
+                                cellBorderWidth="0" cellBorderColor="#f1e8ca" cellTextColor="lightgray" cellTextFontName="Times New Roman" cellTextFontStyle="Bold" cellTextSize="17" cellAlignment="Center"/>
+    </calendar:CalendarWeekViewStyle.anotherMonthCellStyle>
+
+    <calendar:CalendarWeekViewStyle.disabledCellStyle>
+        <calendar:DayCellStyle showEventsText="false"  eventFontName="Times New Roman" eventFontStyle="BoldItalic" eventTextSize="34"
+                               cellBackgroundColor="gray" cellBorderWidth="0" cellBorderColor="white" cellTextColor="black" cellTextFontName="Times New Roman" cellTextFontStyle="Bold" cellTextSize="17" cellAlignment="Center"/>
+    </calendar:CalendarWeekViewStyle.disabledCellStyle>
+
+    <calendar:CalendarWeekViewStyle.weekendCellStyle>
+        <calendar:DayCellStyle showEventsText="false"  eventFontName="Times New Roman" eventFontStyle="BoldItalic" eventTextSize="34"
+                               cellBackgroundColor="white" cellBorderWidth="0" cellBorderColor="white" cellTextColor="black" cellTextFontName="Times New Roman" cellTextFontStyle="Bold" cellTextSize="17" cellAlignment="Center" />
+    </calendar:CalendarWeekViewStyle.weekendCellStyle>
+
+    <calendar:CalendarWeekViewStyle.selectedDayCellStyle>
+        <calendar:DayCellStyle showEventsText="false"  eventFontName="Times New Roman" eventFontStyle="BoldItalic" eventTextSize="34"
+                               cellBackgroundColor="white" cellBorderWidth="0.1" cellBorderColor="white" cellTextColor="#9900ff" cellTextFontName="Times New Roman" cellTextFontStyle="Bold" cellTextSize="17" cellAlignment="Center" />
+    </calendar:CalendarWeekViewStyle.selectedDayCellStyle>
+
+    <calendar:CalendarWeekViewStyle.weekNumberCellStyle>
+        <calendar:CellStyle cellBackgroundColor="white" cellBorderWidth="0" cellBorderColor="white" cellTextColor="black" cellTextFontName="Times New Roman" cellTextFontStyle="Bold" cellTextSize="8" />
+    </calendar:CalendarWeekViewStyle.weekNumberCellStyle>
+
+    <calendar:CalendarWeekViewStyle.dayNameCellStyle>
+        <calendar:CellStyle  cellBackgroundColor="white" cellBorderWidth="0" cellBorderColor="white" cellTextColor="gray" cellTextFontName="Times New Roman" cellTextFontStyle="Bold" cellTextSize="15" />
+    </calendar:CalendarWeekViewStyle.dayNameCellStyle>
+
+    <calendar:CalendarWeekViewStyle.titleCellStyle>
+        <calendar:CellStyle  cellBackgroundColor="white" cellBorderWidth="0" cellBorderColor="white" cellTextColor="black" cellTextFontName="Times New Roman" cellTextFontStyle="Bold" cellTextSize="18" />
+    </calendar:CalendarWeekViewStyle.titleCellStyle>
+
+    <!-- >> calendar-inlineevents-styling -->
+        <calendar:CalendarWeekViewStyle.inlineEventCellStyle>
+            <calendar:InlineEventCellStyle cellBackgroundColor="#ededed" eventTextColor="black" eventFontName="" eventFontStyle="BoldItalic" eventTextSize="16"
+                                    timeTextColor="black" timeFontName="Courier" timeFontStyle="Regular" timeTextSize="14"/>
+        </calendar:CalendarWeekViewStyle.inlineEventCellStyle>
+    <!-- << calendar-inlineevents-styling -->
+
+    </calendar:CalendarWeekViewStyle>
+    </calendar:RadCalendar.weekViewStyle>
+
+</calendar:RadCalendar>
+</StackLayout>

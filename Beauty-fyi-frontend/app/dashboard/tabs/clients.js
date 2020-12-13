@@ -1,9 +1,8 @@
-const clientProfileModal = "~/dashboard/modals/clientTab/client-profile-modal";
-const filterClientListModal = "~/dashboard/modals/clientTab/filter-client-list-modal";
+const SocialShare = require("nativescript-social-share"); 
+const navigation = require("~/controllers/navigationController")
 var clients = [];
-exports.loadClients = async function (page) { // am not able to get page object
-    page.bindingContext = source;
-    
+exports.clientPageLoaded = (args) => {
+    const page = args.object.page
     clients.push(
         {
             clientImage: "~/temp.png",
@@ -22,21 +21,10 @@ exports.loadClients = async function (page) { // am not able to get page object
 }
 
 source.set("toggleFilter", async function (args){
-    const page = args.object.page;
-    var listview = page.getViewById("clientList");
-    const mainView = args.object;
-    const option = {
-        // Gona need to send a http request to JJ to get client information
-        context: { listview: listview,
-                   clients: clients,            
-        },
-        closeCallback: () => {
-            // Receive data from the modal view. e.g. username & password
-            //alert(`Username: ${username} : Password: ${password}`);
-        },
-        fullscreen: false
-    };
-    mainView.showModal(filterClientListModal, option);
+    const mainView = args.object
+    navigation.navigateToModal(null, mainView, 6, false).then(function (result) {
+        
+    })
 })
 
 function addMoreItemsFromSource(radListView, chunkSize) {
@@ -76,18 +64,14 @@ source.set("onLoadMoreItemsRequested", function (args){
     }
 })
 
-
-
 source.set("viewClientProfile", function (args){
     const mainView = args.object;
-    const option = {
-        // Gona need to send a http request to JJ to get client information
-        context: {  },
-        closeCallback: () => {
-            // Receive data from the modal view. e.g. username & password
-            //alert(`Username: ${username} : Password: ${password}`);
-        },
-        fullscreen: true
-    };
-    mainView.showModal(clientProfileModal, option);
+    const context = ""
+    navigation.navigateToModal(context, mainView, 7, true).then(function (result) {
+        console.log(result)
+    })
 });
+
+exports.inviteClient = (args) => {
+    SocialShare.shareUrl("https://www.nativescript.org/", "");
+}

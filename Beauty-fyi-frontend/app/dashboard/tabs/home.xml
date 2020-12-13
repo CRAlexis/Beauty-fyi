@@ -1,7 +1,7 @@
-<ScrollView height="100%" xmlns:Card="@nstudio/nativescript-cardview" xmlns:lv="nativescript-ui-listview" xmlns:topBar="dashboard/includes/topBar">
-    <GridLayout rows="70, *, auto, auto">
+<ScrollView height="100%" xmlns:Card="@nstudio/nativescript-cardview" xmlns:lv="nativescript-ui-listview" xmlns:topBar="dashboard/includes/topBar" loaded="homeLoaded">
+    <GridLayout rows="auto, *, auto, auto">
         <StackLayout row="0">
-            <topBar:main-top-bar/>
+            
         </StackLayout>
         <Card:CardView row="1" class="cardStyle" margin="5" elevation="10" radius="10" width="97%" style="padding-bottom: 25px">
             <StackLayout margin="30">

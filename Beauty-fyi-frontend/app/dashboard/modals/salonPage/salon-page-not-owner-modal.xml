@@ -1,6 +1,6 @@
-<Page shownModally="onShownModally" loaded="loaded" xmlns:Card="@nstudio/nativescript-cardview">
+<Page shownModally="onShownModally" loaded="loaded" xmlns:Card="@nstudio/nativescript-cardview" xmlns:CheckBox="@nstudio/nativescript-checkbox">
     <ScrollView>
-        <GridLayout rows="300, auto, auto, auto, auto" columns="">
+        <GridLayout rows="250, auto, auto, auto, auto" columns="">
             <StackLayout row="0">
                 <Image src="~/temp7.png" stretch="aspectFill" />
                 
@@ -37,7 +37,7 @@
                             <lv:ListViewLinearLayout scrollDirection="Vertical" itemInsertAnimation="fade"/>
                         </lv:RadListView.listViewLayout>
                         <lv:RadListView.itemTemplate style="background-color: transparent">
-                            <GridLayout rows="30, 40" columns="*, auto" marginBottom="8">
+                            <GridLayout rows="30, 40, auto" columns="*, auto" marginBottom="8">
                                 <Label row="0" col="0" class="h4" text="{{ serviceName }}" textWrap="true" marginTop="-5" marginBottom="-5"/>
                                 <StackLayout row="1" col="0" orientation="horizontal">
                                     <Label text="&#xf05a;" class="fas" fontSize="20" textWrap="true" marginTop="-5" marginBottom="-5" />
@@ -48,13 +48,20 @@
                                     <Label text="{{ servicePrice}}" maginTop="5" class="h4" textWrap="true" />
                                     <Label text="&#xf055;" class="fas" fontSize="24" textWrap="true" />     
                                     <Label visibility="collapsed" text="&#xf058;" class="fas" fontSize="24" textWrap="true" />                      
-                                </StackLayout>                                 
+                                </StackLayout>      
+                                <StackLayout row="2" colSpan="2" backgroundColor="#ededed" visibility="collapsed">
+                                    <CheckBox:CheckBox tap="addonTapped" serviceId="{{ serviceId }}" addonId="{{ addonId[0] }}" text="{{ addonText[0] }}" fontSize="14" color="black" visibility="{{ addonVisibility[0] }}" checked="false" margin="10"/>
+                                    <CheckBox:CheckBox tap="addonTapped" serviceId="{{ serviceId }}" addonId="{{ addonId[1] }}"  text="{{ addonText[1] }}" fontSize="14" color="black" visibility="{{ addonVisibility[1] }}" checked="false" margin="10"/>
+                                    <CheckBox:CheckBox tap="addonTapped" serviceId="{{ serviceId }}" addonId="{{ addonId[2] }}" text="{{ addonText[2] }}" fontSize="14" color="black" visibility="{{ addonVisibility[2] }}" checked="false" margin="10"/>
+                                    <CheckBox:CheckBox tap="addonTapped" serviceId="{{ serviceId }}" addonId="{{ addonId[3] }}"  text="{{ addonText[3] }}" fontSize="14" color="black" visibility="{{ addonVisibility[3] }}" checked="false" margin="10"/>
+                                    <CheckBox:CheckBox tap="addonTapped" serviceId="{{ serviceId }}" addonId="{{ addonId[4] }}" text="{{ addonText[4] }}" fontSize="14" color="black" visibility="{{ addonVisibility[4] }}" checked="false" margin="10"/>
+                                </StackLayout>                           
                             </GridLayout>
                         </lv:RadListView.itemTemplate>
                     </lv:RadListView>
             </StackLayout>
             <StackLayout row="4">
-                <Button text="Check Availability" tap="checkAvailibilityOnService" class="btn btn-white"/>
+                <Button id="checkAvailabilityButton" opacity="0" visibility="collapsed" text="Check Availability" tap="checkAvailibilityOnService" class="btn btn-white"/>
                 
             </StackLayout>
         </GridLayout>

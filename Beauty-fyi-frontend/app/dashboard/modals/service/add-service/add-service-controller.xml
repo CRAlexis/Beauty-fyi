@@ -1,0 +1,20 @@
+<Page shownModally="onShownModally" loaded="pageLoaded" xmlns:Card="@nstudio/nativescript-cardview" xmlns:CheckBox="@nstudio/nativescript-checkbox">
+    <GridLayout rows="auto, *, auto" columns="" xmlns:topBar="dashboard/includes/topBar" xmlns:includes="dashboard/includes/add-service">
+        <topBar:menu-header row="0" header="Add a service" tap="goBack"/><!--{{title}}-->
+        <StackLayout row="1">
+            
+                <includes:select-a-photo id="selectAPhotoSlide" paddingTop="35"/>
+                <includes:service-name id="serviceNameSlide" paddingTop="35" opacity="0" visibility="collapsed"/>
+                <includes:service-steps id="serviceStepsSlide" opacity="0" visibility="collapsed"/>
+                <includes:padding-time id="paddingTimeSlide" paddingTop="35" opacity="0" visibility="collapsed"/>
+                <includes:addons id="addonsSlide" paddingTop="35" opacity="0" visibility="collapsed"/>
+                <includes:create-service-final-slide id="createServiceFinalSlide" opacity="0" visibility="collapsed"/>
+                <includes:add-form id="addForm" opacity="0" visibility="collapsed"/>
+                <includes:add-service-success id="addServiceSuccess" opacity="0" visibility="collapsed"/>
+          
+        </StackLayout>
+        <StackLayout row="2">
+            <Button id="continueButton" text="" class="btn btn-white" tap="goToNextSlide" />  
+        </StackLayout>
+    </GridLayout>
+</Page>

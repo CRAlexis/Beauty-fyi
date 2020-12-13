@@ -1,0 +1,49 @@
+<StackLayout height="100%" xmlns:Card="@nstudio/nativescript-cardview" xmlns:lv="nativescript-ui-listview" xmlns:topBar="dashboard/includes/topBar" loaded="schedulePageLoaded">
+    <GridLayout rows="auto, *">
+        <StackLayout row="0" xmlns:includes="dashboard/includes/calander">
+            <includes:calander/>
+            <Label text="" class="line" width="97%" textWrap="true" marginBottom="10"/>
+        </StackLayout>
+        <StackLayout row="1"> 
+            <lv:RadListView id="serviceList" class="list-group" width="100%"> 
+                <lv:RadListView.listViewLayout>
+                    <lv:ListViewLinearLayout scrollDirection="Vertical" itemInsertAnimation="fade"/>
+                </lv:RadListView.listViewLayout>
+                <lv:RadListView.itemTemplate >
+                    <Card:CardView serviceId="{{ serviceId }}" backgroundColor="{{ backgroundColor }}"  elevation="6" radius="20" margin="8">
+                        <StackLayout>
+                            <GridLayout rows="auto, auto, auto, auto, auto" columns="">
+                            <Label row="0" text="{{ clientName }}" class="h4 font-bold" marginTop="-5" marginBottom="-5" color="white" textWrap="true" />
+                                <Label row="1" text="{{ serviceName }}" class="h4 font-bold" marginTop="-5" marginBottom="-5" color="white" textWrap="true" />
+                                <!--<Label row="2" text="{{ serviceLocation }}" class="h4 font-bold" marginTop="-5" marginBottom="-5" color="white" textWrap="true" />  -->   
+                                <Label row="2" text="" class="" textWrap="true" marginTop="-5" marginBottom="-5">
+                                    <Label.formattedText>
+                                      <FormattedString>
+                                        <FormattedString.spans>
+                                          <Span text="{{ serviceLocation }}" class="h4 font-bold" color="white" />
+                                          <Span text=" - " color="white"/>
+                                          <Span text="{{ servicePrice }}" class="h5 font-bold"  color="white" />
+                                        </FormattedString.spans>
+                                      </FormattedString>
+                                    </Label.formattedText>
+                                </Label>                                          
+                                <Label row="3" text="" class="" textWrap="true" marginTop="-5" marginBottom="-5">
+                                    <Label.formattedText>
+                                      <FormattedString>
+                                        <FormattedString.spans>
+                                          <Span text="{{ serviceTime }}" class="h4 font-bold" color="white" />
+                                          <Span text=" - " color="white"/>
+                                          <Span text="{{ serviceDuration}}" class="h5 font-bold"  color="white" />
+                                        </FormattedString.spans>
+                                      </FormattedString>
+                                    </Label.formattedText>
+                                </Label>                           
+                            </GridLayout>
+                        </StackLayout>
+                    </Card:CardView>
+                </lv:RadListView.itemTemplate>
+            </lv:RadListView>
+        </StackLayout>
+    </GridLayout>
+</StackLayout>
+

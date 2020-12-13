@@ -1,0 +1,7 @@
+<StackLayout xmlns:lv="nativescript-ui-listview" >
+    <GridLayout rows="*, auto, auto">
+        <StackLayout row="0">
+                <Label text="hey" fontSize="30" tap="{{ goToProfile }}" textWrap="true" />
+        </StackLayout>
+    </GridLayout>
+</StackLayout>

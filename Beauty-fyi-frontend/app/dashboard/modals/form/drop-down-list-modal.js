@@ -6,8 +6,9 @@ exports.onShownModally = function (args) {
     const context = args.context;
     closeCallback = args.closeCallback;
     const page = args.object;
-    page.bindingContext = observableModule.fromObject(context);
-    loadOptionList(page, page.bindingContext.optionContext)
+    page.bindingContext = context;
+    console.log(context)
+    loadOptionList(page, context)
 }
 
 function loadOptionList(page, context){

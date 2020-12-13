@@ -1,7 +1,7 @@
 const appSettings = require("tns-core-modules/application-settings");
 const Observable = require("tns-core-modules/data/observable").Observable;
-const navigation = require("~/navigation/navigation")
-const sendHTTP = require("~/http/sendHTTP").sendHTTP;
+const navigation = require("~/controllers/navigationController")
+const sendHTTP = require("~/controllers/HTTPControllers/sendHTTP").sendHTTP;
 const randomString = require('random-string');
 const source = new Observable()
 exports.onNavigatingTo = function onNavigatingTo(args) {

@@ -1,6 +1,6 @@
 const Observable = require("tns-core-modules/data/observable").Observable;
 const clientGalleryModal = "~/dashboard/modals/clientTab/client-gallery-modal";
-const editClientInformationModal = "~/dashboard/modals/clientTab/edit-client-information-modal";
+const navigation = require("~/controllers/navigationController")
 
 const source = new Observable();
 source.set("selectedIndex", 0)
@@ -100,52 +100,35 @@ function loadAppointments(page) { // am not able to get page object
     listview.items = services;
     
 }
-source.set("navigateBack", function (args) {
+exports.goBack = (args) => {
     closeCallback();
-});
+}
 
 
 source.set("openClientGallery", function (args){
-    
-
     const mainView = args.object;
-    const option = {
-        // Gona need to send a http request to JJ to get client information
-        context: {
-            test: "test",
-        },
-        closeCallback: () => {
-            // Receive data from the modal view. e.g. username & password
-            //alert(`Username: ${username} : Password: ${password}`);
-        },
-        fullscreen: true
-    };
-    mainView.showModal(clientGalleryModal, option);
+    const context =  {
+            
+        }
+    navigation.navigateToModal(context, mainView, 2, true).then(function (result) {
+        console.log(result)
+    })
 })
 
 source.set("bookClient", function (args) {
-    const bookingModal = "~/dashboard/modals/appointments/book-appointment-modal"; // Need to somehow kill the entire page
-
-    const mainView = args.object;
-    const option = {
-        // Gona need to send a http request to JJ to get client information
-        context: {
-            test: "test",
-        },
-        closeCallback: () => {
-            console.log(source)
-            // Receive data from the modal view. e.g. username & password
-            //alert(`Username: ${username} : Password: ${password}`);
-        },
-        fullscreen: true
-    };
-    mainView.showModal("/dashboard/modals/appointments/book-appointment-modal", option);
+    const context =  {
+        test: "test",
+    }
+    navigation.navigateToModal(context, mainView, 3, true).then(function (result) {
+        console.log(result)
+    })
 })
 
 source.set("editClientInformation", function (args) {
     const id =  args.object.id
     var optionContext = [];
     
+    //This will need to go into the component itself
     switch (id) {
         case "hairType0":
             optionContext = ['Locked', 'Kinky', 'Coily', 'Curly', 'Wavy', 'Straight'];
@@ -191,21 +174,13 @@ source.set("editClientInformation", function (args) {
     }
 
     const mainView = args.object;
-    const option = {
-        // Gona need to send a http request to JJ to get client information
-        context: {
+    const context = {
             id : id,
             optionContext
-        },
-        closeCallback: (option, id) => {
-            // Receive data from the modal view. e.g. username & password
-            
-            console.log(`${option}`)
-            console.log(id)
-        },
-        fullscreen: false
-    };
-    mainView.showModal(editClientInformationModal, option);
+        }
+    navigation.navigateToModal(context, mainView, 4, true).then(function (result) {
+        console.log(result)
+    })
 })
 
 

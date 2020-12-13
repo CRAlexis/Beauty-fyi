@@ -1,5 +1,5 @@
 const Observable = require("tns-core-modules/data/observable").Observable;
-const fullGalleryView = "~/dashboard/modals/clientTab/full-gallery-view";
+const navigation = require("~/controllers/navigationController")
 const source = new Observable();
 
 var images = [];
@@ -52,26 +52,22 @@ source.set("imageTapped", function(args){
     const mainView = args.object;
     const imageUrl = args.object.src
     const imageIndex = args.object.id;
-    console.log("imageIndex: " + imageIndex);
-    const option = {
+
         // Gona need to send a http request to JJ to get client information
-        context: {
+    const context = {
             imageUrls: images,
             imageIndex: imageIndex,
             imageUrl: imageUrl
-        },
-        closeCallback: () => {
-            // Receive data from the modal view. e.g. username & password
-            //alert(`Username: ${username} : Password: ${password}`);
-        },
-        fullscreen: true
-    };
-    mainView.showModal(fullGalleryView, option);
+        }
+
+    navigation.navigateToModal(context, mainView, 2, true).then(function (result) {
+        console.log(result)
+    })
 })
 
-source.set("navigateBack", function (args) {
+exports.goBack = (args) => {
     closeCallback();
-});
+}
 
 source.set("longPressImage", function (args){
     args.object.borderBottomWidth = index

@@ -1,0 +1,30 @@
+<ScrollView>
+<StackLayout paddingTop="35">
+    <StackLayout paddingLeft="25" paddingRight="25" marginBottom="25">
+        <Label row="0" text="Service steps" class="h3"  textWrap="true"/>
+        <Label row="0" text="Set the steps that go into you service, so we can help you create content." class="h5" textWrap="true" />
+    </StackLayout>
+    
+    <StackLayout xmlns:lv="nativescript-ui-listview" xmlns:CheckBox="@nstudio/nativescript-checkbox">
+        <lv:RadListView id="stepsListView" class="list-group" style="background-color: transparent"> 
+        <lv:RadListView.listViewLayout>
+            <lv:ListViewGridLayout  spanCount="1" />
+        </lv:RadListView.listViewLayout>
+        <lv:RadListView.itemTemplate >    
+            <StackLayout marginBottom="25">
+                <Label text="{{'Step ' + index}}" class="h4" paddingLeft="18"  textWrap="true" />
+                <TextField hint="Step name" text="{{ stepName }}" class="textFieldInputSmall" />
+                <TextField hint="Step duration (minutes)" class="textFieldInputSmall" keyboardType="number" text="{{ stepDuration }}" />
+                <CheckBox:CheckBox class="textFieldInputSmall" marginLeft="10" text="Capture this step" color="gray" checked="{{checked}}"/>
+                <Label index="{{index}}" id="{{id}}" class="h5" paddingLeft="18" paddingTop="5" text="Remove step" tap="removeStep" textWrap="true" />   
+                <Label text="" class="line" width="90%" textWrap="true" />
+                         
+            </StackLayout>
+        </lv:RadListView.itemTemplate>
+    </lv:RadListView>
+    </StackLayout>
+    <StackLayout>
+        <Label id="" class="h5" paddingTop="10" text="Add step" textAlignment="center" tap="addStep" textWrap="true" />    
+    </StackLayout>
+</StackLayout>
+</ScrollView>

@@ -1,0 +1,12 @@
+<StackLayout xmlns:Card="@nstudio/nativescript-cardview" loaded="load">
+<Card:CardView row="0" class="cardStyle" elevation="10" marginBottom="10" radius="0" >
+    <GridLayout columns="40, *," paddingLeft="20" paddingBottom="10">
+        <StackLayout col="0" orientation="horizontal"  paddingTop="15">
+            <Label text="&#xf104;"  class="fas" fontSize="19"  textWrap="true" />
+        </StackLayout>
+        <StackLayout col="1">
+            <Label id="title" text="" class="h4 font-bold" color="black"  paddingTop="15" /> 
+        </StackLayout>
+    </GridLayout>
+</Card:CardView>
+</StackLayout>
