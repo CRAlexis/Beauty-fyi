@@ -7,18 +7,18 @@
         </StackLayout>
         <StackLayout row="2" paddingLeft="9" paddingRight="9">
             <Label text="Name" color="gray" textWrap="true" paddingLeft="20" fontSize="14"/>
-            <TextField maxLength="60" id="" hint="" class="textFieldInputSmall" paddingBottom="10" blur="" returnPress=""/>
-            <Label text="Email" color="gray" textWrap="true" paddingLeft="20" fontSize="14"/>
+            <TextField id="nameTextField" maxLength="60" id="" hint="" class="textFieldInputSmall" paddingBottom="10" blur="" returnPress=""/>
+            <Label editable="false" text="Email" color="gray" textWrap="true" paddingLeft="20" fontSize="14"/>
             <TextField maxLength="60" id="" keyboardType="email" hint="" class="textFieldInputSmall" paddingBottom="10" blur="" returnPress=""/>
             <Label text="Password" color="gray" textWrap="true" paddingLeft="20" fontSize="14"/>
             <TextField maxLength="60" text="hgifdojgifdojgdfg" id="" secure="true" hint="" class="textFieldInputSmall" paddingBottom="10" blur="" returnPress="" editable="false"/>
-            <Label text="Phone number" color="gray" textWrap="true" paddingLeft="20" fontSize="14"/>
-            <TextField maxLength="60" id="" keyboardType="number" hint="" class="textFieldInputSmall" paddingBottom="10" blur="" returnPress=""/>
+            <Label  text="Phone number" color="gray" textWrap="true" paddingLeft="20" fontSize="14"/>
+            <TextField editable="false" maxLength="60" id="" keyboardType="number" hint="" class="textFieldInputSmall" paddingBottom="10" blur="" returnPress=""/>
             <Label text="Location" color="gray" textWrap="true" paddingLeft="20" fontSize="14"/>
-            <TextField maxLength="255" id="" hint="" class="textFieldInputSmall" paddingBottom="10" blur="" returnPress=""/>
+            <TextField editable="false" maxLength="255" id="" hint="" class="textFieldInputSmall" paddingBottom="10" blur="" returnPress=""/>
         </StackLayout>
         <StackLayout row="3">
-            <Button text="Save" class="btn btn-white" /> 
+            <Button tap="save" text="Save" class="btn btn-white" /> 
         </StackLayout>
     </GridLayout>
 </Page>

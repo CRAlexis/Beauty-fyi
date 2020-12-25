@@ -1,0 +1,25 @@
+<Page shownModally="onShownModally" loaded="onPageLoaded" actionBarHidden="true" xmlns:lv="nativescript-ui-listview">
+    <GridLayout rows="auto, 300, *, auto" columns="" xmlns:topBar="dashboard/includes/topBar">
+    <topBar:menu-header row="0" header="Share content" tap="goBack"/>
+
+        <StackLayout row="1">
+            <Image id="mainImage" src="~/images/temp.png" height="100%" decodeWidth="{{height}}" stretch="aspectFit" /> 
+        </StackLayout>
+        <StackLayout row="2">
+            <lv:RadListView id="contentGalleryList" class="list-group" style="background-color: white">
+                <lv:RadListView.listViewLayout>
+                    <lv:ListViewGridLayout spanCount="4" />
+                </lv:RadListView.listViewLayout>
+                <lv:RadListView.itemTemplate >
+                    <GridLayout rows="auto, *, auto" columns="" tap="viewContent" margin="1" backgroundColor="black">
+                        <Image rowSpan="3" col="0" id="{{ contentIndex }}" src="{{ contentImage }}" height="{{height}}" decodeWidth="{{height}}" stretch="aspectFill" load="async"/>
+                        <Label row="2" col="0" color="white" class="font-bold h5" text="{{ contentName }}" textWrap="true" />
+                    </GridLayout>
+                </lv:RadListView.itemTemplate>
+            </lv:RadListView>
+        </StackLayout>
+        <StackLayout row="3">
+            <Button id="shareButton" text="Share (0)" class="btn btn-white" tap="shareContent" />
+        </StackLayout>
+    </GridLayout>
+</Page>

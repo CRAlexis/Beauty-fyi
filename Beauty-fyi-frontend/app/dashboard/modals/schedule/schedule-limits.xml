@@ -8,61 +8,46 @@
             <Label class="h5" color="gray" text="Limit when clients can schedule, reschedule and cancel appointments" textWrap="true" paddingBottom="30" />
             
             <StackLayout paddingBottom="35">
-                <GridLayout rows="auto, auto, auto, auto" columns="*, auto, 20">
-                    <Label row="0" class="h5" text="MINIMUM HOURS" textWrap="true" />
-                    <Label row="1" col="0" class="h5" text="12 Hours" textWrap="true" />
-                    <StackLayout row="1" col="1" orientation="horizontal">
-                        <Label text="&#xf068;" class="fas" fontSize="18" textWrap="true" paddingRight="25" />
-                        <Label text="&#xf067;" class="fas" fontSize="18" textWrap="true" />
-                    </StackLayout>
-                    <Label row="2" colSpan="3" text="" class="line" width="100%" marginBottom="15" marginTop="10" textWrap="true" />
-                    <Label row="3" colSpan="3" class="h5" text="Set the minimum number of hours before start time that appointments can be scheduled" textWrap="true" />
+                <GridLayout rows="auto, auto, auto" columns="*, auto, 20">  
+                    <Label row="0" class="h5" text="MINIMUM HOURS" textWrap="true" />               
+                    <TextField colSpan="3" width="100%" text="{{hoursBeforeStartTime}}" blur="pageStateChanged" row="1" keyboardType="number" maxLength="3" id="servicePrice" class="textFieldInputSmall"/>       
+                    <Label row="2" colSpan="3" class="h5" text="Set the minimum number of hours before start time that appointments can be scheduled" textWrap="true" />
                 </GridLayout>
             </StackLayout>
             
             <StackLayout paddingBottom="35">
                 <GridLayout rows="auto, auto, auto, auto" columns="*, auto, 20">
-                    <Label row="0" class="h5" text="MINIMUM DAYS" textWrap="true" />
-                    <Label row="1" col="0" class="h5" text="365 Days" textWrap="true" />
-                    <StackLayout row="1" col="1" orientation="horizontal">
-                        <Label text="&#xf068;" class="fas" fontSize="18" textWrap="true" paddingRight="25" />
-                        <Label text="&#xf067;" class="fas" fontSize="18" textWrap="true" />
-                    </StackLayout>
-                    <Label row="2" colSpan="3" text="" class="line" width="100%" marginBottom="15" marginTop="10" textWrap="true" />
-                    <Label row="3" colSpan="3" class="h5" text="Set the maximum hours in advance that appointments can be scheduled" textWrap="true" />
+                    <Label row="0" class="h5" text="MINIMUM DAYS" textWrap="true" />                
+                    <TextField row="1" colSpan="3" width="100%" text="{{daysInAdvance}}" blur="pageStateChanged" row="1" keyboardType="number" maxLength="3" id="servicePrice" class="textFieldInputSmall"/>       
+                    <Label row="2" colSpan="3" class="h5" text="Set the maximum days in advance that appointments can be scheduled" textWrap="true" />
                 </GridLayout>
             </StackLayout>
 
             <StackLayout paddingBottom="35">
                 <Label row="0" class="h5" text="ALLOW CLIENTS TO" textWrap="true" paddingBottom="15"/>
-                <CheckBox:CheckBox class="textFieldInputSmall" text="Reschedule Appointments" fontSize="14" color="gray" checked="true"/>
+                <CheckBox:CheckBox class="textFieldInputSmall" text="Reschedule Appointments" fontSize="14" color="gray" checked="{{rescheduleAppointments}}"/>
                 <Label text="" class="line" marginTop="10" marginBottom="10" textWrap="true" />
-                <CheckBox:CheckBox class="textFieldInputSmall" text="Cancel Appointments" fontSize="14" color="gray" checked="true"/>
+                <CheckBox:CheckBox class="textFieldInputSmall" text="Cancel Appointments" fontSize="14" color="gray" checked="{{cancelAppointments}}"/>
                 <Label text="" class="line" marginTop="10" marginBottom="10" textWrap="true" />
-                <GridLayout rows="auto, auto, auto" columns="*, auto, 20" paddingLeft="30">
-                <Label row="0" col="0" class="h5" text="12 hours" textWrap="true" />
-                    <StackLayout row="0" col="1" orientation="horizontal">
-                        <Label text="&#xf068;" class="fas" fontSize="18" textWrap="true" paddingRight="25" />
-                        <Label text="&#xf067;" class="fas" fontSize="18" textWrap="true" />
-                    </StackLayout>
-                    <Label row="1" colSpan="3" text="" class="line" width="100%" marginBottom="15" marginTop="10" textWrap="true" />
-                    <Label row="2" colSpan="3" class="h5" text="Set the maximum days in advance that appointments can be scheduled" textWrap="true" />
+                <GridLayout rows="auto, auto" columns="*, auto, 20" paddingLeft="30">
+                    <TextField row="0" colSpan="3" width="100%" text="{{rescheduledHours}}" blur="pageStateChanged" keyboardType="number" maxLength="3" id="servicePrice" class="textFieldInputSmall" paddingBottom="10"/>       
+                    <Label row="1" colSpan="3" class="h5" text="Set the maximum hours in advance that appointments can be rescheduled or cancelled" textWrap="true" />
                 </GridLayout>
             </StackLayout>
 
             <StackLayout>
                 <Label row="0" class="h5" text="MINIMIZE GAPS" textWrap="true" paddingBottom="15"/>
-                <CheckBox:CheckBox class="textFieldInputSmall" text="Avoid any gaps between appointments during the day" fontSize="14" color="gray" checked="true"/>
+                <CheckBox:CheckBox tap="minimizeGaps" id="avoidGaps" class="textFieldInputSmall" text="Avoid any gaps between appointments during the day" fontSize="14" color="gray" checked="{{avoidGaps}}"/>
                 <Label text="" class="line" marginTop="10" marginBottom="10" textWrap="true" />
-                <CheckBox:CheckBox class="textFieldInputSmall" text="Avoid small gaps, but allow gaps up to" fontSize="14" color="gray" checked="true"/>
+                <CheckBox:CheckBox tap="minimizeGaps" id="allowGaps" class="textFieldInputSmall" text="Avoid small gaps, but allow gaps up to" fontSize="14" color="gray" checked="{{allowGaps}}"/>
                 <Label text="" class="line" marginTop="10" marginBottom="10" textWrap="true" />
-                <GridLayout rows="auto, auto, auto" columns="*, auto, 20" paddingLeft="80">
-                    <Label row="0" col="0" class="h5" text="12 hours" textWrap="true" />
-                    <StackLayout row="0" col="1" orientation="horizontal">
-                        <Label text="&#xf078;" class="fas" fontSize="24" textWrap="true" paddingRight="25" />
-                    </StackLayout>
-                    <Label row="1" colSpan="2" text="" class="line" marginTop="10" marginBottom="10" textWrap="true" />
+                <GridLayout rows="auto" columns="*, auto, 20" paddingLeft="80">
+                    <TextField color="{{allowGaps ? 'black' : 'gray' }}" row="0" optionContext="1 hour,2 hours,3 hours,4 hours,5 hours,6 hours,7 hours,8 hours,9 hours,10 hours,11 hours,12 hours" text="{{gapHours}}" class="textFieldInputSmall" tap="{{ dropDownClicked }}" editable="false"/>
                 </GridLayout>
+            </StackLayout>
+
+            <StackLayout paddingTop="15">
+                <Button tap="saveSettings" text="save" class="btn btn-white" width="90%"/>
             </StackLayout>
         </StackLayout>
     </GridLayout>

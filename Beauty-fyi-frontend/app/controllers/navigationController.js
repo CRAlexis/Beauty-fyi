@@ -65,9 +65,8 @@ exports.navigateToPage = function (context, page, index, clearHistory){
         let destination;
         switch (index) {
             case 1:
-                destination = "~/dashboard/modals/schedule/set-availability";
+                destination = "~/dashboard/modals/content/share-content";
                 break;
-
             default:
                 break;
         }
@@ -80,6 +79,7 @@ exports.navigateToPage = function (context, page, index, clearHistory){
         };  
         try {
             page.frame.navigate(navEntryWithContext);
+            resolve()
         } catch (error) {
             reject(error)
         }     
@@ -140,6 +140,10 @@ exports.navigateToModal = function (context, page, index, fullScreen){ // For mo
                 break;
             case 17:
                 destination = "~/dashboard/modals/colourPicker/colour-picker.xml"
+            case 18:
+                destination = "~/dashboard/modals/settings/settingsMenu/notification-details"
+            case 19:
+                destination = "~/dashboard/modals/content/share-content"
         }
         
         const option = {

@@ -1,0 +1,51 @@
+<StackLayout xmlns:Card="@nstudio/nativescript-cardview">
+<Card:CardView  row="0" class="cardStyle" margin="5" elevation="10" radius="10" width="90%" height="600"  style="padding-bottom: 25px">
+    <GridLayout rows="*, auto" columns="">
+        <ScrollView row="0">
+            <GridLayout rows="auto, auto, 20, auto, auto, auto, auto" columns="">
+
+                <GridLayout rows="*, auto, *" columns="20, auto, * , auto, 20">                      
+                    <Image id="serviceModalImage" rowSpan="3" colSpan="5" src="~/images/temp4.png" height="235" stretch="aspectFit" opacity="0.9"/>
+                    <Label direction="back" tap="goToNextImage" row="1" col="1" marginTop="35"  text="&#xf053;" color="black" class="fas" fontSize="20" textWrap="true" />
+                    <Label direction="forward" tap="goToNextImage" row="1" col="3" marginTop="35" text="&#xf054;" color="black" class="fas" fontSize="20" textWrap="true" />
+                </GridLayout>
+                <StackLayout row="2" backgroundColor="rgb(248, 248, 248)" ></StackLayout>
+                <!--<GridLayout row="3" rows="" columns="auto, *" padding="10">
+                    <StackLayout col="0" orientation="horizontal" paddingRight="5" paddingTop="3">
+                        <Label text="&#xf005;" color="orange" class="{{ starOne ? 'fas' : 'far' }}" fontSize="15" textWrap="true" />
+                        <Label text="&#xf005;" color="orange" class="{{ starTwo ? 'fas' : 'far' }}" fontSize="15" textWrap="true" />
+                        <Label text="&#xf005;" color="orange" class="{{ starThree ? 'fas' : 'far' }}" fontSize="15" textWrap="true" />
+                        <Label text="&#xf005;" color="orange" class="{{ starFour ? 'fas' : 'far' }}" fontSize="15" textWrap="true" />
+                        <Label text="&#xf005;" color="orange" class="{{ starFive ? 'fas' : 'far' }}" fontSize="15" textWrap="true" />
+                    </StackLayout>
+                    <Label col="1" text="20 reviews" color="gray" textDecoration="underline" class="h5" textWrap="true"/>
+                </GridLayout>-->
+                <StackLayout row="4" padding="20">
+                    <StackLayout orientation="horizontal" paddingBottom="5">
+                        <Label text="&#xf3d1;" class="far" fontSize="20" textWrap="true" paddingRight="10" paddingTop="5"/>        
+                        <Label text="Starting from £90" class="h4" textWrap="true" />
+                    </StackLayout>
+
+                    <StackLayout orientation="horizontal"  paddingBottom="5">
+                        <Label text="&#xf017;" class="far" fontSize="20" textWrap="true" paddingRight="10" paddingTop="5"/>        
+                        <Label text="1 Hour" textWrap="true" class="h4" />
+                    </StackLayout>
+                    <Label text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam cursus congue nisl, sed placerat orci fermentum imperdiet. Phasellus nunc quam, eleifend lobortis nisl et, vestibulum pulvinar purus. Vestibulum sem magna." class="h5" textWrap="true" paddingBottom="10" paddingTop="10"/>  
+                </StackLayout>
+                <StackLayout row="5" xmlns:CheckBox="@nstudio/nativescript-checkbox" paddingLeft="10" paddingRight="10">
+                    <CheckBox:CheckBox tap="addonTapped" addonId="{{ addonId[0] }}" text="2 Sed sit amet congue nisl + 10 minutes @ £15.00" fontSize="14" color="black" visibility="{{ addonVisibility[0] }}" checked="false"  paddingLeft="10" marginTop="-5"/>
+                    <CheckBox:CheckBox tap="addonTapped" addonId="{{ addonId[1] }}"  text="2 Sed sit amet + 10 minutes @ £15.00" fontSize="14" color="black" visibility="{{ addonVisibility[1] }}" checked="false" paddingLeft="10" marginTop="-5"/>
+                    <CheckBox:CheckBox tap="addonTapped" addonId="{{ addonId[2] }}" text="2 Sed sit amet + 10 minutes @ £15.00" fontSize="14" color="black" visibility="{{ addonVisibility[2] }}" checked="false"  paddingLeft="10" marginTop="-5"/>
+                    <CheckBox:CheckBox tap="addonTapped" addonId="{{ addonId[3] }}"  text="2 Sed sit amet + 10 minutes @ £15.00" fontSize="14" color="black" visibility="{{ addonVisibility[3] }}" checked="false"  paddingLeft="10" marginTop="-5"/>
+                    <CheckBox:CheckBox tap="addonTapped" addonId="{{ addonId[4] }}" text="2 Sed sit amet + 10 minutes @ £15.00" fontSize="14" color="black" visibility="{{ addonVisibility[4] }}" checked="false"  paddingLeft="10" marginTop="-5"/>
+                </StackLayout> 
+
+            </GridLayout>
+       </ScrollView>
+       <StackLayout row="1" class="border-top-grey">
+           <Button tap="bookService" text="Book Now" class="btn btn-white " width="50%"/>
+
+       </StackLayout>
+    </GridLayout>
+</Card:CardView>  
+</StackLayout>

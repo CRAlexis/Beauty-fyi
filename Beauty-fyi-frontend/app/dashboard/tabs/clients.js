@@ -64,13 +64,14 @@ source.set("onLoadMoreItemsRequested", function (args){
     }
 })
 
-source.set("viewClientProfile", function (args){
+exports.viewClientProfile = (args) => {
+    console.log("tapped")
     const mainView = args.object;
     const context = ""
     navigation.navigateToModal(context, mainView, 7, true).then(function (result) {
         console.log(result)
     })
-});
+};
 
 exports.inviteClient = (args) => {
     SocialShare.shareUrl("https://www.nativescript.org/", "");

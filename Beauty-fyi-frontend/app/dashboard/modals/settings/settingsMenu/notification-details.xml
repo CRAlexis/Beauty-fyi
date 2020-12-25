@@ -1,0 +1,55 @@
+<Page shownModally="onShownModally" loaded="loaded" xmlns:Card="@nstudio/nativescript-cardview" xmlns:CheckBox="@nstudio/nativescript-checkbox">
+<ScrollView>
+    <GridLayout rows="auto, auto, auto" columns="" xmlns:topBar="dashboard/includes/topBar" xmlns:includes="dashboard/includes/schedule">
+        <topBar:menu-header row="0" header="Set your availability" tap="goBack"/>
+        <StackLayout row="1" padding="20" paddingTop="15">
+            <Label text="When should we notify you?" class="h3" textWrap="true" />
+            <Label text="Set your app notifications" class="h4" textWrap="true" />
+
+            <StackLayout paddingTop="35">
+                <StackLayout orientation="horizontal">
+                    <GridLayout columns="*, auto">
+                        <StackLayout orientation="horizontal" col="0">
+                            <Label text="Bookings" class="h4 font-bold" paddingLeft="10" paddingRight="10" textWrap="true" />
+                        </StackLayout>           
+                        <Switch checked="{{bookings}}" marginTop="0" col="1" tap="checkBoxTapped"/>
+                    </GridLayout>              
+                </StackLayout>
+                <Label class="line" width="100%" marginTop="5" textWrap="true" />         
+            </StackLayout>     
+
+            <StackLayout paddingTop="10">
+                <StackLayout orientation="horizontal">
+                    <GridLayout columns="*, auto">
+                        <StackLayout orientation="horizontal" col="0">
+                            <Label text="Reviews" class="h4 font-bold" paddingLeft="10" paddingRight="10" textWrap="true" />
+                        </StackLayout>           
+                        <Switch checked="{{reviews}}" marginTop="0" col="1" tap="checkBoxTapped"/>
+                    </GridLayout>              
+                </StackLayout>
+                <Label class="line" width="100%" marginTop="5" textWrap="true" />         
+            </StackLayout>     
+
+            <Label text="Emails" class="h3" textWrap="true" paddingTop="35"/>
+            
+            <StackLayout paddingTop="10">
+                <StackLayout orientation="horizontal">
+                    <GridLayout columns="*, auto">
+                        <StackLayout orientation="horizontal" col="0">
+                            <Label text="Marketing updates" class="h4 font-bold" paddingLeft="10" paddingRight="10" textWrap="true" />
+                        </StackLayout>           
+                        <Switch checked="{{marketing}}" marginTop="0" col="1" tap="checkBoxTapped"/>
+                    </GridLayout>              
+                </StackLayout>
+ 
+                <Label class="h5" paddingLeft="10" paddingRight="10" text="Receive updates on new features, events, products and more from the Beauty-fyi team." textWrap="true" />
+                
+            </StackLayout> 
+
+            <StackLayout>
+                <Button tap="save" text="Save" class="btn btn-white" /> 
+            </StackLayout>
+        </StackLayout>
+    </GridLayout>
+</ScrollView>
+</Page>

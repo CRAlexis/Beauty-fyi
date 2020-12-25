@@ -1,10 +1,10 @@
 <Page navigatingTo="onNavigatedTo" loaded="onPageLoaded" actionBarHidden="true" xmlns:tabs="dashboard/tabs" xmlns:Card="nativescript-cardview">
-    <GridLayout rows="70, *, auto" xmlns:topBar="dashboard/includes/topBar">
+    <!--<GridLayout rows="70, *, auto" xmlns:topBar="dashboard/includes/topBar">
         <StackLayout row="0">
             <topBar:dashboard-header id="dashboardHeader" header="Beauty-fyi"/>
         </StackLayout>
         <StackLayout row="1">
-            <tabs:home id="homeTab" opacity="1"/>
+            <tabs:home id="homeTab"/>
             <tabs:clients id="clientsTab" opacity="0" visibility="collapsed"/>          
             <tabs:schedule id="scheduleTab" opacity="0" visibility="collapsed"/>
             <tabs:profile id="profileTab" opacity="0" visibility="collapsed"/>
@@ -31,5 +31,33 @@
                 <Label id="profileTabButton" fontSize="15"  textAlignment="center" text="Profile" textWrap="true" />
             </StackLayout>
         </GridLayout>
-    </GridLayout>
+    </GridLayout>-->
+    <TabView id="tabViewContainer" androidTabsPosition="bottom" selectedTabTextColor="black" xmlns:topBar="dashboard/includes/topBar">
+        <TabViewItem title="dashboard" >   
+            <GridLayout rows="70, auto" columns="">
+                <topBar:dashboard-header row="0" id="dashboardHeader" header="Beauty-fyi"/>
+                <tabs:home row="1" id="homeTab"/>
+            </GridLayout> 
+            
+        </TabViewItem>
+        <TabViewItem title="clients">
+        <GridLayout rows="70, auto" columns="">
+                <topBar:dashboard-header row="0" id="dashboardHeader" header="Beauty-fyi"/>
+                <tabs:clients row="1" id="clientsTab" /> 
+            </GridLayout> 
+        </TabViewItem>
+        <TabViewItem title="schedule">
+        <GridLayout rows="70, auto" columns="">
+                <topBar:dashboard-header row="0" id="dashboardHeader" header="Beauty-fyi"/>
+                <tabs:schedule row="1" id="scheduleTab" />
+            </GridLayout> 
+        </TabViewItem>
+        <TabViewItem title="profile">
+            <GridLayout rows="70, auto" columns="">
+                <topBar:dashboard-header row="0" id="dashboardHeader" header="Beauty-fyi"/>
+                <tabs:profile row="1" id="profileTab" />
+            </GridLayout> 
+        </TabViewItem>
+    </TabView>
 </Page>
+

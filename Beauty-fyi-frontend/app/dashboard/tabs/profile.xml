@@ -1,10 +1,10 @@
 
-    <StackLayout xmlns:lv="nativescript-ui-listview" xmlns:Card="@nstudio/nativescript-cardview" loaded="profilePageLoaded">
-        <GridLayout rows="*" columns="">
-            <ScrollView row="0" opacity="0.5">
-                <GridLayout rows="auto, auto, auto, *" columns="">
-                    <StackLayout row="0" paddingTop="20">
-                        <GridLayout rows="" columns="15, auto, *">
+    <StackLayout xmlns:lv="nativescript-ui-listview"  loaded="profilePageLoaded" xmlns:includes="dashboard/modals/salonPage/previewService">
+        <GridLayout rows="*" columns="" >
+            <StackLayout id="profilePageContainer" row="0" tap="pageClicked">
+                <GridLayout rows="auto, auto, *" columns="" >
+                    <GridLayout rows="auto, auto" columns="" paddingTop="20" id="profileTopSection" height="240">
+                        <GridLayout row="0"  rows="" columns="15, auto, *" >
                             <StackLayout col="1">
                                 <Image  src="~/images/temp7.png" class="purple-thick-border" stretch="aspectFill" marginRight="20" verticalAlignment="center" width="115" height="115" stretch="aspectFill" borderRadius="100"/>
                             </StackLayout>
@@ -25,18 +25,19 @@
                                 </StackLayout>
                             </GridLayout>
                         </GridLayout>
-
-                        <StackLayout paddingLeft="15" paddingTop="10">
+                        <GridLayout rows="auto" columns="*, auto" row="1" paddingLeft="15" paddingTop="10">
+                            <StackLayout col="0">
                                 <Label text="CBN qualification level 3" class="h5" textWrap="true" marginBottom="-2" />
                                 <Label text="079 000 000 00" textWrap="true" class="h5" marginTop="-2" marginBottom="-2"/>
                                 <Label text="London, Wembley" textWrap="true" class="h5" marginTop="-2" marginBottom="-2"/>
                                 <Label text="@curlybyn" textWrap="true" class="font-bold h5" marginTop="-2" />
-                        </StackLayout>
+                            </StackLayout>                        
+                            <StackLayout col="1" width="40" tap="goToAccountDetails">
+                                <Label text="&#xf044;" marginTop="5" paddingLeft="10" color="black" class="fas" fontSize="12" textWrap="true" />
+                            </StackLayout>  
+                        </GridLayout>
+                    </GridLayout>
 
-                        <!--<GridLayout rows="55" columns="auto" paddingTop="20">
-                            <Button row="0" col="0" text="Edit Profile" class="btn btn-white" tap="" />
-                        </GridLayout>-->
-                    </StackLayout>
                     <StackLayout row="1">
                         <SegmentedBar selectedIndex="0" selectedIndexChanged="selectedIndexChangeInformation" backgroundColor="white" selectedBackgroundColor="#9900ff" marginTop="">
                             <SegmentedBar.items>
@@ -45,92 +46,98 @@
                             </SegmentedBar.items>
                         </SegmentedBar>
                     </StackLayout>
-                    <StackLayout row="2" id="myServicesId" >
-                        <lv:RadListView id="profileServicesList" class="list-group" width="100%"> 
+                    <StackLayout row="2" id="myServicesId">
+                        <lv:RadListView id="profileServicesList" class="list-group" width="100%" itemReorder="true"  reorderMode="HoldAndDrag"
+                        scrolled="onScrolled" scrollEnded="onScrollEnded"> 
                             <lv:RadListView.listViewLayout>
-                                <lv:ListViewGridLayout spanCount="3" scrollDirection="Vertical" itemInsertAnimation="fade"/>
+                                <lv:ListViewGridLayout spanCount="3" scrollDirection="Vertical" itemHeight="auto"/>
                             </lv:RadListView.listViewLayout>
                             <lv:RadListView.itemTemplate >
-                                <GridLayout rows="*, auto" columns="" tap="serviceTapped" margin="1" backgroundColor="purple">
-                                    <Image rowSpan="2" col="0" id="{{ serviceIndex }}" src="{{ serviceImage }}" height="{{ height }}" width="{{height}}" stretch="aspectFill" load="async" opacity="0.8"/>
+                                <GridLayout rows="*, auto" columns="" tap="serviceTapped" margin="1" backgroundColor="black">
+                                    <Image rowSpan="2" col="0" id="{{ serviceIndex }}" src="{{ serviceImage }}" height="{{ height }}" decodeWidth="{{height}}" stretch="aspectFill" load="async" opacity="0.85"/>
                                     <Label row="1" col="0" color="white" class="font-bold h5" text="{{ serviceName }}" textWrap="true" /> 
                                 </GridLayout>
                             </lv:RadListView.itemTemplate>
                         </lv:RadListView>
                     </StackLayout>
                     <StackLayout row="2" id="aboutMeId" padding="20" opacity="0" visibility="collapsed">
-                        <GridLayout rows="auto, 20, auto, 20, auto" columns="">
+                        <ScrollView>
+                        <GridLayout rows="auto, 20, auto, 20, auto, 20, auto" columns="">
                             <StackLayout row="0">
-                                <Label text="Bio" class="h3" textWrap="true" paddingBottom="10"/>
+                                <GridLayout columns="*, auto">
+                                    <Label col="0" text="Bio" class="h3" textWrap="true" paddingBottom="10"/>
+                                    <StackLayout col="1" width="40" tap="goToMyBio">
+                                         <Label text="&#xf044;" marginTop="5" paddingLeft="10" color="black" class="fas" fontSize="12" textWrap="true" />
+                                    </StackLayout>             
+                                </GridLayout>
                                 <Label text="The bio will go here, Just gona write some things so I can get a feel for how it may look...." class="h5" textWrap="true" />
                             </StackLayout>
                             <Label text="" class="line" row="1" textWrap="true" />
                             <StackLayout row="2">
-                                <Label text="Opening hours" class="h3" textWrap="true" paddingBottom="10"/>
-                                <lv:RadListView id="openingHoursList" class="list-group" style="background-color: transparent"> 
-                                    <lv:RadListView.listViewLayout>
-                                        <lv:ListViewLinearLayout/>
-                                    </lv:RadListView.listViewLayout>
-                                    <lv:RadListView.itemTemplate >    
+                                <GridLayout columns="*, auto">
+                                    <Label col="0" text="Opening hours" class="h3" textWrap="true" paddingBottom="10"/>
+                                    <StackLayout col="1" width="40" tap="setSchedule">
+                                         <Label text="&#xf044;" marginTop="5" paddingLeft="10" color="black" class="fas" fontSize="12" textWrap="true" />
+                                    </StackLayout>   
+                                </GridLayout>
+                                <Repeater items="{{ openingHoursList }}">
+                                    <Repeater.itemTemplate>
                                         <GridLayout rows="" columns="*, auto">
                                             <Label col="0" text="{{day}}" class="h5" textWrap="true" />
                                             <Label col="1" text="{{hours}}" class="h5" color="gray" textWrap="true" />
 
                                         </GridLayout>
-                                    </lv:RadListView.itemTemplate>
-                                </lv:RadListView>
+                                    </Repeater.itemTemplate>
+                                </Repeater>
                             </StackLayout>
                             <Label text="" class="line" row="3" textWrap="true" />
                             <StackLayout row="4">
+                                <GridLayout columns="*, auto">
+                                    <Label col="0" text="Booking policy" class="h3" textWrap="true" paddingBottom="10"/>
+                                    <StackLayout col="1" width="40" tap="setSchedulingLimits">
+                                         <Label text="&#xf044;" marginTop="5" paddingLeft="10" color="black" class="fas" fontSize="12" textWrap="true" />
+                                    </StackLayout>   
+                                </GridLayout>
+                                <StackLayout>
+                                    <Label text="Advanced bookings" class="h5 font-bold" textWrap="true" />
+                                    <Label text="I take bookings for the next 7 days" class="h5" textWrap="true" />
+                                    <Label text="Reschedule/Cancel" class="h5 font-bold" textWrap="true" />
+                                    <Label text="I allow clients to reschedule and cancel appointments 24 hours' in advance" class="h5" textWrap="true" />
+                                </StackLayout>
+                            </StackLayout>
+                            <Label text="" class="line" row="5" textWrap="true" />
+                            <StackLayout row="6">
                                 <Label text="Reviews" class="h3" textWrap="true" paddingBottom="10"/>
-                                <lv:RadListView id="userReviews" class="list-group" style="background-color: transparent"> 
-                                    <lv:RadListView.listViewLayout>
-                                        <lv:ListViewLinearLayout/>
-                                    </lv:RadListView.listViewLayout>
-                                    <lv:RadListView.itemTemplate >  
-                                        <GridLayout rows="auto, auto, auto, auto" columns="" paddingBottom="8">
+                                <Repeater items="{{ userReviews }}">
+                                    <Repeater.itemTemplate>
+                                        <GridLayout rows="auto, auto, auto, auto" columns="" paddingBottom="15">
                                             <GridLayout row="0" columns="auto, *" marginBottom="-5">
-                                                <Image col="0" src="{{userImage}}" class="" stretch="aspectFill" marginRight="10" verticalAlignment="center" width="40" height="40" stretch="aspectFill" borderRadius="20"/>
-                                                <Label col="1" text="{{userName + ' - ' +reviewDate}}" color="gray" textWrap="true" />
+                                                <Image col="0" src="{{userImage}}" class="" marginRight="10" verticalAlignment="center" width="40" height="40" stretch="aspectFill" load="async" borderRadius="20"/>
+                                                <Label col="1" text="{{userName + ' - ' +reviewDate}}" color="gray" textWrap="true" marginTop="9"/>
                                             </GridLayout>
                                             <GridLayout row="1" rows="" columns="auto, *" marginBottom="-5">
-                                                <StackLayout col="0" orientation="horizontal">
-                                                    <Label text="&#xf005;" color="orange" class="{{ starOne ? 'fas' : 'far' }}" marginRight="-5" marginLeft="-5" fontSize="12" textWrap="true" />
-                                                    <Label text="&#xf005;" color="orange" class="{{ starTwo ? 'fas' : 'far' }}" marginRight="-5" marginLeft="-5" fontSize="12" textWrap="true" />
-                                                    <Label text="&#xf005;" color="orange" class="{{ starThree ? 'fas' : 'far' }}" marginRight="-5" marginLeft="-5" fontSize="12" textWrap="true" />
-                                                    <Label text="&#xf005;" color="orange" class="{{ starFour ? 'fas' : 'far' }}" marginRight="-5" marginLeft="-5" fontSize="12" textWrap="true" />
-                                                    <Label text="&#xf005;" color="orange" class="{{ starFive ? 'fas' : 'far' }}" marginRight="-5" marginLeft="-5" fontSize="12" textWrap="true" />
+                                                <StackLayout col="0" orientation="horizontal" paddingRight="15" paddingTop="3">
+                                                    <Label text="&#xf005;" color="orange" class="{{ starOne ? 'fas' : 'far' }}" fontSize="12" textWrap="true" />
+                                                    <Label text="&#xf005;" color="orange" class="{{ starTwo ? 'fas' : 'far' }}" fontSize="12" textWrap="true" />
+                                                    <Label text="&#xf005;" color="orange" class="{{ starThree ? 'fas' : 'far' }}" fontSize="12" textWrap="true" />
+                                                    <Label text="&#xf005;" color="orange" class="{{ starFour ? 'fas' : 'far' }}" fontSize="12" textWrap="true" />
+                                                    <Label text="&#xf005;" color="orange" class="{{ starFive ? 'fas' : 'far' }}" fontSize="12" textWrap="true" />
                                                 </StackLayout>
                                                 <Label col="1" text="{{reviewService}}" class="font-bold h5" textWrap="true" />
                                             </GridLayout>
                                             <GridLayout row="2" rows="" columns="">
                                                 <Label text="{{userReview}}" class="h5" textWrap="true" />
                                             </GridLayout>
-                                            <Label row="3" text="" class="line" textWrap="true" />
-
+                                            <Label row="3" text="" class="line" textWrap="true" paddingtop="15"/>
                                         </GridLayout>
-                                    </lv:RadListView.itemTemplate>
-                                </lv:RadListView>
+                                    </Repeater.itemTemplate>
+                                </Repeater>
                             </StackLayout>
-                        </GridLayout>            
+                        </GridLayout>      
+                        </ScrollView>                          
                     </StackLayout>
                 </GridLayout>
-            </ScrollView>
-            <Card:CardView row="0" class="cardStyle" margin="5" elevation="10" radius="10" width="80%" height="350"  style="padding-bottom: 25px">
-            <StackLayout>
-                <StackLayout backgroundColor="purple">
-                    <Image src="~/images/temp4.png" width="100%" height="150" stretch="aspectFill" opacity="0.8"/>
-                </StackLayout>
-                
-                <StackLayout xmlns:CheckBox="@nstudio/nativescript-checkbox">
-                    <CheckBox:CheckBox tap="addonTapped" addonId="{{ addonId[0] }}" text="{{ addonText[0] }}" fontSize="14" color="black" visibility="{{ addonVisibility[0] }}" checked="false"  paddingLeft="10" marginTop="-5"/>
-                    <CheckBox:CheckBox tap="addonTapped" addonId="{{ addonId[1] }}"  text="{{ addonText[1] }}" fontSize="14" color="black" visibility="{{ addonVisibility[1] }}" checked="false" paddingLeft="10" marginTop="-5"/>
-                    <CheckBox:CheckBox tap="addonTapped" addonId="{{ addonId[2] }}" text="{{ addonText[2] }}" fontSize="14" color="black" visibility="{{ addonVisibility[2] }}" checked="false"  paddingLeft="10" marginTop="-5"/>
-                    <CheckBox:CheckBox tap="addonTapped" addonId="{{ addonId[3] }}"  text="{{ addonText[3] }}" fontSize="14" color="black" visibility="{{ addonVisibility[3] }}" checked="false"  paddingLeft="10" marginTop="-5"/>
-                    <CheckBox:CheckBox tap="addonTapped" addonId="{{ addonId[4] }}" text="{{ addonText[4] }}" fontSize="14" color="black" visibility="{{ addonVisibility[4] }}" checked="false"  paddingLeft="10" marginTop="-5"/>
-                </StackLayout> 
             </StackLayout>
-            
-            </Card:CardView>  
+            <includes:preview-service-modal id="serviceModal" visibility="collapsed" opacity="0"/>
         </GridLayout>  
     </StackLayout>

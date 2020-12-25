@@ -1,18 +1,38 @@
 let uploadedImageArray = []
 let uploadedImageIndex = 0;
 exports.initialise = (args) => {
-    //createForm(args)
+    createForm(args)
 }
 
 function createForm(args){
     const page = args.object.page
     const listView = page.getViewById("consultationPageForm");
-    let form = {
-        //questionType = ""
-    }
+    let form = []
+    form.push(
+        {
+            question: 'This is a textfield',
+            isTextField: true,
+            isDropDown: false,
+            isCheckBox: false,
+            optionContext: '',
+        },
+        {
+            question: 'This is a dropdown',
+            isTextField: false,
+            isDropDown: true,
+            isCheckBox: false,
+            optionContext: 'option1,option2,option3,option4',
+        },
+        {
+            question: 'Tick this checkbox?',
+            isTextField: false,
+            isDropDown: false,
+            isCheckBox: true,
+            optionContext: '',
+        },
+    )
 
     listView.items = form
-
 }
 
 exports.uploadeReferenceImage = (args) =>{

@@ -1,48 +1,131 @@
-<ScrollView height="100%" xmlns:Card="@nstudio/nativescript-cardview" xmlns:lv="nativescript-ui-listview" xmlns:topBar="dashboard/includes/topBar" loaded="homeLoaded">
-    <GridLayout rows="auto, *, auto, auto">
+<StackLayout height="90%"
+    xmlns:Card="@nstudio/nativescript-cardview"
+    xmlns:lv="nativescript-ui-listview"
+    xmlns:view-appointment="dashboard/modals/appointments/viewAppointment" loaded="homeLoaded">
+    <GridLayout rows="*" columns="">
+        <ScrollView scroll="onPageScroll">
+            <GridLayout id="homePageContainer" row="0" rows="auto, auto, auto, auto" tap="pageClicked">
+                <Card:CardView row="0" class="cardStyle" margin="2" elevation="10" radius="10" width="97%">
+                    <StackLayout padding="15">
+                        <Label text="Hey Klerissa!" class="h4 font-bold" paddingLeft="5" paddingBottom="20" textWrap="true" />
+                        <StackLayout>
+                            <GridLayout rows="auto" columns="*, *">
+                                <StackLayout row="0" col="0">
+                                    <GridLayout rows="auto, auto, auto">
+                                        <Label row="0" text="Revenue" color="gray" class="h4" textAlignment="center" textWrap="true" />
+                                        <Label row="1" text="£157.50" class="h3 font-bold" textAlignment="center" textWrap="true" />
+                                        <Label row="2" text="+15%" class="h4" color="green" textAlignment="center" textWrap="true" />
+                                    </GridLayout>
+                                </StackLayout>
+                                <StackLayout wdith="50%" row="0" col="1">
+                                    <GridLayout rows="auto, auto, auto">
+                                        <Label row="0" text="Predicted revenue" color="gray" textAlignment="center" class="h4" textWrap="true" />
+                                        <Label row="1" text="£237.50" class="h3 font-bold" textAlignment="center" textWrap="true" />
+                                        <Label row="2" text="+38%" class="h4" color="green" textAlignment="center" textWrap="true" />
+                                    </GridLayout>
+                                </StackLayout>
+                            </GridLayout>
+                        </StackLayout>
+                        <StackLayout>
+                            <GridLayout rows="auto, auto, auto" textAlignment="center" columns="auto, *, *, auto">
+                                <Label row="0" col="1" text="Total clients" textAlignment="center" color="gray" class="h5" textWrap="true" />
+                                <Label row="1" col="1" text="5" textAlignment="center" marginTop="-5" class="h4 font-bold" textWrap="true" />
+                                <Label row="2" col="1" text="+1 this week" textAlignment="center" marginTop="-5" class="h5" color="green" textWrap="true" />
+                                <Label row="0" col="2" text="Total Reviews" textAlignment="center" color="gray" class="h5" textWrap="true" />
+                                <Label row="1" col="2" text="10" textAlignment="center" marginTop="-5" class="h4 font-bold" textWrap="true" />
+                                <Label row="2" col="2" text="+5 this week" textAlignment="center" marginTop="-5" class="h5" color="green" textWrap="true" />
+                            </GridLayout>
+                        </StackLayout>
+                    </StackLayout>
+                </Card:CardView>
+                <Card:CardView row="1" class="cardStyle" margin="2" elevation="10" radius="10" width="97%">
+                    <StackLayout padding="20">
+                        <Label text="View and publish content" class="h4 font-bold" textWrap="true" />
+                        <Label text="You have created 6 pieces of content!" class="h5" paddingBottom="10" textWrap="true" />
+
+                        <lv:RadListView id="contentList" class="list-group" style="background-color: transparent">
+                            <lv:RadListView.listViewLayout>
+                                <lv:ListViewGridLayout spanCount="3" />
+                            </lv:RadListView.listViewLayout>
+                            <lv:RadListView.itemTemplate >
+                                <Image id="{{ index }}" tap="{{imageTapped}}" src="{{ image }}" height="{{ height }}" width="{{height}}" borderRadius="5" stretch="aspectFill" load="async" margin="5" />
+                            </lv:RadListView.itemTemplate>
+                        </lv:RadListView>
+
+                        <Button text="View content" class="btn btn-white" width="50%" tap="viewPreviewContent" marginTop="10" />
+                    </StackLayout>
+                </Card:CardView>
+
+                <Card:CardView row="2" class="cardStyle" margin="2" elevation="10" radius="10" width="97%"
+                    xmlns:chart="nativescript-ui-chart">
+                    <StackLayout margin="20">
+                        <chart:RadCartesianChart class="m-t-5" height="350">
+                            <chart:RadCartesianChart.series>
+                                <chart:BarSeries id="barChart" items="" categoryProperty="date" valueProperty="value" showLabels="false" seriesName="revenue" maxBarSize="30" legendTitle="Services" allowPan="true"></chart:BarSeries>
+                                <chart:BarSeries id="barChart2" items="" categoryProperty="date" valueProperty="value" showLabels="false" seriesName="products" maxBarSize="30" legendTitle="Products" allowPan="true"></chart:BarSeries>
+
+                                <chart:BarSeries.horizontalAxis>
+                                    <chart:CategoricalAxis lineHidden="true" ticksHidden="true" labelTextColor="rgb(223, 223, 223)"/>
+                                </chart:BarSeries.horizontalAxis>
+                                <chart:BarSeries.verticalAxis>
+                                    <chart:LinearAxis labelFitMode="" lineHidden="true" ticksHidden="true" labelTextColor="rgb(223, 223, 223)" labelFormat="£ %.0f"/>
+                                </chart:BarSeries.verticalAxis>
+
+                                <chart:RadCartesianChart.legend>
+                                    <chart:RadLegendView position="Bottom" title="" height="80" enableSelection="true"/>
+                                </chart:RadCartesianChart.legend>
+
+                                <chart:RadCartesianChart.grid>
+                                    <chart:RadCartesianChartGrid horizontalLinesVisible="true" horizontalStrokeColor="#808080" horizontalStrokeWidth="1">
+                                    </chart:RadCartesianChartGrid>
+                                </chart:RadCartesianChart.grid>
+                            </chart:RadCartesianChart.series>
+                            <chart:RadCartesianChart.palettes>
+                                <chart:Palette seriesName="revenue">
+                                    <chart:Palette.entries>
+                                        <chart:PaletteEntry fillColor="rgb(57, 196, 75)" strokeColor="white" />
+                                    </chart:Palette.entries>
+                                </chart:Palette>
+                                <chart:Palette seriesName="products">
+                                    <chart:Palette.entries>
+                                        <chart:PaletteEntry fillColor="rgb(255, 202, 142)" strokeColor="white"/>
+                                    </chart:Palette.entries>
+                                </chart:Palette>
+                            </chart:RadCartesianChart.palettes>
+                        </chart:RadCartesianChart>
+                    </StackLayout>
+                </Card:CardView>
+                <Card:CardView row="3" class="cardStyle" margin="5" elevation="10" radius="10" width="97%" style="padding-bottom: 25px">
+                    <StackLayout style="padding: 60px">
+                        <Label text="Up coming bookings" class="h4" textWrap="true" paddingBottom="10" />
+                        <lv:RadListView id="bookingList" class="list-group" width="100%" style="background-color: transparent">
+                            <lv:RadListView.listViewLayout>
+                                <lv:ListViewLinearLayout scrollDirection="Vertical" itemInsertAnimation="fade"/>
+                            </lv:RadListView.listViewLayout>
+                            <lv:RadListView.itemTemplate style="background-color: transparent">
+                                <GridLayout rows="30, 30, auto" columns="auto, *, auto" marginBottom="10" tap="appointmentTapped">
+                                    <Image id="{{ id }}" src="{{ clientImage }}" rowSpan="2" col="0" borderRadius="50" width="50" height="50" stretch="aspectFill"/>
+                                    <Label id="{{ id }}" text="{{ clientName }}" row="0" col="1" class="font-bold h4" marginBottom="-8" textWrap="true" />
+                                    <Label id="{{ id }}" text="{{ service }}" row="1" col="1" class="h5" marginTop="-8" textWrap="true" />
+                                    <Label id="{{ id }}" text="{{ time }}" rowSpan="2" col="2" class="h4" textWrap="true" />
+                                    <Label row="2" colSpan="3" class="line" width="100%" marginTop="10" text="" textWrap="true" />
+                                </GridLayout>
+                            </lv:RadListView.itemTemplate>
+                        </lv:RadListView>
+                    </StackLayout>
+                </Card:CardView>
+            </GridLayout>
+
+        </ScrollView>
         <StackLayout row="0">
-            
+            <view-appointment:appointment-modal id="bookingModal" visibility="collapsed" opacity="0"/>
         </StackLayout>
-        <Card:CardView row="1" class="cardStyle" margin="5" elevation="10" radius="10" width="97%" style="padding-bottom: 25px">
-            <StackLayout margin="30">
-                <Label text="SATURDAY 7th NOVEMBER 2020" class="h5" textWrap="true" />
-                <Label text="Hey Klerissa," class="h3 font-bold" textWrap="true" />
-                <Label text="So far you have made £100 today and £800 this week" class="h3 font-bold" textWrap="true" />
-            </StackLayout>   
-        </Card:CardView>  
-        <Card:CardView row="2" class="cardStyle" margin="5" elevation="10" radius="10" width="97%" style="padding-bottom: 25px">
-            <StackLayout margin="20">
-                <lv:RadListView id="notificationList" class="list-group" width="100%" style="background-color: transparent"> 
-                    <lv:RadListView.listViewLayout>
-                        <lv:ListViewLinearLayout scrollDirection="Vertical" itemInsertAnimation="fade"/>
-                    </lv:RadListView.listViewLayout>
-                    <lv:RadListView.itemTemplate style="background-color: transparent">
-                        <GridLayout rows="auto" columns="*, auto" style="padding-bottom: 30px">
-                            <Label text="" textWrap="true" />
-                            
-                        </GridLayout>
-                    </lv:RadListView.itemTemplate>
-                </lv:RadListView>
-            </StackLayout>
-        </Card:CardView>
-        <Card:CardView row="3" class="cardStyle" margin="5" elevation="10" radius="10" width="97%" style="padding-bottom: 25px">
-            <StackLayout style="padding: 60px">
-                <Label text="Up coming bookings" class="h4" textWrap="true" />
-                <lv:RadListView id="bookingList" class="list-group" width="100%" style="background-color: transparent"> 
-                    <lv:RadListView.listViewLayout>
-                        <lv:ListViewLinearLayout scrollDirection="Vertical" itemInsertAnimation="fade"/>
-                    </lv:RadListView.listViewLayout>
-                    <lv:RadListView.itemTemplate style="background-color: transparent">
-                        <GridLayout rows="30, 30" columns="auto, *, auto" style="padding-bottom: 30px">
-                            <Image id="{{ id }}" tap="{{ ontest }}" src="{{ clientImage }}" rowSpan="2" col="0" class="img-circle img-container" stretch="none"/>
-                            <Label id="{{ id }}" tap="{{ ontest }}" text="{{ clientName }}" row="0" col="1" class="font-bold h4" style="margin-top: -8px; margin-bottom: -8px" textWrap="true" />
-                            <Label id="{{ id }}" tap="{{ ontest }}" text="{{ service }}" row="1" col="1" class="h5" style="margin-top: -8px; margin-bottom: -8px" textWrap="true" />
-                            <Label id="{{ id }}" tap="{{ ontest }}" text="{{ time }}" rowSpan="2" col="2" class="h4" textWrap="true" />                
-                        </GridLayout>
-                    </lv:RadListView.itemTemplate>
-                </lv:RadListView>
-            </StackLayout>
-       </Card:CardView>  
+        <GridLayout rows="*, auto, *" columns="" row="0"
+            xmlns:view-preview-content="dashboard/modals/content">
+            <view-preview-content:preview-content-modal row="1" id="contentModal" visibility="collapsed" opacity="0"/>
+        </GridLayout>
+
+
     </GridLayout>
-</ScrollView>
+</StackLayout>
 

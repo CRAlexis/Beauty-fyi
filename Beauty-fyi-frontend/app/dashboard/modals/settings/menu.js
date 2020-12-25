@@ -65,7 +65,6 @@ exports.setSchedulingLimits = function (args) {
             })
         })
     }
-    
 }
 
 exports.addClient = function (args) {
@@ -94,4 +93,18 @@ exports.addService = function (args) {
         })
     }
     
+}
+
+exports.viewNotificationDetails = function (args) {
+    if (!active) {
+        active = true
+        const mainView = args.object;
+        const context = ""
+        animation(args.object.getChildAt(1), "arrow swipe").then(function () {
+            navigation.navigateToModal(context, mainView, 17, true).then(function (result) {
+                active = false
+            })
+        })
+    }
+
 }

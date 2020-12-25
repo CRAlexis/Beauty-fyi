@@ -1,4 +1,5 @@
 const navigation = require("~/controllers/navigationController");
+const animation = require("~/controllers/animationController").loadAnimation;
 exports.load = function(args){
     const includeObject = args.object;
     const page = includeObject.page;

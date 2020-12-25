@@ -3,12 +3,12 @@
         <StackLayout row="0">
         </StackLayout>
         <StackLayout row="1">
-            <lv:RadListView id="clientList" class="list-group" style="background-color: transparent" loadOnDemandMode="Auto" loadMoreDataRequested="{{onLoadMoreItemsRequested}}"> 
+            <lv:RadListView id="clientList" class="list-group" style="background-color: transparent" loadOnDemandModeX="Auto" loadMoreDataRequestedX="{{onLoadMoreItemsRequested}}"> 
                 <lv:RadListView.listViewLayout>
                     <lv:ListViewLinearLayout  spanCount="2" />
                 </lv:RadListView.listViewLayout>
                 <lv:RadListView.itemTemplate >    
-                    <GridLayout id="{{ id }}" tap="{{ viewClientProfile }}" rows="5, 70, 5" columns="10, 70, 10, auto" class="list-group-borders">
+                    <GridLayout id="{{ id }}" tap="viewClientProfile" rows="5, 70, 5" columns="10, 70, 10, auto" class="list-group-borders">
                     <Image src="{{ clientImage }}" row="1" col="1" height="100%" width="100%" borderRadius="50" stretch="aspectFill" />  
                         <StackLayout verticalAlignment="center" row="1" col="3" marginTop="20">
                             <Label text="{{ clientName }}" class="font-bold h4" textWrap="true" />

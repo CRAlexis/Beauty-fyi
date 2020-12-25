@@ -1,0 +1,115 @@
+<StackLayout xmlns:Card="@nstudio/nativescript-cardview"
+    xmlns:lv="nativescript-ui-listview">
+
+    <Card:CardView class="cardStyle" margin="5" elevation="10" radius="10" width="80%" height="auto">
+        <ScrollView>
+            <GridLayout rows="auto, auto">
+                <StackLayout row="0">
+                    <SegmentedBar id="appointmentModalSegmentedBar" selectedIndex="0" selectedIndexChanged="selectedIndexChangeInformation" backgroundColor="#fbfbfb" selectedBackgroundColor="#9900ff" marginTop="">
+                        <SegmentedBar.items>
+                            <SegmentedBarItem title="Details" />
+                            <SegmentedBarItem title="Consultation" />
+                        </SegmentedBar.items>
+                    </SegmentedBar>
+                </StackLayout>
+                <ScrollView id="detailsTab" row="1">
+                    <GridLayout rows="auto, auto, auto, auto, auto" columns="">
+                        <StackLayout row="0" paddingTop="20">
+                            <Image tap="goToProfile" src="~/images/temp.png" height="100" width="100" borderRadius="50" stretch="aspectFill" />
+                            <Label tap="goToProfile" text="Client Name" textAlignment="center" class="h4 font-bold" paddingTop="5" textWrap="true"/>
+                        </StackLayout>
+                        <Card:CardView row="2" class="cardStyle" margin="10" elevation="3" radius="10" width="90%" height="auto">
+                            <StackLayout padding="10">
+                                <Label text="7:00 - 9:00 on Thu, Sep 22" class="h4 font-bold" textWrap="true" />
+                                <Label text="Consultation and wash - £130" class="h4" textWrap="true" />
+                                <Label text="+ addon one" class="h5" textWrap="true" />
+                                <Label text="+ addon two" class="h5" textWrap="true" />
+                            </StackLayout>
+                        </Card:CardView>
+                        <GridLayout row="3" rows="" columns="*, auto, auto, *" paddingTop="15">
+                            <Button col="1" width="40%" text="Edit" class="btn btn-white" tap="editAppointment" />
+                            <Button col="2" width="40%" text="Cancel" class="btn btn-black" tap="" />
+                        </GridLayout>
+                        <StackLayout row="4" padding="20">
+                            <Label text="Upcoming appointments" class="h4 font-bold" paddingBottom="15" textWrap="true" />
+                            <GridLayout rows="auto, auto, auto" columns="*, auto, 20">
+                                <Label row="0" text="Oct 17, 2020" class="h5" textWrap="true" />
+                                <Label row="1" text="Consultation" marginTop="-5" class="h5" textWrap="true" />
+                                <Label row="2" colSpan="3" paddingTop="5" text="" class="line" textWrap="true" />
+                                <Label row="0" rowSpan="2" marginTop="10" col="1" text="£100" class="h5 font-bold" textWrap="true" />
+                            </GridLayout>
+                        </StackLayout>
+                    </GridLayout>
+                </ScrollView>
+                <StackLayout id="consultationTab" row="1" padding="20"
+                    xmlns:lv="nativescript-ui-listview" visibility="collapsed" opacity="0">
+                    <Repeater items="{{ consultationList }}">
+                        <Repeater.itemTemplate>
+                            <StackLayout paddingBottom="10">
+                                <Label text="{{question}}" color="gray" class="h5" textWrap="true" />
+                                <Label text="{{answer}}" class="h4" textWrap="true" />
+                            </StackLayout>
+                        </Repeater.itemTemplate>
+                    </Repeater>
+                    <Label text="" class="line" textWrap="true" marginTop="15" marginBottom="15" />
+
+                    <Repeater items="{{ consultationPhotoList }}">
+                        <Repeater.itemTemplate>
+                            <StackLayout >
+                                <Image id="{{ index }}" tap="{{imageTapped}}" src="{{ image }}" height="100" borderRadius="2" stretch="aspectFit" load="async" margin="5" />
+                            </StackLayout>
+                        </Repeater.itemTemplate>
+                    </Repeater>
+
+                </StackLayout>
+                <StackLayout id="editTab" row="1" padding="10" visibility="collapsed" opacity="0"
+                    xmlns:includesCalander="dashboard/includes/calander">
+                    <StackLayout id="editTabSlideOne">
+                        <Label text="Choose a new date" class="font-bold h4" paddingBottom="10" paddingTop="10" textWrap="true" />
+                        <includesCalander:book-service-calander loaded="initCalander"/>
+                        <StackLayout>
+                            <lv:RadListView id="editAppointmentAvaliableTimes" class="list-group" style="background-color: transparent" visibility="collapsed">
+                                <lv:RadListView.listViewLayout>
+                                    <lv:ListViewGridLayout spanCount="3" />
+                                </lv:RadListView.listViewLayout>
+                                <lv:RadListView.itemTemplate >
+                                    <StackLayout tap="{{onTimeSelected}}" class="btn-light-grey-outline btn-rounded-sm" margin="5">
+                                        <Label id="" selectedTime="false" text="{{time}}" class="h4 font-bold" textAlignment="center" textWrap="true" />
+                                    </StackLayout>
+                                </lv:RadListView.itemTemplate>
+                            </lv:RadListView>
+                        </StackLayout>
+                        <GridLayout rows="auto, auto" columns="auto, *, auto" paddingTop="20">
+                            <Label tap="exitEdit" row="1" col="0" text="Exit" color="gray" class="h5 font-bold" textWrap="true" />
+                            <Label tap="skipSlide" row="1" col="2" text="Skip" color="gray" class="h5 font-bold" textWrap="true" />
+                        </GridLayout>
+                    </StackLayout>
+                    <StackLayout id="editTabSlideTwo"
+                        xmlns:CheckBox="@nstudio/nativescript-checkbox" visibility="collapsed" opacity="0">
+                        <Label text="Change the service and addons" class="font-bold h4" paddingBottom="20" paddingTop="10" textWrap="true" />
+                        <TextField id="editService" class="textFieldInputSmall" color="black" text="Service name" tap="dropDownClicked" hint="" optionContext="Service One,Service Two,Service Three,Service Four" editable="false" marginBottom="20" editable="false"/>
+                        <lv:RadListView id="appointmentAddons" class="list-group" style="background-color: transparent">
+                            <lv:RadListView.listViewLayout>
+                                <lv:ListViewLinearLayout/>
+                            </lv:RadListView.listViewLayout>
+                            <lv:RadListView.itemTemplate >
+                                <CheckBox:CheckBox fillColor="black" marginLeft="8" tap="addonTapped" addonId="{{id}}" text="{{addonText}}" fontSize="15" color="black" checked="{{checked}}"/>
+                            </lv:RadListView.itemTemplate>
+                        </lv:RadListView>
+                        <StackLayout paddingLeft="10" marginTop="35">
+                            <Label text="Paid: £50" class="h4" textWrap="true" />
+                            <Label text="To pay on appointment: £100" class="h4 font-bold" textWrap="true" />
+                        </StackLayout>
+                        <GridLayout rows="" columns="*, auto, *" paddingTop="25">
+                            <Button tap="modifyAppointment" col="1" width="60%" text="Save" class="btn btn-black" tap="editAppointment" />
+                        </GridLayout>
+                        <GridLayout rows="auto, auto" columns="auto, *, auto" paddingTop="10">
+                            <Label tap="goBackEdit" row="1" col="0" text="Go back" class="h5 font-bold" color="gray" textWrap="true" />
+                        </GridLayout>
+                    </StackLayout>
+
+                </StackLayout>
+            </GridLayout>
+        </ScrollView>
+    </Card:CardView>
+</StackLayout>

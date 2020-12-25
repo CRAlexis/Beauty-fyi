@@ -33,7 +33,7 @@ exports.errorMessage = function(message){
     }
 }
 
-exports.areYouSure = function(message){
+exports.areYouSure = function(title, message){
     
     return new Promise((resolve, reject) => {
         if (!active) {
@@ -42,7 +42,8 @@ exports.areYouSure = function(message){
             let options = {
                 // Options go here
                 dialogStyle: CFAlertStyle.ALERT,
-                title: message,
+                title: title,
+                message: message,
                 buttons: [{
                         text: "Yes",
                         buttonStyle: CFAlertActionStyle.DEFAULT,

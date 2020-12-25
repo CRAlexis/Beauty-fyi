@@ -42,7 +42,7 @@
                 </StackLayout>
                 <StackLayout row="2" >
                     <Label text="App settings" class="h5" textWrap="true" padding="25"/>
-                    <GridLayout rows="40, auto" columns="25, 5, *, auto, 25, 25" paddingTop="10">
+                    <GridLayout tap="viewNotificationDetails" rows="40, auto" columns="25, 5, *, auto, 25, 25" paddingTop="10">
                         <Label row="0" col="2" text="Notification Details" class="h5 font-bold" textWrap="true" />
                         <Label row="0" col="3" text="&#xf054;" class="fas" fontSize="16" textWrap="true" />
                         <Label row="1" col="1" colSpan="4" text="" class="line" textWrap="true" />

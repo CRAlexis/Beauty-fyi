@@ -3,7 +3,7 @@
         <StackLayout paddingBottom="35">
             <Label text="Payment" class="h3" textWrap="true" />
             <Label text="" class="line" width="100%" textWrap="true" />
-            <lv:RadListView id="paymentList" class="list-group" width="100%" height="180" style="background-color: transparent"> 
+            <lv:RadListView id="recieptList" class="list-group" width="100%" height="180" style="background-color: transparent"> 
                 <lv:RadListView.listViewLayout>
                     <lv:ListViewLinearLayout scrollDirection="Vertical" itemInsertAnimation="fade"/>
                 </lv:RadListView.listViewLayout>
@@ -18,26 +18,21 @@
         </StackLayout>
         <StackLayout paddingBottom="35">
             <Label text="Payment Method" class="h4" textWrap="true" />
-            <Label text="" class="line" width="100%" textWrap="true" />
-            <GridLayout tap="{{ openCardModal }}" rows="" columns="*, auto, 20" paddingTop="10" paddingBottom="10">
-                <Label col="0" text="Add a card" class="font-bold h5" textWrap="true" />
-                <Label col="1" text="&#xf054;" class="fas" fontSize="20" textWrap="true" />
-            </GridLayout>
-            <Label text="" class="line" textWrap="true" />
-            <GridLayout rows="" columns="*, auto, 20" paddingTop="10" paddingBottom="10">
-                <Label col="0" text="Apply a voucher" class="h5" textWrap="true" />
-                <Label col="1" text="&#xf054;" class="fas" fontSize="20" textWrap="true" />
-            </GridLayout>
-            <Label text="" class="line" width="100%" textWrap="true" />
+            <lv:RadListView id="paymentMethodList" class="list-group" width="100%"  style="background-color: transparent"> 
+                <lv:RadListView.listViewLayout>
+                    <lv:ListViewLinearLayout scrollDirection="Vertical" itemInsertAnimation="fade"/>
+                </lv:RadListView.listViewLayout>
+                <lv:RadListView.itemTemplate style="background-color: transparent">      
+                    <GridLayout index="{{index}}" rows="auto, auto" columns="*, auto, 20" tap="{{paymentMethodListAction}}">
+                        <Label row="0" colSpan="3" text="" class="line" width="100%" textWrap="true" />
+                        <Label row="1" col="0" text="{{text}}" class="font-bold h5" textWrap="true" paddingTop="15"/>
+                        <Label row="1" col="1" text="&#xf054;" class="fas" fontSize="20" textWrap="true" paddingBottom="8"/>
+                    </GridLayout>
+                </lv:RadListView.itemTemplate>
+            </lv:RadListView>
+            <Label text="" class="line" width="100%" textWrap="true" />       
         </StackLayout>
-        <StackLayout paddingBottom="20">
-            <Label text="Rescheduling" class="h4" textWrap="true" />
-            <Label class="h5" text="Life happens sometimes so if it is necessary to cancel or reschedule your scheduled appointment. Reschedule at least 24 hours’ in advance of your scheduled appointment to avoid cancellation / rescheduling fees." textWrap="true" />
-        </StackLayout>
-        <StackLayout paddingBottom="30">
-            <Label text="Cancellation" class="h4" textWrap="true"  />
-            <Label text="View our cancellation policy here" class="h5" textWrap="true" />
-        </StackLayout>
+
         <StackLayout orientation="horizontal" paddingBottom="10">
             <Label text="&#xf3c5;" class="fas" fontSize="20" paddingRight="10" textWrap="true" />
             <Label text="N11 3DH, LONDON, GB, LONDON, N11 3DH" class="h5" textWrap="true" />

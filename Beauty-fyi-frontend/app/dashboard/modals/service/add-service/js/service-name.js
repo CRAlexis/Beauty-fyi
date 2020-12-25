@@ -1,25 +1,22 @@
 const navigation = require("~/controllers/navigationController");
 exports.validateSecondPage = (args, sourceForm) => {
     return new Promise((resolve, reject) =>{
-        const page = args.object.page;
-        const serviceName = page.getViewById("serviceName")
-        const servicePrice = page.getViewById("servicePrice")
-        const serviceCategory = page.getViewById("serviceCategory")
-        const serviceDescription = page.getViewById("serviceDescription")
-        const serviceColor = page.getViewById("serviceColor")
-        console.log("1")
-        if (serviceName.text && servicePrice.text && serviceCategory.text) {
-            console.log("2")
-            try {
-                sourceForm.set("serviceName", serviceName.text)
-                sourceForm.set("servicePrice", servicePrice.text)
-                sourceForm.set("serviceCategory", serviceCategory.text)
-                sourceForm.set("serviceDescription", serviceDescription.text)
-                sourceForm.set("serviceColor", serviceColor.color)
-            } catch (error) {
-                console.log(error)
-            }
+        try {
+            const page = args.object.page;
+            const serviceName = page.getViewById("serviceName")
+            const servicePrice = page.getViewById("servicePrice")
+            const serviceCategory = page.getViewById("serviceCategory")
+            const serviceDescription = page.getViewById("serviceDescription")
+            const serviceColor = page.getViewById("serviceColor")
+            sourceForm.set("serviceName", serviceName.text)
+            sourceForm.set("servicePrice", servicePrice.text)
+            sourceForm.set("serviceCategory", serviceCategory.text)
+            sourceForm.set("serviceDescription", serviceDescription.text)
+            sourceForm.set("serviceColor", serviceColor.color)  
+        } catch (error) {
             
+        }
+        if (serviceName.text && servicePrice.text && serviceCategory.text) {      
             resolve()
         }
     })

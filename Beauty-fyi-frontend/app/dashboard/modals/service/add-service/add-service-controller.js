@@ -1,5 +1,6 @@
 const Observable = require("tns-core-modules/data/observable").Observable;
 const application = require('application');
+const { sendHTTPFile } = require("~/controllers/HTTPControllers/sendHTTP");
 const sendHTTP = require("~/controllers/HTTPControllers/sendHTTP").sendHTTP;
 const navigation = require("~/controllers/navigationController")
 const inAppNotifiationAlert = require("~/controllers/notifications/inApp/notification-alert.js")
@@ -20,6 +21,7 @@ exports.onShownModally = function(args) {
     closeCallback = args.closeCallback;
     const page = args.object;
     page.bindingContext = source
+    // get option context to know if we editing the service - so ican change continue button to save changes or something
     
 }
 
@@ -62,26 +64,27 @@ function goToNextSlide(args){
             })
             break;
         case 2:
-            paddingTime.getPaddingData(args, sourceForm)
+            
             slideTransition.goToNextSlide(args, slideIndex, source, slides).then(function (result) {
                 slideIndex = result
                 slideValidated(args)
             })
             break;
         case 3:
+            paddingTime.getPaddingData(args, sourceForm)
             slideTransition.goToNextSlide(args, slideIndex, source, slides).then(function (result) {
                 slideIndex = result
                 slideValidated(args)
             })
             break;
         case 4:
-            createServiceFinalSlide.initialise(args, sourceForm)
             slideTransition.goToNextSlide(args, slideIndex, source, slides).then(function (result) {
                 changeContinueButtontext(args, "Create service")
                 slideIndex = result
             })
             break;
         case 5:
+            createServiceFinalSlide.getData(args, sourceForm)
             sendDataToBackEnd(args).then((result) => {
                 console.log("success?")
                 slideTransition.goToCustomSlide(args, slideIndex, 7, source, slides).then(function (result) {
@@ -100,24 +103,17 @@ function goToNextSlide(args){
             break;       
         case 7:
             closeCallback()
-
     }
-
 }
 
 function sendDataToBackEnd(args){
     return new Promise((resolve, reject) => {
         setLoadingStyle(args, 0)
         sendData(args).then((result)=>{
-            console.log(1)
-            //console.log(result)
             resolve()
         }, (error) =>{
-            console.log(2)
             reject(error)
         }).finally((result) => {    
-            console.log(3)
-            console.log("should get here")
             setLoadingStyle(args, 1)
         })
     })
@@ -139,12 +135,11 @@ function setLoadingStyle(args, index){
 }
 function sendData(args){
     return new Promise((resolve, reject) =>{
-        const httpParameters = {
-            url: "url",
+        const httpParametersPicture = {
+            url: "http://192.168.1.12:3333/uploadfile",
             method: 'POST',
-            headers: { "Content-Type": "application/json" },
+            file: sourceForm.get("serviceImage"),
             content: {
-                image: sourceForm.get("serviceImage"),
                 serviceName: sourceForm.get("serviceName"),
                 servicePrice: sourceForm.get("servicePrice"),
                 serviceCategory: sourceForm.get("serviceCategory"),
@@ -159,15 +154,13 @@ function sendData(args){
                 paymentType: sourceForm.get("servicePaymentSetting"),
             }
         }
-        resolve()
-        sendHTTP(httpParameters).then(function (result) {
-      //resolve("Done")
-        }, error => {   
-            reject(error)
-      // probably try again later
+        sendHTTPFile(httpParametersPicture).then((result) => {
+            resolve()
+            console.log(result)
+        },(error)=>{
+            reject()
         })
-    })
-    
+    }) 
 }
 
 
@@ -202,22 +195,17 @@ exports.learnMoreModal = (args) => {
 }
 
 
-
-        
-
 exports.goBack = function (args) {
     backEvent(args)
 }
-
 function backEvent(args){ // This event is a bit funny
     args.cancel = true;
     if(slideIndex == 0){
-        inAppNotifiationAlert.areYouSure("Are you sure you want to exit?").then(function (result) {
+        inAppNotifiationAlert.areYouSure("Are you sure you want to exit?", "Your information will not be saved.").then(function (result) {
             if (result) { exitModal(args) }
         })
     }else{
         slideTransition.goToPreviousSlide(args, slideIndex, source, slides).then(function (result) {
-            resetContinueButton(args)
             slideIndex = result
             slideValidated(args)
         })
