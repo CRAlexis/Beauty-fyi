@@ -3,24 +3,23 @@
 /** @type {import('@adonisjs/lucid/src/Schema')} */
 const Schema = use('Schema')
 
-class CameraStepsSchema extends Schema {
+class ServiceAddonsSchema extends Schema {
   up () {
-    this.create('camera_steps', (table) => {
+    this.create('service_addons', (table) => {
       table.increments()
       table.integer('user_id').unsigned().references('id').inTable('users')
+      table.integer('service_id').unsigned().references('id').inTable('add_services')
       table.integer('index')
       table.string('name')
+      table.integer('price')
       table.integer('duration')
-      table.boolean('capture_footage_in_this_step')
-      table.integer('padding_before')
-      table.integer('padding_after')
       table.timestamps()
     })
   }
 
   down () {
-    this.drop('camera_steps')
+    this.drop('service_addons')
   }
 }
 
-module.exports = CameraStepsSchema
+module.exports = ServiceAddonsSchema

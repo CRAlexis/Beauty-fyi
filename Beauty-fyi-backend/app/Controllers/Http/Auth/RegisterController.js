@@ -1,8 +1,8 @@
 'use strict'
-
 const { validateAll } = use('Validator')
 const User = use('App/Models/User')
-const Validator = use('Validator')
+
+//const ScheduleAvailabilityDay = use('App/Controllers/Stylist/ScheduleAvailabilityDay').AddScheduleAvailabilityDayDefault
 const randomString = require('random-string')
 const cleanStrings = use('App/Controllers/sanitize/cleanStrings').cleanStrings
 const Mail = use('Mail')
@@ -13,35 +13,49 @@ class RegisterController {
   async register ({ request, session, response }) {
     try{
       //Vars
-      Username = trim(request.input('username'))
-      Email = trim(request.input('email'))
-      Password = trim(request.input('password'))
-
+      var FirstName = request.all().content.firstName.trim()
+      var LastName = request.all().content.lastName.trim()
+      var Email = request.all().content.email.trim()
+      var Password = request.all().content.password.trim()
+      var PhoneNumber = null
+      if(request.all().content.phoneNumber.trim()){
+        PhoneNumber = request.all().content.phoneNumber.trim()
+      }
       //Cleaning Vars
-      Username = cleanStrings(Username, "string")
+      FirstName = cleanStrings(FirstName, "string")
+      LastName = cleanStrings(LastName, "string")
       Email = cleanStrings(Email, "string")
       Email = cleanStrings(Email, "email")
       Password = cleanStrings(Password, "string")
+      PhoneNumber = cleanStrings(PhoneNumber, "int")
+
+      //Captialize first name and last name
+      FirstName = await this.capitalizeFirstLetter(FirstName)
+      LastName = await this.capitalizeFirstLetter(LastName)
+
 
       //Validate form inputs
-      const validation = await validateAll(request.all(), {
-        username: 'required|unique:users,username',
+      const validation = await validateAll(request.all().content, {
+        firstName: 'required',
+        lastName: 'required',
         email: 'required|email|unique:users,email',
-        password: 'required'
+        password: 'required',
+        phoneNumber: 'unique:users,PhoneNumber'
       })
       //return "here";
-
       if(validation.fails()){
         console.log(validation.messages())
-        //return {validation.messages()}
+        return false;
       }
     // create user
     const user =  await User.create({
-        username: Username,
+        firstName: FirstName,
+        lastName: LastName,
         email: Email,
         password: Password,
+        phoneNumber: PhoneNumber
         //accountType: request.input('accountType'),
-        confirmation_token: randomString({ length: 40 })
+        //confirmation_token: randomString({ length: 40 })
       })
     console.log("Sending confirmation email...")
 
@@ -55,7 +69,7 @@ class RegisterController {
       return {"status" : "success"}
   }catch(Error){
       Database.table('log_errors').insert({class: "RegisterController", log: Error.sqlMessage})
-      console.log(Error.sqlMessage)
+      console.log(Error)
     }
   }
 
@@ -73,6 +87,10 @@ class RegisterController {
     return {"status" : "success"}
   }
 
+  async capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+
 
   async confirmEmail ( { params, session, response }){
       // get user with the confirmation token
@@ -85,13 +103,7 @@ class RegisterController {
       // save user update to database
       await user.save()
 
-      // display success message
-      /*session.flash({
-        notification: {
-          type: 'success',
-          message: 'Your email address has been confirmed.'
-        }
-      })*/
+      //await ScheduleAvailabilityDay(user.id)
   }
 
   async test ( {request  }){

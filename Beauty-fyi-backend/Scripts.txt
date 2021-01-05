@@ -28,6 +28,14 @@ npm install @adonisjs/ignitor
 npm install @adonisjs/fold
 npm install @adonisjs/framework/providers/AppProvider
 
+instant message scripts:
+npm install ws
+adonis install @adonisjs/websocket
+npm i --save @adonisjs/websocket-packet
+npm i --save @adonisjs/msgpack-encoder
+npm i simple-message-reader
+
+
 
 HOST=127.0.0.1
 PORT=3333

@@ -3,12 +3,12 @@
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
 const Model = use('Model')
 
-class ScheduleAvailabilityDay extends Model {
+class InstantMessage extends Model {
 
-  User () {
+  user () {
     return this.hasOne('App/Models/User')
   }
 
 }
 
-module.exports = ScheduleAvailabilityDay
+module.exports = InstantMessage

@@ -3,7 +3,7 @@
 /** @type {import('@adonisjs/lucid/src/Schema')} */
 const Schema = use('Schema')
 
-class AddServiceSchema extends Schema {
+class AddServicesSchema extends Schema {
   up () {
     this.create('add_services', (table) => {
       table.increments()
@@ -14,6 +14,8 @@ class AddServiceSchema extends Schema {
       table.string('category')
       table.string('description')
       table.string('rgba_colour')
+      table.integer('padding_before')
+      table.integer('padding_after')
       table.timestamps()
     })
   }
@@ -23,4 +25,4 @@ class AddServiceSchema extends Schema {
   }
 }
 
-module.exports = AddServiceSchema
+module.exports = AddServicesSchema

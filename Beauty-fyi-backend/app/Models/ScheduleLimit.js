@@ -4,6 +4,11 @@
 const Model = use('Model')
 
 class ScheduleLimit extends Model {
+
+  User () {
+    return this.hasOne('App/Models/User')
+  }
+
 }
 
 module.exports = ScheduleLimit

@@ -1,7 +1,6 @@
 'use strict'
-
-/** @type {import('@adonisjs/framework/src/Server')} */
 const Server = use('Server')
+/** @type {import('@adonisjs/framework/src/Server')} */
 
 /*
 |--------------------------------------------------------------------------
@@ -14,8 +13,7 @@ const Server = use('Server')
 */
 const globalMiddleware = [
   'Adonis/Middleware/BodyParser',
-  'App/Middleware/ConvertEmptyStringsToNull',
-  
+  'App/Middleware/ConvertEmptyStringsToNull'
 ]
 
 /*
@@ -51,7 +49,7 @@ const namedMiddleware = {
 |
 */
 const serverMiddleware = [
-  // 'Adonis/Middleware/Static',
+  'Adonis/Middleware/Static',
   'Adonis/Middleware/Cors'
 ]
 

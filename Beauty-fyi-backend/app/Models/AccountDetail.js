@@ -3,7 +3,7 @@
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
 const Model = use('Model')
 
-class CameraStep extends Model {
+class AccountDetail extends Model {
 }
 
-module.exports = CameraStep
+module.exports = AccountDetail

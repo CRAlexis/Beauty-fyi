@@ -1,19 +1,19 @@
 'use strict'
 
-const StylistAddon = use('App/Models/StylistAddon')
+const ServiceAddon = use('App/Models/ServiceAddon')
 const cleanStrings = use('App/Controllers/sanitize/cleanStrings').cleanStrings
 
-class StylistAddonController {
+class ServiceAddonController {
 
-  async AddStylistAddon ({ request, session, response }){
+  async AddServiceAddon ({ request, session, response }){
 
     Index = request.input('index')
     Name = request.input('name')
     Price = request.input('price')
     Duration = request.input('duration')
 
-    // create StylistAddon
-    const stylistAddon =  await StylistAddon.create({
+    // create ServiceAddon
+    const serviceAddon =  await ServiceAddon.create({
       index: cleanStrings(Index, "int"),
       name: cleanStrings(Name, "string"),
       price: cleanStrings(Price, "int"),
@@ -26,4 +26,4 @@ class StylistAddonController {
 
 }
 
-module.exports = StylistAddonController
+module.exports = ServiceAddonController

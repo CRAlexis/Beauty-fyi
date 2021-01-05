@@ -16,16 +16,20 @@ class AddServiceController {
     Category = request.input('category')
     Description = request.input('description')
     Rgba_colour = request.input('rgba_colour')
+    Padding_before = request.input('padding_before')
+    Padding_after = request.input('padding_after')
 
     // create service
     const service =  await AddService.create({
-      userId: user_id,
+      user_id: userId,
       image: cleanStrings(V_Image, "string"),
       name: cleanStrings(Name, "string"),
       price: cleanStrings(Price, "int"),
       category: cleanStrings(Category, "string"),
       description: cleanStrings(Description, "string"),
-      rgba_colour: cleanStrings(Rgba_colour, "string")
+      rgba_colour: cleanStrings(Rgba_colour, "string"),
+      padding_before: cleanStrings(Padding_before, "int"),
+      padding_after: cleanStrings(Padding_after, "int")
     })
 
     return {"status" : "success"}

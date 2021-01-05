@@ -12,6 +12,7 @@ class LoginController {
   }
 
   async login ({ request, auth, session, response }) {
+    console.log("hey")
     try{
       //get form data
       const { email, password, plainKey, deviceID } = request.all()
@@ -51,7 +52,7 @@ class LoginController {
       await Database.table('encryptions').where('deviceID', deviceID).update({'user_id' : user.id})
 
       console.log("Success")
-      return {"status" : "success", "username" : user.username}
+      return {"status" : "success", "firstName" : user.firstName, "lastName" : user.lastName}
 
   }catch(Error){
     Database.table('log_errors').insert({class: "LoginController", log: Error.sqlMessage})

@@ -19,8 +19,27 @@ const Route = use('Route')
 Route.get('/', () => {
   return { greeting: 'Hello world in JSON' }
 })
+
+//Tests
 Route.get('test', 'Auth/RegisterController.test').as('test')
 Route.get('stripeTest', 'Payment/StripeController.test').as('stripeTest')
+
+Route.group(() => {
+Route.post('uploadfile', 'upload/UploadPhotoController.uploadPhoto').as('uploadfile')
+
+//Stylist routes
+Route.post('scheduleavailabilityday', 'Stylist/ScheduleAvailabilityDayController.AddScheduleAvailabilityDay').as('scheduleavailabilityday')
+Route.get('scheduleavailabilityday', 'Stylist/ScheduleAvailabilityDayController.GetScheduleAvailabilityDay')
+Route.post('schedulelimit', 'Stylist/ScheduleLimitController.AddScheduleLimit').as('schedulelimit')
+Route.get('schedulelimit', 'Stylist/ScheduleLimitController.GetScheduleLimit')
+
+//User routes
+Route.post('accountdetail', 'User/AccountDetail.AddAccountDetail').as('accountdetail')
+Route.post('bio', 'User/Bio.AddBio').as('bio')
+
+}).middleware(['Android'])
+
+//Registering and logging in
 Route.group(() => {
   Route.get('register', 'Auth/RegisterController.showRegisterForm')
   Route.post('register', 'Auth/RegisterController.register').as('register')

@@ -43,9 +43,37 @@ class User extends Model {
     return this.hasMany('App/Models/UserAttr')
   }
 
-  userAttr () {
+  UserMedia () {
     return this.hasMany('App/Models/UserMedia')
   }
+
+
+  AddService () {
+    return this.hasMany('App/Models/AddService')
+  }
+  ServiceAddon () {
+    return this.hasMany('App/Models/ServiceAddon')
+  }
+  ServiceStep () {
+    return this.hasMany('App/Models/ServiceStep')
+  }
+
+  StylistAddForm () {
+    return this.hasMany('App/Models/StylistAddForm')
+  }
+
+  StylistForm () {
+    return this.hasMany('App/Models/StylistForm')
+  }
+
+  ScheduleLimit () {
+    return this.hasMany('App/Models/ScheduleLimit')
+  }
+
+  ScheduleAvailabilityDay () {
+    return this.hasMany('App/Models/ScheduleAvailabilityDay')
+  }
+
 }
 
 module.exports = User

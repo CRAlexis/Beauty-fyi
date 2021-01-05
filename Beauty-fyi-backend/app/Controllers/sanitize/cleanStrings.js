@@ -1,4 +1,5 @@
 
+const Validator = use('Validator')
 
 
 exports.cleanStrings = function(variable, type) {
