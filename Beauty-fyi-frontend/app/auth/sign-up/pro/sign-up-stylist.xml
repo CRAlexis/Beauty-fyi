@@ -1,0 +1,31 @@
+<Page navigatingTo="onNavigatingTo" actionBarHidden="true"
+    xmlns:CheckBox="@nstudio/nativescript-checkbox">
+    <ActionBar title="" icon=""></ActionBar>
+
+    <GridLayout rows="30, 60, auto, auto, 160">
+        <!--<ActivityIndicator busy="{{ processingHTTPRequest }}" color="purple" width="100" height="100" row="3"></ActivityIndicator>-->
+        <StackLayout row="0">
+            <Label text=" " textWrap="true" />
+        </StackLayout>
+        <StackLayout row="1" style="padding-left: 40px">
+            <GridLayout columns="30, auto" tap="{{ navigateBack }}">
+                <Label text="&#xf104;" class="fas" col="0" style="font-size: 19; padding-top: 15px" textWrap="true" />
+                <Label tap="{{ navigateBack }}" class="h4" col="1" text="Back"/>
+            </GridLayout>
+        </StackLayout>
+        <StackLayout row="2" padding="20">
+            <Label class="font-regular h1 letterSpacing" text="Sign up" textWrap="true"/>
+            <label class="font-regular h4" text="Create an account to run your beauty business." textWrap="true"/>
+        </StackLayout>
+        <StackLayout row="3">
+            <TextField class="textFieldInput" hint="First name*" maxLength="16" text="{{ username }}" width="90%" style="" isEnabled="{{ !processingHTTPRequest }}"></TextField>
+            <TextField class="textFieldInput" hint="Last name*" maxLength="16" text="" width="90%"/>
+            <TextField class="textFieldInput" keyboardType="email" maxLength="64" autocorrect="false" autocapitalizationType="none" hint="Email address*" text="{{ email }}" width="90%"/>
+            <TextField class="textFieldInput" hint="Phone number" keyboardType="number" text="" maxLength="13" />
+            <TextField class="textFieldInput" hint="Password*" text="{{ password }}" secure="true" width="90%" />
+            <CheckBox:CheckBox text="I have read the Terms of Service and Privacy Policy" textWrap="true" fontSize="13" color="gray" checked="false" marginLeft="10" marginTop="15" marginBottom="25"/>
+            <Button tap="signUpTapped" class="btn btn-black-outline" text="Sign up"/>
+        </StackLayout>
+        <Label row="4" text="{{ printValidationError }}" class="h5" textWrap="true" style="padding-left: 40px" color="red"/>
+    </GridLayout>
+</Page>

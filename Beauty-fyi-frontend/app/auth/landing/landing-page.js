@@ -1,39 +1,46 @@
-const appSettings = require("tns-core-modules/application-settings");
+const SecureStorage = require("nativescript-secure-storage").SecureStorage;
 const Observable = require("tns-core-modules/data/observable").Observable;
 const navigation = require("~/controllers/navigationController")
 const sendHTTP = require("~/controllers/HTTPControllers/sendHTTP").sendHTTP;
 const randomString = require('random-string');
 const source = new Observable()
-exports.onNavigatingTo = function onNavigatingTo(args) {
+const secureStorage = new SecureStorage();
+var success = secureStorage.clearAllOnFirstRunSync();
+
+exports.onNavigatingTo = (args) =>{
     const page = args.object;
     page.bindingContext = source;
     //Need to move this function before this page is shown
-    if (!appSettings.hasKey("deviceID")) {
+    secureStorage.get({ key: "deviceID" }).then((result) => {
+        // Already has key
+    }, (e) => {
         getEnctrypedKey()
-    } else {
-        //autoSignIn();
-    } 
+    })
 }
-
-
 
 source.set("signUpAsClient", function (args) {
     //navigate to client sign up page
 })
-source.set("signUpAsProfessional", function (args) {
-    const button = args.object;
-    const page = button.page;
-    navigation.navigateToSignUpProfessionalLandingPage(page)//This page is funny
-})
-source.set("signInTapped", function (args) {
-    const button = args.object;
-    const page = button.page;
-    navigation.navigateToSignInPage(null, page)
-});
+/*exports.signInAsProfessional = (args) => {
+    const page = args.object.page
+    navigation.navigateToPage({}, page, 7, false)
+}*/
+
+exports.signUp = (args) => {
+    const page = args.object.page
+    navigation.navigateToPage({}, page, 5, false)
+};
+
+exports.logIn = (args) => {
+    const page = args.object.page
+    navigation.navigateToPage({}, page, 4, false)
+};
+
+
 
 async function getEnctrypedKey() {
     const deviceID = randomString({ length: 25 })
-    const content = JSON.stringify({ deviceID: deviceID })
+    const content = { deviceID: deviceID }
     const httpParameters = {
         url: 'http://192.168.1.12:3333/landing',
         method: 'POST',
@@ -41,8 +48,18 @@ async function getEnctrypedKey() {
     }
     await sendHTTP(httpParameters)
         .then((response) => {
-            appSettings.setString("plainKey", response.JSON.plainKey);
-            appSettings.setString("deviceID", deviceID);
+            secureStorage.set({
+                key: "plainKey",
+                value: response.JSON.plainKey
+            }).then(({}),(e) =>{
+                //unable to authenticate device
+            })
+            secureStorage.set({
+                key: "deviceID",
+                value: deviceID
+            }).then(({}), (e) => {
+                //unable to authenticate device
+            })
         }, (e) => {
             // unable to authenticate device
         })
@@ -54,12 +71,10 @@ async function autoSignIn(){
         processingHTTPRequest(true)
         const button = args.object;
         const page = button.page;
-        const content = JSON.stringify({
-            email: appSettings.getString("email"),
-            password: appSettings.getString("password"),
-            deviceID: appSettings.getString("deviceID"),
-            plainKey: appSettings.getString("plainKey")
-        })
+        const content = {
+            deviceID: await secureStorage.get({ key: "email" }),
+            plainKey: await secureStorage.get({ key: "password" }),
+        }
         const httpParameters = {
             url: 'http://192.168.1.12:3333/login',
             method: 'POST',

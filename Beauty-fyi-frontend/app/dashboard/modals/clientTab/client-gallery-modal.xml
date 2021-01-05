@@ -8,7 +8,7 @@
                         <lv:ListViewGridLayout  spanCount="3" />
                     </lv:RadListView.listViewLayout>
                     <lv:RadListView.itemTemplate >    
-                        <Image id="{{ index }}" tap="{{imageTapped}}" src="{{ image }}" height="{{ height }}" stretch="aspectFill" load="async" margin="5" />
+                        <Image id="{{ index }}" tap="{{imageTapped}}" longPress="{{longPressImage}}" src="{{ image }}" height="{{ height }}" stretch="aspectFill" load="async" margin="5" />
                     </lv:RadListView.itemTemplate>
                 </lv:RadListView>
             </StackLayout>

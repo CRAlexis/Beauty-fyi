@@ -1,7 +1,7 @@
 <StackLayout xmlns:Card="@nstudio/nativescript-cardview"
     xmlns:lv="nativescript-ui-listview">
 
-    <Card:CardView class="cardStyle" margin="5" elevation="10" radius="10" width="80%" height="auto">
+    <Card:CardView class="cardStyle" margin="5" elevation="10" radius="10" width="88%" height="90%">
         <ScrollView>
             <GridLayout rows="auto, auto">
                 <StackLayout row="0">
@@ -87,7 +87,7 @@
                     <StackLayout id="editTabSlideTwo"
                         xmlns:CheckBox="@nstudio/nativescript-checkbox" visibility="collapsed" opacity="0">
                         <Label text="Change the service and addons" class="font-bold h4" paddingBottom="20" paddingTop="10" textWrap="true" />
-                        <TextField id="editService" class="textFieldInputSmall" color="black" text="Service name" tap="dropDownClicked" hint="" optionContext="Service One,Service Two,Service Three,Service Four" editable="false" marginBottom="20" editable="false"/>
+                        <TextField id="editService" class="textFieldInputSmall" color="black" text="Wash and Go" tap="dropDownClicked" hint="" optionContext="Service One,Service Two,Service Three,Service Four" editable="false" marginBottom="20" editable="false"/>
                         <lv:RadListView id="appointmentAddons" class="list-group" style="background-color: transparent">
                             <lv:RadListView.listViewLayout>
                                 <lv:ListViewLinearLayout/>
@@ -98,14 +98,14 @@
                         </lv:RadListView>
                         <StackLayout paddingLeft="10" marginTop="35">
                             <Label text="Paid: £50" class="h4" textWrap="true" />
-                            <Label text="To pay on appointment: £100" class="h4 font-bold" textWrap="true" />
+                            <Label text="Balance: £100" class="h4 font-bold" textWrap="true" />
                         </StackLayout>
                         <GridLayout rows="" columns="*, auto, *" paddingTop="25">
-                            <Button tap="modifyAppointment" col="1" width="60%" text="Save" class="btn btn-black" tap="editAppointment" />
+                            <Button tap="modifyAppointment" col="1" width="60%" text="Save" class="btn btn-black" />
                         </GridLayout>
-                        <GridLayout rows="auto, auto" columns="auto, *, auto" paddingTop="10">
+                        <!--<GridLayout rows="auto, auto" columns="auto, *, auto" paddingTop="10">
                             <Label tap="goBackEdit" row="1" col="0" text="Go back" class="h5 font-bold" color="gray" textWrap="true" />
-                        </GridLayout>
+                        </GridLayout>-->
                     </StackLayout>
 
                 </StackLayout>

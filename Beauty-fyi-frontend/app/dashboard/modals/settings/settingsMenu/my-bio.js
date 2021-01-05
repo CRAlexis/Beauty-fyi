@@ -1,7 +1,9 @@
 const Observable = require("tns-core-modules/data/observable").Observable;
-const animation = require("~/controllers/animationController").loadAnimation;;
+const animation = require("~/controllers/animationController").loadAnimation;
+const sendHTTP = require("~/controllers/HTTPControllers/sendHTTP").sendHTTP;
+const application = require('application');
 let closeCallback;
-
+let pageStateChanged;
 
 exports.onShownModally = function (args) {
     const context = args.context;
@@ -9,8 +11,41 @@ exports.onShownModally = function (args) {
     const page = args.object;
     page.bindingContext;
 }
-exports.goBack = (args) => {
-    closeCallback()
+
+exports.loaded = (args) => {
+    const page = args.objet.page
+    if (application.android) {
+        application.android.on(application.AndroidApplication.activityBackPressedEvent, backEvent);
+    } 
+    page.on('goBack', () => {
+        backEvent(args)
+    })
+    pageStateChanged = false;
+}
+
+function backEvent(args) { // This event is a bit funny
+    const inAppNotifiationAlert = require("~/controllers/notifications/inApp/notification-alert.js")
+    args.cancel = true;
+    if (pageStateChanged) {
+        inAppNotifiationAlert.areYouSure("Are you sure?", "Some information may not be saved if you leave.").then(function (result) {
+            console.log(result)
+            if (result) {
+                if (application.android) {
+                    application.android.off(application.AndroidApplication.activityBackPressedEvent, backEvent);
+                }
+                closeCallback();
+            }
+        })
+    } else {
+        if (application.android) {
+            application.android.off(application.AndroidApplication.activityBackPressedEvent, backEvent);
+        }
+        closeCallback();
+    }
+}
+
+exports.changePageState = (args) => {
+    pageStateChanged = true
 }
 
 exports.save = (args) =>{
@@ -18,7 +53,7 @@ exports.save = (args) =>{
     const page = object.page;
     object.text = "saving..."
     const content = JSON.stringify({
-        bio: page.getViewById("myBio").text
+        bio: "test"
     })
     const httpParameters = {
         url: 'http://192.168.1.12:3333/login',
@@ -28,6 +63,7 @@ exports.save = (args) =>{
     sendHTTP(httpParameters)
         .then((response) => {
             object.text = "saved"
+            pageStateChanged = false
         }, (e) => {
             object.text = "error, try again"
         })

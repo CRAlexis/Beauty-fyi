@@ -1,7 +1,7 @@
 
-    <StackLayout xmlns:lv="nativescript-ui-listview"  loaded="profilePageLoaded" xmlns:includes="dashboard/modals/salonPage/previewService">
+    <StackLayout xmlns:lv="nativescript-ui-listview"  loaded="profilePageLoaded" xmlns:includes="dashboard/modals/salonPage/previewService" height="89%">
         <GridLayout rows="*" columns="" >
-            <StackLayout id="profilePageContainer" row="0" tap="pageClicked">
+            <StackLayout id="profilePageContainer" row="0" tap="pageClicked" height="100%">
                 <GridLayout rows="auto, auto, *" columns="" >
                     <GridLayout rows="auto, auto" columns="" paddingTop="20" id="profileTopSection" height="240">
                         <GridLayout row="0"  rows="" columns="15, auto, *" >
@@ -46,11 +46,11 @@
                             </SegmentedBar.items>
                         </SegmentedBar>
                     </StackLayout>
-                    <StackLayout row="2" id="myServicesId">
+                    <StackLayout row="2" id="myServicesId" height="100%">
                         <lv:RadListView id="profileServicesList" class="list-group" width="100%" itemReorder="true"  reorderMode="HoldAndDrag"
-                        scrolled="onScrolled" scrollEnded="onScrollEnded"> 
+                        scrolled="onScrolled" scrollEnded="onScrollEnded" height="100%" > 
                             <lv:RadListView.listViewLayout>
-                                <lv:ListViewGridLayout spanCount="3" scrollDirection="Vertical" itemHeight="auto"/>
+                                <lv:ListViewGridLayout spanCount="3" scrollDirection="Vertical"/>
                             </lv:RadListView.listViewLayout>
                             <lv:RadListView.itemTemplate >
                                 <GridLayout rows="*, auto" columns="" tap="serviceTapped" margin="1" backgroundColor="black">
@@ -138,6 +138,6 @@
                     </StackLayout>
                 </GridLayout>
             </StackLayout>
-            <includes:preview-service-modal id="serviceModal" visibility="collapsed" opacity="0"/>
+            <includes:preview-service-modal row="0" id="serviceModal" visibility="collapsed" opacity="0"/>
         </GridLayout>  
     </StackLayout>

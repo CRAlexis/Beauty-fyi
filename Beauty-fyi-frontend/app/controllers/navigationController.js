@@ -67,9 +67,28 @@ exports.navigateToPage = function (context, page, index, clearHistory){
             case 1:
                 destination = "~/dashboard/modals/content/share-content";
                 break;
+            case 2:
+                destination = "~/dashboard/dashboard";
+                break;
+            case 3:
+                destination = "~/auth/landing/landing-page";
+                break;
+            case 4:
+                destination = "~/auth/sign-in/sign-in";
+                break;
+            case 5:
+                destination = "~/auth/sign-up/pro/sign-up-stylist";
+                break;
+            case 6:
+                destination = "~/auth/sign-up/pro/exsisting-user/sign-up-professional-form-client-page";
+                break;
+            case 7:
+                destination = "~/auth/sign-up/pro/sign-up-professional-landing-page";
+                break;
             default:
                 break;
         }
+        
         const navEntryWithContext = {
             moduleName: destination,
             clearHistory: clearHistory,
@@ -78,9 +97,11 @@ exports.navigateToPage = function (context, page, index, clearHistory){
             },
         };  
         try {
+            console.log(page.frame)
             page.frame.navigate(navEntryWithContext);
             resolve()
         } catch (error) {
+            console.log(error)
             reject(error)
         }     
     })
@@ -140,10 +161,28 @@ exports.navigateToModal = function (context, page, index, fullScreen){ // For mo
                 break;
             case 17:
                 destination = "~/dashboard/modals/colourPicker/colour-picker.xml"
+                break;
             case 18:
                 destination = "~/dashboard/modals/settings/settingsMenu/notification-details"
+                break;
             case 19:
                 destination = "~/dashboard/modals/content/share-content"
+                break;
+            case 20:
+                destination = "~/dashboard/modals/clientTab/client-gallery-modal"
+                break;
+            case 21:
+                destination = "~/dashboard/modals/settings/settingsMenu/intakeForm/intake-forms-menu"
+                break;
+            case 22:
+                destination = "~/dashboard/modals/settings/settingsMenu/intakeForm/create-intake-form"
+                break;
+            case 23:
+                destination = "~/dashboard/modals/directMessages/holder"
+                break;
+            case 24:
+                destination = "~/dashboard/modals/chooseClient/choose-client"
+                break;
         }
         
         const option = {

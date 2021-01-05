@@ -1,0 +1,33 @@
+<Page shownModally="onShownModally" loaded="loaded">
+    <GridLayout rows="*" columns="">
+        <GridLayout tap="pageClicked" id="profilePageContainer" row="0" rows="auto, auto, *, auto" columns=""
+            xmlns:topBar="dashboard/includes/topBar"
+            xmlns:includes="dashboard/includes/schedule">
+            <topBar:menu-header row="0" header="Intake forms"/>
+            <StackLayout row="1" paddingLeft="25" paddingRight="25" marginBottom="25" paddingTop="10">
+                <Label text="Manage your intake forms" class="h3" textWrap="true"/>
+                <Label text="Create, edit and delete your intake forms here." class="h5" textWrap="true"/>
+            </StackLayout>
+            <StackLayout row="2"
+                xmlns:lv="nativescript-ui-listview" padding="15">
+                <lv:RadListView id="intakeFormListView" class="list-group" style="background-color: transparent">
+                    <lv:RadListView.listViewLayout>
+                        <lv:ListViewGridLayout spanCount="1" />
+                    </lv:RadListView.listViewLayout>
+                    <lv:RadListView.itemTemplate >
+                        <GridLayout active="false" tap="viewForm" rows="auto, auto, auto" columns="10, *, auto, 10" paddingBottom="8">
+                            <Label row="0" col="1" text="{{ intakeFormName }}" class="h4"/>
+                            <Label row="0" col="2" text="&#xf0d7;" class="fas" fontSize="20" />
+                            <Label row="2" colSpan="4" text="" class="line" width="95%"/>
+                        </GridLayout>
+                    </lv:RadListView.itemTemplate>
+                </lv:RadListView>
+            </StackLayout>
+        </GridLayout>
+        <GridLayout row="0" rows="*, auto, *" columns=""
+            xmlns:modal="dashboard/modals/settings/settingsMenu/intakeForm"
+            >
+            <modal:intake-form-modal row="1" id="intakeFormModal" visibility="collapsed" opacity="0" backgroundColor="white" tap="modalShield"/>
+        </GridLayout>
+    </GridLayout>
+</Page>

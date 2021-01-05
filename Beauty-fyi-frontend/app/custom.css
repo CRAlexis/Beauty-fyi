@@ -133,10 +133,29 @@ z-index: 0;
 border-radius: 5;
 }
 
+.btn-sqaure {
+    color: #000000;
+    z-index: 0;
+}
+
+.btn-blue {
+    background-color: rgb(75, 78, 255);
+    color: white
+}
+
+.btn-red {
+    background-color: rgb(255, 75, 75);
+    color: white
+}
+
+.btn-green {
+    background-color: rgb(0, 180, 0);
+}
+
 .btn-primary {
-    background-color: #9900ff;
-    border-color: #9900ff;
-    color: #ffffff;
+    background-color: #ffffff;
+    border-color: #A6E6CE;
+    color: #A6E6CE;
 }
 
 
@@ -150,6 +169,12 @@ border-radius: 5;
     background-color: black;
     border-color: black;
     color: white;
+}
+
+.btn-white {
+    background-color: white;
+    border-color: white;
+    color: black;
 }
 
 
@@ -265,11 +290,11 @@ color: #000000;
 
 
 .bottom-gradient {
-    background: linear-gradient(to bottom right, rgb(255, 255, 255), rgb(255, 255, 255), rgb(255, 255, 255), rgba(229, 101, 255, 0.055));
+    background: linear-gradient(to bottom right, rgba(38, 138, 103, 0.055), rgba(121, 216, 183, 0.082), rgba(168, 230, 208, 0.089), rgba(168, 230, 208, 0.068));
 }
 
 .bottom-gradient-two {
-    background: linear-gradient(to bottom right, rgba(143, 42, 226, 0.048), rgba(142, 30, 165, 0.007), rgba(193, 99, 255, 0.226), rgba(229, 101, 255, 0.123));
+    background: linear-gradient(to bottom right, rgba(38, 138, 103, 0.897), rgba(121, 216, 183, 0.897), rgba(168, 230, 208, 0.897), rgba(168, 230, 208, 0.582));
 }
 .header-gradient {
     background: linear-gradient(to right, rgba(186, 102, 255, 0.432), rgba(185, 68, 252, 0.432), rgba(156, 35, 255, 0.521));
@@ -319,7 +344,8 @@ color: #000000;
 
 .textFieldInputSmall {
     font-size: 16;
-    border-color: #d3d3d3
+    border-color: #d3d3d3;
+    padding-left: 5
 }
 
 
@@ -392,4 +418,17 @@ color: #000000;
     border-image-slice: 1;
     border-width: 5px;
     border-color: rgba(124, 9, 124, 0.445)
+}
+
+.progressbar {
+    height: 30;
+    margin: 10;
+    border-radius: 10;
+
+    background: #ECEFF1;
+}
+
+.progressbar-value {
+    border-radius: 10;  
+    background: #51BC6B;
 }

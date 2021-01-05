@@ -6,7 +6,7 @@ const navigation = require("~/controllers/navigationController")
 let appointmentModalActive = false
 let pageObject;
 let selectedIndex;
-exports.openAppointment = async (args) => {
+exports.openModal = async (args) => {
     return new Promise((resolve, reject) => {
         pageObject = args.object.page
         if (!appointmentModalActive) {
@@ -25,8 +25,6 @@ exports.openAppointment = async (args) => {
 }
 
 exports.initCalander = (args) => {
-    
-    console.log("here")
     const isAndroid = require("tns-core-modules/platform");
     let telCalendar = args.object.getChildAt(0).nativeView;
     if (isAndroid) {
@@ -46,7 +44,7 @@ exports.initCalander = (args) => {
     }
 }
 
-exports.closeAppointmentModal = (args) => {
+exports.closeModal = (args) => {
     return new Promise(async (resolve, reject) => {
         if (appointmentModalActive && selectedIndex != 2) {
             //const page = args.object.page
@@ -153,6 +151,9 @@ exports.goToProfile = (args) => {
 
 exports.editAppointment = async (args) => {
     const page = args.object.page
+    const editSlides = [page.getViewById("editTabSlideOne"), page.getViewById("editTabSlideTwo")]
+    slideTransition.goToCustomSlide(args, 1, 0, null, editSlides)
+
     const slides = [page.getViewById("detailsTab"), page.getViewById("consultationTab"), page.getViewById("editTab")]
     await animation(page.getViewById("appointmentModalSegmentedBar"), "fade out")
     page.getViewById("appointmentModalSegmentedBar").visibility = "collapsed"
@@ -232,7 +233,6 @@ exports.modifyAppointment = async (args) => {
     const slides = [page.getViewById("detailsTab"), page.getViewById("consultationTab"), page.getViewById("editTab")]
     await animation(page.getViewById("appointmentModalSegmentedBar"), "fade in")
     page.getViewById("appointmentModalSegmentedBar").visibility = "visible"
-
     slideTransition.goToCustomSlide(args, selectedIndex, 0, null, slides)
     selectedIndex = 0
     // save details()

@@ -1,14 +1,18 @@
 <GridLayout rows="auto, auto, *" columns="">
     <StackLayout marginBottom="25" paddingLeft="25" paddingRight="25">
         <Label text="Image" class="h3"  textWrap="true"/>
-        <Label text="Choose a photo for your service." class="h5" textWrap="true" />
-        <Label text="Learn more." tap="learnMoreModal" textWrap="true" />
+        <Label text="Choose a image for your service." class="h4" textWrap="true" />
         
     </StackLayout>
-    <Label row="1" tap="openGallery" textAlignment="center" marginBottom="10" text="Add new photo" textWrap="true" />
-    <StackLayout row="2" id="serviceImageComponent" opacity="0">
-         <Image   src="{{serviceImage}}" stretch="aspectFit" margin="5" backgroundColor="rgb(254, 254, 254)" />
-    </StackLayout>
+    <!--<Label row="1" tap="openGallery" textAlignment="center" marginBottom="10" text="Add new photo" textWrap="true" />-->
+    <GridLayout row="2" rows="*, auto, *" >
+        <StackLayout id="uploadImageContainer" row="1" tap="openGallery">
+            <Label textAlignment="center" text="&#xf0aa;" color="gray" class="fas" fontSize="25" textWrap="true" />
+            <Label textAlignment="center" text="Upload an image" color="gray" textWrap="true" />
+        </StackLayout>
+        
+         <Image row="1" id="serviceImageComponent" class="btn-light-grey-outline"  src="{{serviceImage}}" stretch="aspectFit" margin="5" backgroundColor="rgb(254, 254, 254)" opacity="0" />
+    </GridLayout>
    
 </GridLayout>
     

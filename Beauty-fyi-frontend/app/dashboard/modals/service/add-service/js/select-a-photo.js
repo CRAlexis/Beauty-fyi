@@ -22,6 +22,8 @@ exports.openGallery = (args, sourceForm, source) => {
                 let results = res.object.get('results');
                 source.set("serviceImage", results[0].file)
                 sourceForm.set("serviceImage", results[0].file)
+                animation(page.getViewById("uploadImageContainer"), "fade out").then(function () {
+                })
                 animation(page.getViewById("serviceImageComponent"), "fade in").then(function () {
                 })
             resolve()

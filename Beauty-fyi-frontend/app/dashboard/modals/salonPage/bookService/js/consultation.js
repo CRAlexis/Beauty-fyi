@@ -1,3 +1,5 @@
+const { areYouSure } = require("~/controllers/notifications/inApp/notification-alert");
+
 let uploadedImageArray = []
 let uploadedImageIndex = 0;
 exports.initialise = (args) => {
@@ -10,21 +12,21 @@ function createForm(args){
     let form = []
     form.push(
         {
-            question: 'This is a textfield',
+            question: 'What type of hair do you have?',
             isTextField: true,
             isDropDown: false,
             isCheckBox: false,
             optionContext: '',
         },
         {
-            question: 'This is a dropdown',
+            question: 'How would you describe the health of your hair?',
             isTextField: false,
             isDropDown: true,
             isCheckBox: false,
             optionContext: 'option1,option2,option3,option4',
         },
         {
-            question: 'Tick this checkbox?',
+            question: 'Would you like to listen to music?',
             isTextField: false,
             isDropDown: false,
             isCheckBox: true,
@@ -40,6 +42,7 @@ exports.uploadeReferenceImage = (args) =>{
     const mediafilepicker = new mPicker.Mediafilepicker();
     const page = args.object.page
     const listview = page.getViewById("uploadedImageList");
+    const height = (page.getMeasuredWidth() / 3)
     
     try { 
         uploadedImageIndex = listview.items.length
@@ -66,7 +69,7 @@ exports.uploadeReferenceImage = (args) =>{
             uploadedImageArray.push(
                 {
                     image: results[key].file,
-                    height: source.get("height") + "px",
+                    height: height + "px",
                     index: uploadedImageIndex,
                 },
             )
@@ -75,15 +78,17 @@ exports.uploadeReferenceImage = (args) =>{
         //format photos when uploading
         listview.items = []
         listview.items = uploadedImageArray;
-
+        if (uploadedImageIndex == 3) { page.getViewById("uploadReferenceImageButton").visibility = "collapsed" }
     });
+
+    
 }
 
 exports.referenceimageTapped = (args) => {
     const page = args.object.page
     const id = args.object.id
     const listview = page.getViewById("uploadedImageList");
-    inAppNotifiationAlert.areYouSure("Do you want to remove this image?").then(function (result) {
+    areYouSure("Do you want to remove this image?").then(function (result) {
         uploadedImageArray.splice(id, 1)
         uploadedImageIndex--
         let indexReal = 0;
@@ -97,6 +102,8 @@ exports.referenceimageTapped = (args) => {
         }
         listview.items = []
         listview.items = uploadedImageArray;
+        if (uploadedImageIndex < 3) { page.getViewById("uploadReferenceImageButton").visibility = "visible" }
     })
+    
 }
 

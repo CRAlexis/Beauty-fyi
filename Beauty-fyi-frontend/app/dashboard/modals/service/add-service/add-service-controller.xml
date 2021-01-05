@@ -1,7 +1,10 @@
 <Page shownModally="onShownModally" loaded="pageLoaded" xmlns:Card="@nstudio/nativescript-cardview" xmlns:CheckBox="@nstudio/nativescript-checkbox">
-    <GridLayout rows="auto, *, auto" columns="" xmlns:topBar="dashboard/includes/topBar" xmlns:includes="dashboard/includes/add-service">
-        <topBar:menu-header row="0" header="Add a service" tap="goBack"/><!--{{title}}-->
-        <StackLayout row="1">
+    <GridLayout rows="auto, auto, *, auto" columns="" xmlns:topBar="dashboard/includes/topBar" xmlns:includes="dashboard/includes/add-service">
+        <topBar:menu-header row="0" header="Add a service" displayInfo="true"/><!--{{title}}-->
+        <!--<GridLayout id="progressBar" margin="10" row="1" columns="auto,*" class="progressbar">
+            <StackLayout col="0" class="progressbar-value"></StackLayout>
+        </GridLayout>-->
+        <StackLayout row="2">
             
                 <includes:select-a-photo id="selectAPhotoSlide" paddingTop="35"/>
                 <includes:service-name id="serviceNameSlide" paddingTop="35" opacity="0" visibility="collapsed"/>
@@ -13,7 +16,7 @@
                 <includes:add-service-success id="addServiceSuccess" opacity="0" visibility="collapsed"/>
           
         </StackLayout>
-        <StackLayout row="2">
+        <StackLayout row="3">
             <Button id="continueButton" text="" class="btn btn-white" tap="goToNextSlide" />  
         </StackLayout>
     </GridLayout>

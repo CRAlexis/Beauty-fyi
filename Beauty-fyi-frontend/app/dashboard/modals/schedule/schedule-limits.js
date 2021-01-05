@@ -27,6 +27,9 @@ exports.loaded = function(args){
     if (application.android) {
         application.android.on(application.AndroidApplication.activityBackPressedEvent, backEvent);
     }
+    page.on('goBack', () => {
+        backEvent(args)
+    })
 }
 
 source.set("dropDownClicked", function (args) {
@@ -72,19 +75,23 @@ exports.goBack = function (args) {
 }
 
 function backEvent(args) { // This event is a bit funny
-    console.log(pageStateChanged)
-    if (pageStateChanged){
-        args.cancel = true;
+    console.log("here")
+    const inAppNotifiationAlert = require("~/controllers/notifications/inApp/notification-alert.js")
+    args.cancel = true;
+    if (pageStateChanged) {
         inAppNotifiationAlert.areYouSure("Are you sure?", "Some information may not be saved if you leave.").then(function (result) {
-            if (result) { exitModal(args) }
+            console.log(result)
+            if (result) {
+                if (application.android) {
+                    application.android.off(application.AndroidApplication.activityBackPressedEvent, backEvent);
+                }
+                closeCallback();
+            }
         })
-    }
-    
-}
-
-function exitModal(args) {
-    if (application.android) {
-        application.android.off(application.AndroidApplication.activityBackPressedEvent, backEvent);
+    } else {
+        if (application.android) {
+            application.android.off(application.AndroidApplication.activityBackPressedEvent, backEvent);
+        }
         closeCallback();
     }
 }
@@ -112,6 +119,7 @@ exports.saveSettings = (args) => {
         .then((response) => {
             object.text = "saved!"
             console.log(response)
+            pageStateChanged = false
         }, (e) => {
             console.log(e)
                 object.text = "error, try again"

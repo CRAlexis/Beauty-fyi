@@ -1,25 +1,45 @@
 <Page shownModally="onShownModally" loaded="onPageLoaded" actionBarHidden="true" xmlns:lv="nativescript-ui-listview">
-    <GridLayout rows="auto, 300, *, auto" columns="" xmlns:topBar="dashboard/includes/topBar">
+    <GridLayout rows="auto, auto, auto, *, auto" columns="" xmlns:topBar="dashboard/includes/topBar" >
     <topBar:menu-header row="0" header="Share content" tap="goBack"/>
+    <StackLayout id="photoContainer" row="1" paddingBottom="8">
+        <Image src="~/images/temp9.png" id="mainImage" stretch="aspectFit" height="250"/>
+    </StackLayout>
+    <StackLayout row="1" id="videoContainer" xmlns:VideoPlayer="nativescript-videoplayer" visibility="collapsed" paddingBottom="8">
+        <VideoPlayer:Video id="nativeVideoPlayer" controls="true" loop="true" autoplay="true" height="250" src="" /> <!--http://charlesalexis.uk/wp-content/uploads/2020/12/VID_20200729_183514.mp4-->
+    </StackLayout>
+    <StackLayout row="2">
+        <lv:RadListView id="contentGalleryList" class="list-group" style="background-color: white">
+            <lv:RadListView.listViewLayout>
+                <lv:ListViewLinearLayout scrollDirection="Horizontal" />
+            </lv:RadListView.listViewLayout>
+            <lv:RadListView.itemTemplate >
+                <GridLayout id="{{contentId}}" rows="auto, *, auto" columns="" tap="viewContent" longPress="longPressedImage" margin="1">
+                    <Image rowSpan="3" col="0" isImage="{{isImage}}" contentSource="{{contentSource}}" src="{{ contentImage }}" height="{{height}}" decodeWidth="{{height}}" stretch="aspectFill" load="async"/>
+                    <Label row="1" text="{{isImage ? '' : '&#xf144;'}}" textAlignment="center" color="white" class="fas" fontSize="25"/>
+                </GridLayout>
+            </lv:RadListView.itemTemplate>
+        </lv:RadListView>
+    </StackLayout>
+    <GridLayout row="4" columns="*, auto, auto, *">
+        <Button id="addButton" width="40%" col="1" text="Add" class="btn btn-white" tap="addContent" />
+        <Button id="shareButton" width="40%" col="2" text="Share (0)" class="btn btn-black" tap="shareContent" />
+    </GridLayout>
 
-        <StackLayout row="1">
-            <Image id="mainImage" src="~/images/temp.png" height="100%" decodeWidth="{{height}}" stretch="aspectFit" /> 
-        </StackLayout>
-        <StackLayout row="2">
-            <lv:RadListView id="contentGalleryList" class="list-group" style="background-color: white">
-                <lv:RadListView.listViewLayout>
-                    <lv:ListViewGridLayout spanCount="4" />
-                </lv:RadListView.listViewLayout>
-                <lv:RadListView.itemTemplate >
-                    <GridLayout rows="auto, *, auto" columns="" tap="viewContent" margin="1" backgroundColor="black">
-                        <Image rowSpan="3" col="0" id="{{ contentIndex }}" src="{{ contentImage }}" height="{{height}}" decodeWidth="{{height}}" stretch="aspectFill" load="async"/>
-                        <Label row="2" col="0" color="white" class="font-bold h5" text="{{ contentName }}" textWrap="true" />
+    <!--<StackLayout id="fullScreenImage" xmlns:Card="@nstudio/nativescript-cardview" rowSpan="4" marginTop="-10" opacity="0" visibility="collapsed">
+        <Card:CardView row="0" class="cardStyle" margin="5" elevation="10" radius="0" height="100%" width="100%" backgroundColor="black">
+            <GridLayout rows="*, auto, *" columns="">
+                <StackLayout id="galleryViewTopBar" verticalAlignment="top" row="0" opacity="1">
+                    <GridLayout columns="20, 20, auto" tap="closeFullScreenImage" paddingTop="20">
+                        <Label text="&#xf104;" color="white" class="fas" col="1" style="font-size: 28; padding-top: 13px" textWrap="true" />
                     </GridLayout>
-                </lv:RadListView.itemTemplate>
-            </lv:RadListView>
-        </StackLayout>
-        <StackLayout row="3">
-            <Button id="shareButton" text="Share (0)" class="btn btn-white" tap="shareContent" />
-        </StackLayout>
+                </StackLayout>
+                <StackLayout verticalAlignment="middle" row="1">
+                    <Image id="mainImage" src="~/images/temp.png" stretch="aspectFit" />
+                </StackLayout>
+                <StackLayout id="galleryViewBottomBar" row="2" verticalAlignment="bottom" opacity="0">
+                </StackLayout>
+            </GridLayout>
+        </Card:CardView>
+    </StackLayout>-->
     </GridLayout>
 </Page>

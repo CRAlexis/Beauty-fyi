@@ -1,6 +1,7 @@
 const Observable = require("tns-core-modules/data/observable").Observable;
 const navigation = require("~/controllers/navigationController")
 const animation = require("~/controllers/animationController").loadAnimation;
+const application = require('application');
 let closeCallback;
 let active = false;
 
@@ -11,17 +12,34 @@ exports.onShownModally = function(args) {
     page.bindingContext;
 }
 
-exports.goBack = (args) => {
-    closeCallback()
+exports.loaded = (args) => {
+    const page = args.object.page
+    if (application.android) {
+        application.android.on(application.AndroidApplication.activityBackPressedEvent, backEvent);
+    }
+    page.on('goBack', () => {
+        backEvent(args)
+    })
 }
+
+function backEvent(args) { // This event is a bit funny
+    args.cancel = true;
+    if (application.android) {
+        application.android.off(application.AndroidApplication.activityBackPressedEvent, backEvent);
+    }
+    closeCallback();
+}
+
 
 exports.goToAccountDetails = (args) => {
     if (!active) {
+        if (application.android) { application.android.off(application.AndroidApplication.activityBackPressedEvent, backEvent);}
         active = true
         const mainView = args.object;
         const context = ""
         animation(args.object.getChildAt(1), "arrow swipe").then(function () {
             navigation.navigateToModal(context, mainView, 15, true).then(function (result) {
+                if (application.android) { application.android.on(application.AndroidApplication.activityBackPressedEvent, backEvent); }
                 active = false
             })
         })
@@ -30,11 +48,13 @@ exports.goToAccountDetails = (args) => {
 
 exports.goToMyBio = (args) => {
     if (!active) {
+        if (application.android) { application.android.off(application.AndroidApplication.activityBackPressedEvent, backEvent); }
         active = true
         const mainView = args.object;
         const context = ""
         animation(args.object.getChildAt(1), "arrow swipe").then(function () {
             navigation.navigateToModal(context, mainView, 16, true).then(function (result) {
+                if (application.android) { application.android.on(application.AndroidApplication.activityBackPressedEvent, backEvent); }
                 active = false
             })
         })
@@ -43,11 +63,13 @@ exports.goToMyBio = (args) => {
 
 exports.setSchedule = function(args){
     if (!active){
+        if (application.android) { application.android.off(application.AndroidApplication.activityBackPressedEvent, backEvent); }
         active = true
         const mainView = args.object;
         const context = ""
         animation(args.object.getChildAt(1), "arrow swipe").then(function(){
             navigation.navigateToModal(context, mainView, 10, true).then(function (result) {
+                if (application.android) { application.android.on(application.AndroidApplication.activityBackPressedEvent, backEvent); }
                 active = false
             })
         })
@@ -56,11 +78,13 @@ exports.setSchedule = function(args){
 
 exports.setSchedulingLimits = function (args) {
     if (!active) {
+        if (application.android) { application.android.off(application.AndroidApplication.activityBackPressedEvent, backEvent); }
         active = true
         const mainView = args.object;
         const context = ""
         animation(args.object.getChildAt(1), "arrow swipe").then(function () {
             navigation.navigateToModal(context, mainView, 9, true).then(function (result) {
+                if (application.android) { application.android.on(application.AndroidApplication.activityBackPressedEvent, backEvent); }
                 active = false
             })
         })
@@ -69,11 +93,13 @@ exports.setSchedulingLimits = function (args) {
 
 exports.addClient = function (args) {
     if (!active) {
+        if (application.android) { application.android.off(application.AndroidApplication.activityBackPressedEvent, backEvent); }
         active = true
         const mainView = args.object;
         const context = ""
         animation(args.object.getChildAt(1), "arrow swipe").then(function () {
             navigation.navigateToModal(context, mainView, 9, true).then(function (result) {
+                if (application.android) { application.android.on(application.AndroidApplication.activityBackPressedEvent, backEvent); }
                 active = false
             })
         })
@@ -83,11 +109,13 @@ exports.addClient = function (args) {
 
 exports.addService = function (args) {
     if (!active) {
+        if (application.android) { application.android.off(application.AndroidApplication.activityBackPressedEvent, backEvent); }
         active = true
         const mainView = args.object;
         const context = ""
         animation(args.object.getChildAt(1), "arrow swipe").then(function () {
             navigation.navigateToModal(context, mainView, 11, true).then(function (result) {
+                if (application.android) { application.android.on(application.AndroidApplication.activityBackPressedEvent, backEvent); }
                 active = false
             })
         })
@@ -97,11 +125,28 @@ exports.addService = function (args) {
 
 exports.viewNotificationDetails = function (args) {
     if (!active) {
+        if (application.android) { application.android.off(application.AndroidApplication.activityBackPressedEvent, backEvent); }
         active = true
         const mainView = args.object;
         const context = ""
         animation(args.object.getChildAt(1), "arrow swipe").then(function () {
             navigation.navigateToModal(context, mainView, 17, true).then(function (result) {
+                if (application.android) { application.android.on(application.AndroidApplication.activityBackPressedEvent, backEvent); }
+                active = false
+            })
+        })
+    }
+}
+
+exports.viewIntakeForm = function (args) {
+    if (!active) {
+        if (application.android) { application.android.off(application.AndroidApplication.activityBackPressedEvent, backEvent); }
+        active = true
+        const mainView = args.object;
+        const context = ""
+        animation(args.object.getChildAt(1), "arrow swipe").then(function () {
+            navigation.navigateToModal(context, mainView, 21, true).then(function (result) {
+                if (application.android) { application.android.on(application.AndroidApplication.activityBackPressedEvent, backEvent); }
                 active = false
             })
         })

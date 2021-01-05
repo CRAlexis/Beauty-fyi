@@ -2,11 +2,8 @@ const Observable = require("tns-core-modules/data/observable").Observable;
 const slideTransition = require("~/controllers/slide-transitionController");
 const navigation = require("~/controllers/navigationController");
 const animation = require("~/controllers/animationController").loadAnimation;
-const statusBar = require("nativescript-status-bar");
 const application = require("tns-core-modules/application");
-setInterval(() => {
-    statusBar.hide()
-}, 10000);
+
 source = new Observable();
 slideIndex = 0
 slides = []
@@ -29,7 +26,7 @@ exports.onNavigatedTo = function (args) {
 }
 
 exports.onPageLoaded = function (args) {
-    const page = args.object.page
+    
     //const container = page.getViewById("tab0");
     //const tabIndex = 0
     //const icon = container.getChildAt(0);

@@ -43,8 +43,8 @@ source.set("signInTapped", async function (args) {
             const content = JSON.stringify({
                 email: source.get("email"),
                 password: source.get("password"),
-                deviceID: appSettings.getString("deviceID"),
-                plainKey: appSettings.getString("plainKey")
+                deviceID: await secureStorage.get({ key: "deviceID" }),
+                plainKey: await secureStorage.get({ key: "plainKey" }),
             })
             const httpParameters = {
                 url: 'http://192.168.1.12:3333/login',
@@ -53,10 +53,25 @@ source.set("signInTapped", async function (args) {
             }
             await sendHTTP(httpParameters)
                 .then((response) => {
-                    console.log(response);
                     processingHTTPRequest(false)
-                    appSettings.setString("email", source.get("email"));
-                    appSettings.setString("password", source.get("password"));
+                    secureStorage.set({
+                        key: "email",
+                        value: source.get("email")
+                    }).then(({}), (e) => {
+                        //unable to authenticate device
+                    })
+                    secureStorage.set({
+                        key: "password",
+                        value: source.get("password")
+                    }).then(({}), (e) => {
+                        //unable to authenticate device
+                    })
+                    secureStorage.set({
+                        key: "userId",
+                        value: response.JSON.userId
+                    }).then(({}), (e) => {
+                        //unable to authenticate device
+                    })
                     navigation.navigateToDashboard(response, page)
                 }, (e) => {
                     processingHTTPRequest(false)
@@ -91,8 +106,8 @@ async function resetPassword(args){
         const page = button.page;
         const content = JSON.stringify({
             email: source.get("email"),
-            deviceID: appSettings.getString("deviceID"),
-            plainKey: appSettings.getString("plainKey")
+            deviceID: await secureStorage.get({ key: "deviceID" }),
+            plainKey: await secureStorage.get({ key: "plainKey" }),
         })
         const httpParameters = {
             url: 'http://192.168.1.12:3333/login',

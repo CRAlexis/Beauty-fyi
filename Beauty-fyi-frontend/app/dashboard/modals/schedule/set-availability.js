@@ -2,6 +2,8 @@ const Observable = require("tns-core-modules/data/observable").Observable;
 const navigation = require("~/controllers/navigationController")
 const animation = require("~/controllers/animationController").loadAnimation;
 const sendHTTP = require("~/controllers/HTTPControllers/sendHTTP").sendHTTP;
+const application = require('application');
+let pageStateChanged;
 let source = new Observable();
 
 let closeCallback;
@@ -11,10 +13,18 @@ exports.onShownModally = function (args) {
     const context = args.context;
     closeCallback = args.closeCallback;
     const page = args.object;
-    page.bindingContext = source
+    page.bindingContext = source;
 }
 
 exports.loaded = (args) => {
+    const page = args.objet.page
+    if (application.android) {
+        application.android.on(application.AndroidApplication.activityBackPressedEvent, backEvent);
+    } 
+    page.on('goBack', () => {
+        backEvent(args)
+    })
+    pageStateChanged = false
     // Call JJ to get the info
     source.set("mondayStartTime", '09:00')
     source.set("mondayEndTime", '15:00')
@@ -37,11 +47,27 @@ exports.loaded = (args) => {
     source.set("fridayActive", true)
     source.set("saturdayActive", false)
     source.set("sundayActive", false)
+
+    console.log("running")
+    const httpParameters = {
+        url: 'http://192.168.1.12:3333/scheduleavailabilityday',
+        method: 'GET',
+        content: {},
+    }
+    sendHTTP(httpParameters)
+        .then((response) => {
+            console.log(response)
+        }, (e) => {
+            console.log("error 1: " + e)
+            //animation(object, "expand section width", { width: '40%', duration: 500 })
+            //object.text = "error, try again"
+        })
 }
 
 
 
 exports.goBack = (args) => {
+    
     // Would send http request in here to update the information
     const httpParameters = {
         url: "url",
@@ -49,15 +75,36 @@ exports.goBack = (args) => {
         headers: { "Content-Type": "application/json" },
         content: {}
     }
-    sendHTTP(httpParameters).then(function (result) {
-        //This page needs work
+//    sendHTTP(httpParameters).then(function (result) {
+//        //This page needs work
+//
+//    }, (error) => {
+//
+//    })
+console.log("ran")
+        backEvent(args)
+}
 
-    }, (error) => {
-
-    })
+function backEvent(args) {
+    const inAppNotifiationAlert = require("~/controllers/notifications/inApp/notification-alert.js")
+    args.cancel = true;
+    if (pageStateChanged) {
+        inAppNotifiationAlert.areYouSure("Are you sure?", "Some information may not be saved if you leave.").then(function (result) {
+            console.log(result)
+            if (result) { 
+                if (application.android) {
+                    application.android.off(application.AndroidApplication.activityBackPressedEvent, backEvent);
+                }
+                closeCallback();
+             }
+        })
+    }else{
+        closeCallback();
+    }
 }
 
 exports.dayTapped = function(args){
+    pageStateChanged = true;
     const object = args.object
     const parentContainer = object.parent.parent.parent;
     const visibilityContainer = parentContainer.getChildAt(2)

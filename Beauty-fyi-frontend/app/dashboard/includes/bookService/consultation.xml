@@ -1,7 +1,7 @@
 <ScrollView id="consultationPageContainer" xmlns:CheckBox="@nstudio/nativescript-checkbox" xmlns:Card="@nstudio/nativescript-cardview">
     <GridLayout rows="auto, *" columns="">
         <StackLayout row="0">
-            <Label text="Answer these questions to help your stylist..." class="h4" textWrap="true" paddingLeft="20" paddingRight="20" paddingTop="10"/>
+            <Label text="Consultation" class="h4" textWrap="true" paddingLeft="20" paddingRight="20" paddingTop="10"/>
             <StackLayout paddingTop="20" paddingBottom="20" xmlns:lv="nativescript-ui-listview">
                 <lv:RadListView id="consultationPageForm" class="list-group" style="background-color: transparent"> 
                     <lv:RadListView.listViewLayout>
@@ -10,28 +10,27 @@
                     <lv:RadListView.itemTemplate >   
                         <StackLayout>
                             <Label visibility="{{ isCheckBox ? 'collapsed' : 'visible' }}" text="{{question}}" color="gray" textWrap="true" paddingLeft="20" fontSize="14"/>
-                            <TextField visibility="{{ isTextField ? 'visible' : 'collapsed' }}" class="textFieldInputSmall" marginBottom="10" hint="" text="" editable="true"/>
-                            <TextField visibility="{{ isDropDown ? 'visible' : 'collapsed' }}" optionContext="{{optionContext}}" class="textFieldInputSmall" tap="{{ dropDownClicked }}" marginBottom="10" hint="Select" editable="false"/>
-                            <CheckBox:CheckBox visibility="{{ isCheckBox ? 'visible' : 'collapsed' }}" class="textFieldInputSmall" text="{{question}}" color="gray" checked="false" margin="10"/>
+                            <TextField visibility="{{ isTextField ? 'visible' : 'collapsed' }}" class="textFieldInputSmall" marginBottom="15" hint="Enter text here" text="" editable="true"/>
+                            <TextField visibility="{{ isDropDown ? 'visible' : 'collapsed' }}" optionContext="{{optionContext}}" class="textFieldInputSmall" tap="{{ dropDownClicked }}" marginBottom="15" hint="Please select" editable="false"/>
+                            <CheckBox:CheckBox visibility="{{ isCheckBox ? 'visible' : 'collapsed' }}" class="textFieldInputSmall" fontSize="14" text="{{question}}" color="gray" checked="false" margin="10" marginLeft="14" paddingBottom="5"/>
                         </StackLayout>
                     </lv:RadListView.itemTemplate>
                 </lv:RadListView>
             </StackLayout>
-            <Label text="" class="line" width="90%" marginBottom="35" textWrap="true" />
 
             <StackLayout paddingBottom="10">
-                <TextView id="appointmentNotes"  style="margin-top: 15px" borderColor="#DEDEDE" borderWidth="1" hint="Is there anything else you want to say?" class="textFieldInputSmall"></TextView>
+                <TextView id="appointmentNotes" width="88%" marginTop="" borderColor="#DEDEDE" borderWidth="1" hint="Is there anything else you want to say?" class="textFieldInputSmall"></TextView>
             </StackLayout> 
         </StackLayout>
         <StackLayout row="1" xmlns:lv="nativescript-ui-listview" >
-            <Button class="btn btn-white" text="Upload reference images" tap="{{ uploadReferenceImage }}" />   
-            <lv:RadListView height="200" id="uploadedImageList" class="list-group" style="background-color: transparent"> 
+            <Button id="uploadReferenceImageButton" class="btn btn-white" text="Upload reference images" width="88%" tap="{{ uploadReferenceImage }}" />   
+            <lv:RadListView id="uploadedImageList" class="list-group" style="background-color: transparent"> 
                 <lv:RadListView.listViewLayout>
-                    <lv:ListViewGridLayout  spanCount="3" />
+                    <lv:ListViewLinearLayout  scrollDirection="Horizontal" />
                 </lv:RadListView.listViewLayout>
                 <lv:RadListView.itemTemplate >    
                 <StackLayout>
-                    <Image id="{{ index }}" tap="{{uploadedImageTapped}}" src="{{ image }}" width="{{ width }}" stretch="aspectFit" load="async" margin="5" />
+                    <Image id="{{ index }}" tap="{{uploadedImageTapped}}" src="{{ image }}" height="{{height}}" decodeWidth="{{height}}" stretch="aspectFit" load="async" margin="3" />
                 </StackLayout>
                     
                 </lv:RadListView.itemTemplate>

@@ -2,7 +2,7 @@
 <StackLayout paddingTop="35">
     <StackLayout paddingLeft="25" paddingRight="25" marginBottom="25">
         <Label row="0" text="Service steps" class="h3"  textWrap="true"/>
-        <Label row="0" text="Set the steps that go into you service, so we can help you create content." class="h5" textWrap="true" />
+        <Label row="0" text="Set the steps that go into you service, so we can help you create content." class="h4" textWrap="true" />
     </StackLayout>
     
     <StackLayout xmlns:lv="nativescript-ui-listview" xmlns:CheckBox="@nstudio/nativescript-checkbox">
@@ -16,7 +16,7 @@
                 <TextField hint="Step name" text="{{ stepName }}" class="textFieldInputSmall" />
                 <TextField hint="Step duration (minutes)" class="textFieldInputSmall" keyboardType="number" text="{{ stepDuration }}" />
                 <CheckBox:CheckBox class="textFieldInputSmall" marginLeft="10" text="Capture this step" color="gray" checked="{{checked}}"/>
-                <Label index="{{index}}" id="{{id}}" class="h5" paddingLeft="18" paddingTop="5" text="Remove step" tap="removeStep" textWrap="true" />   
+                <Label index="{{index}}" id="{{id}}"  paddingLeft="18" paddingTop="5" text="Remove step" tap="removeStep" textWrap="true" />   
                 <Label text="" class="line" width="90%" textWrap="true" />
                          
             </StackLayout>

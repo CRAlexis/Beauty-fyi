@@ -70,6 +70,7 @@ exports.goBack = (args) => {
 }
 
 source.set("longPressImage", function (args){
-    args.object.borderBottomWidth = index
+    console.log("here")
+    args.object.borderBottomWidth = 3
     args.object.borderColor = '#dca7ff'
 })

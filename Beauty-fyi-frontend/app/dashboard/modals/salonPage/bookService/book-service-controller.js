@@ -14,6 +14,8 @@ let chooseDate;
 
 exports.onShownModally = function (args) {
     context = args.context;
+    // Will need to get the clientId in here
+    console.log(context)
     closeCallback = args.closeCallback;
     const page = args.object;
     page.bindingContext = source
@@ -30,9 +32,18 @@ exports.loaded = function (args) { //third slide
     consultation = require("~/dashboard/modals/salonPage/bookService/js/consultation")
     confirmation = require("~/dashboard/modals/salonPage/bookService/js/confirmation")
     slideIndex = 0
-    slides = [page.getViewById("chooseDateSlide"), page.getViewById("consultationSlide"), page.getViewById("confirmationSlide"), page.getViewById("addPaymentSlide") ]
+    slides = [page.getViewById("chooseDateSlide"), page.getViewById("consultationSlide"), page.getViewById("confirmationSlide") ]
     initialiseConsultationPage(args)
     initConfirmationPage(args)
+
+    //listener to close modals in here
+    page.on('headerBarClicked', (args) => {
+        backEvent(args)
+        closeModal(args)
+    })
+    page.on('goBack', () => {
+        backEvent(args)
+    })
 }
 
 function formatContext(context){
@@ -45,13 +56,7 @@ function formatContext(context){
 }
 
 
-
-exports.goBack = function (args) {
-    backEvent(args)
-}
-
 function backEvent(args) { // This event is a bit funny
-    console.log("Here")
     args.cancel = true;
     if (slideIndex == 0) {
         inAppNotifiationAlert.areYouSure("Are you sure you want to exit?", "Your information will not be saved").then(function (result) {
@@ -90,12 +95,12 @@ function goToNextSlide(args){
                 slideIndex = result
             })
             break;
-        case 2:
+        /*case 2:
             slideTransition.goToNextSlide(args, slideIndex, source, slides).then(function (result) {
                 changeContinueButtontext(args, "")
                 slideIndex = result
             })
-            break;
+            break;*/
         case 3:
             //successx
             break;
@@ -157,26 +162,14 @@ exports.openCardModal = (args) =>{
     })
 }
 
-source.set("paymentMethodListAction", (args)=>{
-    object = args.object;
-    index = object.index;
-    animation(args.object.getChildAt(2), "arrow swipe").then(function () {
-
-    })
-
-    switch (index) {
-        case '0':
-            //change card
-            console.log("should be here")
-            break;
-        case '1':
-            //change card
-            break;
-        case '2':
-            //add voucher
-            break;
+/*--------------Payment--------------*/
+exports.paymentMethodAction = (args)=>{
+    confirmation.paymentMethodAction(args)
+    if (application.android) {
+        application.android.off(application.AndroidApplication.activityBackPressedEvent, backEvent);
+        application.android.on(application.AndroidApplication.activityBackPressedEvent, closeModal);
     }
-})
+}
 
 function initConfirmationPage(args){
     console.log("controller: " + args.object.page)
@@ -185,6 +178,22 @@ function initConfirmationPage(args){
     } catch (error) {
         console.log(error)
     }
-    
+}
+
+function closeModal(args) {
+    confirmation.closeModal(args)
+    if (application.android) { 
+        application.android.off(application.AndroidApplication.activityBackPressedEvent, closeModal); 
+        application.android.on(application.AndroidApplication.activityBackPressedEvent, backEvent); 
+    }
+}
+
+exports.pageClicked = (args) => {
+    confirmation.pageClicked(args).then((resolve, reject)=>{
+        if (application.android) { 
+            application.android.off(application.AndroidApplication.activityBackPressedEvent, closeModal);
+            application.android.on(application.AndroidApplication.activityBackPressedEvent, backEvent);
+         }
+    })
     
 }

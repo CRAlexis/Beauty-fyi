@@ -33,6 +33,51 @@ exports.errorMessage = function(message){
     }
 }
 
+exports.httpRequestLoading = (title, message) => {
+    console.log("trying to display modal")
+    console.log("is active: " + active)
+    return new Promise((resolve, reject) =>{
+        if (!active) {
+            active = true;
+            let cfalertDialog = new CFAlertDialog();
+
+            let options = {
+                // Options go here
+                dialogStyle: CFAlertStyle.ALERT,
+                title: title,
+                message: message,
+                cancellable: false
+            }
+            resolve(cfalertDialog)
+            cfalertDialog.show(options).then(function () {
+                active = false;                
+            });
+        }
+    })
+}
+
+exports.httpRequestFinished = (title, message) => {
+    console.log("active: " + active)
+    return new Promise((resolve, reject) => {
+        if (!active) {
+            active = true;
+            let cfalertDialog = new CFAlertDialog();
+
+            let options = {
+                // Options go here
+                dialogStyle: CFAlertStyle.ALERT,
+                title: title,
+                message: message,
+                cancellable: true
+            }
+            resolve(cfalertDialog)
+            cfalertDialog.show(options).then(function () {
+                active = false;
+            });
+        }
+    })
+}
+
 exports.areYouSure = function(title, message){
     
     return new Promise((resolve, reject) => {
@@ -79,3 +124,9 @@ exports.areYouSure = function(title, message){
     })
 }
 
+exports.dismissAlert = (alert) => {
+    console.log("ran")
+    alert.dismiss(false)
+    active = false; 
+    console.log("here")
+}

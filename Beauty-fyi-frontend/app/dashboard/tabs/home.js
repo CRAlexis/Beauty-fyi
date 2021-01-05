@@ -4,8 +4,13 @@ const contentPreviewModal = require("~/dashboard/modals/content/preview-content-
 const application = require('application');
 let appointmentModalActive = false;
 let contentPreviewModalActive = false
+
 exports.homeLoaded = function(args){ // am not able to get page object
+    const fileSystemModule = require("tns-core-modules/file-system");
     const page = args.object.page
+    page.on('headerBarClicked', () => {
+        closeModal(args)
+    })
     page.bindingContext = source;
     const notifications = [];
     notifications.push(
@@ -17,14 +22,14 @@ exports.homeLoaded = function(args){ // am not able to get page object
             id: "1"
         },
         {
-            clientImage: "~/images/temp.png",
+            clientImage: "~/images/temp2.png",
             clientName: "Phoebe",
             service: "Styling and treatment",
             time: "4 hours",
             id: "2"
         },
         {
-            clientImage: "~/images/temp.png",
+            clientImage: "~/images/temp3.png",
             clientName: "Amie",
             service: "Massage",
             time: "10 hours",
@@ -39,7 +44,22 @@ exports.homeLoaded = function(args){ // am not able to get page object
         source.set("height", (page.getMeasuredWidth() / 3) - 80)
         loadImages(page)
     }, 500)
+    setAnalyticsDates(args)
 }
+
+exports.dropDownClicked = (args) => {
+    const mainView = args.object;
+    let context = mainView.optionContext.split(",")
+    navigation.navigateToModal(context, mainView, 4, false).then(function (result) {
+        if (args.object.id == "analyticsFormattedString"){
+            args.object.page.getViewById("analyticsFormattedStringDate").text = " " + result + " "
+            //getNewData()
+        }else{
+            args.object.text = result
+        }
+    })
+}
+
 
 
 function craeteGrapth(page){
@@ -80,11 +100,31 @@ function craeteGrapth(page){
             value: 10
         },
     )
+    let data3 = []
+    data3.push({
+        date: 'March',
+        value: 50,
+    },
+        {
+            date: 'April',
+            value: 80
+        },
+        {
+            date: 'May',
+            value: 0
+        },
+        {
+            date: 'June',
+            value: 300
+        },
+    )
 
     const chart = page.getViewById("barChart");
     const chart2 = page.getViewById("barChart2");
+    const chart3 = page.getViewById("barChart3");
     chart.items = data
     chart2.items = data2
+    chart3.items = data3
 }
 
 function loadImages(page) { // am not able to get page object
@@ -114,9 +154,22 @@ function loadImages(page) { // am not able to get page object
     listview.items = images;
 }
 
+function setAnalyticsDates(args){
+    var dateFormat = require("dateformat");
+    var now = new Date();
+    const dates = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+    let dateContext = "";
+    const dateInt = dateFormat(now, 'm')
+    for (index = 0; index < dateInt; index++) {
+        dateContext += dates[index] + ","
+    }
+    dateContext = dateContext.slice(0, -1)
+    args.object.page.getViewById("analyticsFormattedString").optionContext = dateContext
+}
+
 
 exports.appointmentTapped = (args) => {
-    appointmentServiceModal.openService(args).then((result) => {
+    appointmentServiceModal.openModal(args).then((result) => {
         if (application.android) {
             application.android.on(application.AndroidApplication.activityBackPressedEvent, closeModal);
         }
@@ -139,7 +192,7 @@ exports.onPageScroll = (args) => {
 
 function closeModal(args) {
     args.cancel = true;
-    appointmentServiceModal.closeAppointmentModal(args).then((result) => {
+    appointmentServiceModal.closeModal(args).then((result) => {
         if (application.android) {
             application.android.off(application.AndroidApplication.activityBackPressedEvent, closeModal);
         }
@@ -156,7 +209,7 @@ function closeModal(args) {
 
 exports.pageClicked = (args) => {
     if (appointmentModalActive) {
-        appointmentServiceModal.closeAppointmentModal(args).then((result) => {
+        appointmentServiceModal.closeModal(args).then((result) => {
             if (application.android) {
                 application.android.off(application.AndroidApplication.activityBackPressedEvent, closeModal);
             }

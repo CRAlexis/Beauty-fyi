@@ -2,7 +2,7 @@
 <ScrollView>
 
     <GridLayout rows="auto, auto, auto" columns="" xmlns:topBar="dashboard/includes/topBar">
-        <topBar:menu-header header="Set your scheduling limits" tap="goBack"/>
+        <topBar:menu-header header="Set your scheduling limits"/>
 
         <StackLayout row="2" padding="20" paddingTop="15">
             <Label class="h5" color="gray" text="Limit when clients can schedule, reschedule and cancel appointments" textWrap="true" paddingBottom="30" />
@@ -25,9 +25,9 @@
 
             <StackLayout paddingBottom="35">
                 <Label row="0" class="h5" text="ALLOW CLIENTS TO" textWrap="true" paddingBottom="15"/>
-                <CheckBox:CheckBox class="textFieldInputSmall" text="Reschedule Appointments" fontSize="14" color="gray" checked="{{rescheduleAppointments}}"/>
+                <CheckBox:CheckBox tap="pageStateChanged" class="textFieldInputSmall" text="Reschedule Appointments" fontSize="14" color="gray" checked="{{rescheduleAppointments}}"/>
                 <Label text="" class="line" marginTop="10" marginBottom="10" textWrap="true" />
-                <CheckBox:CheckBox class="textFieldInputSmall" text="Cancel Appointments" fontSize="14" color="gray" checked="{{cancelAppointments}}"/>
+                <CheckBox:CheckBox tap="pageStateChanged" class="textFieldInputSmall" text="Cancel Appointments" fontSize="14" color="gray" checked="{{cancelAppointments}}"/>
                 <Label text="" class="line" marginTop="10" marginBottom="10" textWrap="true" />
                 <GridLayout rows="auto, auto" columns="*, auto, 20" paddingLeft="30">
                     <TextField row="0" colSpan="3" width="100%" text="{{rescheduledHours}}" blur="pageStateChanged" keyboardType="number" maxLength="3" id="servicePrice" class="textFieldInputSmall" paddingBottom="10"/>       

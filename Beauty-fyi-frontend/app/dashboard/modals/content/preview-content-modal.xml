@@ -7,7 +7,7 @@
                 </lv:RadListView.listViewLayout>
                 <lv:RadListView.itemTemplate >
                     <GridLayout rows="auto, *, auto" columns="" tap="viewContent" margin="1" backgroundColor="black">
-                        <Image rowSpan="3" col="0" id="{{ contentIndex }}" src="{{ contentImage }}" height="100%" decodeWidth="{{height}}" stretch="aspectFill" load="async" opacity="0.7"/>
+                        <Image rowSpan="3" col="0" id="{{ contentIndex }}" src="{{ contentImage }}" decodeWidth="{{height}}" stretch="aspectFill" load="async" opacity="0.7"/>
                         <Label row="2" col="0" color="white" class="font-bold h5" text="{{ contentName }}" textWrap="true" />
                     </GridLayout>
                 </lv:RadListView.itemTemplate>

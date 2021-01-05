@@ -1,17 +1,16 @@
 <Page navigatingTo="onNavigatingTo" actionBarHidden="true">
     <ActionBar title="" icon=""></ActionBar>
-    <GridLayout rows="*, 300, 205" class="bottom-gradient-two">
+    <GridLayout rows="*, 300, 205">
         <StackLayout row="0"> 
             <Label text="" textWrap="true" />
         </StackLayout>
         <StackLayout row="1" tap="navigateBack">
-            <Label class="font-regular h1 letterSpacing" text="BEAUTY-FYI" style="color: #9900ff;" horizontalAlignment="center" textWrap="true"/>
-            <label class="font-regular h3" text="Your digital beauty assistant" horizontalAlignment="center" textWrap="true"/>
+            <Label class="font-regular h1 letterSpacing" text="BEAUTY-FYI" color="black" horizontalAlignment="center" textWrap="true"/>
+            <label class="font-regular h3" text="Your digital beauty assistant" color="black" horizontalAlignment="center" textWrap="true"/>
         </StackLayout>
-        <StackLayout class="form" row="2">
-            <Button tap="{{ signUpAsClient }}" class="btn btn-transparent btn-rounded-sm font-bold" text="I want to book treatments" style="font-size: 18px; height: 150px; margin-top: 30px;"></Button>
-            <Button tap="{{ signUpAsProfessional }}" class="btn btn-white-outline btn-rounded-sm font-bold" text="I want to offer a service" style="font-size: 18px; height: 150px; margin-top: 15px"></Button>
-            <label tap="{{ signInTapped }}" class="font-bold h4" text="Sign in" color="white" horizontalAlignment="center" textWrap="true"/>
+        <StackLayout class="" row="2">
+            <Button tap="signUp" class="btn btn-black-outline btn-rounded-sm" text="SIGN UP"  fontSize="18" height="50"/>
+            <Button tap="logIn" class="btn btn-black btn-rounded-sm" text="LOG IN" fontSize="18" height="50"/>
         </StackLayout>
     </GridLayout>
 </Page>

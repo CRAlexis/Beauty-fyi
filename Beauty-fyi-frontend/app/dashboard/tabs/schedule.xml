@@ -1,4 +1,4 @@
-<StackLayout height="100%" xmlns:Card="@nstudio/nativescript-cardview" xmlns:lv="nativescript-ui-listview" xmlns:topBar="dashboard/includes/topBar" loaded="schedulePageLoaded">
+<StackLayout height="87%" xmlns:Card="@nstudio/nativescript-cardview" xmlns:lv="nativescript-ui-listview" xmlns:topBar="dashboard/includes/topBar" loaded="schedulePageLoaded">
     <GridLayout rows="auto, *">
         <StackLayout row="0" xmlns:includes="dashboard/includes/calander">
             <includes:calander/>

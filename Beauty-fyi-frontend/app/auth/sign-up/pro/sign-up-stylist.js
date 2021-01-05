@@ -5,9 +5,6 @@ const navigation = require("~/controllers/navigationController")
 
 const source = new Observable();
 
-source.set("username", "")
-source.set("email", "")
-source.set("password", "")
 
 //already have an account -> dont need to register again | sign up page will be slighty different - I guess just ask for username details etc
 //add i already have an accoutnt - terms and conditions - same page just hide information if already have an account
@@ -31,51 +28,35 @@ source.set("clientRegisterAsPro", function (args) { //have an account
     navigation.navigateToSignInPageAsExsistingUser(page)
 });
 
-source.set("signUpTapped", async function (args) {
+exports.signUpTapped = async (args) => {
     // need to specifiy type of account to JJ
-    if(validation()){
-        processingHTTPRequest(true)
-        const content = JSON.stringify({
-            username: source.get("username"),
-            email: source.get("email"),
-            password: source.get("password"),
-            deviceID: appSettings.getString("deviceID"),
-            plainKey: appSettings.getString("plainKey"),
-            accountType: "pro"
-        })
+    // need to validate form
+    if(true){
+        const content = {
+            firstName: "charles",
+            lastName: "Alexis",
+            email: "chazalexix@hotmail.co.uk",
+            password: "password",
+            phoneNumber: "07968399386"
+        }
         const httpParameters = {
             url: 'http://192.168.1.12:3333/register',
             method: 'POST',
             content: content,
         }
-        await sendHTTP(httpParameters)
+        await sendHTTP(httpParameters, {display: true}, {display: true}, {display: true})
             .then((response) => {
-                //Check if everything is cool with JJ
-                if (response.JSON.status == "success"){
-                    processingHTTPRequest(false)
-                    // We sent a confirmation email
-                    console.log("here1")
-                    console.log(response)
-                    let validationError = {
-                        title: "Success",
-                        message: "A verification email has been sent to your email account",
-                        okButtonText: "OK"
-                    };
-                    alert(validationError).then(function () {
-                        navigateToSignInPage(null, args.object.page)
-                    })
-                }else{
-
-                }
-                
+                console.log(response)
+                // because they gona be login in here..
+                // set the user id and email and password into secure storage
+                // We have sent you a confirmation email - Can resend the email
+                // Let people login but have limit funcionality
+                // Dashboard says please confirm your email to use full features
             }, (e) => {
-                processingHTTPRequest(false)
-                console.log("here")
-                console.log(e);
-                // unable to sign up
-        })
+                console.log(e)
+            })
     }
-});
+};
 
 function validation(){
     //check they are not blank
@@ -134,7 +115,5 @@ function validation(){
     return true
 }
 
-function processingHTTPRequest(state){
-    source.set("processingHTTPRequest", state)
-}
+
 //Create an account to run your beauty business with

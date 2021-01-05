@@ -3,6 +3,7 @@ const application = require('application');
 const { sendHTTPFile } = require("~/controllers/HTTPControllers/sendHTTP");
 const sendHTTP = require("~/controllers/HTTPControllers/sendHTTP").sendHTTP;
 const navigation = require("~/controllers/navigationController")
+const { updateBarValue } = require("~/controllers/progress-bar-controller")
 const inAppNotifiationAlert = require("~/controllers/notifications/inApp/notification-alert.js")
 const slideTransition = require("~/controllers/slide-transitionController");
 const textFieldFormatting = require("~/controllers/textfield-formattingController");
@@ -30,6 +31,12 @@ exports.pageLoaded = function(args){
     if (application.android) {
         application.android.on(application.AndroidApplication.activityBackPressedEvent, backEvent);
     }
+    page.on('goBack', () => {
+        backEvent(args)
+    })
+    page.on('displayInfo', () => {
+        displayPageInformation(args)
+    })
     sourceForm = new Observable();
     source.set("title", "Add a service")
     selectAPhotoJs = require("~/dashboard/modals/service/add-service/js/select-a-photo")
@@ -88,7 +95,7 @@ function goToNextSlide(args){
             sendDataToBackEnd(args).then((result) => {
                 console.log("success?")
                 slideTransition.goToCustomSlide(args, slideIndex, 7, source, slides).then(function (result) {
-                    changeContinueButtontext(args, "Go To Dashboard")
+                    changeContinueButtontext(args, "Finish")
                     slideIndex = result
                 })
             }, error => {
@@ -104,18 +111,20 @@ function goToNextSlide(args){
         case 7:
             closeCallback()
     }
+    //updateBarValue(args, (slideIndex + 1) * 16.6)
 }
 
 function sendDataToBackEnd(args){
     return new Promise((resolve, reject) => {
-        setLoadingStyle(args, 0)
-        sendData(args).then((result)=>{
-            resolve()
-        }, (error) =>{
-            reject(error)
-        }).finally((result) => {    
-            setLoadingStyle(args, 1)
-        })
+        resolve()
+        //setLoadingStyle(args, 0)
+        //sendData(args).then((result)=>{
+        //    resolve()
+        //}, (error) =>{
+        //    reject(error)
+        //}).finally((result) => {    
+        //    setLoadingStyle(args, 1)
+        //})
     })
     
 }
@@ -205,10 +214,12 @@ function backEvent(args){ // This event is a bit funny
             if (result) { exitModal(args) }
         })
     }else{
-        slideTransition.goToPreviousSlide(args, slideIndex, source, slides).then(function (result) {
-            slideIndex = result
-            slideValidated(args)
-        })
+        if (slideIndex != 7){
+            slideTransition.goToPreviousSlide(args, slideIndex, source, slides).then(function (result) {
+                slideIndex = result
+                slideValidated(args)
+            })
+        } 
     }
 }
 function exitModal(args) {

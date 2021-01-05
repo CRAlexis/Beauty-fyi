@@ -60,9 +60,13 @@ exports.bookService = (args) => {
     const mainView = args.object;
     const context = ""
     animation(args.object, "expand section width", { width: "80%", duration: 250 }).then(function () {
-        navigation.navigateToModal(context, mainView, 3, true).then(function (result) {
-            args.object.width = "50%"
+        navigation.navigateToModal(context, mainView, 24, true).then(function (result) {
+            
             active = false
+            console.log(result)
+            navigation.navigateToModal({userId: result}, mainView, 3, true).then((result)=>{
+                args.object.width = "50%"
+            })
         })
     })
 }

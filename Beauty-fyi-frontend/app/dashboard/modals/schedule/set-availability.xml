@@ -1,7 +1,7 @@
 <Page shownModally="onShownModally" loaded="loaded" xmlns:Card="@nstudio/nativescript-cardview" xmlns:CheckBox="@nstudio/nativescript-checkbox">
 <ScrollView>
     <GridLayout rows="auto, auto, auto" columns="" xmlns:topBar="dashboard/includes/topBar" xmlns:includes="dashboard/includes/schedule">
-        <topBar:menu-header row="0" header="Set your availability" tap="goBack"/>
+        <topBar:menu-header row="0" header="Set your availability"/>
         <StackLayout row="1" padding="20" paddingTop="15">
             <Label text="When do you work?" class="h3" textWrap="true" />
             <Label text="Set your regular working hours" class="h4" textWrap="true" />

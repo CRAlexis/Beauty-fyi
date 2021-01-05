@@ -1,5 +1,5 @@
 let questions = [];
-
+const navigation = require("~/controllers/navigationController")
 exports.initAddFormPage = (args) =>{
     //args.object.page.getViewById("continueButton").text = 
 }
@@ -20,7 +20,6 @@ exports.removeQuestion = (args) => {
     var listview = page.getViewById("addFormListView")
     const length = listview.items.length
     const index = args.object.index
-    console.log(index)
     if (length > 0) {
         questions.splice(index - 1, 1)
         let questionsHolder = questions

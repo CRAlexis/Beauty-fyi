@@ -1,5 +1,5 @@
 <StackLayout xmlns:Card="@nstudio/nativescript-cardview">
-<Card:CardView  row="0" class="cardStyle" margin="5" elevation="10" radius="10" width="90%" height="600"  style="padding-bottom: 25px">
+<Card:CardView  row="0" class="cardStyle" margin="5" elevation="10" radius="10" width="90%" height="90%">
     <GridLayout rows="*, auto" columns="">
         <ScrollView row="0">
             <GridLayout rows="auto, auto, 20, auto, auto, auto, auto" columns="">

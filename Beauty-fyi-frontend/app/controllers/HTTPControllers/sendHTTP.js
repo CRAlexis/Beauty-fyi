@@ -1,17 +1,39 @@
 const httpModule = require("tns-core-modules/http");
+const { Http } = require("@klippa/nativescript-http");
+const { httpRequestLoading, httpRequestFinished, dismissAlert } = require("~/controllers/notifications/inApp/notification-alert");
+const { SecureStorage } = require("nativescript-secure-storage");
+var secureStorage = new SecureStorage();
 
-function sendHTTP(httpParameters) {
-    return new Promise((resolve, reject) => {
+async function sendHTTP(httpParameters,
+    processParameters = {display: false, title: null, message: null},
+    successParameters = {display: false, title: null, message: null},
+    errorParameters = {display: false, title: null, message: null}) {
+    return new Promise(async (resolve, reject) => {
         try {
-            httpModule.request({
+            let alertObject;
+            if (processParameters.display){
+                httpRequestLoading(processParameters.title ? processParameters.title : "Processing...", processParameters.message ? processParameters.message : "Processing your request, please wait.").then((alert) => { alertObject = alert })
+            }
+            Http.request({
                 url: httpParameters.url,
                 method: httpParameters.method,
                 headers: {
                     "Content-Type": "application/json"
                 },
-                //content: httpParameters.content,
+                content: JSON.stringify({
+                    content: httpParameters.content,
+                    auth: {
+                        deviceID: await secureStorage.get({ key: "deviceID" }),
+                        plainKey: await secureStorage.get({ key: "plainKey" }),
+                        userId: await secureStorage.get({ key: "userId" }),
+                    }
+                })         
             }).then((response) => {
+                dismissAlert(alertObject)
                 if (parseInt(response.statusCode) < 300) {
+                    if (successParameters.display) {
+                        httpRequestFinished(successParameters.title ? successParameters.title : "Success", successParameters.message ? successParameters.message : "Your request was processed successfully").then((alert) => { alertObject = alert })
+                    }
                     const responseString = response.content.toString();
                     const reponseJSON = response.content.toJSON()
                     //resolveRequest(reponseJSON, responseString)
@@ -21,28 +43,38 @@ function sendHTTP(httpParameters) {
                         "String": responseString
                     })
                 } else {
-                    console.log(response.headers)
+                    if (errorParameters.display) {
+                        httpRequestFinished(errorParameters.title ? errorParameters.title : "Error", errorParameters.message ? errorParameters.message : "We was unable to process your request. Tap anywhere to exit.").then((alert) => { alertObject = alert })
+                    }
+                    //console.log(response.headers)
                     //rejectRequest(response.statusCode)
                     console.log(Object.keys(response))
+                    console.log(response.statusCode)
+
                     reject(response)
                 }
             }, (e) => {
+                    dismissAlert(alertObject)
+                    console.log(errorParameters.display)
+                if (true) {
+                    httpRequestFinished(errorParameters.title ? errorParameters.title : "Error", errorParameters.message ? errorParameters.message : "We was unable to process your request. Tap anywhere to exit.").then((alert) => { alertObject = alert })
+                }
                 // send to database
                 //rejectRequest(e)
+                console.log("error: " + e)
                 reject(e)
-            });
+               
+            })
         } catch (error) {
+            dismissAlert(alertObject)
+            if (errorParameters.display) {
+                httpRequestFinished(errorParameters.title ? errorParameters.title : "Error", errorParameters.message ? errorParameters.message : "We was unable to process your request. Tap anywhere to exit.").then((alert) => { alertObject = alert })
+            }
             // send to database
             //rejectRequest(error)
-            console.log(error)
+            console.log("error 3: " + error)
             reject(e)
-        }
-
-        function resolveRequest(reponseJSON, responseString) {
-
-        }
-
-        function rejectRequest(error) {
+        } finally {
 
         }
     });
@@ -88,7 +120,7 @@ function sendHTTPFile(httpParameters) {
         function respondedHandler(result) {
             //const responseString = result.toString();
             //const reponseJSON = result.toJSON()
-            resolve(e)
+            resolve(result)
         }
     });
 }

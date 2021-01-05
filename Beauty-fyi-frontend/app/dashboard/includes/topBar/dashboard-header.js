@@ -22,3 +22,21 @@ exports.goToSettings = function (args) {
         })
     })
 }
+
+exports.goToMessages = (args) => {
+    const mainView = args.object;
+    const context = ""
+
+    animation(args.object, "nudge up").then(function () {
+        navigation.navigateToModal(context, mainView, 23, true).then(function (result) {
+            console.log(result)
+        })
+    })
+}
+
+exports.headerBarClicked = (args) => {
+    const evtData = {
+        eventName: 'headerBarClicked',
+    };
+    args.object.page.notify(evtData)
+}
