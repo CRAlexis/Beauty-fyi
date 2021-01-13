@@ -1,0 +1,14 @@
+<GridLayout id="" rows="auto, auto, auto, auto, auto" columns="">
+    <StackLayout row="0" paddingLeft="25" paddingRight="25" marginBottom="25">
+        <Label text="Product details" class="h3" textWrap="true"/>
+        <Label text="Set the name, description and category of your product." class="h4" textWrap="true"/>
+    </StackLayout>
+    <StackLayout row="1" paddingLeft="9">
+        <TextField maxLength="60" id="productName" hint="Product name" class="textFieldInputSmall" paddingBottom="10" textChange="validateSecondPageProducts" returnKeyType="done"/>
+        <TextField keyboardType="number" maxLength="6" id="productQuantity" resetText="" hint="Quantity" textChange="validateThirdPageProducts" returnKeyType="done" class="textFieldInputSmall" paddingBottom="10"/>
+        <TextView maxLength="400" id="productDescription" borderColor="#DEDEDE" borderWidth="1" hint="Product description"  textChange="validateSecondPageProducts" class="textFieldInputSmall" paddingBottom="10"></TextView>
+        <TextField id="productCategory" optionContext="Clay,Conditioner,Gel,Hair Spray,Heat Protectant,Mousse,Oil,Pomade,Serum,Shampoo,Wax" class="textFieldInputSmall" tap="{{ dropDownClicked }}"  textChange="validateSecondPageProducts" hint="Category" editable="false" paddingBottom="10"/>
+        <!--<TextField keyboardType="number" maxLength="6" id="productPrice" row="2" resetText="" hint="Service price" blur="productPriceReturn" focus="productPriceFocus" returnPress="productPriceReturn" textChange="productPriceTextChange" class="textFieldInputSmall" paddingBottom="10"/>-->
+    </StackLayout>
+
+</GridLayout>

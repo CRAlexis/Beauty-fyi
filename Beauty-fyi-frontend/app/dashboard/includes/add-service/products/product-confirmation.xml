@@ -1,0 +1,39 @@
+<StackLayout row="0"
+    xmlns:Card="@nstudio/nativescript-cardview"
+    xmlns:lv="nativescript-ui-listview">
+    <Card:CardView class="cardStyle" elevation="10" marginBottom="10" paddingBottom="15" radius="0" width="90%">-->
+        <ScrollView>
+
+            <GridLayout rows="auto, auto, auto">
+                <StackLayout row="0" marginTop="-10" backgroundColor="rgb(250,250,250)">
+                    <Image id="displayImage" src="" height="235" stretch="aspectFit"/>
+                </StackLayout>
+                <StackLayout row="1">
+                    <lv:RadListView id="productGalleryList" class="list-group" style="background-color: rgb(250,250,250)">
+                        <lv:RadListView.listViewLayout>
+                            <lv:ListViewLinearLayout scrollDirection="Horizontal" />
+                        </lv:RadListView.listViewLayout>
+                        <lv:RadListView.itemTemplate >
+                            <GridLayout index="{{contentId}}" rows="auto, *, auto" columns="" tap="viewProductPicture" margin="1">
+                                <Image rowSpan="3" col="0" src="{{ contentImage }}" height="{{height}}" decodeWidth="{{height}}" stretch="aspectFill" load="async"/>
+                            </GridLayout>
+                        </lv:RadListView.itemTemplate>
+                    </lv:RadListView>
+                </StackLayout>
+                <StackLayout row="2" marginTop="-10" paddingTop="15">
+                    <GridLayout rows="auto, *" columns="10, *, auto, 20">
+                        <Label row="0" col="1" class="h4 font-bold" id="productConfirmationName" text="" textWrap="true" />
+                        <Label row="0" col="2" class="h4 font-bold" id="productConfirmationPrice" color="green" text="" textWrap="true" />
+                        <StackLayout row="1" colSpan="4" paddingBottom="10">
+                            <Label text="" class="line" margin="10" />
+                            <Label paddingLeft="10" id="productConfirmationCategory" text="" class="h5 font-bold" textWrap="true" />
+                            <Label paddingLeft="10" id="productConfirmationPostage" text="" class="h5 font-bold" textWrap="true" />
+                            <Label paddingLeft="10" paddingRight="10" id="productConfirmationDescription" text="" class="h5" color="gray" textWrap="true" />
+                        </StackLayout>
+                    </GridLayout>
+                </StackLayout>
+            </GridLayout>
+        </ScrollView>
+    </Card:CardView>
+</StackLayout>
+

@@ -1,0 +1,58 @@
+<Page shownModally="onShownModally" loaded="loaded"
+    xmlns:Card="@nstudio/nativescript-cardview">
+    <GridLayout rows="*" columns="">
+        <GridLayout id="chooseClientSlide" row="0" rows="auto, *, auto" columns=""
+            xmlns:topBar="dashboard/includes/topBar">
+            <topBar:menu-header row="0" header="Choose a client"/>
+            <StackLayout row="1" height="100%" id="chooseDatePageContainer"
+                xmlns:Card="@nstudio/nativescript-cardview">
+                <StackLayout paddingTop="" paddingBottom="20">
+                    <StackLayout paddingBottom="10"
+                        xmlns:lv="nativescript-ui-listview">
+                        <lv:RadListView id="addClientList" class="list-group" style="background-color: transparent" loadOnDemandModeX="Auto" loadMoreDataRequestedX="{{onLoadMoreItemsRequested}}">
+                            <lv:RadListView.listViewLayout>
+                                <lv:ListViewLinearLayout/>
+                            </lv:RadListView.listViewLayout>
+                            <lv:RadListView.itemTemplate >
+                                <GridLayout id="{{ id }}" tap="selectClient" rows="5, 50, 5" columns="10, 50, 10, auto" class="list-group-borders">
+                                    <Image src="{{ clientImage }}" row="1" col="1" height="100%" width="100%" borderRadius="50" stretch="aspectFill" />
+                                    <Label row="1" col="3" text="{{ clientName}}" class="font-bold h4" textWrap="true" />
+                                </GridLayout>
+                            </lv:RadListView.itemTemplate>
+                        </lv:RadListView>
+                    </StackLayout>
+                </StackLayout>
+            </StackLayout>
+            <GridLayout row="2" columns="*, auto">
+                <Button col="1" text="&#xf055;" class="fas btn" fontSize="45" tap="addNewClient" />
+            </GridLayout>
+        </GridLayout>
+        <GridLayout row="0" rows="auto, *" columns="" id="addClientSlide" visibility="collapsed" opacity="0">
+            <StackLayout xmlns:Card="@nstudio/nativescript-cardview" row="0">
+                <Card:CardView class="cardStyle" elevation="10" marginBottom="10" radius="0">
+                    <GridLayout columns="40, *, auto" paddingLeft="20" paddingRight="10" paddingBottom="10">
+                        <StackLayout tap="exit" col="0" orientation="horizontal" paddingTop="15">
+                            <Label text="&#xf00d;" class="fas" fontSize="19" textWrap="true" />
+                        </StackLayout>
+                        <StackLayout col="1">
+                            <Label id="title" text="Add client" textAlignment="center" class="h4 font-bold" color="black" paddingTop="15" />
+                        </StackLayout>
+                        <StackLayout tap="createClient" id="infoContainer" col="2" orientation="horizontal" paddingTop="15" paddingLeft="10" paddingRight="10">
+                            <Label text="&#xf00c;" class="fas" fontSize="19" textWrap="true" />
+                        </StackLayout>
+                    </GridLayout>
+                </Card:CardView>
+                <StackLayout row="1" xmlns:mtf="nativescript-masked-text-field">
+                    <GridLayout rows="" columns="*, auto, *" paddingBottom="20">
+                        <Label col="1" text="&#xf2bd;" class="fas" color="gray" fontSize="75" textWrap="true" />                   
+                    </GridLayout>
+                    <TextField maxLength="60" id="firstName" hint="*First name" class="textFieldInputSmall" paddingBottom="10"/>
+                    <TextField maxLength="60" id="lastName" hint="*Last name" class="textFieldInputSmall" paddingBottom="10" />
+                    <TextField maxLength="60" id="emailAddress"  hint="*Email address" keyboardType="email" class="textFieldInputSmall" paddingBottom="10" />
+                    <TextField maxLength="13" id="phoneNumber" hint="Phone number" keyboardType="number" class="textFieldInputSmall" paddingBottom="10" />
+                </StackLayout>
+            </StackLayout>
+        </GridLayout>
+    </GridLayout>
+</Page>
+

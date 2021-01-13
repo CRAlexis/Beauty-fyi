@@ -1,14 +1,14 @@
-<StackLayout  xmlns:Card="@nstudio/nativescript-cardview" xmlns:lv="nativescript-ui-listview" xmlns:topBar="dashboard/includes/topBar" loaded="clientPageLoaded">
-    <GridLayout rows="auto, *, auto">
+<StackLayout  xmlns:Card="@nstudio/nativescript-cardview" xmlns:lv="nativescript-ui-listview" xmlns:topBar="dashboard/includes/topBar" loaded="clientPageLoaded" height="88%">
+    <GridLayout rows="auto, *, *, auto">
         <StackLayout row="0">
         </StackLayout>
         <StackLayout row="1">
-            <lv:RadListView id="clientList" class="list-group" style="background-color: transparent" loadOnDemandMode="Auto" loadMoreDataRequested="{{onLoadMoreItemsRequested}}"> 
+            <lv:RadListView id="clientList" class="list-group" style="background-color: transparent" loadOnDemandModeX="Auto" loadMoreDataRequestedX="{{onLoadMoreItemsRequested}}"> 
                 <lv:RadListView.listViewLayout>
                     <lv:ListViewLinearLayout  spanCount="2" />
                 </lv:RadListView.listViewLayout>
                 <lv:RadListView.itemTemplate >    
-                    <GridLayout id="{{ id }}" tap="{{ viewClientProfile }}" rows="5, 70, 5" columns="10, 70, 10, auto" class="list-group-borders">
+                    <GridLayout id="{{ id }}" tap="viewClientProfile" rows="5, 70, 5" columns="10, 70, 10, auto" class="list-group-borders">
                     <Image src="{{ clientImage }}" row="1" col="1" height="100%" width="100%" borderRadius="50" stretch="aspectFill" />  
                         <StackLayout verticalAlignment="center" row="1" col="3" marginTop="20">
                             <Label text="{{ clientName }}" class="font-bold h4" textWrap="true" />
@@ -17,7 +17,7 @@
                 </lv:RadListView.itemTemplate>
             </lv:RadListView>
         </StackLayout>
-            <StackLayout row="2" orientation="horizontal" horizontalAlignment="center" verticalAlignment="bottom">
+            <StackLayout row="3" orientation="horizontal" horizontalAlignment="center" verticalAlignment="bottom">
                 <Button class="btn btn-white" text="Share my link" tap="inviteClient" width="50%" />
             </StackLayout>
     </GridLayout>

@@ -1,7 +1,7 @@
 const Observable = require("tns-core-modules/data/observable").Observable;
 const clientGalleryModal = "~/dashboard/modals/clientTab/client-gallery-modal";
 const navigation = require("~/controllers/navigationController")
-
+const animation = require("~/controllers/animationController").loadAnimation
 const source = new Observable();
 source.set("selectedIndex", 0)
 source.set("editHairType", false)
@@ -74,8 +74,8 @@ function loadImages(page) {
         },
     )
     //format photos when uploading
-    var listview = page.getViewById("clientGalleryList");
-    listview.items = images;
+    // /var listview = page.getViewById("clientGalleryList");
+    //listview.items = images;
 }
 
 function loadAppointments(page) { // am not able to get page object
@@ -110,7 +110,7 @@ source.set("openClientGallery", function (args){
     const context =  {
             
         }
-    navigation.navigateToModal(context, mainView, 2, true).then(function (result) {
+    navigation.navigateToModal(context, mainView, 20, true).then(function (result) {
         console.log(result)
     })
 })
@@ -186,20 +186,26 @@ source.set("editClientInformation", function (args) {
 
 source.set("selectedIndexChangeInformation", async function (args){
     const selectedIndex = args.object.selectedIndex;
-    switch (parseInt(selectedIndex)) {
-        case 0:
-            resizeContainer(0, args).then(function(){
-                source.set("hairTypeContainerVisbility", true)
-                source.set("hairCareContainerVisbility", false)
-            })    
-            break;
-        case 1:
-            resizeContainer(1, args).then(function () {
-                source.set("hairTypeContainerVisbility", false)
-                source.set("hairCareContainerVisbility", true)
-            })    
-            break;
+    console.log("switching")
+    try {
+        switch (parseInt(selectedIndex)) {
+            case 0:
+                resizeContainer(0, args).then(function () {
+                    source.set("hairTypeContainerVisbility", true)
+                    source.set("hairCareContainerVisbility", false)
+                })
+                break;
+            case 1:
+                resizeContainer(1, args).then(function () {
+                    source.set("hairTypeContainerVisbility", false)
+                    source.set("hairCareContainerVisbility", true)
+                })
+                break;
+        }
+    } catch (error) {
+        console.log(error)
     }
+    
 });
 
 source.set("selectedIndexChangeAppointments", async function (args) {

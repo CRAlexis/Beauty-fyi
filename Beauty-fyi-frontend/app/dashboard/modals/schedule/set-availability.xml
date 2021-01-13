@@ -1,7 +1,7 @@
-<Page shownModally="onShownModally" loaded="pageLoaded" xmlns:Card="@nstudio/nativescript-cardview" xmlns:CheckBox="@nstudio/nativescript-checkbox">
+<Page shownModally="onShownModally" loaded="loaded" xmlns:Card="@nstudio/nativescript-cardview" xmlns:CheckBox="@nstudio/nativescript-checkbox">
 <ScrollView>
     <GridLayout rows="auto, auto, auto" columns="" xmlns:topBar="dashboard/includes/topBar" xmlns:includes="dashboard/includes/schedule">
-        <topBar:menu-header row="0" header="Set your availability" tap="goBack"/>
+        <topBar:menu-header row="0" header="Set your availability"/>
         <StackLayout row="1" padding="20" paddingTop="15">
             <Label text="When do you work?" class="h3" textWrap="true" />
             <Label text="Set your regular working hours" class="h4" textWrap="true" />
@@ -12,26 +12,20 @@
                     <GridLayout columns="*, auto">
                         <StackLayout tap="dayTapped" orientation="horizontal" col="0">
                             <Label text="Monday" class="h4 font-bold" paddingLeft="10" paddingRight="10" textWrap="true" />
-                            <Label text="{{mondayTimeOne + ' to ' +  mondayTimeTwo}}"  class="h5" paddingTop="6"  color="gray" textWrap="true" />
+                            <Label text="{{mondayStartTime + ' to ' +  mondayEndTime}}"  class="h5" paddingTop="6"  color="gray" textWrap="true" />
                         </StackLayout>           
-                        <Switch checked="false" marginTop="0" col="1" tap="checkBoxTapped"/>
+                        <Switch checked="{{mondayActive}}" marginTop="0" col="1" tap="checkBoxTapped"/>
                     </GridLayout>              
                 </StackLayout>
-                <Label class="line" width="100%" marginBottom="20" marginTop="10" textWrap="true" />
+                <Label class="line" width="100%" marginBottom="10" marginTop="10" textWrap="true" />
                 <StackLayout height="1">
-                    <StackLayout orientation="horizontal" paddingLeft="5" tap="openTimeModal">
-                        <Label text="&#xf017;" class="far" fontSize="20" paddingRight="10" textWrap="true" />
-                        <Label class="h5" paddingTop="3"  textWrap="true">
-                            <Label.formattedText>
-                              <FormattedString>
-                                <FormattedString.spans>
-                                  <Span text="{{mondayTimeOne}}" color="black" />
-                                  <Span text=" to " color="black" />
-                                  <Span text="{{mondayTimeTwo}}" color="black" />
-                                </FormattedString.spans>
-                              </FormattedString>
-                            </Label.formattedText>
-                        </Label>
+                    <StackLayout orientation="horizontal" paddingLeft="">
+                        <!--<Label text="&#xf017;" class="far" fontSize="20" paddingRight="10" textWrap="true" />-->
+                        <StackLayout orientation="horizontal" marginLeft="-10"
+                            xmlns:datetime="@nativescript/datetimepicker">
+                            <datetime:TimePickerField id="eventStartTime" width="45%" marginRight="-5" class="textFieldInputSmall" text="{{mondayStartTime}}" hint="Start time" textChange="eventEndTimeChanged" borderWidth="0"/>
+                            <datetime:TimePickerField id="eventEndTime" width="45%" marginRight="-5" class="textFieldInputSmall" text="{{mondayEndTime}}" hint="End time" textChange="eventEndTimeChanged" borderWidth="0"/>
+                        </StackLayout>  
                     </StackLayout>
                     <Label class="line" width="100%" marginBottom="20" marginTop="10" textWrap="true" />
                     <StackLayout orientation="horizontal" paddingLeft="9">
@@ -50,23 +44,27 @@
                     <GridLayout columns="*, auto">
                         <StackLayout tap="dayTapped" orientation="horizontal" col="0">
                             <Label text="Tuesday" class="h4 font-bold" paddingLeft="10" paddingRight="10" textWrap="true" />
-                            <Label  text="09:00 to 18:00"  class="h5" paddingTop="6"  color="gray" textWrap="true" />
+                            <Label  text="{{tuesdayStartTime + ' to ' +  tuesdayEndTime}}"  class="h5" paddingTop="6"  color="gray" textWrap="true" />
                         </StackLayout>                 
-                        <Switch checked="false" marginTop="0" col="1" tap="checkBoxTapped"/>
+                        <Switch checked="{{tuesdayActive}}" marginTop="0" col="1" tap="checkBoxTapped"/>
                     </GridLayout>
                 </StackLayout>
-                <Label class="line" width="100%" marginBottom="20" marginTop="10" textWrap="true" />
+                <Label class="line" width="100%" marginBottom="10" marginTop="10" textWrap="true" />
                <StackLayout height="1">
-                    <StackLayout orientation="horizontal" paddingLeft="5">
-                    <Label text="&#xf017;" class="far" fontSize="20" paddingRight="10"  textWrap="true" />
-                    <Label text="from 09:00 to 18:00" class="h5" textWrap="true" paddingTop="3" />
+                    <StackLayout orientation="horizontal" paddingLeft="">
+                        <!--<Label text="&#xf017;" class="far" fontSize="20" paddingRight="10" textWrap="true" />-->
+                        <StackLayout orientation="horizontal" marginLeft="-10"
+                            xmlns:datetime="@nativescript/datetimepicker">
+                            <datetime:TimePickerField id="eventStartTime" width="45%" marginRight="-5" class="textFieldInputSmall" text="{{tuesdayStartTime}}" hint="Start time" textChange="eventEndTimeChanged" borderWidth="0"/>
+                            <datetime:TimePickerField id="eventEndTime" width="45%" marginRight="-5" class="textFieldInputSmall" text="{{tuesdayEndTime}}" hint="End time" textChange="eventEndTimeChanged" borderWidth="0"/>
+                        </StackLayout>
                     </StackLayout>
-                    <Label class="line" width="100%" marginBottom="20" marginTop="17" textWrap="true" />
+                    <Label class="line" width="100%" marginBottom="20" marginTop="10" textWrap="true" />
                     <StackLayout orientation="horizontal" paddingLeft="9">
                         <Label text="&#xf3c5;" class="fas" fontSize="20" paddingRight="10"  textWrap="true" />
                         <Label text="137 St John's Road Wembley, London, HA9 7JP" class="h5" paddingTop="3" textWrap="true" />
                     </StackLayout>
-                    <Label class="line" width="100%" marginBottom="20" marginTop="17" textWrap="true" />
+                    <Label class="line" width="100%" marginBottom="20" marginTop="10" textWrap="true" />
                     <Label text="Also apply this to:" paddingBottom="10" textWrap="true" />
                     <includes:set-your-availability-apply-this-to/>
                 </StackLayout>  
@@ -77,23 +75,27 @@
                     <GridLayout columns="*, auto">
                         <StackLayout tap="dayTapped" orientation="horizontal" col="0">
                             <Label text="Wednesday" class="h4 font-bold" paddingLeft="10" paddingRight="10" textWrap="true" />
-                            <Label  text="09:00 to 18:00"  class="h5" paddingTop="6"  color="gray" textWrap="true" />
+                            <Label  text="{{wednesdayStartTime + ' to ' +  wednesdayEndTime}}"  class="h5" paddingTop="6"  color="gray" textWrap="true" />
                         </StackLayout>                 
-                        <Switch checked="false" marginTop="0" col="1" tap="checkBoxTapped"/>
+                        <Switch checked="{{wednesdayActive}}" marginTop="0" col="1" tap="checkBoxTapped"/>
                     </GridLayout>
                 </StackLayout>
-                <Label class="line" width="100%" marginBottom="20" marginTop="10" textWrap="true" />
+                <Label class="line" width="100%" marginBottom="10" marginTop="10" textWrap="true" />
                 <StackLayout height="1">
-                    <StackLayout orientation="horizontal" paddingLeft="5">
-                    <Label text="&#xf017;" class="far" fontSize="20" paddingRight="10"  textWrap="true" />
-                    <Label text="from 09:00 to 18:00" class="h5" textWrap="true" paddingTop="3" />
+                    <StackLayout orientation="horizontal" paddingLeft="">
+                        <!--<Label text="&#xf017;" class="far" fontSize="20" paddingRight="10" textWrap="true" />-->
+                        <StackLayout orientation="horizontal" marginLeft="-10"
+                            xmlns:datetime="@nativescript/datetimepicker">
+                            <datetime:TimePickerField id="eventStartTime" width="45%" marginRight="-5" class="textFieldInputSmall" text="{{wednesdayStartTime}}" hint="Start time" textChange="eventEndTimeChanged" borderWidth="0"/>
+                            <datetime:TimePickerField id="eventEndTime" width="45%" marginRight="-5" class="textFieldInputSmall" text="{{wednesdayEndTime}}" hint="End time" textChange="eventEndTimeChanged" borderWidth="0"/>
+                        </StackLayout>
                     </StackLayout>
-                    <Label class="line" width="100%" marginBottom="20" marginTop="17" textWrap="true" />
+                    <Label class="line" width="100%" marginBottom="20" marginTop="10" textWrap="true" />
                     <StackLayout orientation="horizontal" paddingLeft="9">
                         <Label text="&#xf3c5;" class="fas" fontSize="20" paddingRight="10"  textWrap="true" />
                         <Label text="137 St John's Road Wembley, London, HA9 7JP" class="h5" paddingTop="3" textWrap="true" />
                     </StackLayout>
-                    <Label class="line" width="100%" marginBottom="20" marginTop="17" textWrap="true" />
+                    <Label class="line" width="100%" marginBottom="20" marginTop="10" textWrap="true" />
                     <Label text="Also apply this to:" paddingBottom="10" textWrap="true" />
                     <includes:set-your-availability-apply-this-to/>  
                 </StackLayout>          
@@ -104,23 +106,27 @@
                     <GridLayout columns="*, auto">
                         <StackLayout tap="dayTapped" orientation="horizontal" col="0">
                             <Label text="Thursday" class="h4 font-bold" paddingLeft="10" paddingRight="10" textWrap="true" />
-                            <Label  text="09:00 to 18:00"  class="h5" paddingTop="6"  color="gray" textWrap="true" />
+                            <Label text="{{thursdayStartTime + ' to ' +  thursdayEndTime}}"  class="h5" paddingTop="6"  color="gray" textWrap="true" />
                         </StackLayout>                 
-                        <Switch checked="false" marginTop="0" col="1" tap="checkBoxTapped"/>
+                        <Switch checked="{{thursdayActive}}" marginTop="0" col="1" tap="checkBoxTapped"/>
                     </GridLayout>
                 </StackLayout>
-                <Label class="line" width="100%" marginBottom="20" marginTop="10" textWrap="true" />
+                <Label class="line" width="100%" marginBottom="10" marginTop="10" textWrap="true" />
                 <StackLayout height="1">
-                    <StackLayout orientation="horizontal" paddingLeft="5">
-                    <Label text="&#xf017;" class="far" fontSize="20" paddingRight="10"  textWrap="true" />
-                    <Label text="from 09:00 to 18:00" class="h5" textWrap="true" paddingTop="3" />
+                    <StackLayout orientation="horizontal" paddingLeft="">
+                        <!--<Label text="&#xf017;" class="far" fontSize="20" paddingRight="10" textWrap="true" />-->
+                        <StackLayout orientation="horizontal" marginLeft="-10"
+                            xmlns:datetime="@nativescript/datetimepicker">
+                            <datetime:TimePickerField id="eventStartTime" width="45%" marginRight="-5" class="textFieldInputSmall" text="{{thursdayStartTime}}" hint="Start time" textChange="eventEndTimeChanged" borderWidth="0"/>
+                            <datetime:TimePickerField id="eventEndTime" width="45%" marginRight="-5" class="textFieldInputSmall" text="{{thursdayEndTime}}" hint="End time" textChange="eventEndTimeChanged" borderWidth="0"/>
+                        </StackLayout>
                     </StackLayout>
-                    <Label class="line" width="100%" marginBottom="20" marginTop="17" textWrap="true" />
+                    <Label class="line" width="100%" marginBottom="20" marginTop="10" textWrap="true" />
                     <StackLayout orientation="horizontal" paddingLeft="9">
                         <Label text="&#xf3c5;" class="fas" fontSize="20" paddingRight="10"  textWrap="true" />
                         <Label text="137 St John's Road Wembley, London, HA9 7JP" class="h5" paddingTop="3" textWrap="true" />
                     </StackLayout>
-                    <Label class="line" width="100%" marginBottom="20" marginTop="17" textWrap="true" />
+                    <Label class="line" width="100%" marginBottom="20" marginTop="10" textWrap="true" />
                     <Label text="Also apply this to:" paddingBottom="10" textWrap="true" />
                     <includes:set-your-availability-apply-this-to/> 
                 </StackLayout>          
@@ -131,23 +137,27 @@
                     <GridLayout columns="*, auto">
                         <StackLayout tap="dayTapped" orientation="horizontal" col="0">
                             <Label text="Friday" class="h4 font-bold" paddingLeft="10" paddingRight="10" textWrap="true" />
-                            <Label  text="09:00 to 18:00"  class="h5" paddingTop="6"  color="gray" textWrap="true" />
+                            <Label  text="{{fridayStartTime + ' to ' +  fridayEndTime}}"  class="h5" paddingTop="6"  color="gray" textWrap="true" />
                         </StackLayout>                 
-                        <Switch checked="false" marginTop="0" col="1" tap="checkBoxTapped"/>
+                        <Switch checked="{{fridayActive}}" marginTop="0" col="1" tap="checkBoxTapped"/>
                     </GridLayout>
                 </StackLayout>
-                <Label class="line" width="100%" marginBottom="20" marginTop="10" textWrap="true" />
+                <Label class="line" width="100%" marginBottom="10" marginTop="10" textWrap="true" />
                 <StackLayout height="1">
-                    <StackLayout orientation="horizontal" paddingLeft="5">
-                    <Label text="&#xf017;" class="far" fontSize="20" paddingRight="10"  textWrap="true" />
-                    <Label text="from 09:00 to 18:00" class="h5" textWrap="true" paddingTop="3" />
+                    <StackLayout orientation="horizontal" paddingLeft="">
+                        <!--<Label text="&#xf017;" class="far" fontSize="20" paddingRight="10" textWrap="true" />-->
+                        <StackLayout orientation="horizontal" marginLeft="-10"
+                            xmlns:datetime="@nativescript/datetimepicker">
+                            <datetime:TimePickerField id="eventStartTime" width="45%" marginRight="-5" class="textFieldInputSmall" text="{{fridayStartTime}}" hint="Start time" textChange="eventEndTimeChanged" borderWidth="0"/>
+                            <datetime:TimePickerField id="eventEndTime" width="45%" marginRight="-5" class="textFieldInputSmall" text="{fridayEndTime}}" hint="End time" textChange="eventEndTimeChanged" borderWidth="0"/>
+                        </StackLayout>
                     </StackLayout>
-                    <Label class="line" width="100%" marginBottom="20" marginTop="17" textWrap="true" />
+                    <Label class="line" width="100%" marginBottom="20" marginTop="10" textWrap="true" />
                     <StackLayout orientation="horizontal" paddingLeft="9">
                         <Label text="&#xf3c5;" class="fas" fontSize="20" paddingRight="10"  textWrap="true" />
                         <Label text="137 St John's Road Wembley, London, HA9 7JP" class="h5" paddingTop="3" textWrap="true" />
                     </StackLayout>
-                    <Label class="line" width="100%" marginBottom="20" marginTop="17" textWrap="true" />
+                    <Label class="line" width="100%" marginBottom="20" marginTop="10" textWrap="true" />
                     <Label text="Also apply this to:" paddingBottom="10" textWrap="true" />
                     <includes:set-your-availability-apply-this-to/>
                 </StackLayout>           
@@ -158,23 +168,27 @@
                     <GridLayout columns="*, auto">
                         <StackLayout tap="dayTapped" orientation="horizontal" col="0">
                             <Label text="Saturday" class="h4 font-bold" paddingLeft="10" paddingRight="10" textWrap="true" />
-                            <Label  text="09:00 to 18:00"  class="h5" paddingTop="6"  color="gray" textWrap="true" />
+                            <Label  text="{{saturdayStartTime + ' to ' +  saturdayEndTime}}"  class="h5" paddingTop="6"  color="gray" textWrap="true" />
                         </StackLayout>                 
-                        <Switch checked="false" marginTop="0" col="1" tap="checkBoxTapped"/>
+                        <Switch checked="{{saturdayActive}}" marginTop="0" col="1" tap="checkBoxTapped"/>
                     </GridLayout>
                 </StackLayout>
-                <Label class="line" width="100%" marginBottom="20" marginTop="10" textWrap="true" />
+                <Label class="line" width="100%" marginBottom="10" marginTop="10" textWrap="true" />
                 <StackLayout height="1">
-                    <StackLayout orientation="horizontal" paddingLeft="5">
-                    <Label text="&#xf017;" class="far" fontSize="20" paddingRight="10"  textWrap="true" />
-                    <Label text="from 09:00 to 18:00" class="h5" textWrap="true" paddingTop="3" />
+                    <StackLayout orientation="horizontal" paddingLeft="">
+                        <!--<Label text="&#xf017;" class="far" fontSize="20" paddingRight="10" textWrap="true" />-->
+                        <StackLayout orientation="horizontal" marginLeft="-10"
+                            xmlns:datetime="@nativescript/datetimepicker">
+                            <datetime:TimePickerField id="eventStartTime" width="45%" marginRight="-5" class="textFieldInputSmall" text="{{saturdayStartTime}}" hint="Start time" textChange="eventEndTimeChanged" borderWidth="0"/>
+                            <datetime:TimePickerField id="eventEndTime" width="45%" marginRight="-5" class="textFieldInputSmall" text="{{saturdayEndTime}}" hint="End time" textChange="eventEndTimeChanged" borderWidth="0"/>
+                        </StackLayout>
                     </StackLayout>
-                    <Label class="line" width="100%" marginBottom="20" marginTop="17" textWrap="true" />
+                    <Label class="line" width="100%" marginBottom="20" marginTop="10" textWrap="true" />
                     <StackLayout orientation="horizontal" paddingLeft="9">
                         <Label text="&#xf3c5;" class="fas" fontSize="20" paddingRight="10"  textWrap="true" />
                         <Label text="137 St John's Road Wembley, London, HA9 7JP" class="h5" paddingTop="3" textWrap="true" />
                     </StackLayout>
-                    <Label class="line" width="100%" marginBottom="20" marginTop="17" textWrap="true" />
+                    <Label class="line" width="100%" marginBottom="20" marginTop="10" textWrap="true" />
                     <Label text="Also apply this to:" paddingBottom="10" textWrap="true" />
                     <includes:set-your-availability-apply-this-to/>
                 </StackLayout>           
@@ -185,27 +199,32 @@
                     <GridLayout columns="*, auto">
                         <StackLayout tap="dayTapped" orientation="horizontal" col="0">
                             <Label text="Sunday" class="h4 font-bold" paddingLeft="10" paddingRight="10" textWrap="true" />
-                            <Label  text="09:00 to 18:00"  class="h5" paddingTop="6"  color="gray" textWrap="true" />
+                            <Label  text="{{sundayStartTime + ' to ' +  sundayEndTime}}"  class="h5" paddingTop="6"  color="gray" textWrap="true" />
                         </StackLayout>                 
-                        <Switch checked="false" marginTop="0" col="1" tap="checkBoxTapped"/>
+                        <Switch checked="{{sundayActive}}" marginTop="0" col="1" tap="checkBoxTapped"/>
                     </GridLayout>
                 </StackLayout>
-                <Label class="line" width="100%" marginBottom="20" marginTop="10" textWrap="true" />
+                <Label class="line" width="100%" marginBottom="10" marginTop="10" textWrap="true" />
                 <StackLayout height="1">
-                    <StackLayout orientation="horizontal" paddingLeft="5">
-                    <Label text="&#xf017;" class="far" fontSize="20" paddingRight="10"  textWrap="true" />
-                    <Label text="from 09:00 to 18:00" class="h5" textWrap="true" paddingTop="3" />
+                    <StackLayout orientation="horizontal" paddingLeft="">
+                        <!--<Label text="&#xf017;" class="far" fontSize="20" paddingRight="10" textWrap="true" />-->
+                        <StackLayout orientation="horizontal" marginLeft="-10"
+                            xmlns:datetime="@nativescript/datetimepicker">
+                            <datetime:TimePickerField id="eventStartTime" width="45%" marginRight="-5" class="textFieldInputSmall" text="{{sundayStartTime}}" hint="Start time" textChange="eventEndTimeChanged" borderWidth="0"/>
+                            <datetime:TimePickerField id="eventEndTime" width="45%" marginRight="-5" class="textFieldInputSmall" text="{{sundayEndTime}}" hint="End time" textChange="eventEndTimeChanged" borderWidth="0"/>
+                        </StackLayout>
                     </StackLayout>
-                    <Label class="line" width="100%" marginBottom="20" marginTop="17" textWrap="true" />
+                    <Label class="line" width="100%" marginBottom="20" marginTop="10" textWrap="true" />
                     <StackLayout orientation="horizontal" paddingLeft="9">
                         <Label text="&#xf3c5;" class="fas" fontSize="20" paddingRight="10"  textWrap="true" />
                         <Label text="137 St John's Road Wembley, London, HA9 7JP" class="h5" paddingTop="3" textWrap="true" />
                     </StackLayout>
-                    <Label class="line" width="100%" marginBottom="20" marginTop="17" textWrap="true" />
+                    <Label class="line" width="100%" marginBottom="20" marginTop="10" textWrap="true" />
                     <Label text="Also apply this to:" paddingBottom="10" textWrap="true" />
                     <includes:set-your-availability-apply-this-to/>
                 </StackLayout>           
             </StackLayout>
+            
         </StackLayout>
     </GridLayout>
 </ScrollView>

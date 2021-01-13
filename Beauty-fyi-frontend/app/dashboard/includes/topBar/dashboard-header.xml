@@ -1,6 +1,6 @@
-<Card:CardView class="cardStyle" elevation="10" radius="0" marginBottom="10" xmlns:Card="@nstudio/nativescript-cardview" loaded="load">
+<Card:CardView tap="headerBarClicked" class="cardStyle" elevation="10" radius="0" marginBottom="10" xmlns:Card="@nstudio/nativescript-cardview" loaded="load">
     <GridLayout row="auto" columns="30, 30, *, 30, 30" class="header-gradient" color="white">
-        <Label col="1" row="0" texta="&#xf002;" class="fas" textWrap="true" style="font-size: 25px; padding-top: 45px" textAlignment="left"/>
+        <Label col="1" row="0" tap="goToMessages" text="&#xf0e0;" class="far" textWrap="true" style="font-size: 25px; padding-top: 48px" textAlignment="left"/>
         <Label id="title" col="2" row="0" class="font" text="Beauty-fyi" textWrap="true" style="font-size: 25px; padding-top: 35px" textAlignment="center" />
         <Label col="3" row="0" tap="goToSettings" text="&#xf013;" class="fas" style="font-size: 25px; padding-top: 45px" textAlignment="right"/>
     </GridLayout>

@@ -1,0 +1,22 @@
+<StackLayout xmlns:Card="@nstudio/nativescript-cardview" xmlns:lv="nativescript-ui-listview">
+    <Card:CardView row="0" class="cardStyle" margin="5" elevation="10" radius="10" width="90%" >
+        <StackLayout paddingTop="5" paddingBottom="5">
+            <lv:RadListView id="contentGalleryList" class="list-group" style="background-color: white" >
+                <lv:RadListView.listViewLayout>
+                    <lv:ListViewGridLayout spanCount="3" />
+                </lv:RadListView.listViewLayout>
+                <lv:RadListView.itemTemplate >
+                    <GridLayout rows="auto, *, auto" columns="" tap="viewContent" margin="1" backgroundColor="black">
+                        <Image rowSpan="3" col="0" id="{{ contentIndex }}" src="{{ contentImage }}" decodeWidth="{{height}}" stretch="aspectFill" load="async" opacity="0.7"/>
+                        <Label row="2" col="0" color="white" class="font-bold h5" text="{{ contentName }}" textWrap="true" />
+                    </GridLayout>
+                </lv:RadListView.itemTemplate>
+            </lv:RadListView>
+            <GridLayout columns="20, auto, *, auto, *, auto, 20" paddingTop="10">
+                <Label col="1" text="&#xf104;" class="fas" fontSize="23" textWrap="true" />
+                <Label col="3" text="1/3" class="h5" textWrap="true" />  
+                <Label col="5" text="&#xf105;" class="fas" fontSize="23" textWrap="true" />       
+            </GridLayout>
+        </StackLayout>
+    </Card:CardView>
+</StackLayout>

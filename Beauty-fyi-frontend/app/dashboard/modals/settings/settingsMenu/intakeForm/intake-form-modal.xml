@@ -1,0 +1,39 @@
+<StackLayout xmlns:Card="@nstudio/nativescript-cardview"
+    xmlns:lv="nativescript-ui-listview"
+    loaded="loaded">
+    <Card:CardView row="0" class="cardStyle" margin="5" elevation="10" radius="10" width="90%">
+        <StackLayout padding="20">
+            <Label text="Form for washing" textAlignment="center" paddingBottom="10" class="h4 font-bold" textWrap="true" />
+            <Label text="Questions" class="h4 font-bold" textWrap="true" />
+            
+            <Repeater id="intakeFormRepeater" items="">
+                <Repeater.itemsLayout>
+                    <StackLayout />
+                </Repeater.itemsLayout>
+                <Repeater.itemTemplate>
+                <StackLayout paddingBottom="10">
+                    <Label text="{{ formQuestion }}" class="h5 font-bold" textWrap="true" />
+                    <Label text="{{ formContent }}" visibility="{{ formContent ? 'visible' : 'collapsed' }}" class="" textWrap="true" />
+                </StackLayout>
+                </Repeater.itemTemplate>
+            </Repeater>
+            
+            <Label text="Services applied to" class="h4 font-bold" textWrap="true" paddingTop="25"/>
+            <Repeater id="intakeFormServicesRepeater" items="">
+            <Repeater.itemsLayout>
+                <StackLayout />
+            </Repeater.itemsLayout>
+            <Repeater.itemTemplate>
+                <StackLayout>
+                    <Label text="{{ serviceName }}" class="h5 font-bold" textWrap="true" />
+                </StackLayout>
+            </Repeater.itemTemplate>
+        </Repeater>
+            
+            <GridLayout rows="" columns="*, auto, auto, *" paddingTop="25">
+                <Button tap="editForm" col="1" width="40%" height="40" class="btn btn-white" text="Edit" />
+                <Button col="2" width="40%" height="40" class="btn btn-red" text="Delete" />
+            </GridLayout>
+        </StackLayout>
+    </Card:CardView>
+</StackLayout>

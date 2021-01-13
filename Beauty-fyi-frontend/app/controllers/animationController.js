@@ -14,7 +14,7 @@ function loadAnimation(element, animation, context){
                 reduceSectionDown(element, context)
                 break;
             case "fade out":
-                fadeOut(element)
+                fadeOut(element, context)
                 break;
             case "fade in":
                 fadeIn(element)
@@ -25,6 +25,11 @@ function loadAnimation(element, animation, context){
             case "nudge up":
                 nudgeUp(element, context)
                 break;
+            case "nudge":
+                nudge(element, context)
+                break;
+            case "expand section width":
+                expandSectionWidth(element, context)
             default:
                 break;
         } 
@@ -59,8 +64,7 @@ function expandSectionDown(element, context) {
             height: context.height,
             duration: 500
         })
-    }
-    
+    }   
 }
 
 function reduceSectionDown(element, context) {
@@ -70,11 +74,20 @@ function reduceSectionDown(element, context) {
     })
 }
 
-function fadeOut(element) {
-    element.animate({
-        opacity: 0,
-        duration: 250,
-    })
+function fadeOut(element, context) {
+    try {
+        if (context.opacity) {
+            element.animate({
+                opacity: context.opacity,
+                duration: 250,
+            })
+        }
+    } catch (error) {
+        element.animate({
+            opacity: 0,
+            duration: 250,
+        })
+    }    
 }
 
 function fadeIn(element) {
@@ -88,7 +101,6 @@ function changeBackgroundColor(element, context){
     element.animate({
         backgroundColor: new colorModule.Color(context.color), duration: context.duration 
     });
-    console.log("here")
 }
 
 function nudgeUp(element){
@@ -102,6 +114,22 @@ function nudgeUp(element){
             duration: 125,
             curve: enums.AnimationCurve.cubicBezier(0.1, 0.1, 0.1, 1)
         });
+    })
+}
+
+function nudge(element, context) {
+    element.animate({
+        translate: { x: context.x, y: content.y },
+        duration: 250,
+        curve: enums.AnimationCurve.cubicBezier(0.1, 0.1, 0.1, 1)
+    })
+}
+
+function expandSectionWidth(element, context){
+    element.animate({
+        width: context.width,
+        duration: context.duration,
+        curve: enums.AnimationCurve.cubicBezier(0.1, 0.1, 0.1, 1)
     })
 }
 

@@ -24,3 +24,21 @@ exports.currencyFormattingFinished = function (args) {
     }
     args.object.text = string
 }
+
+exports.percentFormattingStarted = function (args) {
+    const object = args.object;
+    let string = object.text
+    if (string[string.length-1] == "%") {
+        string = string.slice(0, -1); 
+    }
+    args.object.text = string
+}
+
+exports.percentFormattingFinished = (args) => {
+    const object = args.object;
+    let string = object.text
+    if (string[string.length-1] != "%") {
+        string = string + "%"
+    }
+    args.object.text = string
+}

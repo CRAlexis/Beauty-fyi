@@ -1,6 +1,7 @@
+const sendHTTP = require("~/controllers/HTTPControllers/sendHTTP").sendHTTP()
+
 const Observable = require("tns-core-modules/data/observable").Observable; // This is so you can do '{{ myFunction }}' on the xml page
 const source = new Observable();
-const sendHTTP = require("~/http/sendHTTP").sendHTTP;
 
 
 //Everything in here is javascript

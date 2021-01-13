@@ -33,7 +33,55 @@ exports.errorMessage = function(message){
     }
 }
 
-exports.areYouSure = function(message){
+exports.httpRequestLoading = (title, message) => {
+    return new Promise((resolve, reject) =>{
+        if (!active) {
+            active = true;
+            let cfalertDialog = new CFAlertDialog();
+
+            let options = {
+                // Options go here
+                dialogStyle: CFAlertStyle.ALERT,
+                title: title,
+                message: message,
+                cancellable: false
+            }
+            resolve(cfalertDialog)
+            cfalertDialog.show(options).then(function () {
+                active = false;                
+            });
+        }
+    })
+}
+
+exports.httpRequestFinished = (title, message) => {
+    console.log("trying to display modal")
+    console.log("is active: " + active)
+    return new Promise((resolve, reject) => {
+        if (!active) {
+            active = true;
+            let cfalertDialog = new CFAlertDialog();
+
+            let options = {
+                // Options go here
+                dialogStyle: CFAlertStyle.ALERT,
+                title: title,
+                message: message,
+                cancellable: true,
+                onDismiss: function () {
+                    console.log("dissmised ")
+                    active = false;
+                }
+            }
+            resolve(cfalertDialog)
+            cfalertDialog.show(options).then(function () {
+                active = false;
+            })
+        }
+    })
+}
+
+exports.areYouSure = function(title, message){
     
     return new Promise((resolve, reject) => {
         if (!active) {
@@ -42,7 +90,8 @@ exports.areYouSure = function(message){
             let options = {
                 // Options go here
                 dialogStyle: CFAlertStyle.ALERT,
-                title: message,
+                title: title,
+                message: message,
                 buttons: [{
                         text: "Yes",
                         buttonStyle: CFAlertActionStyle.DEFAULT,
@@ -78,3 +127,8 @@ exports.areYouSure = function(message){
     })
 }
 
+exports.dismissAlert = (alert) => {
+    console.log("dismiss alert...")
+    alert.dismiss(false)
+    active = false; 
+}

@@ -1,11 +1,14 @@
 <Page shownModally="onShownModally" loaded="loaded">
-    <GridLayout rows="auto, *, auto" columns="" xmlns:topBar="dashboard/includes/topBar" xmlns:includes="dashboard/includes/schedule">
-        <topBar:menu-header row="0" header="My Bio" tap="goBack"/>
+    <GridLayout rows="auto, *, auto, auto" columns="" xmlns:topBar="dashboard/includes/topBar" xmlns:includes="dashboard/includes/schedule">
+        <topBar:menu-header row="0" header="My Bio"/>
         <StackLayout row="1" paddingLeft="9" paddingRight="9" paddingTop="10">
-            <TextView height="50%" maxLength="150" id="serviceDescription" row="4" borderColor="#DEDEDE" borderWidth="1" hint="My Bio..." class="textFieldInputSmall" paddingBottom="10"></TextView>
+            <TextView tap="changePageState" id="myBio" height="50%" maxLength="150" id="serviceDescription" row="4" borderColor="#DEDEDE" borderWidth="1" hint="My Bio..." class="textFieldInputSmall" paddingBottom="10"></TextView>
         </StackLayout>
         <StackLayout row="2">
-            <Button text="Save" class="btn btn-white" /> 
+            <Button tap="save" text="Save" class="btn btn-white" /> 
+        </StackLayout>
+        <StackLayout id="loadIntoHere">
+            
         </StackLayout>
     </GridLayout>
 </Page>

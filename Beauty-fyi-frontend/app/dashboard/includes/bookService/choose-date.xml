@@ -1,6 +1,6 @@
 <StackLayout height="100%" id="chooseDatePageContainer" xmlns:Card="@nstudio/nativescript-cardview" >
-    <StackLayout paddingTop="20" paddingBottom="20" xmlns:includesCalander="dashboard/includes/calander">
-        <StackLayout paddingBottom="20" >
+    <StackLayout paddingTop="" paddingBottom="20" xmlns:includesCalander="dashboard/includes/calander">
+        <StackLayout paddingBottom="10" >
             <includesCalander:book-service-calander/>
             <StackLayout padding="10" xmlns:lv="nativescript-ui-listview">
                 <Label class="line" width="90%" text="" textWrap="true" />

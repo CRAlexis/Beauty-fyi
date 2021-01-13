@@ -4,9 +4,8 @@
             <topBar:menu-header row="0" header="Name of client" tap="goBack"/>
 
             <GridLayout row="1" rows="auto," columns="auto, auto" class="" style="margin-bottom: 10; padding-bottom: 10;" backgroundColor="white">
-                <Card:CardView row="0" col="0" class="cardStyle" elevation="20" radius="160" margin="20" marginLeft="20" style="height: 120; width: 120;">
-                    <Image tap="{{ openClientGallery }}" src="~/images/temp.png" class="" horizontalAlignment="center" style="height: 120; width: 120; border-radius: 50" stretch="fill" />
-                </Card:CardView>
+                <Image row="0" col="0"  tap="{{ openClientGallery }}" src="~/images/temp.png" class="" margin="20" marginLeft="20" horizontalAlignment="center" height="130" width="130" borderRadius="130" stretch="aspectFill" />
+
                 <StackLayout row="0" col="1" paddingTop="30">
                     <Label class="h5" text="Next appointment" textWrap="true" />
                     <Label class="h4 font-bold" text="17th October 2020" textWrap="true" />
@@ -38,7 +37,7 @@
             </SegmentedBar>
             <StackLayout row="5" paddingLeft="20" paddingTop="20" backgroundColor="white">
                 <StackLayout xmlns:lv="nativescript-ui-listview" visibility="{{ pastAppointmentsContainerVisbility ? 'visible' : 'collapsed' }}">
-                    <lv:RadListView id="pastClientAppointmentsFromProView" class="list-group" style="background-color: transparent" loadOnDemandMode="Manual" loadMoreDataRequested="{{onLoadMoreItemsRequested}}"> 
+                    <lv:RadListView id="pastClientAppointmentsFromProView" class="list-group" style="background-color: transparent" > 
                         <lv:RadListView.listViewLayout>
                             <lv:ListViewLinearLayout  spanCount="2" />
                         </lv:RadListView.listViewLayout>
@@ -53,7 +52,7 @@
                 </StackLayout>
 
                 <StackLayout xmlns:lv="nativescript-ui-listview" visibility="{{ pastAppointmentsContainerVisbility ? 'collapsed' : 'visible' }}">
-                    <lv:RadListView id="futureClientAppointmentsFromProView" class="list-group" style="background-color: transparent" loadOnDemandMode="Manual" loadMoreDataRequested="{{onLoadMoreItemsRequested}}"> 
+                    <lv:RadListView id="futureClientAppointmentsFromProView" class="list-group" style="background-color: transparent" > 
                         <lv:RadListView.listViewLayout>
                             <lv:ListViewLinearLayout  spanCount="2" />
                         </lv:RadListView.listViewLayout>

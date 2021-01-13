@@ -10,7 +10,7 @@ const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer");
 const { NativeScriptWorkerPlugin } = require("nativescript-worker-loader/NativeScriptWorkerPlugin");
 const TerserPlugin = require("terser-webpack-plugin");
 const hashSalt = Date.now().toString();
-
+const NativeScriptHTTPPlugin = require("@klippa/nativescript-http/webpack");
 module.exports = env => {
     // Add your custom Activities, Services and other android app components here.
     const appComponents = env.appComponents || [];
@@ -232,6 +232,7 @@ module.exports = env => {
         },
         plugins: [
             // Define useful constants like TNS_WEBPACK
+            new NativeScriptHTTPPlugin(),
             new webpack.DefinePlugin({
                 "global.TNS_WEBPACK": "true",
                 "global.isAndroid": platform === 'android',
@@ -250,6 +251,7 @@ module.exports = env => {
                 { from: 'fonts/**', noErrorOnMissing: true, globOptions: { dot: false, ...copyIgnore } },
                 { from: '**/*.jpg', noErrorOnMissing: true, globOptions: { dot: false, ...copyIgnore } },
                 { from: '**/*.png', noErrorOnMissing: true, globOptions: { dot: false, ...copyIgnore } },
+                { from: '**/*.mp4', noErrorOnMissing: true, globOptions: { dot: false, ...copyIgnore } },
               ],
             }),
             new nsWebpack.GenerateNativeScriptEntryPointsPlugin("bundle"),

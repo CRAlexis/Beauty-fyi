@@ -1,0 +1,30 @@
+<GridLayout id="" rows="auto, auto" columns="">
+    <StackLayout row="0" paddingLeft="25" paddingRight="25" marginBottom="25">
+        <Label text="Sell it faster" class="h3" textWrap="true"/>
+        <Label text="Give your buyers a reason to buy more." class="h4" textWrap="true"/>
+    </StackLayout>
+    <StackLayout row="1" paddingLeft="9" xmlns:CheckBox="@nstudio/nativescript-checkbox">
+        <StackLayout>
+            <CheckBox:CheckBox fillColor="black" id="allowInternationalShippingCheckBox" tap="allowBundles" fontSize="16" marginLeft="10" marginTop="5" text="Offer discounts to buyers." color="gray" checked="false" paddingBottom="10"/>
+        </StackLayout>   
+        <StackLayout id="discountContainer" visibility="collapsed" opacity="0">
+            <GridLayout rows="" columns="auto, auto, auto" marginLeft="18">
+                <Label col="0" text="Buy 2 and save" class="h5" textWrap="true" marginTop="15"/>
+                <TextField col="1" width="13%" keyboardType="number" maxLength="4" id="buyTwoDeal" resetText="" text="10%" blur="percentFormatEnd" focus="percentFormatStart" returnPress="percentFormatEnd" returnKeyType="done" class="textFieldInputSmall" paddingBottom="10"/>
+                <Label col="2" text="% off each item" class="h5" textWrap="true" marginTop="15"/>
+            </GridLayout>
+            <GridLayout rows="" columns="auto, auto, auto" marginLeft="18">
+                <Label col="0" text="Buy 3 and save" class="h5" textWrap="true" marginTop="15"/>
+                <TextField col="1" width="13%" keyboardType="number" maxLength="4" id="buyThreeDeal" resetText="" text="15%" blur="percentFormatEnd" focus="percentFormatStart" returnPress="percentFormatEnd" returnKeyType="done" class="textFieldInputSmall" paddingBottom="10"/>
+                <Label col="2" text="% off each item" class="h5" textWrap="true" marginTop="15"/>
+            </GridLayout>
+            <GridLayout rows="" columns="auto, auto, auto" marginLeft="18">
+                <Label col="0" text="Buy 4 or more and save" class="h5" textWrap="true" marginTop="15"/>
+                <TextField col="1" width="13%" keyboardType="number" maxLength="4" id="buyFourDeal" resetText="" text="20%" blur="percentFormatEnd" focus="percentFormatStart" returnPress="percentFormatEnd" returnKeyType="done" class="textFieldInputSmall" paddingBottom="10"/>
+                <Label col="2" text="% off each item" class="h5" textWrap="true" marginTop="15"/>
+            </GridLayout>
+        </StackLayout>
+        
+    </StackLayout>
+
+</GridLayout>

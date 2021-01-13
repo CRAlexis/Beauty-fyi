@@ -1,0 +1,73 @@
+<ScrollView height="100%">
+    <StackLayout >
+
+        <!--<GridLayout rows="auto, auto," marginBottom="25"
+            xmlns:lv="nativescript-ui-listview"
+            xmlns:CheckBox="@nstudio/nativescript-checkbox">
+            <StackLayout row="0" paddingLeft="15">
+                <Label text="My services" class="h4 font-bold" textWrap="true" />
+            </StackLayout>
+            <StackLayout row="1" padding="15">
+                <Repeater id="servicesList" items="{{serviceList}}">
+                    <Repeater.itemTemplate>
+                        <GridLayout rows="auto, auto">
+                            <GridLayout tap="expandSection" row="0" rows="auto, auto, auto" columns="auto, *, auto, 10" marginTop="8">
+                                <Image row="0" col="0" src="{{ serviceImage }}" load="async" class="" marginRight="10" width="40" height="40" stretch="aspectFill" load="async" borderRadius="20"/>
+                                <Label row="0" col="1" text="{{ serviceName }}" class="h4" textWrap="true" marginTop="6" />
+                                <Label row="0" col="2" text="&#xf078;" class="fas" marginTop="12" fontSize="16" />
+                                <Label row="0" col="2" text="&#xf077;" class="fas" marginTop="12" fontSize="16" visibility="collapsed" />
+                                <Label text="" class="line" row="1" colSpan="3" width="100%" textWrap="true" marginTop="10" />
+                            </GridLayout>
+                            <GridLayout row="1" colSpan="4" rows="auto, auto, auto" columns="" height="1" paddingBottom="8">
+                                <StackLayout row="1" paddingBottom="10" marginLeft="15" marginRight="15" marginTop="15">
+                                    <StackLayout orientation="horizontal">
+                                        <Label text="Is active:" class="h5 font-bold" fontSize="15" textWrap="true" />
+                                        <Switch checked="{{ serviceActive }}" tap="serviceSetActive" marginLeft="5" marginTop="0" marginBottom="0"/>
+                                    </StackLayout>
+                                    <StackLayout orientation="horizontal">
+                                        <Label text="Bookings: " class="h5 font-bold" fontSize="15" textWrap="true" />
+                                        <Label text="13" class="h5" fontSize="15" textWrap="true" />
+                                    </StackLayout>
+                                    <StackLayout orientation="horizontal">
+                                        <Label text="Revenue: " class="h5 font-bold" fontSize="15" textWrap="true" />
+                                        <Label text="£560" class="h5" fontSize="15" textWrap="true" />
+                                    </StackLayout>
+                                    <StackLayout orientation="horizontal">
+                                        <Label text="Created on: " class="h5 font-bold" fontSize="15" textWrap="true" />
+                                        <Label text="17.10.2020" class="h5" fontSize="15" textWrap="true" />
+                                    </StackLayout>
+                                </StackLayout>
+                                <GridLayout row="2" rows="" columns="auto, auto">
+                                    <Button col="0" width="44%" height="40" marginLeft="7" fontSize="16" text="edit" class="btn btn-white" tap="" />
+                                    <Button col="1" width="44%" height="40" fontSize="16" text="delete" class="btn btn-black" tap="" />
+                                </GridLayout>
+                            </GridLayout>
+                        </GridLayout>
+                    </Repeater.itemTemplate>
+                </Repeater>
+            </StackLayout>
+        </GridLayout>-->
+        
+
+
+
+
+
+
+        <GridLayout id="serviceName" rows="auto, *, auto, 20" columns="">
+            <StackLayout row="0" paddingLeft="25" paddingRight="25" marginBottom="25">
+                <Label text="What would you like to create?" class="h3" textWrap="true"/>
+                <Label text="" class="h4" textWrap="true"/>
+            </StackLayout>
+            <StackLayout row="1">
+                <Button width="90%" fontSize="18" text="Service" class="btn btn-white" buttonId="1" tap="createNewProduct" />
+                <Button width="90%" fontSize="18" text="Product" class="btn btn-white" buttonId="2" tap="createNewProduct" />
+                <Button width="90%" fontSize="18" text="Event" class="btn btn-white" buttonId="3" tap="createNewProduct" />
+
+            </StackLayout>
+            <StackLayout row="2">
+                <Label id="continueLabel" tap="continueToSetup" text="Continue" class="h4 font-bold" visibility="collapsed" opacity="0" textAlignment="center" textWrap="true" />
+            </StackLayout>
+        </GridLayout>
+    </StackLayout>
+</ScrollView>

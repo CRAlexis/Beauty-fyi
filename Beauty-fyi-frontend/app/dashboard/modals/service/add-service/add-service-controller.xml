@@ -1,20 +1,49 @@
-<Page shownModally="onShownModally" loaded="pageLoaded" xmlns:Card="@nstudio/nativescript-cardview" xmlns:CheckBox="@nstudio/nativescript-checkbox">
-    <GridLayout rows="auto, *, auto" columns="" xmlns:topBar="dashboard/includes/topBar" xmlns:includes="dashboard/includes/add-service">
-        <topBar:menu-header row="0" header="Add a service" tap="goBack"/><!--{{title}}-->
-        <StackLayout row="1">
-            
-                <includes:select-a-photo id="selectAPhotoSlide" paddingTop="35"/>
-                <includes:service-name id="serviceNameSlide" paddingTop="35" opacity="0" visibility="collapsed"/>
-                <includes:service-steps id="serviceStepsSlide" opacity="0" visibility="collapsed"/>
-                <includes:padding-time id="paddingTimeSlide" paddingTop="35" opacity="0" visibility="collapsed"/>
-                <includes:addons id="addonsSlide" paddingTop="35" opacity="0" visibility="collapsed"/>
-                <includes:create-service-final-slide id="createServiceFinalSlide" opacity="0" visibility="collapsed"/>
-                <includes:add-form id="addForm" opacity="0" visibility="collapsed"/>
-                <includes:add-service-success id="addServiceSuccess" opacity="0" visibility="collapsed"/>
-          
-        </StackLayout>
+<Page shownModally="onShownModally" loaded="pageLoaded"
+    xmlns:Card="@nstudio/nativescript-cardview"
+    xmlns:CheckBox="@nstudio/nativescript-checkbox">
+    <GridLayout rows="auto, auto, *, auto, 40" columns=""
+        xmlns:topBar="dashboard/includes/topBar"
+        xmlns:service="dashboard/includes/add-service/service"
+        xmlns:products="dashboard/includes/add-service/products"
+        xmlns:includes="dashboard/includes/add-service"
+        xmlns:events="dashboard/includes/add-service/events">
+        <topBar:menu-header row="0" header="This title needs to change" displayInfo="true"/>
+        <!--{{title}}-->
+        <!--<GridLayout id="progressBar" margin="10" row="1" columns="auto,*" class="progressbar">
+            <StackLayout col="0" class="progressbar-value"></StackLayout>
+        </GridLayout>-->
         <StackLayout row="2">
-            <Button id="continueButton" text="" class="btn btn-white" tap="goToNextSlide" />  
+            <includes:view-service-product-event id="viewServiceProductEvent" paddingTop="35"/>
+            <service:select-a-photo id="selectAPhotoSlide" paddingTop="35" opacity="0" visibility="collapsed"/>
+            <service:service-name id="serviceNameSlide" paddingTop="35" opacity="0" visibility="collapsed"/>
+            <service:service-steps id="serviceStepsSlide" opacity="0" visibility="collapsed"/>
+            <service:padding-time id="paddingTimeSlide" paddingTop="35" opacity="0" visibility="collapsed"/>
+            <service:addons id="addonsSlide" paddingTop="35" opacity="0" visibility="collapsed"/>
+            <service:create-service-final-slide id="createServiceFinalSlide" opacity="0" visibility="collapsed"/>
+            <service:add-form id="addForm" opacity="0" visibility="collapsed"/>
+            <service:add-service-success id="addServiceSuccess" opacity="0" visibility="collapsed"/>
+
+            <products:select-photos-products id="selectPhotosProductsSlide" paddingTop="35" opacity="0" visibility="collapsed"/>
+            <products:product-name id="productsNameSlide" paddingTop="35" opacity="0" visibility="collapsed"/>
+            <products:product-pricing id="productPriceSlide" paddingTop="35" opacity="0" visibility="collapsed"/>
+            <products:product-deals id="productDealsSlide" paddingTop="35" opacity="0" visibility="collapsed"/>
+            <products:product-confirmation id="productConfirmationSlide" paddingTop="" opacity="0" visibility="collapsed"/>
+            <products:product-success id="productSuccessSlide" paddingTop="" opacity="0" visibility="collapsed"/>
+
+            <events:event-photos id="selectPhotosEventSlide" paddingTop="35" opacity="0" visibility="collapsed"/>
+            <events:event-name id="eventNameSlide" paddingTop="35" opacity="0" visibility="collapsed"/>
+            <events:event-description id="eventDescriptionSlide" paddingTop="35" opacity="0" visibility="collapsed"/>
+            <events:event-time-price id="eventTimePriceSlide" paddingTop="35" opacity="0" visibility="collapsed"/>
+            <events:event-success id="eventSuccessSlide" paddingTop="35" opacity="0" visibility="collapsed"/>
+
+
+
+        </StackLayout>
+        <StackLayout row="3">
+            <GridLayout rows="" columns="*, auto, auto, *">
+                <Label col="1" text="Continue" class="h4 font-bold" id="continueButton" tap="goToNextSlide" visibility="collapsed" opacity="0"/>
+                <!--<Label col="3" paddingTop="7.3" text="&#xf054;" class="fas" fontSize="15" textWrap="true" />-->
+            </GridLayout>
         </StackLayout>
     </GridLayout>
 </Page>

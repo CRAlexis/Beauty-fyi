@@ -1,7 +1,7 @@
 <Page shownModally="onShownModally" loaded="loaded" xmlns:Card="@nstudio/nativescript-cardview" xmlns:CheckBox="@nstudio/nativescript-checkbox">
     <ScrollView>
             <GridLayout rows="auto, auto, auto, auto, auto" columns="" xmlns:topBar="dashboard/includes/topBar">
-                <topBar:menu-header row="0" header="Set your availability" tap="goBack"/>
+                <topBar:menu-header row="0" header="Set your availability"/>
                 <StackLayout row="1" >
                     <Label text="My details" class="h5" textWrap="true" padding="25"/>
                     <GridLayout tap="goToAccountDetails" rows="40, auto" columns="25, 5, *, auto, 25, 25" paddingTop="10" >
@@ -35,14 +35,14 @@
                         <Label row="1" col="1" colSpan="4" text="" class="line" textWrap="true" />
                     </GridLayout>
                     <GridLayout tap="viewIntakeForm" rows="40, auto" columns="25, 5, *, auto, 25, 25" paddingTop="20">
-                        <Label row="0" col="2" text="View Intake Forms" class="h5 font-bold" textWrap="true" />
+                        <Label row="0" col="2" text="Intake Forms" class="h5 font-bold" textWrap="true" />
                         <Label row="0" col="3" text="&#xf054;" class="fas" fontSize="16" textWrap="true" />
                         <Label row="1" col="1" colSpan="4" text="" class="line" textWrap="true" />
                     </GridLayout>
                 </StackLayout>
                 <StackLayout row="2" >
                     <Label text="App settings" class="h5" textWrap="true" padding="25"/>
-                    <GridLayout rows="40, auto" columns="25, 5, *, auto, 25, 25" paddingTop="10">
+                    <GridLayout tap="viewNotificationDetails" rows="40, auto" columns="25, 5, *, auto, 25, 25" paddingTop="10">
                         <Label row="0" col="2" text="Notification Details" class="h5 font-bold" textWrap="true" />
                         <Label row="0" col="3" text="&#xf054;" class="fas" fontSize="16" textWrap="true" />
                         <Label row="1" col="1" colSpan="4" text="" class="line" textWrap="true" />
@@ -54,6 +54,11 @@
                     </GridLayout>
                     <GridLayout rows="40, auto" columns="25, 5, *, auto, 25, 25" paddingTop="20">
                         <Label row="0" col="2" text="Import Data" class="h5 font-bold" textWrap="true" />
+                        <Label row="0" col="3" text="&#xf054;" class="fas" fontSize="16" textWrap="true" />
+                        <Label row="1" col="1" colSpan="4" text="" class="line" textWrap="true" />
+                    </GridLayout>
+                    <GridLayout tap="logOut" rows="40, auto" columns="25, 5, *, auto, 25, 25" paddingTop="10">
+                        <Label row="0" col="2" text="Log out" class="h5 font-bold" textWrap="true" />
                         <Label row="0" col="3" text="&#xf054;" class="fas" fontSize="16" textWrap="true" />
                         <Label row="1" col="1" colSpan="4" text="" class="line" textWrap="true" />
                     </GridLayout>

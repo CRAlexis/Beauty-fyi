@@ -1,8 +1,17 @@
+const Observable = require("tns-core-modules/data/observable").Observable;
 const animation = require("~/controllers/animationController").loadAnimation
 const slideTransition = require("~/controllers/slide-transitionController");
 const navigation = require("~/controllers/navigationController")
+const previewServiceModal = require("~/dashboard/modals/salonPage/previewService/preview-service-modal")
+const application = require('application');
+source = new Observable();
+let currentlyNavigating = false;
+let serviceModalActive = false
 exports.profilePageLoaded = (args) => {
+    
     const page = args.object.page
+    source.set("page", page)
+    
     setTimeout(function () {
         const height = (page.getMeasuredWidth() / 3)
         loadservices(args, height)
@@ -17,30 +26,69 @@ exports.loadProfessionalPage = (args) => {
         header: 'Curly By Nature'//Will change this to the title of the brand
     };
     args.object.page.notify(evtData)
+
 }
 
-exports.selectedIndexChangeInformation = (args) => {
+exports.serviceTapped = (args) => {
+    previewServiceModal.openService(args).then((result) =>{
+        if (application.android) {
+            application.android.on(application.AndroidApplication.activityBackPressedEvent, closeServiceModal);
+        }
+        serviceModalActive = result
+    })
+}
+
+
+function closeServiceModal(args){
+    console.log("here")
+    args.cancel = true;
+    previewServiceModal.closeServiceModal(args).then((result) => {
+        serviceModalActive = result
+    })
+}
+
+
+exports.pageClicked = (args) => {
+    if (serviceModalActive){
+        previewServiceModal.closeServiceModal(args).then((result)=> {
+            if (application.android) {
+                application.android.off(application.AndroidApplication.activityBackPressedEvent, closeServiceModal);
+            }
+            serviceModalActive = result
+        })
+    }   
+}
+
+exports.selectedIndexChangeInformation = async (args) => {
+    
     const page = args.object.page
     const selectedIndex = args.object.selectedIndex;
     const slides = [page.getViewById("myServicesId"), page.getViewById("aboutMeId")]
     switch (parseInt(selectedIndex)) {
         case 0:
-            slideTransition.goToCustomSlide(args, 1, 0, null, slides).then(function (result) {
-                
-            })
+            await animation(page.getViewById("profileTopSection"), "expand section down", { height: '240' })
+            await animation(page.getViewById("profileTopSection"), "fade in")
+            slideTransition.goToCustomSlide(args, 1, 0, null, slides)
+            page.getViewById("profileServicesList").scrollToIndex(0, true)
             break;
         case 1:
-            slideTransition.goToCustomSlide(args, 0, 1, null, slides).then(function (result) {
-
-            })
+            closeServiceModal(args)
+            if (!currentlyScrolled){
+                animation(page.getViewById("profileTopSection"), "expand section down", { height: '00px' }).then(function () {
+                    animation(page.getViewById("profileTopSection"), "fade out")
+                })
+                slideTransition.goToCustomSlide(args, 0, 1, null, slides)
+            }else{
+                slideTransition.goToCustomSlide(args, 0, 1, null, slides)
+            }  
             break;
     }
 }
 
 function loadBio(args) {
     const page = args.object.page
-    const serviceListView = [];
-    serviceListView.push(
+    const hoursListView = [];
+    hoursListView.push(
         {
             day: 'Monday',
             hours: 'CLOSED'
@@ -70,8 +118,9 @@ function loadBio(args) {
             hours: 'CLOSED'
         },
     )
-    var listview = page.getViewById("openingHoursList");
-    listview.items = serviceListView;
+    source.set("openingHoursList", hoursListView)
+    //var listview = page.getViewById("openingHoursList");
+    //listview.items = serviceListView;
 }
 
 function loadservices(args, height) {
@@ -96,8 +145,80 @@ function loadservices(args, height) {
             serviceName: 'Scalp Detox',
             height: height + "px"
         },
+        {
+            serviceIndex: 0,
+            serviceImage: '~/images/temp4.png',
+            serviceName: 'Braided Ponytail/Bun',
+            height: height + "px"
+        },
+        {
+            serviceIndex: 0,
+            serviceImage: '~/images/temp3.png',
+            serviceName: 'Crochet Box Braids',
+            height: height + "px"
+        },
+        {
+            serviceIndex: 1,
+            serviceImage: '~/images/temp7.png',
+            serviceName: 'Scalp Detox',
+            height: height + "px"
+        },
+        {
+            serviceIndex: 0,
+            serviceImage: '~/images/temp4.png',
+            serviceName: 'Braided Ponytail/Bun',
+            height: height + "px"
+        },
+        {
+            serviceIndex: 0,
+            serviceImage: '~/images/temp3.png',
+            serviceName: 'Crochet Box Braids',
+            height: height + "px"
+        },
+        {
+            serviceIndex: 1,
+            serviceImage: '~/images/temp7.png',
+            serviceName: 'Scalp Detox',
+            height: height + "px"
+        },
+        {
+            serviceIndex: 0,
+            serviceImage: '~/images/temp4.png',
+            serviceName: 'Braided Ponytail/Bun',
+            height: height + "px"
+        },
+        {
+            serviceIndex: 0,
+            serviceImage: '~/images/temp3.png',
+            serviceName: 'Crochet Box Braids',
+            height: height + "px"
+        },
+        {
+            serviceIndex: 1,
+            serviceImage: '~/images/temp7.png',
+            serviceName: 'Scalp Detox',
+            height: height + "px"
+        },
+        {
+            serviceIndex: 0,
+            serviceImage: '~/images/temp4.png',
+            serviceName: 'Braided Ponytail/Bun',
+            height: height + "px"
+        },
+        {
+            serviceIndex: 0,
+            serviceImage: '~/images/temp3.png',
+            serviceName: 'Crochet Box Braids',
+            height: height + "px"
+        },
+        {
+            serviceIndex: 1,
+            serviceImage: '~/images/temp7.png',
+            serviceName: 'Scalp Detox',
+            height: height + "px"
+        },
     )
-
+        
     var listview = page.getViewById("profileServicesList");
     listview.items = serviceListView;
 }
@@ -131,6 +252,91 @@ function loadReviews(args){
             userReview: 'Great service, just wish they would play some other type of music...',
         },
     )
-    var listview = page.getViewById("userReviews");
-    listview.items = userReviews;
+    source.set("userReviews", userReviews)
+    //var listview = page.getViewById("userReviews");
+    //listview.items = userReviews;
+}
+
+let currentlyScrolled = false;
+let scrolledRecently = false;
+exports.onScrolled = async (args) => {
+
+    if (args.scrollOffset > 150 && currentlyScrolled == false){
+        currentlyScrolled = true;
+        scrolledRecently = true
+        const page = args.object.page
+        await animation(page.getViewById("profileTopSection"), "expand section down", { height: '0px' })
+        await animation(page.getViewById("profileTopSection"), "fade out")
+        page.getViewById("profileTopSection").visibility = 'collapsed'
+        setTimeout(function(){ scrolledRecently = false}, 1000)
+    }
+}
+
+exports.onScrollEnded = async (args) => {
+    //closeServiceModal(args)
+    if (args.scrollOffset < 10 && currentlyScrolled == true && scrolledRecently == false){
+        const page = args.object.page
+        await animation(page.getViewById("profileTopSection"), "expand section down", { height: '240'})
+        page.getViewById("profileTopSection").visibility = 'visible'
+        await animation(page.getViewById("profileTopSection"), "fade in")
+        
+        currentlyScrolled = false;
+    }
+}
+
+
+exports.goToAccountDetails = (args) => {
+    closeServiceModal(args)
+    if (!currentlyNavigating) {
+        currentlyNavigating = true
+        const mainView = args.object;
+        const context = ""
+        animation(args.object.getChildAt(0), "nudge up").then(function () {
+            navigation.navigateToModal(context, mainView, 15, true).then(function (result) {
+                currentlyNavigating = false
+            })
+        })
+    }
+}
+
+exports.goToMyBio = (args) => {
+    closeServiceModal(args)
+    if (!currentlyNavigating) {
+        currentlyNavigating = true
+        const mainView = args.object;
+        const context = ""
+        animation(args.object.getChildAt(0), "nudge up").then(function () {
+            navigation.navigateToModal(context, mainView, 16, true).then(function (result) {
+                currentlyNavigating = false
+            })
+        })
+    }
+}
+
+exports.setSchedule =(args) =>{
+    closeServiceModal(args)
+    if (!currentlyNavigating) {
+        currentlyNavigating = true
+        const mainView = args.object;
+        const context = ""
+        animation(args.object.getChildAt(0), "nudge up").then(function () {
+            navigation.navigateToModal(context, mainView, 10, true).then(function (result) {
+                currentlyNavigating = false
+            })
+        })
+    }
+}
+
+exports.setSchedulingLimits =(args) =>{
+    closeServiceModal(args)
+    if (!currentlyNavigating) {
+        currentlyNavigating = true
+        const mainView = args.object;
+        const context = ""
+        animation(args.object.getChildAt(0), "nudge up").then(function () {
+            navigation.navigateToModal(context, mainView, 9, true).then(function (result) {
+                currentlyNavigating = false
+            })
+        })
+    }
 }

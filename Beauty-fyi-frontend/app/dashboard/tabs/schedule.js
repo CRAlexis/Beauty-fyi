@@ -1,6 +1,8 @@
+const { loadAnimation } = require("~/controllers/animationController");
 const navigation = require("~/controllers/navigationController")
+let calanderBasicObject;
 exports.schedulePageLoaded = (args) =>{
-
+    source.set("calanderActive", true)
     const page = args.object.page
     const scehduleListView = [];
     scehduleListView.push(
@@ -61,6 +63,7 @@ source.set("onDateSelected", function(args){
 exports.onViewModeChanged = function(args){
     const isAndroid  = require("tns-core-modules/platform");
     let telCalendar = args.object.nativeView;
+    calanderBasicObject = args.object
     if (isAndroid) {
         let gestureManager = telCalendar.getGestureManager();
         gestureManager.setDoubleTapToChangeDisplayMode(false);
@@ -77,6 +80,30 @@ exports.onViewModeChanged = function(args){
         telCalendar.SetSwipeDownToChangeDisplayMode = false; // Will need test this
         //Will need print out all of gesutre managers methods for apple
     }
+}
+
+exports.viewFullCalander = async (args) => {
+    const object = args.object
+    if (source.get("calanderActive")){
+        loadAnimation(object, "nudge", { x:0, y: 25 })
+        calanderBasicObject.viewMode = "Month";
+        await loadAnimation(object, "fade out")
+        source.set("calanderActive", false)
+        setTimeout(()=>{
+            loadAnimation(object, "fade in")
+        }, 1000)
+    }else{
+        loadAnimation(object, "nudge", { x: 0, y: -25 })
+        calanderBasicObject.viewMode = "Week";
+        await loadAnimation(object, "fade out")
+        source.set("calanderActive", true)
+        setTimeout(() => {
+            loadAnimation(object, "fade in")
+        }, 1000)
+    }
+    
+    //expand down calander
+    //Reintroduce to object but now pointing up
 }
 
 source.set("setSchedulingLimits", function(args){

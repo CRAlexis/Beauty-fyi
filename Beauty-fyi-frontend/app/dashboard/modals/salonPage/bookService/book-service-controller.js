@@ -3,6 +3,7 @@ const application = require('application');
 const navigation = require("~/controllers/navigationController")
 const inAppNotifiationAlert = require("~/controllers/notifications/inApp/notification-alert.js")
 const slideTransition = require("~/controllers/slide-transitionController");
+const animation = require("~/controllers/animationController").loadAnimation;
 const source = new Observable();
 let sourceForm;
 let closeCallback;
@@ -13,6 +14,8 @@ let chooseDate;
 
 exports.onShownModally = function (args) {
     context = args.context;
+    // Will need to get the clientId in here
+    console.log(context)
     closeCallback = args.closeCallback;
     const page = args.object;
     page.bindingContext = source
@@ -27,9 +30,20 @@ exports.loaded = function (args) { //third slide
     sourceForm = new Observable()
     chooseDate = require("~/dashboard/modals/salonPage/bookService/js/choose-date")
     consultation = require("~/dashboard/modals/salonPage/bookService/js/consultation")
+    confirmation = require("~/dashboard/modals/salonPage/bookService/js/confirmation")
     slideIndex = 0
-    console.log("Resetsetset")
-    slides = [page.getViewById("chooseDateSlide"), page.getViewById("consultationSlide"), page.getViewById("confirmationSlide"), page.getViewById("addPaymentSlide") ]
+    slides = [page.getViewById("chooseDateSlide"), page.getViewById("consultationSlide"), page.getViewById("confirmationSlide") ]
+    initialiseConsultationPage(args)
+    initConfirmationPage(args)
+
+    //listener to close modals in here
+    page.on('headerBarClicked', (args) => {
+        backEvent(args)
+        closeModal(args)
+    })
+    page.on('goBack', () => {
+        backEvent(args)
+    })
 }
 
 function formatContext(context){
@@ -42,22 +56,26 @@ function formatContext(context){
 }
 
 
-
-exports.goBack = function (args) {
-    backEvent(args)
-}
-
 function backEvent(args) { // This event is a bit funny
-    console.log("Here")
     args.cancel = true;
     if (slideIndex == 0) {
-        inAppNotifiationAlert.areYouSure("Are you sure you want to exit?").then(function (result) {
+        inAppNotifiationAlert.areYouSure("Are you sure you want to exit?", "Your information will not be saved").then(function (result) {
             if (result) { exitModal(args) }
         })
     } else {
         slideTransition.goToPreviousSlide(args, slideIndex, source, slides).then(function (result) {
             slideIndex = result
         })
+    }
+}
+
+function exitModal(args) {
+    //Delete all info
+    const page = args.object.page
+
+    if (application.android) {
+        application.android.off(application.AndroidApplication.activityBackPressedEvent, backEvent);
+        closeCallback();
     }
 }
 
@@ -77,12 +95,12 @@ function goToNextSlide(args){
                 slideIndex = result
             })
             break;
-        case 2:
+        /*case 2:
             slideTransition.goToNextSlide(args, slideIndex, source, slides).then(function (result) {
                 changeContinueButtontext(args, "")
                 slideIndex = result
             })
-            break;
+            break;*/
         case 3:
             //successx
             break;
@@ -122,6 +140,11 @@ source.set("onTimeSelected", function (args) {
 
 /*-----------------Consultation--------------------*/
 
+function initialiseConsultationPage(args){
+    consultation.initialise(args)
+}
+
+
 source.set("uploadReferenceImage", function(args){
     consultation.uploadeReferenceImage(args)
 })
@@ -132,44 +155,45 @@ source.set("uploadedImageTapped", function(args){
 
 /*---------------------Confirmation-------------------*/
 
-source.set("openCardModal", function(args){
+exports.openCardModal = (args) =>{
+    console.log("here")
     bookAppointmentSlideTransition.goToNextSlide(args, slideIndex, source).then(function (result) {
         slideIndex = result;
     })
-})
+}
+
+/*--------------Payment--------------*/
+exports.paymentMethodAction = (args)=>{
+    confirmation.paymentMethodAction(args)
+    if (application.android) {
+        application.android.off(application.AndroidApplication.activityBackPressedEvent, backEvent);
+        application.android.on(application.AndroidApplication.activityBackPressedEvent, closeModal);
+    }
+}
 
 function initConfirmationPage(args){
-    const page = args.object.page;
-    let paymentItems = []
-    paymentItems.push(
-        {
-            serviceName: 'Braid Installation',
-            servicePrice: "£100",
-            class: "h5"
-        },
-        {
-            serviceName: '24 inch hair',
-            servicePrice: "£30",
-            class: "h5"
-        },
-        {
-            serviceName: 'To pay now',
-            servicePrice: "£75",
-            class: "h5 font-bold"
-        },
-        {
-            serviceName: 'Total',
-            servicePrice: "£150",
-            class: "h5 font-bold"
-        }
-    )
-    //context.addonsTapped.forEach(element => {
-    //    paymentItems.push({
-    //        serviceName: element.addonId,
-    //        servicePrice: element.serviceId
-    //    })
-    //});
+    console.log("controller: " + args.object.page)
+    try {
+        confirmation.initialise(args)
+    } catch (error) {
+        console.log(error)
+    }
+}
 
-    var listview = page.getViewById("paymentList");
-    listview.items = paymentItems;
+function closeModal(args) {
+    confirmation.closeModal(args)
+    if (application.android) { 
+        application.android.off(application.AndroidApplication.activityBackPressedEvent, closeModal); 
+        application.android.on(application.AndroidApplication.activityBackPressedEvent, backEvent); 
+    }
+}
+
+exports.pageClicked = (args) => {
+    confirmation.pageClicked(args).then((resolve, reject)=>{
+        if (application.android) { 
+            application.android.off(application.AndroidApplication.activityBackPressedEvent, closeModal);
+            application.android.on(application.AndroidApplication.activityBackPressedEvent, backEvent);
+         }
+    })
+    
 }

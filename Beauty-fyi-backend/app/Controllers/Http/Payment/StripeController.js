@@ -16,6 +16,33 @@ class StripeController {
       expand: ['customer', 'invoice.subscription'],
     });*/
 
+    const customer = await stripe.customers.create({
+      name: "Charles Alexis",
+      description: 'My First Test Customer (created for API docs)',
+      email: "chazalexis@hotmail.co.uk"
+    });
+
+    const invoiceItem = await stripe.invoiceItems.create({
+      amount: 1000,
+      currency: 'usd',
+      customer: customer.id,
+      description: 'Set-up fee',
+    });
+
+    const invoice = await stripe.invoices.create({
+      customer: customer.id,
+      auto_advance: false,
+      collection_method: "send_invoice",
+      description: "Sending an invoice",
+      days_until_due: 1
+    });
+
+    const sendInvoice = await stripe.invoices.finalizeInvoice(
+      invoice.id
+    );
+    console.log(invoice)
+    console.log(sendInvoice)
+    /*
     stripe.charges.create({
       amount: 2000,
       currency: "usd",
@@ -25,8 +52,9 @@ class StripeController {
       idempotencyKey: "iixHtZtHZMTT7px5"
     }, function(err, charge) {
       // asynchronously called
+      console.log(charge)
       return charge;
-    });
+    });*/
     return "success";
 
     myFunction.then((result) =>{

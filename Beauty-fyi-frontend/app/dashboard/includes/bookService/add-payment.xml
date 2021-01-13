@@ -1,9 +1,0 @@
-<ScrollView id="addPaymentPageContainer" xmlns:CheckBox="@nstudio/nativescript-checkbox" visibility="collapsed" xmlns:Card="@nstudio/nativescript-cardview">
-    <StackLayout padding="20">
-        <TextField class="textFieldInput" width="100%" hint="Cardholder Name" text="" />
-        <TextField class="textFieldInput" width="100%" hint="Card Number" keyboardType="number" text="" maxLength="16" />
-        <TextField class="textFieldInput" width="100%" hint="MM expiration" keyboardType="number"  maxLength="2"/>
-        <TextField class="textFieldInput" width="100%" hint="yyyy expiration" keyboardType="number" maxLength="4"/>
-        <TextField class="textFieldInput" width="100%" hint="CVC" keyboardType="number" maxLength="3" />
-    </StackLayout>
-</ScrollView>

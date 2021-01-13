@@ -1,11 +1,11 @@
 <Page shownModally="onShownModally" loaded="loaded" xmlns:Card="@nstudio/nativescript-cardview">
     <GridLayout rows="auto, *, auto" columns="" xmlns:topBar="dashboard/includes/topBar">
-        <topBar:menu-header row="0" header="Book a service" tap="goBack"/><!--{{title}}-->
+        <topBar:menu-header id="menuHeader" row="0" header="Book a service" /><!--{{title}}-->
         <StackLayout row="1" xmlns:includes="dashboard/includes/bookService">
             <includes:choose-date paddingTop="35" id="chooseDateSlide"/>
-            <includes:consultation visibility="collapsed" opacity="0" paddingTop="10" id="consultationSlide"/>
+            <includes:consultation visibility="collapsed" opacity="0" paddingTop="15" id="consultationSlide"/>
             <includes:confirmation visibility="collapsed" opacity="0" paddingTop="10" id="confirmationSlide"/>
-            <includes:add-payment visibility="collapsed" opacity="0" paddingTop="10" id="addPaymentSlide"/>
+            
         </StackLayout>
         <StackLayout row="2" backgroundColor="white">
             <Button id="continueButton" text="" tap="goToNextSlide" class="btn btn-white" width="90%"/>

@@ -1,0 +1,9 @@
+<GridLayout rows="auto, auto, *" columns="">
+    <StackLayout row="0" paddingLeft="5" paddingRight="5"  marginBottom="25" paddingTop="75">
+        <Label text="&#xf4da;" class="far" fontSize="90" paddingBottom="20" textAlignment="center" textWrap="true" />
+        <Label text="Congratulations!" class="h2"  textWrap="true" textAlignment="center"/>
+        <Label text="Your service has been created." class="h3" textWrap="true" textAlignment="center"/>
+        <Label text="You can view your new service on your profile." class="h4" color="gray" textAlignment="center" textWrap="true" />
+    </StackLayout>
+</GridLayout>
+    

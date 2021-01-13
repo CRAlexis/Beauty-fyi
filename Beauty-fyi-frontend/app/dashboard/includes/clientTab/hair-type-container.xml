@@ -44,7 +44,7 @@
               </FormattedString>
             </Label.formattedText>
         </Label>
-            <lv:RadListView id="clientGalleryList" class="list-group" style="background-color: transparent"> 
+            <!--<lv:RadListView id="clientGalleryList" class="list-group" style="background-color: transparent"> 
                 <lv:RadListView.listViewLayout>
                     <lv:ListViewGridLayout  spanCount="3" />
                 </lv:RadListView.listViewLayout>
@@ -52,7 +52,7 @@
                     <Image id="{{ index }}" longpress="{{ longPressImage }}" tap="{{imageTapped}}" src="{{ image }}" height="{{ height }}" stretch="aspectFill" load="async" margin="5" />
                 </lv:RadListView.itemTemplate>
             </lv:RadListView>
-            <Label textAlignment="center" class="Font-bold h5" text="View more" textWrap="true" />
+            <Label textAlignment="center" class="Font-bold h5" text="View more" textWrap="true" />-->
         </StackLayout>
 </StackLayout>
 

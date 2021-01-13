@@ -1,0 +1,21 @@
+<ScrollView>
+    <GridLayout id="eventName" rows="auto, auto, auto, auto, auto" columns="" paddingTop="35" paddingBottom="30">
+        <StackLayout row="0" paddingLeft="25" paddingRight="25" marginBottom="25">
+            <Label text="Event details" class="h3" textWrap="true"/>
+            <Label text="Set the description and date of your event." class="h4" textWrap="true"/>
+        </StackLayout>
+        <StackLayout row="1" paddingLeft="9"
+            xmlns:datetime="@nativescript/datetimepicker"
+            xmlns:CheckBox="@nstudio/nativescript-checkbox">
+            <datetime:DatePickerField id="eventDate" class="textFieldInputSmall" hint="Select a date" textChange="validateFourthPageEvents"/>
+            <StackLayout orientation="horizontal">
+                <datetime:TimePickerField id="eventStartTime" width="43%" marginRight="-5" class="textFieldInputSmall" hint="Start time" textChange="eventEndTimeChanged"/>
+                <datetime:TimePickerField id="eventEndTime" width="43%" marginRight="-5" class="textFieldInputSmall" hint="End time" textChange="eventEndTimeChanged"/>
+            </StackLayout>
+            <TextField id="eventTicketType" row="3" optionContext="Free,Paid,Donation" class="textFieldInputSmall" tap="{{ dropDownClicked }}" textChange="chooseTicketType" hint="Event ticket type" editable="false" paddingBottom="10"/>
+            <TextField keyboardType="number" maxLength="6" id="eventPrice" row="2" resetText="" hint="Event price" blur="productPriceReturn" focus="productPriceFocus" returnKeyType="done" returnPress="productPriceReturn" textChange="validateFourthPageEvents" class="textFieldInputSmall" paddingBottom="10" opacity="0" visibility="collapsed"/>
+            <CheckBox:CheckBox fillColor="black" id="limitTotalCapacity" tap="limitTotalCapicity" fontSize="16" marginLeft="13" marginTop="5" text="Limit total capacity" color="gray" checked="false" paddingBottom="10" />
+            <TextField keyboardType="number" maxLength="6" id="eventCapacity" row="2" resetText="" hint="Event capacity" textChange="validateFourthPageEvents" returnPress="validateFourthPageEvents" returnKeyType="done" class="textFieldInputSmall" paddingBottom="10" opacity="0" visibility="collapsed"/>
+        </StackLayout>
+    </GridLayout>
+</ScrollView>

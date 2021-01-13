@@ -1,4 +1,5 @@
 const navigation = require("~/controllers/navigationController");
+const animation = require("~/controllers/animationController").loadAnimation;
 exports.load = function(args){
     const includeObject = args.object;
     const page = includeObject.page;
@@ -20,4 +21,22 @@ exports.goToSettings = function (args) {
             console.log(result)
         })
     })
+}
+
+exports.goToMessages = (args) => {
+    const mainView = args.object;
+    const context = ""
+
+    animation(args.object, "nudge up").then(function () {
+        navigation.navigateToModal(context, mainView, 23, true).then(function (result) {
+            console.log(result)
+        })
+    })
+}
+
+exports.headerBarClicked = (args) => {
+    const evtData = {
+        eventName: 'headerBarClicked',
+    };
+    args.object.page.notify(evtData)
 }

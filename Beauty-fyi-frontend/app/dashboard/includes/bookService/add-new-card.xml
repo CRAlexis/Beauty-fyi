@@ -1,0 +1,9 @@
+<StackLayout xmlns:Card="@nstudio/nativescript-cardview"
+    xmlns:lv="nativescript-ui-listview">
+    <Card:CardView class="cardStyle" margin="5" elevation="10" radius="10" width="90%">
+        <StackLayout xmlns:stripe="@triniwiz/nativescript-stripe">
+            <stripe:CreditCardView id="card"/>
+        </StackLayout>
+    </Card:CardView>
+</StackLayout>
+
