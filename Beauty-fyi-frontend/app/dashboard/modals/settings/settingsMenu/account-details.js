@@ -13,7 +13,7 @@ exports.onShownModally = function (args) {
 }
 
 exports.loaded = (args) => {
-    const page = args.objet.page
+    const page = args.object.page
     if (application.android) {
         application.android.on(application.AndroidApplication.activityBackPressedEvent, backEvent);
     }

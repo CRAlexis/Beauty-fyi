@@ -25,6 +25,9 @@ function loadAnimation(element, animation, context){
             case "nudge up":
                 nudgeUp(element, context)
                 break;
+            case "nudge":
+                nudge(element, context)
+                break;
             case "expand section width":
                 expandSectionWidth(element, context)
             default:
@@ -111,6 +114,14 @@ function nudgeUp(element){
             duration: 125,
             curve: enums.AnimationCurve.cubicBezier(0.1, 0.1, 0.1, 1)
         });
+    })
+}
+
+function nudge(element, context) {
+    element.animate({
+        translate: { x: context.x, y: content.y },
+        duration: 250,
+        curve: enums.AnimationCurve.cubicBezier(0.1, 0.1, 0.1, 1)
     })
 }
 

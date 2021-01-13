@@ -1,4 +1,4 @@
-<!--<Frame defaultPage="dashboard/dashboard">
-</Frame>-->
-<Frame defaultPage="~/auth/landing/landing-page">
+<Frame defaultPage="dashboard/dashboard">
 </Frame>
+<!--<Frame defaultPage="~/auth/landing/landing-page">
+</Frame>-->

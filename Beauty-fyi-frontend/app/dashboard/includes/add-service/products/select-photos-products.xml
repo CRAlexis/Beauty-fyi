@@ -1,0 +1,23 @@
+<GridLayout rows="auto, auto, *" columns="">
+    <StackLayout marginBottom="25" paddingLeft="25" paddingRight="25">
+        <Label text="Images" class="h3" textWrap="true"/>
+        <Label text="Choose images for your product." class="h4" textWrap="true" />
+    </StackLayout>
+    <GridLayout row="2" rows="*, auto, 50">
+        <StackLayout xmlns:lv="nativescript-ui-listview" row="0">
+            <lv:RadListView id="productPhotosList" class="list-group" style="background-color: transparent" itemReorder="true" reorderMode="Drag" itemReordered="onItemReorderProduct">
+                <lv:RadListView.listViewLayout>
+                    <lv:ListViewGridLayout spanCount="3" />
+                </lv:RadListView.listViewLayout>
+                <lv:RadListView.itemTemplate >
+                    <Image index="{{ index }}" tap="imageTappedProductImage" src="{{ image }}" height="{{ height }}" stretch="aspectFill" load="async" margin="1" />
+                </lv:RadListView.itemTemplate>
+            </lv:RadListView>
+        </StackLayout>
+        <StackLayout marginTop="20" id="uploadImageContainer" row="1" tap="uploadPhotosProducts">
+            <Label textAlignment="center" text="&#xf0aa;" color="gray" class="fas" fontSize="25" textWrap="true" />
+            <Label textAlignment="center" text="Upload images" color="gray" textWrap="true" />
+        </StackLayout>
+    </GridLayout>
+</GridLayout>
+    

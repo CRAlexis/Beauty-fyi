@@ -5,11 +5,10 @@
             <Label text="" class="line" width="90%" marginBottom="0" textWrap="true" />
             
         </StackLayout>
-        <GridLayout columns="*, auto, *" height="60" paddingBottom="10">
-            <Button height="40" id="0" col="0" tap="dropDownClicked" text="{{timeOne}}" class="btn btn-white"/>
-            <Label col="1" class="h4" marginTop="15" text="to" textWrap="true" />         
-            <Button height="40" id="1" col="2" tap="dropDownClicked" text="{{timeTwo}}" class="btn btn-white"/>                
-        </GridLayout>  
+            <StackLayout orientation="horizontal" xmlns:datetime="@nativescript/datetimepicker">
+                <datetime:TimePickerField id="eventStartTime" width="43%" marginRight="-5" class="textFieldInputSmall" text="{{timeOne}}" hint="Start time" textChange="eventEndTimeChanged"/>
+                <datetime:TimePickerField id="eventEndTime" width="43%" marginRight="-5" class="textFieldInputSmall" text="{{timeTwo}}" hint="End time" textChange="eventEndTimeChanged"/>
+            </StackLayout>         
         <StackLayout>
            <Button width="50%" height="40" text="Save" class="btn btn-primary" tap="exit" marginTop="00" />
        </StackLayout>

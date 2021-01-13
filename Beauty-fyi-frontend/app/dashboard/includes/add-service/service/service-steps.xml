@@ -12,11 +12,13 @@
         </lv:RadListView.listViewLayout>
         <lv:RadListView.itemTemplate >    
             <StackLayout marginBottom="25">
-                <Label text="{{'Step ' + index}}" class="h4" paddingLeft="18"  textWrap="true" />
+            <GridLayout rows="" columns="*, auto, 20">
+                <Label col="0" text="{{'Step ' + index}}" class="h4" paddingLeft="18" textWrap="true" />
+                <Label col="1" index="{{index}}" id="{{id}}" paddingLeft="18" paddingTop="5" text="&#xf2ed;" class="far" fontSize="16" color="gray" tap="removeStep" textWrap="true" />
+            </GridLayout>
                 <TextField hint="Step name" text="{{ stepName }}" class="textFieldInputSmall" />
                 <TextField hint="Step duration (minutes)" class="textFieldInputSmall" keyboardType="number" text="{{ stepDuration }}" />
-                <CheckBox:CheckBox class="textFieldInputSmall" marginLeft="10" text="Capture this step" color="gray" checked="{{checked}}"/>
-                <Label index="{{index}}" id="{{id}}"  paddingLeft="18" paddingTop="5" text="Remove step" tap="removeStep" textWrap="true" />   
+                <CheckBox:CheckBox class="textFieldInputSmall" marginLeft="12" text="Capture this step" color="gray" checked="{{checked}}"/>   
                 <Label text="" class="line" width="90%" textWrap="true" />
                          
             </StackLayout>
@@ -24,7 +26,7 @@
     </lv:RadListView>
     </StackLayout>
     <StackLayout>
-        <Label id="" class="h5" paddingTop="10" text="Add step" textAlignment="center" tap="addStep" textWrap="true" />    
+        <Label id="" class="fas" fontSize="24" paddingTop="10" text="&#xf055;" textAlignment="center" tap="addStep"/>    
     </StackLayout>
 </StackLayout>
 </ScrollView>

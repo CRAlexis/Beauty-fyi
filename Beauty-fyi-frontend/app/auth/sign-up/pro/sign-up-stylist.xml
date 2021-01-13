@@ -18,13 +18,30 @@
             <label class="font-regular h4" text="Create an account to run your beauty business." textWrap="true"/>
         </StackLayout>
         <StackLayout row="3">
-            <TextField class="textFieldInput" hint="First name*" maxLength="16" text="{{ username }}" width="90%" style="" isEnabled="{{ !processingHTTPRequest }}"></TextField>
-            <TextField class="textFieldInput" hint="Last name*" maxLength="16" text="" width="90%"/>
-            <TextField class="textFieldInput" keyboardType="email" maxLength="64" autocorrect="false" autocapitalizationType="none" hint="Email address*" text="{{ email }}" width="90%"/>
-            <TextField class="textFieldInput" hint="Phone number" keyboardType="number" text="" maxLength="13" />
-            <TextField class="textFieldInput" hint="Password*" text="{{ password }}" secure="true" width="90%" />
-            <CheckBox:CheckBox text="I have read the Terms of Service and Privacy Policy" textWrap="true" fontSize="13" color="gray" checked="false" marginLeft="10" marginTop="15" marginBottom="25"/>
-            <Button tap="signUpTapped" class="btn btn-black-outline" text="Sign up"/>
+            <GridLayout rows="" columns="20, *, auto, 20">
+                <TextField col="1" class="textFieldInput" hint="First name*" maxLength="16" text="{{ firstName }}" width="90%" style="" isEnabled="{{ !processingHTTPRequest }}" textChange="firstNameInput"></TextField>
+                <Label col="2" text="{{ firstNameValidation[0] ? '&#xf00c;' : '&#xf068;' }}" visibility="{{ firstNameValidation[1] ? 'visible' : 'collapsed' }}" color="{{ firstNameValidation[0] ? 'green' : 'black' }}" class="fas" paddingTop="15" fontSize="19" textWrap="true" />
+            </GridLayout>
+            <GridLayout rows="" columns="20, *, auto, 20">
+                <TextField col="1" class="textFieldInput" hint="Last name*" maxLength="16" text="{{ lastName }}" width="90%" textChange="lastNameInput"/>
+                <Label col="2" text="{{ lastNameValidation[0] ? '&#xf00c;' : '&#xf068;' }}" visibility="{{ lastNameValidation[1] ? 'visible' : 'collapsed' }}" color="{{ lastNameValidation[0] ? 'green' : 'black' }}" backgroundColor="transparent" class="fas" paddingTop="15" fontSize="19" textWrap="true" />
+            </GridLayout>
+            <GridLayout rows="" columns="20, *, auto, 20">
+                <TextField col="1" class="textFieldInput" keyboardType="email" maxLength="64" autocorrect="false" autocapitalizationType="none" hint="Email address*" text="{{ email }}" width="90%" textChange="emailInput"/>
+                <Label col="2" text="{{ emailValidation[0] ? '&#xf00c;' : '&#xf068;' }}" visibility="{{ emailValidation[1] ? 'visible' : 'collapsed' }}" color="{{ emailValidation[0] ? 'green' : 'black' }}" class="fas" paddingTop="15" fontSize="19" textWrap="true" />
+            </GridLayout>
+            <GridLayout rows="" columns="20, *, auto, 20">
+                <TextField col="1" class="textFieldInput" hint="Phone number" keyboardType="number" text="{{ phoneNumber }}" maxLength="13" textChange="phoneNumberInput" width="90%"/>
+                <Label col="2" text="{{ phoneNumberValidation[0] ? '&#xf00c;' : '&#xf068;' }}" visibility="{{ phoneNumberValidation[1] ? 'visible' : 'collapsed' }}" color="{{ phoneNumberValidation[0] ? 'green' : 'black' }}" class="fas" paddingTop="15" fontSize="19" textWrap="true" />
+            </GridLayout>
+            <GridLayout rows="" columns="20, *, auto, 20">
+                <TextField col="1" class="textFieldInput" hint="Password*" text="{{ password }}" secure="true" width="90%" textChange="passwordInput"/>
+                <Label col="2" text="{{ passwordValidation[0] ? '&#xf00c;' : '&#xf068;' }}" visibility="{{ passwordValidation[1] ? 'visible' : 'collapsed' }}" color="{{ passwordValidation[0] ? 'green' : 'black' }}" class="fas" paddingTop="15" fontSize="19" textWrap="true" />
+            </GridLayout>
+        
+
+            <CheckBox:CheckBox text="I have read the Terms of Service and Privacy Policy" textWrap="true" fontSize="13" color="gray" checked="{{ checkBox }}" marginLeft="10" marginTop="15" marginBottom="25"/>
+            <Button tap="signUpTapped" class="btn btn-black-outline" text="SIGN UP" fontSize="18"/>
         </StackLayout>
         <Label row="4" text="{{ printValidationError }}" class="h5" textWrap="true" style="padding-left: 40px" color="red"/>
     </GridLayout>

@@ -2,6 +2,8 @@ const Observable = require("tns-core-modules/data/observable").Observable;
 const appSettings = require("tns-core-modules/application-settings");
 const sendHTTP = require("~/controllers/HTTPControllers/sendHTTP").sendHTTP;
 const navigation = require("~/controllers/navigationController")
+const { SecureStorage } = require("nativescript-secure-storage");
+var secureStorage = new SecureStorage();
 
 const source = new Observable();
 
@@ -14,7 +16,17 @@ exports.onNavigatingTo = function onNavigatingTo(args) {
     page.bindingContext = source; 
 
     const checkbox = { checkBox: false }
-    source.set("checkBox", checkbox)
+    source.set("firstName", "")
+    source.set("firstNameValidation", [false, false])
+    source.set("lastName", "")
+    source.set("lastNameValidation", [false, false])
+    source.set("email", "")
+    source.set("emailValidation", [false, false])
+    source.set("phoneNumber", "")
+    source.set("phoneNumberValidation", [false, false])
+    source.set("password", "")
+    source.set("passwordValidation", [false, false])
+    source.set("checkBox", "false")
 }
 
 source.set("navigateBack", function (args) {
@@ -31,13 +43,14 @@ source.set("clientRegisterAsPro", function (args) { //have an account
 exports.signUpTapped = async (args) => {
     // need to specifiy type of account to JJ
     // need to validate form
-    if(true){
+    //console.log(source)
+    if (validation()){
         const content = {
-            firstName: "charles",
-            lastName: "Alexis",
-            email: "chazalexix@hotmail.co.uk",
-            password: "password",
-            phoneNumber: "07968399386"
+            firstName: source.get("firstName".trim()),
+            lastName: source.get("lastName").trim(),
+            email: source.get("email").trim(),
+            password: source.get("password"),
+            phoneNumber: source.get("phoneNumber"),
         }
         const httpParameters = {
             url: 'http://192.168.1.12:3333/register',
@@ -45,23 +58,95 @@ exports.signUpTapped = async (args) => {
             content: content,
         }
         await sendHTTP(httpParameters, {display: true}, {display: true}, {display: true})
-            .then((response) => {
-                console.log(response)
-                // because they gona be login in here..
-                // set the user id and email and password into secure storage
-                // We have sent you a confirmation email - Can resend the email
-                // Let people login but have limit funcionality
-                // Dashboard says please confirm your email to use full features
+            .then(async (response) => {
+                //console.log(response.JSON.userID)
+                await secureStorage.set({ key: "email", value: source.get("password").trim() })
+                await secureStorage.set({ key: "password", value: source.get("password").trim() })
+                await secureStorage.set({ key: "userID", value: response.JSON.userID.toString() })
+                navigation.navigateToPage({}, args.object.page, 2, true)
             }, (e) => {
                 console.log(e)
             })
     }
 };
 
+exports.firstNameInput = (args) => {
+    setTimeout(()=>{
+        var regExCheck = /^[a-zA-Z_]*$/;
+        if (source.get("firstName").length == 0) { source.set("firstNameValidation", [false, false]); return }
+        if (!source.get("firstName").trim().match(regExCheck)) {
+            source.set("firstNameValidation", [false, true])
+        }else{
+            source.set("firstNameValidation", [true, true])
+        }
+    }, 100)
+}
+
+exports.lastNameInput = (args) => {
+    setTimeout(() => {
+        var regExCheck = /^[a-zA-Z_]*$/;
+        if (source.get("lastName").length == 0) { source.set("lastNameValidation", [false, false]); return }
+        if (!source.get("lastName").trim().match(regExCheck)) {
+            source.set("lastNameValidation", [false, true])
+        } else {
+            source.set("lastNameValidation", [true, true])
+        }
+    }, 100)
+}
+
+exports.emailInput = (args) => {
+    setTimeout(() => {
+        var regExCheck = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;;
+        if (source.get("email").length == 0) { source.set("emailValidation", [false, false]); return }
+        if (!source.get("email").trim().match(regExCheck)) {
+            source.set("emailValidation", [false, true])
+        } else {
+            source.set("emailValidation", [true, true])
+        }
+    }, 100)
+}
+
+exports.phoneNumberInput = (args) => {
+    setTimeout(() => {
+        if (source.get("phoneNumber").length == 0) { source.set("phoneNumberValidation", [false, false]); return }
+        if (source.get("phoneNumber").length < 9) {
+            source.set("phoneNumberValidation", [false, true])
+        } else {
+            source.set("phoneNumberValidation", [true, true])
+        }
+    }, 100)
+}
+
+exports.passwordInput = (args) => {
+    setTimeout(() => {
+        if (source.get("password").length == 0) { source.set("passwordValidation", [false, false]); return }
+        if (source.get("password").length < 5) {
+            source.set("passwordValidation", [false, true])
+        } else {
+            source.set("passwordValidation", [true, true])
+        }
+    }, 100)
+}
+
 function validation(){
     //check they are not blank
+    if (source.get("firstNameValidation")[0] &&
+        source.get("lastNameValidation")[0] &&
+        source.get("emailValidation")[0] &&
+        source.get("passwordValidation")[0] && 
+        source.get("checkBox") == true){
+            return true
+        }else{
+            let validationError = {
+                title: "Error",
+                message: "Please correct the form",
+                okButtonText: "OK"
+            };
+            alert(validationError)
+        }
+    /*console.log("running...")
     console.log(source.get("checkBox"))
-    if (source.get("username").length == 0 || source.get("email").length == 0 || source.get("password").length == 0 ) {
+    if (source.get("firstName").trim().length == 0 || source.get("lastName").trim().length == 0 || source.get("email").trim().length == 0 || source.get("password").length == 0 ) {
         let validationError = {
             title: "Error",
             message: "Please complete the entire form",
@@ -71,38 +156,39 @@ function validation(){
         source.set("printValidationError", "*" + validationError.message)
         return false;
     }
-    if (source.get("username").length > 24) {
+    if (source.get("firstName").trim().length < 3) {
         let validationError = {
             title: "Error",
-            message: "Username must have minimum 24 characters",
+            message: "First name must have minimum 4 characters",
             okButtonText: "OK"
         };
         source.set("printValidationError", "*" + validationError.message)
         alert(validationError)
         return false;
     }
-    if (source.get("username").length < 3) {
+    var regExCheck = /^[a-zA-Z_]*$/;
+    if (!source.get("firstName").trim().match(regExCheck)) {
         let validationError = {
             title: "Error",
-            message: "Username must have minimum 4 characters",
+            message: "Do not use special symbols in your first name",
             okButtonText: "OK"
         };
         source.set("printValidationError", "*" + validationError.message)
         alert(validationError)
         return false;
     }
-    var regExCheck = /^[a-zA-Z0-9_]*$/;
-    if (!source.get("username").match(regExCheck)) {
+    if (!source.get("lastName").trim().match(regExCheck)) {
         let validationError = {
             title: "Error",
-            message: "Do not use special symbols in your username",
+            message: "Do not use special symbols in your last name",
             okButtonText: "OK"
         };
         source.set("printValidationError", "*" + validationError.message)
         alert(validationError)
         return false;
     }
-    if (!source.get("checkBox").checkBox){
+
+    if (source.get("checkBox") == "false"){
         let validationError = {
             title: "Error",
             message: "You must accept the terms",
@@ -112,7 +198,7 @@ function validation(){
         alert(validationError)
         return false;
     }
-    return true
+    return true*/
 }
 
 

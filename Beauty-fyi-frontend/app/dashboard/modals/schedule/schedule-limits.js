@@ -100,7 +100,7 @@ exports.saveSettings = (args) => {
     console.log(1)
     const object = args.object
     object.text="Saving..."
-    const content = JSON.stringify({
+    const content = {
         minimumHoursBeforeAppointment: source.get("hoursBeforeStartTime"),
         maximumDaysInAdvance :source.get("daysInAdvance"),
         rescheduleAppointments :source.get("rescheduleAppointments"),
@@ -109,13 +109,13 @@ exports.saveSettings = (args) => {
         avoidGaps :source.get("avoidGaps"),
         allowGaps :source.get("allowGaps"),
         gapHours : parseInt(source.get("gapHours")) // set to just int
-    })
+    }
     const httpParameters = {
         url: 'http://192.168.1.12:3333/schedulelimit',
         method: 'POST',
         content: content,
     }
-    sendHTTP(httpParameters)
+    sendHTTP(httpParameters, { display: true }, { display: true }, { display: true })
         .then((response) => {
             object.text = "saved!"
             console.log(response)

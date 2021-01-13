@@ -1,0 +1,14 @@
+<GridLayout id="" rows="auto, auto, auto, auto, auto" columns="">
+    <StackLayout row="0" paddingLeft="25" paddingRight="25" marginBottom="25">
+        <Label text="Selling details" class="h3" textWrap="true"/>
+        <Label text="Set the price and postage of your product." class="h4" textWrap="true"/>
+    </StackLayout>
+    <StackLayout row="1" paddingLeft="9" xmlns:CheckBox="@nstudio/nativescript-checkbox">
+        <TextField keyboardType="number" maxLength="6" id="productPrice" resetText="" hint="Service price" blur="productPriceReturn" focus="productPriceFocus" returnKeyType="done" returnPress="productPriceReturn" textChange="validateThirdPageProducts" class="textFieldInputSmall" paddingBottom="10"/>
+        <TextField keyboardType="number" maxLength="6" id="postagePrice" resetText="" hint="Postage price" blur="productPriceReturn" focus="productPriceFocus" returnKeyType="done" returnPress="productPriceReturn" textChange="validateThirdPageProducts" class="textFieldInputSmall" paddingBottom="10"/>
+        <TextField id="postageShippingTime" optionContext="2 to 3 Working days,3 to 5 Working days,7-10 Working days,Within 30 business days " class="textFieldInputSmall" tap="{{ dropDownClicked }}" textChange="validateThirdPageProducts" hint="Dispatch times" editable="false" paddingBottom="10"/>
+        <TextView maxLength="25" id="postageDescription" borderColor="#DEDEDE" borderWidth="1" hint="Postage description"  textChange="validateThirdPageProducts" class="textFieldInputSmall" paddingBottom="10"></TextView>
+        <CheckBox:CheckBox id="allowInternationalShippingCheckBox" tap="allowInternationalShipping" fontSize="16" marginLeft="10" marginTop="5" text="Allow international shipping." color="gray" checked="false" paddingBottom="10"/>
+        <TextField visibility="collapsed" keyboardType="number" maxLength="6" id="internationalPostagePrice" row="2" resetText="" hint="Internation postage price" blur="productPriceReturn" focus="productPriceFocus" returnKeyType="done" returnPress="productPriceReturn" textChange="validateThirdPageProducts" class="textFieldInputSmall" paddingBottom="10"/>
+    </StackLayout>
+</GridLayout>

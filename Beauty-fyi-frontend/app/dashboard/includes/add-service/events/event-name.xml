@@ -1,0 +1,27 @@
+<GridLayout id="eventName" rows="auto, auto, auto, auto, auto" columns="">
+    <StackLayout row="0" paddingLeft="25" paddingRight="25" marginBottom="25">
+        <Label text="Event details" class="h3" textWrap="true"/>
+        <Label text="Set the name, and location of your event." class="h4" textWrap="true"/>
+    </StackLayout>
+    <StackLayout row="1" paddingLeft="9">
+        <TextField maxLength="60" id="eventName" row="1" hint="Event name" class="textFieldInputSmall" paddingBottom="10" textChange="validateSecondPageEvents"/>
+        <TextField id="eventLocationDropdown" row="3" optionContext="Online, At a venue" class="textFieldInputSmall" tap="{{ dropDownClicked }}" textChange="chooseEventLocation" hint="Event location" editable="false" paddingBottom="10"/>
+        <StackLayout id="onlineEventLocation" opacity="0" visibility="collapsed">
+            <TextField maxLength="200" id="eventLink" row="1" hint="Event link" class="textFieldInputSmall" paddingBottom="10" textChange="validateSecondPageEvents"/>
+            <TextField maxLength="60" id="eventPassword" row="1" hint="Event password" class="textFieldInputSmall" paddingBottom="10" textChange="validateSecondPageEvents"/>
+        </StackLayout>
+        <StackLayout id="offlineEventLocation" opacity="0" visibility="collapsed">
+            <TextField maxLength="10" id="eventPostCode" hint="Postcode" class="textFieldInputSmall" paddingBottom="10" textChange="validateSecondPageEvents"/>
+            <TextField maxLength="100" id="eventAddressLineOne" hint="Address line 1" class="textFieldInputSmall" paddingBottom="10" textChange="validateSecondPageEvents"/>
+            <TextField maxLength="100" id="eventAddressLineTwo" hint="Address line 2 (optional)" class="textFieldInputSmall" paddingBottom="10" textChange="validateSecondPageEvents"/>
+            <TextField maxLength="100" id="eventTown" hint="Town/City" class="textFieldInputSmall" paddingBottom="10" textChange="validateSecondPageEvents"/>
+        </StackLayout>
+        <!--<TextField id="eventCategory" row="3" optionContext="Children,Natural Hair,Extensions,Coaching,Loc Care,Colouring,Treatments" class="textFieldInputSmall" tap="{{ dropDownClicked }}" textChange="validateSecondPageEvents" hint="Category" editable="false" paddingBottom="10"/>
+        <TextField id="eventColor" class="textFieldInputSmall" color="black" colorId="0" text="Event color" tap="openColorPicker" textChange="validateSecondPageEvents" hint="Event color" editable="false" paddingBottom="10"/>
+        <TextView maxLength="25" id="eventDescription" row="4" borderColor="#DEDEDE" borderWidth="1" hint="Event description" textChange="validateSecondPageEvents" class="textFieldInputSmall" returnKeyType="done" paddingBottom="10"></TextView>
+        <TextField keyboardType="number" maxLength="6" id="eventPrice" row="2" resetText="" hint="Event price" blur="currencyFormattingFinished" focus="currencyFormattingStarted" returnPress="validateSecondPageEvents" textChange="currencyFormattingLive" returnKeyType="done" class="textFieldInputSmall" paddingBottom="10"/>-->
+
+
+    </StackLayout>
+
+</GridLayout>

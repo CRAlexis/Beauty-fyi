@@ -114,6 +114,7 @@ async function loadImages(page, height) {
             isImage: true
         },
     )
+    currentContentData = ["contentImage0", "~/images/temp.png"]
     //format photos when uploading
     var listview = page.getViewById("contentGalleryList");
     listview.items = images;
@@ -128,7 +129,11 @@ exports.viewContent = async (args) => {
     const isImage = object.getChildAt(0).isImage;
     const videoPlayer = page.getViewById("nativeVideoPlayer")
     const slides = [page.getViewById("photoContainer"), page.getViewById("videoContainer")]
-    console.log(isImage)
+    if (shareArray.includes(src)){
+        page.getViewById("addButton").text = "Remove"
+    }else{
+        page.getViewById("addButton").text = "Add"
+    }
     if (isImage) { //Check if image or video
         console.log(1)
         page.getViewById("mainImage").src = src; // Load content into container
@@ -149,8 +154,21 @@ exports.addContent = (args) => {
     const id = currentContentData[0]
     const src = currentContentData[1]
     const imageContainer = page.getViewById(id)
-    imageContainer.opacity = 0.6
-    shareArray.push(src)
+    if (page.getViewById("addButton").text == "Add"){
+        imageContainer.opacity = 0.6
+        shareArray.push(src)
+        page.getViewById("addButton").text = "Remove"
+    }else{
+        imageContainer.opacity = 1
+        let i = 0;
+        shareArray.forEach(element => {
+            if (element == src) {
+                shareArray.splice(i, 1)
+            }
+            i++
+        });
+        page.getViewById("addButton").text = "Add"
+    }
     page.getViewById("shareButton").text = "Share (" + shareArray.length + ")"
 }
 

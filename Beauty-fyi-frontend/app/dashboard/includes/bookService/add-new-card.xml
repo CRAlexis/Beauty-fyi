@@ -1,30 +1,9 @@
 <StackLayout xmlns:Card="@nstudio/nativescript-cardview"
     xmlns:lv="nativescript-ui-listview">
     <Card:CardView class="cardStyle" margin="5" elevation="10" radius="10" width="90%">
-        <GridLayout row="0" rows="auto, *" columns="" backgroundColor="white">
-            <StackLayout>
-                <Card:CardView class="cardStyle" elevation="10" marginBottom="10" radius="0">
-                    <GridLayout columns="40, *, auto" paddingLeft="20" paddingRight="10" paddingBottom="10">
-                        <StackLayout tap="exit" col="0" orientation="horizontal" paddingTop="15">
-                            <Label text="&#xf00d;" class="fas" fontSize="19" textWrap="true" />
-                        </StackLayout>
-                        <StackLayout col="1">
-                            <Label id="title" text="Add payment" textAlignment="center" class="h4 font-bold" color="black" paddingTop="15" />
-                        </StackLayout>
-                        <StackLayout tap="createNewPayment" id="infoContainer" col="2" orientation="horizontal" paddingTop="15" paddingLeft="10" paddingRight="10">
-                            <Label text="&#xf00c;" class="fas" fontSize="19" textWrap="true" />
-                        </StackLayout>
-                    </GridLayout>
-                </Card:CardView>
-                <StackLayout row="1" width="100%" paddingTop="10" marginBottom="25">
-                    <!--<Label text="&#xf09d;" class="far" fontSize="100" paddingBottom="10" textWrap="true" textAlignment="center"/>-->
-                    <TextField class="textFieldInputSmall" id="cardHolerName" hint="Cardholder Name" text="" />
-                    <TextField class="textFieldInputSmall" id="cardNumber" hint="Card Number" keyboardType="number" text="" maxLength="16" />
-                    <TextField class="textFieldInputSmall" id="cardMMExpiration" hint="MM expiration" keyboardType="number" maxLength="2"/>
-                    <TextField class="textFieldInputSmall" id="cardYYExpiration" hint="yy expiration" keyboardType="number" maxLength="2"/>
-                    <TextField class="textFieldInputSmall" id="cardCVC" hint="CVC" keyboardType="number" maxLength="3" />
-                </StackLayout>
-            </StackLayout>
-        </GridLayout>
+        <StackLayout xmlns:stripe="@triniwiz/nativescript-stripe">
+            <stripe:CreditCardView id="card"/>
+        </StackLayout>
     </Card:CardView>
 </StackLayout>
+

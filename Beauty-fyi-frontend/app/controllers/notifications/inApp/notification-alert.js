@@ -34,8 +34,6 @@ exports.errorMessage = function(message){
 }
 
 exports.httpRequestLoading = (title, message) => {
-    console.log("trying to display modal")
-    console.log("is active: " + active)
     return new Promise((resolve, reject) =>{
         if (!active) {
             active = true;
@@ -57,7 +55,8 @@ exports.httpRequestLoading = (title, message) => {
 }
 
 exports.httpRequestFinished = (title, message) => {
-    console.log("active: " + active)
+    console.log("trying to display modal")
+    console.log("is active: " + active)
     return new Promise((resolve, reject) => {
         if (!active) {
             active = true;
@@ -68,12 +67,16 @@ exports.httpRequestFinished = (title, message) => {
                 dialogStyle: CFAlertStyle.ALERT,
                 title: title,
                 message: message,
-                cancellable: true
+                cancellable: true,
+                onDismiss: function () {
+                    console.log("dissmised ")
+                    active = false;
+                }
             }
             resolve(cfalertDialog)
             cfalertDialog.show(options).then(function () {
                 active = false;
-            });
+            })
         }
     })
 }
@@ -125,8 +128,7 @@ exports.areYouSure = function(title, message){
 }
 
 exports.dismissAlert = (alert) => {
-    console.log("ran")
+    console.log("dismiss alert...")
     alert.dismiss(false)
     active = false; 
-    console.log("here")
 }

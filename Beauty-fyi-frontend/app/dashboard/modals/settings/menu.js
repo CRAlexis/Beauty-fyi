@@ -130,7 +130,7 @@ exports.viewNotificationDetails = function (args) {
         const mainView = args.object;
         const context = ""
         animation(args.object.getChildAt(1), "arrow swipe").then(function () {
-            navigation.navigateToModal(context, mainView, 17, true).then(function (result) {
+            navigation.navigateToModal(context, mainView, 18, true).then(function (result) {
                 if (application.android) { application.android.on(application.AndroidApplication.activityBackPressedEvent, backEvent); }
                 active = false
             })

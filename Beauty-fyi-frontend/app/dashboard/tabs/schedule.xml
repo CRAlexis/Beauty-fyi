@@ -2,6 +2,8 @@
     <GridLayout rows="auto, *">
         <StackLayout row="0" xmlns:includes="dashboard/includes/calander">
             <includes:calander/>
+            
+            <Label tap="viewFullCalander" text="{{calanderActive ? '&#xf063;' : '&#xf062;'}}" textAlignment="center" class="fas" textWrap="true" fontSize="19" paddingBottom="10" color="gray"/>
             <Label text="" class="line" width="97%" textWrap="true" marginBottom="10"/>
         </StackLayout>
         <StackLayout row="1"> 

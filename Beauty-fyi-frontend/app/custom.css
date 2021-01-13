@@ -171,7 +171,7 @@ border-radius: 5;
     color: white;
 }
 
-.btn-white {
+.btn-white-no-border {
     background-color: white;
     border-color: white;
     color: black;

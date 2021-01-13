@@ -1,0 +1,14 @@
+<ScrollView>
+    <GridLayout id="eventName" rows="auto, auto, auto, auto, auto" columns="" paddingTop="35" paddingBottom="30">
+        <StackLayout row="0" paddingLeft="25" paddingRight="25" marginBottom="25">
+            <Label text="Event details" class="h3" textWrap="true"/>
+            <Label text="Set the description and date of your event." class="h4" textWrap="true"/>
+        </StackLayout>
+        <StackLayout row="1" paddingLeft="9"
+            xmlns:datetime="@nativescript/datetimepicker"
+            xmlns:CheckBox="@nstudio/nativescript-checkbox">
+            <TextField id="eventCategory" row="3" optionContext="Summit,Seminar,Webinar,Workshop,Meet up,Networking" class="textFieldInputSmall" tap="{{ dropDownClicked }}" textChange="validateThirdPageEvents" hint="Category" editable="false" paddingBottom="10"/>
+            <TextView maxLength="400" id="eventDescription" row="4" borderColor="#DEDEDE" borderWidth="1" hint="Event description" textChange="validateThirdPageEvents" class="textFieldInputSmall" returnKeyType="done" paddingBottom="10"></TextView>
+        </StackLayout>
+    </GridLayout>
+</ScrollView>

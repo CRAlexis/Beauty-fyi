@@ -12,7 +12,7 @@ exports.onShownModally = function (args) {
 }
 
 exports.loaded = (args) => {
-    const page = args.objet.page
+    const page = args.object.page
     page.on('goBack', () => {
         backEvent(args)
     })

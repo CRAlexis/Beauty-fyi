@@ -18,6 +18,9 @@ exports.openModal = async (args) => {
                 animation(page.getViewById("menuHeader"), "fade out", { opacity: 0.2 })
                 page.getViewById("addNewCardModal").visibility = 'visible';
                 await animation(page.getViewById("addNewCardModal"), "fade in")
+                const ccView = page.getViewById("card");
+                const cc = ccView.card;
+                cc.name = "Osei Fortune"
                 resolve(true)
             }, 100)
         }

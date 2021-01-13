@@ -25,8 +25,10 @@ exports.onNavigatedTo = function (args) {
     //}    
 }
 
-exports.onPageLoaded = function (args) {
-    
+exports.onPageLoaded = async function (args) {
+    const { SecureStorage } = require("nativescript-secure-storage");
+    var secureStorage = new SecureStorage();    
+    console.log(await secureStorage.get({ key: "deviceID" }))
     //const container = page.getViewById("tab0");
     //const tabIndex = 0
     //const icon = container.getChildAt(0);
