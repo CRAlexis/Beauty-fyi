@@ -8,6 +8,10 @@ class StylistTransactionController {
   async AddStylistTransaction ({ request, session, response }){
     const {userId, toUserId, amount} = request.all()
 
+    var userId = request.all().content.userId
+    var toUserId = request.all().content.toUserId
+    var amount = request.all().content.amount
+
     // create StylistTransaction
     const stylistTransaction =  await StylistTransaction.create({
       userId: cleanStrings(userId, "int"),

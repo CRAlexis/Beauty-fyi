@@ -7,9 +7,9 @@ class StylistFormController {
 
   async AddStylistForm ({ request, session, response }){
 
-    Index = request.input('index')
-    Optional_question = request.input('optional_question')
-    Payment_type = request.input('payment_type')
+    var Index = request.all().content.index
+    var Optional_question = request.all().content.optional_question
+    var Payment_type = request.all().content.payment_type
 
     // create StylistForm
     const stylistForm =  await StylistForm.create({

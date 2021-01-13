@@ -1,46 +1,75 @@
 'use strict'
-
-module.exports.respond = function(socket_io){
-  console.log("true")
-  // this function expects a socket_io connection as argument
-
-  // now we can do whatever we want:
-  socket_io.on('news',function(newsreel){
-
-      // as is proper, protocol logic like
-      // this belongs in a controller:
-
-      socket.broadcast.emit(newsreel);
-  });
-}
+const UserMessage = use('App/Models/UserMessage')
 
 class ChatController {
-  constructor ({ socket, request }) {
-    this.socket = socket
-    this.request = request
+
+  async onMessage(ws, message){
+
+    //console.log(message.id ? message.id : null)
+    console.log(message.fromUserID)
+    console.log(message.toUserID)
+    console.log(message.type)
+    console.log(message.plainKey)
+    console.log(message.deviceID)
+    console.log(message.content)
+    console.log(message.action)
+    console.log(message.randomCode ? message.randomCode : null)
+    let id = message.id ? message.id : null
+    let fromUserId = message.fromUserID
+    let toUserId = message.toUserID
+    let type = message.type
+    let plainKey = message.plainKey
+    let deviceID = message.deviceID
+    let content = message.content
+    let action = message.action
+    let randomCode = message.randomCode ? message.randomCode : null
+    //Check plainKey and deviceID
+
+    //Checking what type of message it is and altering the correct database
+    if(type==="plain"){
+      if(action==="add"){
+        this.addToUserMessages(ws, fromUserId, toUserId, content)
+      }
+      if(action==="delete"){
+        this.deleteFromUserMessages(ws, id, fromUserId, toUserId, content)
+      }
+    }
+    if(type==="binary"){
+      if(action==="add"){
+        this.addToMedia(ws, fromUserId, toUserId, content)
+      }
+      if(action==="delete"){
+        this.deleteFromMedia(ws, id, fromUserId, toUserId, content)
+      }
+    }
+  }
+
+  async addToUserMessages(ws, fromUserId, toUserId, content){
+    UserMessage
+    // Add User Message
+    const userMessage =  await UserMessage.create({
+      firstName: FirstName,
+      lastName: LastName,
+      email: Email,
+      password: Password,
+      phoneNumber: PhoneNumber
+      //accountType: request.input('accountType'),
+      //confirmation_token: randomString({ length: 40 })
+    })
+
+    var obj = {"id":1, "fromUserID":30, "toUserId":42 }
+    ws.send(JSON.stringify(obj));
+  }
+  async deleteFromUserMessages(ws, id, fromUserId, toUserId, content){
 
   }
-  onMessage (message) {
-    console.log(message)
-    this.socket.broadcastToAll('message', "Hello User")
-    // same as: socket.on('message')
+  async addToMedia(ws, fromUserId, toUserId, content){
+
+  }
+  async deleteFromMedia(ws, id, fromUserId, toUserId, content){
+
   }
 
-  onNewUser(){
-    console.log('Websocket User: ')
-  }
-  onOpen(){
-    console.log('Hello User')
-  }
-
-  onClose () {
-    // same as: socket.on('close')
-  }
-
-  onError (error) {
-    console.log('Websocket Error: ' + error)
-    // same as: socket.on('error')
-  }
 }
 
 module.exports = ChatController

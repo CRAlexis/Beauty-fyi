@@ -7,10 +7,10 @@ class StylistAddFormController {
 
   async AddStylistAddForm ({ request, session, response }){
 
-    Question_index = request.input('question_index')
-    Question_type_index = request.input('question_type_index')
-    Question = request.input('question')
-    Question_options = request.input('question_options')
+    var Question_index = request.all().content.question_index
+    var Question_type_index = request.all().content.question_type_index
+    var Question = request.all().content.question
+    var Question_options = request.all().content.question_options
 
     // create StylistAddForm
     const stylistAddForm =  await StylistAddForm.create({

@@ -5,7 +5,7 @@ const EarlyAccess = use('App/Models/EarlyAccess')
 class PermittedCheckController {
 
   async permittedCheck ({ request, session, response }){
-    Code = trim(request.input('code'))
+    var Code = request.all().content.code
 
     const earlyAccess = await EarlyAccess.query().where('code', code).first()
     //Check if code is valid

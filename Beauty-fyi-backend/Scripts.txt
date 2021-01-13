@@ -30,11 +30,18 @@ npm install @adonisjs/framework/providers/AppProvider
 
 instant message scripts:
 npm install ws
-adonis install @adonisjs/websocket
 npm i --save @adonisjs/websocket-packet
 npm i --save @adonisjs/msgpack-encoder
 npm i simple-message-reader
 
+file system:
+npm i --save @adonisjs/drive
+
+video processing scripts:
+npm install ffmpeg
+
+Throttle:
+adonis install adonis-throttle
 
 
 HOST=127.0.0.1

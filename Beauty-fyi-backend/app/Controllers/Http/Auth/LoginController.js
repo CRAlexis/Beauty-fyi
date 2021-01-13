@@ -15,9 +15,10 @@ class LoginController {
     console.log("hey")
     try{
       //get form data
-      const { email, password, plainKey, deviceID } = request.all()
-      email = trim(email);
-      password = trim(password);
+      var email = request.all().content.email.trim()
+      var password = request.all().content.password.trim()
+      var plainKey = request.all().content.plainKey
+      var deviceID = request.all().content.deviceID
 
       //Cleaning Vars
       email = cleanStrings(Email, "string")

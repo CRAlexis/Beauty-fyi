@@ -10,9 +10,10 @@ class ScheduleAvailabilityDaySchema extends Schema {
       table.integer('user_id').unsigned().references('id').inTable('users')
       table.boolean('active')
       table.string('day')
-      table.integer('start_time')
-      table.integer('end_time')
+      table.time('start_time')
+      table.time('end_time')
       table.string('location')
+      table.string('timezone')
       table.timestamps()
     })
   }

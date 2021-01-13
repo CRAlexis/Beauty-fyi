@@ -1,7 +1,6 @@
 'use strict'
 
 const Stripe = require('stripe');
-const stripe = Stripe('sk_test_4eC39HqLyjWDarjtT1zdp7dc');
 
 class StripeController {
 
@@ -15,6 +14,8 @@ class StripeController {
     stripe.charges.retrieve('ch_1HsVojJoko9usn1WTElytS1E', {
       expand: ['customer', 'invoice.subscription'],
     });*/
+
+    var stripe = Stripe('sk_test_4eC39HqLyjWDarjtT1zdp7dc');
 
     const customer = await stripe.customers.create({
       name: "Charles Alexis",
@@ -40,8 +41,8 @@ class StripeController {
     const sendInvoice = await stripe.invoices.finalizeInvoice(
       invoice.id
     );
-    console.log(invoice)
-    console.log(sendInvoice)
+    //console.log(invoice)
+    //console.log(sendInvoice)
     /*
     stripe.charges.create({
       amount: 2000,

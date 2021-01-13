@@ -7,10 +7,10 @@ class ServiceStepController {
 
   async AddServiceStep ({ request, session, response }){
 
-    Index = request.input('index')
-    Name = request.input('name')
-    Duration = request.input('duration')
-    Capture_footage_in_this_step = request.input('capture_footage_in_this_step')
+    var Index = request.all().content.index
+    var Name = request.all().content.name
+    var Duration = request.all().content.duration
+    var Capture_footage_in_this_step = request.all().content.capture_footage_in_this_step
 
     // create cameraStep
     const serviceStep =  await ServiceStep.create({

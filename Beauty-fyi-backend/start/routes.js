@@ -21,36 +21,50 @@ Route.get('/', () => {
 })
 
 //Tests
-Route.get('test', 'Auth/RegisterController.test').as('test')
+Route.post('test', 'Auth/RegisterController.test').as('test')
 Route.get('stripeTest', 'Payment/StripeController.test').as('stripeTest')
 
-Route.group(() => {
+//Route.group(() => {
 Route.post('uploadfile', 'upload/UploadPhotoController.uploadPhoto').as('uploadfile')
+
+//Stripe
+Route.post('webhook', 'Payment/WebhookController.webhook')
 
 //Stylist routes
 Route.post('scheduleavailabilityday', 'Stylist/ScheduleAvailabilityDayController.AddScheduleAvailabilityDay').as('scheduleavailabilityday')
-Route.get('scheduleavailabilityday', 'Stylist/ScheduleAvailabilityDayController.GetScheduleAvailabilityDay')
+Route.post('scheduleavailabilitydayget', 'Stylist/ScheduleAvailabilityDayController.GetScheduleAvailabilityDay')
 Route.post('schedulelimit', 'Stylist/ScheduleLimitController.AddScheduleLimit').as('schedulelimit')
-Route.get('schedulelimit', 'Stylist/ScheduleLimitController.GetScheduleLimit')
+Route.post('schedulelimitget', 'Stylist/ScheduleLimitController.GetScheduleLimit')
+
+//Services, Events and Products
+Route.post('addservice', 'Stylist/AddServiceController.AddService').as('addservice')
+Route.post('addserviceget', 'Stylist/AddServiceController.GetService')
+Route.post('addevent', 'Stylist/AddEventController.AddEvent').as('addevent')
+Route.post('addeventget', 'Stylist/AddEventController.GetEvent')
+Route.post('addproduct', 'Stylist/AddProductController.AddProduct').as('addproduct')
+Route.post('addproductget', 'Stylist/AddProductController.GetProduct')
 
 //User routes
-Route.post('accountdetail', 'User/AccountDetail.AddAccountDetail').as('accountdetail')
-Route.post('bio', 'User/Bio.AddBio').as('bio')
+Route.post('accountdetail', 'User/AccountDetailController.AddAccountDetail').as('accountdetail')
+Route.post('bio', 'User/BioController.AddBio')
+Route.post('bioget', 'User/BioController.GetBio')
 
-}).middleware(['Android'])
+
+//}).middleware(['android'])
 
 //Registering and logging in
 Route.group(() => {
-  Route.get('register', 'Auth/RegisterController.showRegisterForm')
+  //Route.get('register', 'Auth/RegisterController.showRegisterForm')
   Route.post('register', 'Auth/RegisterController.register').as('register')
   Route.post('resendverification', 'Auth/RegisterController.resendVerification').as('resendVerification')
-  Route.get('register/confirm/:token', 'Auth/RegisterController.confirmEmail')
-  Route.get('login', 'Auth/LoginController.showLoginForm')
+  //Route.get('register/confirm/:token', 'Auth/RegisterController.confirmEmail')
+  Route.post('loginget', 'Auth/LoginController.showLoginForm')
   Route.post('login', 'Auth/LoginController.login').as('login')
   Route.post('landing', 'Landing/LandingController.getCSRF').as('getCSRF')
-  Route.get('password/reset', 'Auth/PasswordResetController.showLinkRequestForm')
+  //Route.get('password/reset', 'Auth/PasswordResetController.showLinkRequestForm')
   Route.post('password/email', 'Auth/PasswordResetController.sendResetLinkEmail')
-  Route.get('password/reset/:token', 'Auth/PasswordResetController.showResetForm')
+  //Route.get('password/reset/:token', 'Auth/PasswordResetController.showResetForm')
   Route.post('password/reset', 'Auth/PasswordResetController.reset')
 }).middleware(['guest'])
+//Throttle .middleware('throttle:10,120')
 //Route.post('landing', 'Landing/LandingController.getCSRF').as('getCSRF').middleware(['auth'])

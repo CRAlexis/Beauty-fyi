@@ -47,6 +47,10 @@ class User extends Model {
     return this.hasMany('App/Models/UserMedia')
   }
 
+  UserMessage () {
+    return this.hasMany('App/Models/UserMessage')
+  }
+
 
   AddService () {
     return this.hasMany('App/Models/AddService')
