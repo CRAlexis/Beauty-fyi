@@ -3,7 +3,7 @@ const application = require('application');
 const navigation = require("~/controllers/navigationController")
 const inAppNotifiationAlert = require("~/controllers/notifications/inApp/notification-alert.js")
 const slideTransition = require("~/controllers/slide-transitionController");
-const animation = require("~/controllers/animationController").loadAnimation;
+const { loadAnimation } = require("~/controllers/animationController");
 const source = new Observable();
 let sourceForm;
 let closeCallback;
@@ -32,14 +32,13 @@ exports.loaded = function (args) { //third slide
     consultation = require("~/dashboard/modals/salonPage/bookService/js/consultation")
     confirmation = require("~/dashboard/modals/salonPage/bookService/js/confirmation")
     slideIndex = 0
-    slides = [page.getViewById("chooseDateSlide"), page.getViewById("consultationSlide"), page.getViewById("confirmationSlide") ]
+    slides = [page.getViewById("chooseDateSlide"), page.getViewById("consultationSlide"), page.getViewById("confirmationSlide"), page.getViewById("successSlide") ]
     initialiseConsultationPage(args)
     initConfirmationPage(args)
 
     //listener to close modals in here
     page.on('headerBarClicked', (args) => {
-        backEvent(args)
-        closeModal(args)
+        
     })
     page.on('goBack', () => {
         backEvent(args)
@@ -58,6 +57,7 @@ function formatContext(context){
 
 function backEvent(args) { // This event is a bit funny
     args.cancel = true;
+    if (slideIndex == 3) { exitModal(args) }
     if (slideIndex == 0) {
         inAppNotifiationAlert.areYouSure("Are you sure you want to exit?", "Your information will not be saved").then(function (result) {
             if (result) { exitModal(args) }
@@ -81,43 +81,56 @@ function exitModal(args) {
 
 exports.goToNextSlide = (args) => { goToNextSlide(args) }
 
-function goToNextSlide(args){
+async function goToNextSlide(args){
+    const page = args.object.page
     switch (slideIndex) {
-        case 0:
+        case 0: 
             slideTransition.goToNextSlide(args, slideIndex, source, slides).then(function (result) {
-                changeContinueButtontext(args, "")
                 slideIndex = result
+                hideContinueButton(args)
             })
             break;
-        case 1:
+        case 1: 
+            await chooseDate.getData(args, sourceForm)
+            await consultation.getData(args, sourceForm)
+            confirmation.initialise(args, sourceForm)
             slideTransition.goToNextSlide(args, slideIndex, source, slides).then(function (result) {
-                changeContinueButtontext(args, "")
                 slideIndex = result
+                page.getViewById("continueButton").text = "Confirm appointment"
+                console.log(sourceForm)
             })
             break;
-        /*case 2:
+        case 2:   
+            
             slideTransition.goToNextSlide(args, slideIndex, source, slides).then(function (result) {
-                changeContinueButtontext(args, "")
                 slideIndex = result
+               
+                page.getViewById("continueButton").text = "Finish"
             })
-            break;*/
-        case 3:
-            //successx
             break;
+           //success here
         }
 }
 
-source.set("dropDownClicked", function (args){
+source.set("dropDownClicked", function (args) {
     const mainView = args.object;
     let context = mainView.optionContext.split(",")
     navigation.navigateToModal(context, mainView, 4, false).then(function (result) {
-       
+            args.object.text = result
+   
     })
 })
 
-function changeContinueButtontext(args, text) {
+async function makeContinueButtonAppear(args) {
     const page = args.object.page;
-    page.getViewById("continueButton").text = text
+    page.getViewById("continueButton").visibility = "visible"
+    await loadAnimation(page.getViewById("continueButton"), "fade in")
+}
+
+async function hideContinueButton(args) {
+    const page = args.object.page;
+    await loadAnimation(page.getViewById("continueButton"), "fade out")
+    page.getViewById("continueButton").visibility = "collapsedd"
 }
 
 
@@ -127,14 +140,15 @@ exports.onCalanderLoad = function (args) { setTimeout(function () { chooseDate.i
 
 source.set("onDateSelected", function (args) {
     chooseDate.dateSelected(args).then(function (result){
-        
+        hideContinueButton(args)
     })
 })
 
 source.set("onTimeSelected", function (args) {
-    const page = args.object.page
-    chooseDate.timeSelected(args).then(function (result){
-        page.getViewById("continueButton").text = "continue"
+    chooseDate.timeSelected(args).then((result) =>{
+        makeContinueButtonAppear(args)
+    }, (e) =>{
+        hideContinueButton(args)
     })
 })
 
@@ -144,6 +158,17 @@ function initialiseConsultationPage(args){
     consultation.initialise(args)
 }
 
+exports.templateSelector = (item, index, items) => {
+    return consultation.templateSelector(item, index, items)
+}
+
+exports.validateConsultationPage = (args) => {
+    consultation.validateConsultationPage(args).then((result) => {
+        makeContinueButtonAppear(args)
+    }, (e) => {
+        hideContinueButton(args)
+    })
+}
 
 source.set("uploadReferenceImage", function(args){
     consultation.uploadeReferenceImage(args)
@@ -174,26 +199,9 @@ exports.paymentMethodAction = (args)=>{
 function initConfirmationPage(args){
     console.log("controller: " + args.object.page)
     try {
-        confirmation.initialise(args)
+        
     } catch (error) {
         console.log(error)
     }
 }
 
-function closeModal(args) {
-    confirmation.closeModal(args)
-    if (application.android) { 
-        application.android.off(application.AndroidApplication.activityBackPressedEvent, closeModal); 
-        application.android.on(application.AndroidApplication.activityBackPressedEvent, backEvent); 
-    }
-}
-
-exports.pageClicked = (args) => {
-    confirmation.pageClicked(args).then((resolve, reject)=>{
-        if (application.android) { 
-            application.android.off(application.AndroidApplication.activityBackPressedEvent, closeModal);
-            application.android.on(application.AndroidApplication.activityBackPressedEvent, backEvent);
-         }
-    })
-    
-}

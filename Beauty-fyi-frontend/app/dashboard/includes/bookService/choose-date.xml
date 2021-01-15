@@ -4,14 +4,14 @@
             <includesCalander:book-service-calander/>
             <StackLayout padding="10" xmlns:lv="nativescript-ui-listview">
                 <Label class="line" width="90%" text="" textWrap="true" />
-                <Label id="onTimeSelectedText" text="" class="h4" textAlignment="center" textWrap="true" />
+                <Label id="onTimeSelectedText" text="" class="h4" textAlignment="center" paddingTop="15" textWrap="true" />
                 <StackLayout>
                     <lv:RadListView id="bookAppointmentAvaliableTimes" class="list-group" style="background-color: transparent" visibility="collapsed"> 
                     <lv:RadListView.listViewLayout>
-                        <lv:ListViewGridLayout  spanCount="3" />
+                        <lv:ListViewGridLayout  spanCount="2" />
                     </lv:RadListView.listViewLayout>
                     <lv:RadListView.itemTemplate >    
-                        <StackLayout tap="{{onTimeSelected}}" class="btn-light-grey-outline btn-rounded-sm" margin="5">
+                        <StackLayout tap="{{onTimeSelected}}" class="btn-light-grey-outline btn-rounded-sm" margin="5" backgroundColor="white">
                             <Label id="" selectedTime="false" text="{{time}}" class="h4 font-bold" textAlignment="center" textWrap="true" />
                         </StackLayout>
                     </lv:RadListView.itemTemplate>

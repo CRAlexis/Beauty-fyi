@@ -61,6 +61,21 @@ exports.goToMyBio = (args) => {
     }
 }
 
+exports.goToCardDetails = (args) => {
+    if (!active) {
+        if (application.android) { application.android.off(application.AndroidApplication.activityBackPressedEvent, backEvent); }
+        active = true
+        const mainView = args.object;
+        const context = ""
+        animation(args.object.getChildAt(1), "arrow swipe").then(function () {
+            navigation.navigateToModal(context, mainView, 25, true).then(function (result) {
+                if (application.android) { application.android.on(application.AndroidApplication.activityBackPressedEvent, backEvent); }
+                active = false
+            })
+        })
+    }
+}
+
 exports.setSchedule = function(args){
     if (!active){
         if (application.android) { application.android.off(application.AndroidApplication.activityBackPressedEvent, backEvent); }

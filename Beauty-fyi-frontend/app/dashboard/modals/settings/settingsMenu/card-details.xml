@@ -1,0 +1,19 @@
+<Page shownModally="onShownModally" loaded="loaded">
+    <GridLayout rows="auto, auto, *, auto" columns=""
+        xmlns:topBar="dashboard/includes/topBar"
+        xmlns:includes="dashboard/includes/schedule">
+        <topBar:menu-header row="0" header="Account details"/>
+        <!--<StackLayout row="1" paddingLeft="25" paddingRight="25" marginBottom="25" paddingTop="10">
+            <Label text="Manage your account details" class="h3" textWrap="true"/>
+            <Label text="Change the details of your account here." class="h5" textWrap="true"/>
+        </StackLayout>
+        <StackLayout row="2" margin="10" xmlns:stripe="@triniwiz/nativescript-stripe">
+            <TextField hint="Card Name" class="textFieldInput" width="98    %" />          
+            <stripe:CreditCardView id="card"/>
+        </StackLayout>
+        <StackLayout row="3">
+            <Button tap="save" text="Save" class="btn btn-white" />
+        </StackLayout>-->
+        <WebView row="1" loaded="onWebViewLoaded" id="myWebView" src="http://127.0.0.1:3334/addcard" />
+    </GridLayout>
+</Page>

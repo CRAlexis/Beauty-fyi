@@ -1,19 +1,20 @@
 'use strict'
 const Stripe = require('stripe');
-const stripe = Stripe('sk_test_51HsVnrJoko9usn1WUGAUwAmXQSRwBlphuawLN2EVYo9FrH2nFRYRpWEOufxDIJcT7uvoB21ytc1SDeL5wOz1MCoq00NhN9KPq0');
+const stripe = Stripe('pk_test_51HsVnrJoko9usn1WKaaJyUNyB5ItGl1PH2OueBSU9PZXKhuoSsHVVx1uaGlDEL2ENDxQYedzyN5BnC6v9iZaiQRJ00zFV7ISvs');
 
 class WebhookController {
 
   async webhook ({ request, session, response }) {
         // Match the raw body to content type application/json
       let event;
-     /* const eventID = request.input('id')
+      console.log("here")
+     const eventID = request.input('id')
 
     const event = await stripe.events.retrieve(eventID)
 
     console.log(event)
       console.log("Space");
-      */
+      
 
      /* try {
         event = JSON.parse(request.all());

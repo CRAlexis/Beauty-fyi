@@ -14,6 +14,11 @@
                         <Label row="0" col="3" text="&#xf054;" class="fas" fontSize="16" textWrap="true" />
                         <Label row="1" col="1" colSpan="4" text="" class="line" textWrap="true" />
                     </GridLayout>
+                    <GridLayout tap="goToCardDetails" rows="40, auto" columns="25, 5, *, auto, 25, 25" paddingTop="10">
+                        <Label row="0" col="2" text="Card Details" class="h5 font-bold" textWrap="true" />
+                        <Label row="0" col="3" text="&#xf054;" class="fas" fontSize="16" textWrap="true" />
+                        <Label row="1" col="1" colSpan="4" text="" class="line" textWrap="true" />
+                    </GridLayout>
                     <GridLayout tap="setSchedule" rows="40, auto" columns="25, 5, *, auto, 25, 25" paddingTop="20">
                         <Label row="0" col="2" text="Set Schedule Availability" class="h5 font-bold" textWrap="true" />
                         <Label row="0" col="3" text="&#xf054;" class="fas" fontSize="16" textWrap="true" />

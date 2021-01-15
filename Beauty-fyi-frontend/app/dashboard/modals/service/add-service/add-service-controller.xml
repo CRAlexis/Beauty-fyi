@@ -40,7 +40,7 @@
 
         </StackLayout>
         <StackLayout row="3">
-            <GridLayout rows="" columns="*, auto, auto, *">
+            <GridLayout rows="" columns="*, auto, auto, *" paddingTop="8">
                 <Label col="1" text="Continue" class="h4 font-bold" id="continueButton" tap="goToNextSlide" visibility="collapsed" opacity="0"/>
                 <!--<Label col="3" paddingTop="7.3" text="&#xf054;" class="fas" fontSize="15" textWrap="true" />-->
             </GridLayout>

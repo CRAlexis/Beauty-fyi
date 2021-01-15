@@ -21,6 +21,9 @@ Route.get('/', () => {
 })
 
 //Tests
+Route.get("addCard", "Payment/webViewController.addCard")
+Route.post("addCard", "Payment/webViewController.addCardAPI")
+Route.post("gotostore", "Payment/webViewController.goToStore")
 Route.post('test', 'Auth/RegisterController.test').as('test')
 Route.get('stripeTest', 'Payment/StripeController.test').as('stripeTest')
 

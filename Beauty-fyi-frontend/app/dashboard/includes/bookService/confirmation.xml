@@ -4,8 +4,8 @@
         xmlns:lv="nativescript-ui-listview">
         <StackLayout row="0" padding="20" id="pageContainer" tap="pageClicked">
 
-            <StackLayout paddingBottom="35">
-                <Label text="Payment" class="h3" textWrap="true" />
+            <StackLayout paddingBottom="25">
+                <Label text="Payment" class="h3" textWrap="true" marginBottom="10" />
                 <Label text="" class="line" width="100%" textWrap="true" marginBottom="10" />
                 <lv:RadListView id="recieptList" class="list-group" width="100%" style="background-color: transparent">
                     <lv:RadListView.listViewLayout>
@@ -20,22 +20,21 @@
                 </lv:RadListView>
                 <Label text="" class="line" width="100%" marginTop="10" textWrap="true" />
             </StackLayout>
-            <StackLayout paddingBottom="35">
-                <Label text="Payment Method" class="h4" textWrap="true" />
-                <lv:RadListView id="paymentMethodList" class="list-group" width="100%" style="background-color: transparent">
+            <StackLayout marginBottom="25">
+                <Label text="Reference images" class="h4" textWrap="true" marginBottom="10" />
+                <Label text="" class="line" width="100%" textWrap="true" marginBottom="10" />
+
+                <lv:RadListView id="confirmationImageListS" style="background-color: transp0arent">
                     <lv:RadListView.listViewLayout>
-                        <lv:ListViewLinearLayout scrollDirection="Vertical" itemInsertAnimation="fade"/>
+                        <lv:ListViewLinearLayout scrollDirection="Horizontal" />
                     </lv:RadListView.listViewLayout>
-                    <lv:RadListView.itemTemplate style="background-color: transparent">
-                        <GridLayout index="{{index}}" rows="auto, auto" columns="*, auto, 20" tap="paymentMethodAction">
-                            <Label row="0" colSpan="3" text="" class="line" width="100%" textWrap="true" />
-                            <Label row="1" col="0" text="{{text}}" class="font-bold h5" textWrap="true" paddingTop="15"/>
-                            <Label row="1" col="1" text="&#xf054;" class="fas" fontSize="20" textWrap="true" paddingBottom="8"/>
-                        </GridLayout>
+                    <lv:RadListView.itemTemplate >
+                        <Image id="{{ index }}" src="{{ image }}" height="{{height}}" decodeWidth="{{height}}" stretch="aspectFill" load="async" margin="2" />
                     </lv:RadListView.itemTemplate>
                 </lv:RadListView>
-                <Label text="" class="line" width="100%" textWrap="true" />
+                <Label text="" class="line" width="100%" marginTop="10" textWrap="true" />
             </StackLayout>
+
 
             <StackLayout orientation="horizontal" paddingBottom="10">
                 <Label text="&#xf3c5;" class="fas" fontSize="20" paddingRight="10" textWrap="true" />
@@ -43,7 +42,7 @@
             </StackLayout>
             <StackLayout orientation="horizontal" paddingBottom="15">
                 <Label text="&#xf017;" class="far" fontSize="20" paddingRight="5" textWrap="true" />
-                <Label text="19th September 2019 - 17:30" class="h5" textWrap="true" />
+                <Label id="confirmationTimeDisplayed" text="19th September 2019 - 17:30" class="h5" textWrap="true" />
             </StackLayout>
         </StackLayout>
     </ScrollView>
