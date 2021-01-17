@@ -4,14 +4,22 @@ const navigation = require("~/controllers/navigationController")
 let imageIndex = 0
 let serviceModalActive = false
 let pageObject;
-exports.openService = async (args) => {
+let addonArray = []
+let serviceID
+
+exports.openService = async (args, serviceIndex) => {
     return new Promise((resolve, reject)=>{
         pageObject = args.object.page
         if (!serviceModalActive) {
+            console.log("is the modal active: " + serviceModalActive)
             setTimeout(async function () {
                 const object = args.object;
                 const index = object.serviceIndex
                 const page = object.page
+                serviceID = serviceIndex
+                
+                let addonArray = []
+                //await populate(args)
                 serviceModalActive = true
                 await animation(page.getViewById("profilePageContainer"), "fade out", { opacity: 0.2 })
                 page.getViewById("serviceModal").visibility = 'visible';
@@ -21,6 +29,15 @@ exports.openService = async (args) => {
         }
     })
     
+}
+
+function populate(args){
+    return new Promise((resolve, reject)=>{
+
+        resolve() //continue as normal
+        reject() // this.closeServiceModal(args) && display message that we had an error getting the data
+    })
+    //addons - pictures - price - description - time
 }
 
 exports.closeServiceModal = (args) => {
@@ -58,13 +75,18 @@ exports.goToNextImage = async (args) => {
 
 exports.bookService = (args) => {
     const mainView = args.object;
-    const context = ""
+    const page = args.object.page
+    let parent = page.getViewById("addonContainer")
     animation(args.object, "expand section width", { width: "80%", duration: 250 }).then(function () {
-        navigation.navigateToModal(context, mainView, 24, true).then(function (result) {
-            
+        navigation.navigateToModal("", mainView, 24, true).then(function (result) {        
             active = false
-            console.log(result)
-            navigation.navigateToModal({userId: result}, mainView, 3, true).then((result)=>{
+            for (let index = 0; index < parent.getChildrenCount(); index++) {
+                if (parent.getChildAt(index).checked) {
+                    addonArray.push(parent.getChildAt(index).addonID)
+                }
+            }
+            let context = { userID: result, addons: addonArray, serviceID: serviceID }           
+            navigation.navigateToModal(context, mainView, 3, true).then((result)=>{
                 args.object.width = "50%"
             })
         })

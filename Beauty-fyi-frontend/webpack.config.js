@@ -59,6 +59,9 @@ module.exports = env => {
     const useLibs = compileSnapshot;
     const isAnySourceMapEnabled = !!sourceMap || !!hiddenSourceMap;
     const externals = nsWebpack.getConvertedExternals(env.externals);
+    externals.push('nativescript-sqlite-commercial');
+    externals.push('nativescript-sqlite-encrypted');
+    externals.push('nativescript-sqlite-sync');
     let appFullPath = resolve(projectRoot, appPath);
     if (!fs.existsSync(appFullPath)) {
       // some apps use 'app' directory

@@ -8,6 +8,7 @@
             <Button tap="save" text="Save" class="btn btn-white" /> 
         </StackLayout>
         <StackLayout id="loadIntoHere">
+            <Image id="image" src="" stretch="none" />
             
         </StackLayout>
     </GridLayout>

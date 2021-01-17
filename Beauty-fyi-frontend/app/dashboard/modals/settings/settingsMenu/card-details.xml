@@ -14,6 +14,6 @@
         <StackLayout row="3">
             <Button tap="save" text="Save" class="btn btn-white" />
         </StackLayout>-->
-        <WebView row="1" loaded="onWebViewLoaded" id="myWebView" src="http://127.0.0.1:3334/addcard" />
+        <WebView row="1" loaded="onWebViewLoaded" id="myWebView" src="addcard" />
     </GridLayout>
 </Page>

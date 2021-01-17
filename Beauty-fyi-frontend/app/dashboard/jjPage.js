@@ -53,7 +53,7 @@ exports.goToVideo = function(args){
 
         // file path and url
         var file =  results[0]['file'];
-        var url = "http://192.168.1.12:3333/test";
+        var url = "test";
         var name = file.substr(file.lastIndexOf("/") + 1);
 
         // upload configuration
@@ -106,7 +106,7 @@ exports.goToCamera = function(args){
 
         // file path and url
         var file =  results[0]['file'];
-        var url = "http://192.168.1.12:3333/test";
+        var url = "test";
         var name = file.substr(file.lastIndexOf("/") + 1);
 
         // upload configuration

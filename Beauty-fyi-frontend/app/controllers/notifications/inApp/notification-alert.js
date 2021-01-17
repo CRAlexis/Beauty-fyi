@@ -55,8 +55,6 @@ exports.httpRequestLoading = (title, message) => {
 }
 
 exports.httpRequestFinished = (title, message) => {
-    console.log("trying to display modal")
-    console.log("is active: " + active)
     return new Promise((resolve, reject) => {
         if (!active) {
             active = true;
@@ -69,7 +67,6 @@ exports.httpRequestFinished = (title, message) => {
                 message: message,
                 cancellable: true,
                 onDismiss: function () {
-                    console.log("dissmised ")
                     active = false;
                 }
             }
@@ -128,7 +125,11 @@ exports.areYouSure = function(title, message){
 }
 
 exports.dismissAlert = (alert) => {
-    console.log("dismiss alert...")
-    alert.dismiss(false)
-    active = false; 
+    try {
+        alert.dismiss(false)
+        active = false; 
+    } catch (error) {
+        active = false; 
+    }
+    
 }

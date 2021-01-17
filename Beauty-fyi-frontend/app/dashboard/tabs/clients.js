@@ -1,8 +1,11 @@
 const SocialShare = require("nativescript-social-share"); 
 const navigation = require("~/controllers/navigationController")
+
+
 var clients = [];
-exports.clientPageLoaded = (args) => {
+exports.clientPageLoaded = async (args) => {
     const page = args.object.page
+    console.log("client page loaded")
     clients.push(
         {
             clientImage: "~/images/temp.png",
@@ -18,6 +21,32 @@ exports.clientPageLoaded = (args) => {
     //format photos when uploading
     var listview = page.getViewById("clientList");
     listview.items = clients;
+}
+
+function addToDB(){
+    new Sqlite("my.db").then(async db => {
+        db.execSQL("INSERT INTO lists (list_name) VALUES (?)", "test text").then(id => {
+        console.log("insert---  id: " + id, "list_name " + "test text")
+        readFromDB(db)
+    }, error => {
+        console.log("INSERT ERROR", error);
+    });
+})
+}
+
+function readFromDB(db){
+    db.all("SELECT id, list_name FROM lists").then(rows => {
+        for (var row in rows) {
+            console.log("id: " + rows[row][0], "list_name: " + rows[row][1])
+        }
+    }, error => {
+        console.log("SELECT ERROR", error);
+    });
+}
+
+exports.onPullToRefreshInitiated = (args) => {
+    const listView = args.object;
+    listView.notifyPullToRefreshFinished();
 }
 
 source.set("toggleFilter", async function (args){

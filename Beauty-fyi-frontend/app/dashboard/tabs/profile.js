@@ -4,14 +4,15 @@ const slideTransition = require("~/controllers/slide-transitionController");
 const navigation = require("~/controllers/navigationController")
 const previewServiceModal = require("~/dashboard/modals/salonPage/previewService/preview-service-modal")
 const application = require('application');
+const { sendHTTP, sendHTTPFile, getHttpFile } = require("~/controllers/HTTPControllers/sendHTTP");
 source = new Observable();
 let currentlyNavigating = false;
 let serviceModalActive = false
 exports.profilePageLoaded = (args) => {
-    
+
     const page = args.object.page
     source.set("page", page)
-    
+
     setTimeout(function () {
         const height = (page.getMeasuredWidth() / 3)
         loadservices(args, height)
@@ -30,7 +31,9 @@ exports.loadProfessionalPage = (args) => {
 }
 
 exports.serviceTapped = (args) => {
-    previewServiceModal.openService(args).then((result) =>{
+    const object = args.object
+    const serviceIndex = object.serviceIndex
+    previewServiceModal.openService(args, serviceIndex).then((result) => {
         if (application.android) {
             application.android.on(application.AndroidApplication.activityBackPressedEvent, closeServiceModal);
         }
@@ -39,8 +42,7 @@ exports.serviceTapped = (args) => {
 }
 
 
-function closeServiceModal(args){
-    console.log("here")
+function closeServiceModal(args) {
     args.cancel = true;
     previewServiceModal.closeServiceModal(args).then((result) => {
         serviceModalActive = result
@@ -49,18 +51,18 @@ function closeServiceModal(args){
 
 
 exports.pageClicked = (args) => {
-    if (serviceModalActive){
-        previewServiceModal.closeServiceModal(args).then((result)=> {
+    if (serviceModalActive) {
+        previewServiceModal.closeServiceModal(args).then((result) => {
             if (application.android) {
                 application.android.off(application.AndroidApplication.activityBackPressedEvent, closeServiceModal);
             }
             serviceModalActive = result
         })
-    }   
+    }
 }
 
 exports.selectedIndexChangeInformation = async (args) => {
-    
+
     const page = args.object.page
     const selectedIndex = args.object.selectedIndex;
     const slides = [page.getViewById("myServicesId"), page.getViewById("aboutMeId")]
@@ -73,14 +75,14 @@ exports.selectedIndexChangeInformation = async (args) => {
             break;
         case 1:
             closeServiceModal(args)
-            if (!currentlyScrolled){
+            if (!currentlyScrolled) {
                 animation(page.getViewById("profileTopSection"), "expand section down", { height: '00px' }).then(function () {
                     animation(page.getViewById("profileTopSection"), "fade out")
                 })
                 slideTransition.goToCustomSlide(args, 0, 1, null, slides)
-            }else{
+            } else {
                 slideTransition.goToCustomSlide(args, 0, 1, null, slides)
-            }  
+            }
             break;
     }
 }
@@ -122,108 +124,80 @@ function loadBio(args) {
     //var listview = page.getViewById("openingHoursList");
     //listview.items = serviceListView;
 }
-
-function loadservices(args, height) {
+const serviceListView = [];
+async function loadservices(args, height, row = 1) {
     const page = args.object.page
-    const serviceListView = [];
-    serviceListView.push(
-        {
-            serviceIndex: 0,
-            serviceImage: '~/images/temp4.png',
-            serviceName: 'Braided Ponytail/Bun',
-            height: height + "px"
+    
+    let sendRequests = true
+    console.log("row number: " + row)
+    console.log("sending Request")
+    const httpParameters = {
+        url: 'addserviceget',
+        method: 'POST',
+        content: {
+            serviceID: 9,
+            row: row
         },
-        {
-            serviceIndex: 0,
-            serviceImage: '~/images/temp3.png',
-            serviceName: 'Crochet Box Braids',
-            height: height + "px"
-        },
-        {
-            serviceIndex: 1,
-            serviceImage: '~/images/temp7.png',
-            serviceName: 'Scalp Detox',
-            height: height + "px"
-        },
-        {
-            serviceIndex: 0,
-            serviceImage: '~/images/temp4.png',
-            serviceName: 'Braided Ponytail/Bun',
-            height: height + "px"
-        },
-        {
-            serviceIndex: 0,
-            serviceImage: '~/images/temp3.png',
-            serviceName: 'Crochet Box Braids',
-            height: height + "px"
-        },
-        {
-            serviceIndex: 1,
-            serviceImage: '~/images/temp7.png',
-            serviceName: 'Scalp Detox',
-            height: height + "px"
-        },
-        {
-            serviceIndex: 0,
-            serviceImage: '~/images/temp4.png',
-            serviceName: 'Braided Ponytail/Bun',
-            height: height + "px"
-        },
-        {
-            serviceIndex: 0,
-            serviceImage: '~/images/temp3.png',
-            serviceName: 'Crochet Box Braids',
-            height: height + "px"
-        },
-        {
-            serviceIndex: 1,
-            serviceImage: '~/images/temp7.png',
-            serviceName: 'Scalp Detox',
-            height: height + "px"
-        },
-        {
-            serviceIndex: 0,
-            serviceImage: '~/images/temp4.png',
-            serviceName: 'Braided Ponytail/Bun',
-            height: height + "px"
-        },
-        {
-            serviceIndex: 0,
-            serviceImage: '~/images/temp3.png',
-            serviceName: 'Crochet Box Braids',
-            height: height + "px"
-        },
-        {
-            serviceIndex: 1,
-            serviceImage: '~/images/temp7.png',
-            serviceName: 'Scalp Detox',
-            height: height + "px"
-        },
-        {
-            serviceIndex: 0,
-            serviceImage: '~/images/temp4.png',
-            serviceName: 'Braided Ponytail/Bun',
-            height: height + "px"
-        },
-        {
-            serviceIndex: 0,
-            serviceImage: '~/images/temp3.png',
-            serviceName: 'Crochet Box Braids',
-            height: height + "px"
-        },
-        {
-            serviceIndex: 1,
-            serviceImage: '~/images/temp7.png',
-            serviceName: 'Scalp Detox',
-            height: height + "px"
-        },
-    )
-        
-    var listview = page.getViewById("profileServicesList");
-    listview.items = serviceListView;
+    }
+    let serviceData;
+    
+    sendHTTP(httpParameters).then((result) => {
+        let processedImages = 0
+        sendRequests = result.JSON.continueRequests
+        serviceData = result.JSON.service
+        serviceData.forEach(async element => {   
+            let image = await getServiceImage(element.id)            
+            serviceListView.push({
+                serviceIndex: element.id,
+                serviceImage: image,
+                serviceName: element.name,
+                height: height + "px"
+            })
+            var listview = page.getViewById("profileServicesList");
+            listview.items = []
+            listview.items = serviceListView;
+            processedImages++
+            console.log("procossed " + processedImages + " out of " + serviceData.length)
+            if (processedImages == serviceData.length){
+                if (sendRequests) {
+                    console.log("Time to loop")
+                    row++
+                    console.log("next row will be: " + row)
+                    loadservices(args, height, row)
+                }
+            }
+        })
+    })
+    
 }
 
-function loadReviews(args){
+    //let numberOfimagesForService = 0
+    //element.image_one ? numberOfimagesForService++ : false
+    //element.image_two ? numberOfimagesForService++ : false
+    //element.image_three ? numberOfimagesForService++ : false
+    //element.image_four ? numberOfimagesForService++ : false
+    //element.image_five ? numberOfimagesForService++ : false
+    //element.image_six ? numberOfimagesForService++ : false
+
+
+
+function getServiceImage(id) {
+    return new Promise((resolve, reject) => {
+        const httpParametersImages = {
+            url: 'addservicegetImage',
+            method: 'POST',
+            content: { serviceID: id, index: 1 },
+        }
+        //console.log("Getting file")
+        getHttpFile(httpParametersImages, { display: true }, { display: true }, { display: true }).then((result) => {
+            resolve(result ? result._path : "defaultServiceImage.png")
+        }, (e) => {
+            console.log("e" + e)
+        })
+    })
+}
+
+function loadReviews(args) {
     const page = args.object.page
     const userReviews = [];
     userReviews.push(
@@ -261,25 +235,25 @@ let currentlyScrolled = false;
 let scrolledRecently = false;
 exports.onScrolled = async (args) => {
 
-    if (args.scrollOffset > 150 && currentlyScrolled == false){
+    if (args.scrollOffset > 150 && currentlyScrolled == false) {
         currentlyScrolled = true;
         scrolledRecently = true
         const page = args.object.page
         await animation(page.getViewById("profileTopSection"), "expand section down", { height: '0px' })
         await animation(page.getViewById("profileTopSection"), "fade out")
         page.getViewById("profileTopSection").visibility = 'collapsed'
-        setTimeout(function(){ scrolledRecently = false}, 1000)
+        setTimeout(function () { scrolledRecently = false }, 1000)
     }
 }
 
 exports.onScrollEnded = async (args) => {
     //closeServiceModal(args)
-    if (args.scrollOffset < 10 && currentlyScrolled == true && scrolledRecently == false){
+    if (args.scrollOffset < 10 && currentlyScrolled == true && scrolledRecently == false) {
         const page = args.object.page
-        await animation(page.getViewById("profileTopSection"), "expand section down", { height: '240'})
+        await animation(page.getViewById("profileTopSection"), "expand section down", { height: '240' })
         page.getViewById("profileTopSection").visibility = 'visible'
         await animation(page.getViewById("profileTopSection"), "fade in")
-        
+
         currentlyScrolled = false;
     }
 }
@@ -313,7 +287,7 @@ exports.goToMyBio = (args) => {
     }
 }
 
-exports.setSchedule =(args) =>{
+exports.setSchedule = (args) => {
     closeServiceModal(args)
     if (!currentlyNavigating) {
         currentlyNavigating = true
@@ -327,7 +301,7 @@ exports.setSchedule =(args) =>{
     }
 }
 
-exports.setSchedulingLimits =(args) =>{
+exports.setSchedulingLimits = (args) => {
     closeServiceModal(args)
     if (!currentlyNavigating) {
         currentlyNavigating = true

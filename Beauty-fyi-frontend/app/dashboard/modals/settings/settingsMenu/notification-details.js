@@ -38,7 +38,7 @@ exports.save = (args) => {
         marketing: source.get("marketing")
     })
     const httpParameters = {
-        url: 'http://192.168.1.12:3333/login',
+        url: 'login',
         method: 'POST',
         content: content,
     }

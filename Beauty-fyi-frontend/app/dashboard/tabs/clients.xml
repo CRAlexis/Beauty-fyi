@@ -3,7 +3,7 @@
         <StackLayout row="0">
         </StackLayout>
         <StackLayout row="1">
-            <lv:RadListView id="clientList" class="list-group" style="background-color: transparent" loadOnDemandModeX="Auto" loadMoreDataRequestedX="{{onLoadMoreItemsRequested}}"> 
+            <lv:RadListView id="clientList" class="list-group" style="background-color: transparent" pullToRefresh="true" pullToRefreshInitiated="onPullToRefreshInitiated"> 
                 <lv:RadListView.listViewLayout>
                     <lv:ListViewLinearLayout  spanCount="2" />
                 </lv:RadListView.listViewLayout>

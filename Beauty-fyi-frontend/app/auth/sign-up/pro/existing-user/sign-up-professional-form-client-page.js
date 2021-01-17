@@ -38,7 +38,7 @@ source.set("signUpTapped", async function (eventData) {
         plainKey: appSettings.getString("plainKey")
     })
     const httpParameters = {
-        url: 'http://192.168.1.12:3333/register',
+        url: 'register',
         method: 'POST',
         content: content,
     }

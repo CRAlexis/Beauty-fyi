@@ -80,7 +80,7 @@ exports.goToNextSlide = function goToNextSlideFunction(args){
 function goToNextSlideService(args){//This gona go up by one or something like that
     switch (slideIndex) {
         case 0: hideContinueButton(args)
-        case 1: hideContinueButton(args)
+        case 1: 
         case 2:      
         case 3: paddingTime.getPaddingData(args, sourceForm)
         case 4:
@@ -163,13 +163,13 @@ async function goToNextSlideEvent(args) {
     if (!transitioning) {
         transitioning = true;
         switch (slideIndex) {
-            case 0:
-            case 1:
+            case 0: hideContinueButton(args)
+            case 1: 
             case 2:
                 slideTransition.goToNextSlide(args, slideIndex, source, slides).then(function (result) {
                     slideIndex = result
                     transitioning = false
-                    hideContinueButton(args)
+                    
                 })
                 break
             case 3:
@@ -194,6 +194,7 @@ async function goToNextSlideEvent(args) {
 }
 
 function sendServiceData(args){
+    console.log("tryna send http file")
     return new Promise((resolve, reject) =>{
         let files = []
         sourceForm.get("serviceImages").forEach(element => {
@@ -203,8 +204,9 @@ function sendServiceData(args){
                 mimeType: "image/jpeg"
             })
         })
+        console.log(sourceForm.get("serviceImages"))
         const httpParametersPicture = {
-            url: "http://192.168.1.12:3333/addproduct",
+            url: "addservice",
             method: 'POST',
             description: "Creating new service",
             file: files,
@@ -223,7 +225,7 @@ function sendServiceData(args){
                 paymentType: sourceForm.get("servicePaymentSetting"),
             }
         }
-        sendHTTPFile(httpParametersPicture).then((result) => {
+        sendHTTPFile(httpParametersPicture, { display: false }, { display: true }, { display: true }).then((result) => {
             resolve()
         },(error)=>{
             reject()
@@ -260,7 +262,7 @@ function sendProductData(args){
             buyFourDeal: sourceFormProduct.get("buyFourDeal"),
         }
         const httpParameters = {
-            url: 'http://192.168.1.12:3333/addproduct',
+            url: 'addproduct',
             method: 'POST',
             description: "Creating new product",
             content: content,
@@ -307,7 +309,7 @@ function sendEventData(args){
             ticketType: sourceFormEvent.get("ticketType"),
         }
         const httpParameters = {
-            url: 'http://192.168.1.12:3333/bio',
+            url: 'bio',
             method: 'POST',
             description: "Creating new event",
             content: content,
@@ -605,7 +607,7 @@ exports.currencyFormattingFinished = function (args) {
 }
 
 exports.validateSecondPage = (args) => { 
-    if (slideIndex == 0){ // Something was causing this function to fire twice
+    if (slideIndex == 1){ // Something was causing this function to fire twice
         serviceNameJs.validateSecondPage(args, sourceForm).then(function (result) {
             makeContinueButtonAppear(args)
         })

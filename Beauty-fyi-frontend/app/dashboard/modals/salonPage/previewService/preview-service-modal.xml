@@ -1,4 +1,4 @@
-<StackLayout xmlns:Card="@nstudio/nativescript-cardview">
+<StackLayout xmlns:Card="@nstudio/nativescript-cardview" loaded="init">
 <Card:CardView  row="0" class="cardStyle" margin="5" elevation="10" radius="10" width="90%" height="90%">
     <GridLayout rows="*, auto" columns="">
         <ScrollView row="0">
@@ -32,12 +32,12 @@
                     </StackLayout>
                     <Label text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam cursus congue nisl, sed placerat orci fermentum imperdiet. Phasellus nunc quam, eleifend lobortis nisl et, vestibulum pulvinar purus. Vestibulum sem magna." class="h5" textWrap="true" paddingBottom="10" paddingTop="10"/>  
                 </StackLayout>
-                <StackLayout row="5" xmlns:CheckBox="@nstudio/nativescript-checkbox" paddingLeft="10" paddingRight="10">
-                    <CheckBox:CheckBox tap="addonTapped" addonId="{{ addonId[0] }}" text="2 Sed sit amet congue nisl + 10 minutes @ £15.00" fontSize="14" color="black" visibility="{{ addonVisibility[0] }}" checked="false"  paddingLeft="10" marginTop="-5"/>
-                    <CheckBox:CheckBox tap="addonTapped" addonId="{{ addonId[1] }}"  text="2 Sed sit amet + 10 minutes @ £15.00" fontSize="14" color="black" visibility="{{ addonVisibility[1] }}" checked="false" paddingLeft="10" marginTop="-5"/>
-                    <CheckBox:CheckBox tap="addonTapped" addonId="{{ addonId[2] }}" text="2 Sed sit amet + 10 minutes @ £15.00" fontSize="14" color="black" visibility="{{ addonVisibility[2] }}" checked="false"  paddingLeft="10" marginTop="-5"/>
-                    <CheckBox:CheckBox tap="addonTapped" addonId="{{ addonId[3] }}"  text="2 Sed sit amet + 10 minutes @ £15.00" fontSize="14" color="black" visibility="{{ addonVisibility[3] }}" checked="false"  paddingLeft="10" marginTop="-5"/>
-                    <CheckBox:CheckBox tap="addonTapped" addonId="{{ addonId[4] }}" text="2 Sed sit amet + 10 minutes @ £15.00" fontSize="14" color="black" visibility="{{ addonVisibility[4] }}" checked="false"  paddingLeft="10" marginTop="-5"/>
+                <StackLayout id="addonContainer" row="5" xmlns:CheckBox="@nstudio/nativescript-checkbox" paddingLeft="10" paddingRight="10">
+                    <CheckBox:CheckBox tap="addonTapped" addonID="1" text="2 Sed sit amet congue nisl + 10 minutes @ £15.00" fontSize="14" color="black" visibility="{{ addonVisibility[0] }}" checked="false"  paddingLeft="10" marginTop="-5"/>
+                    <CheckBox:CheckBox tap="addonTapped" addonID="2"  text="2 Sed sit amet + 10 minutes @ £15.00" fontSize="14" color="black" visibility="{{ addonVisibility[1] }}" checked="false" paddingLeft="10" marginTop="-5"/>
+                    <CheckBox:CheckBox tap="addonTapped" addonID="3" text="2 Sed sit amet + 10 minutes @ £15.00" fontSize="14" color="black" visibility="{{ addonVisibility[2] }}" checked="false"  paddingLeft="10" marginTop="-5"/>
+                    <CheckBox:CheckBox tap="addonTapped" addonID="4"  text="2 Sed sit amet + 10 minutes @ £15.00" fontSize="14" color="black" visibility="{{ addonVisibility[3] }}" checked="false"  paddingLeft="10" marginTop="-5"/>
+                    <CheckBox:CheckBox tap="addonTapped" addonID="5" text="2 Sed sit amet + 10 minutes @ £15.00" fontSize="14" color="black" visibility="{{ addonVisibility[4] }}" checked="false"  paddingLeft="10" marginTop="-5"/>
                 </StackLayout> 
 
             </GridLayout>

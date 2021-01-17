@@ -53,8 +53,8 @@
                                 <lv:ListViewGridLayout spanCount="3" scrollDirection="Vertical"/>
                             </lv:RadListView.listViewLayout>
                             <lv:RadListView.itemTemplate >
-                                <GridLayout rows="*, auto" columns="" tap="serviceTapped" margin="1" backgroundColor="black">
-                                    <Image rowSpan="2" col="0" id="{{ serviceIndex }}" src="{{ serviceImage }}" height="{{ height }}" decodeWidth="{{height}}" stretch="aspectFill" load="async" opacity="0.85"/>
+                                <GridLayout rows="*, auto" columns="" tap="serviceTapped" serviceIndex="{{ serviceIndex }}" margin="1" backgroundColor="black">
+                                    <Image rowSpan="2" col="0" serviceIndex="{{ serviceIndex }}" src="{{ serviceImage }}" height="{{ height }}" decodeWidth="{{height}}" stretch="aspectFill" load="async" opacity="0.85"/>
                                     <Label row="1" col="0" color="white" class="font-bold h5" text="{{ serviceName }}" textWrap="true" /> 
                                 </GridLayout>
                             </lv:RadListView.itemTemplate>

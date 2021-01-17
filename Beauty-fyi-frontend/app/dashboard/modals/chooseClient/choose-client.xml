@@ -42,14 +42,17 @@
                         </StackLayout>
                     </GridLayout>
                 </Card:CardView>
-                <StackLayout row="1" xmlns:mtf="nativescript-masked-text-field">
+                <StackLayout row="1" >
                     <GridLayout rows="" columns="*, auto, *" paddingBottom="20">
-                        <Label col="1" text="&#xf2bd;" class="fas" color="gray" fontSize="75" textWrap="true" />                   
+                        <Image tap="selectPhoto" id="clientImage" src="" col="1" height="75" width="75" borderRadius="37" stretch="aspectFill" visibility="collapsed" />
+                        
+                        <Label tap="selectPhoto" id="clientImageAvatar" col="1" text="&#xf2bd;" class="fas" color="gray" fontSize="75" textWrap="true" />                   
                     </GridLayout>
                     <TextField maxLength="60" id="firstName" hint="*First name" class="textFieldInputSmall" paddingBottom="10"/>
                     <TextField maxLength="60" id="lastName" hint="*Last name" class="textFieldInputSmall" paddingBottom="10" />
                     <TextField maxLength="60" id="emailAddress"  hint="*Email address" keyboardType="email" class="textFieldInputSmall" paddingBottom="10" />
                     <TextField maxLength="13" id="phoneNumber" hint="Phone number" keyboardType="number" class="textFieldInputSmall" paddingBottom="10" />
+                    <TextView maxLength="400" id="clientNotes" row="4" borderColor="#DEDEDE" borderWidth="1" hint="Client notes" class="textFieldInputSmall" returnKeyType="done" paddingBottom="10"></TextView>
                 </StackLayout>
             </StackLayout>
         </GridLayout>

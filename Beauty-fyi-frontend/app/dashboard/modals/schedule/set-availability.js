@@ -50,7 +50,7 @@ exports.loaded = (args) => {
 
     console.log("running")
     const httpParameters = {
-        url: 'http://192.168.1.12:3333/scheduleavailabilityday',
+        url: 'scheduleavailabilityday',
         method: 'GET',
         content: {},
     }
@@ -173,7 +173,7 @@ exports.checkBoxTapped = function(args){
                 },
             }
             const httpParameters = {
-                url: 'http://192.168.1.12:3333/scheduleavailabilityday',
+                url: 'scheduleavailabilityday',
                 method: 'POST',
                 content: content,
             }
@@ -329,7 +329,7 @@ exports.saveDayAvailabilitySettings = async (args) => {
     }
     }
     const httpParameters = {
-        url: 'http://192.168.1.12:3333/scheduleavailabilityday',
+        url: 'scheduleavailabilityday',
         method: 'POST',
         content: content,
     }

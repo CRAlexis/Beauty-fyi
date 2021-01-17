@@ -60,7 +60,7 @@ exports.save = (args) => {
         //name: page.getViewById("nameTextField").text
     })
     const httpParameters = {
-        url: 'http://192.168.1.12:3333/scheduleavailabilityday',
+        url: 'scheduleavailabilityday',
         method: 'GET',
         //content: content,
     }

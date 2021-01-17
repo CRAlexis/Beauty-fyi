@@ -54,7 +54,7 @@
 
 
 
-        <GridLayout id="serviceName" rows="auto, *, auto, 20" columns="">
+        <GridLayout id="serviceNameToCreate" rows="auto, *, auto, 20" columns="">
             <StackLayout row="0" paddingLeft="25" paddingRight="25" marginBottom="25">
                 <Label text="What would you like to create?" class="h3" textWrap="true"/>
                 <Label text="" class="h4" textWrap="true"/>

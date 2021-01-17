@@ -5,6 +5,7 @@ const slideTransition = require("~/controllers/slide-transitionController");
 const {sendHTTP} = require("~/controllers/HTTPControllers/sendHTTP");
 source = new Observable();
 let closeCallback;
+let image;
 
 exports.onShownModally = function (args) {
     const context = args.context;
@@ -24,40 +25,81 @@ exports.addNewClient = async (args) => {
     await slideTransition.goToCustomSlide(args, 0, 1, null, slides)
 }
 
+exports.selectPhoto = (args) => {
+    const mPicker = require("nativescript-mediafilepicker");
+    const mediafilepicker = new mPicker.Mediafilepicker();
+    const page = args.object.page
+
+    let options = {
+        android: {
+            isCaptureMood: false, // if true then camera will open directly.
+            isNeedCamera: true,
+            maxNumberFiles: 1,
+            isNeedFolderList: true
+        }, ios: {
+            isCaptureMood: false, // if true then camera will open directly.
+            isNeedCamera: true,
+            maxNumberFiles: 1
+        }
+    };
+
+    mediafilepicker.openImagePicker(options);
+    mediafilepicker.on("getFiles", function (res) {
+        let results = res.object.get('results');
+        image = results[0].file
+        console.log(results)
+        console.log(image)
+        page.getViewById("clientImage").src = image
+        page.getViewById("clientImage").visibility = "visible"
+        page.getViewById("clientImageAvatar").visibility = "collapsed"
+    })
+}
+
 exports.createClient = (args) => {
-    closeCallback(1)
+    
     const page = args.object.page
     
     const firstName = page.getViewById("firstName").text
     const lastName = page.getViewById("lastName").text
     const emailAddress = page.getViewById("emailAddress").text
     const phoneNumber = page.getViewById("phoneNumber").text // get data
+    const clientNotes = page.getViewById("clientNotes").text // get data
 
     if (!firstName.length > 3 && !lastName.length > 3 && !emailAddress.length > 6) { // validate data
         //say that information aint filled correctly
+        //reg ex on email
         return;
     }
 
-    //const content = JSON.stringify({
-    //    firstName: firstName,
-    //    lastName: lastName,
-    //    emailAddress: emailAddress,
-    //    phoneNumber: phoneNumber,
-    //})
-    //const httpParameters = {
-    //    url: 'http://192.168.1.12:3333/login',
-    //    method: 'POST',
-    //    content: content,
-    //}
-    //sendHTTP(httpParameters)
-    //    .then((response) => {
-    //        
-    //    }, (e) => {
-    //        
-    //    })
-    // send http request / create client
-    // true: closecallback -> then go to book service with client id
-    // false: unlucky son
+    return new Promise((resolve, reject) => {
+        let files = [
+            {
+                name: "photo[]",
+                filename: image,
+                mimeType: "image/jpeg"
+            }
+        ]
+        const httpParametersPicture = {
+            url: "addclient",
+            method: 'POST',
+            description: "Adding client",
+            file: files,
+            content: {
+                firstName: firstName,
+                lastName: lastName,
+                emailAddress: emailAddress,
+                phoneNumber: phoneNumber,
+                clientNotes: clientNotes,
+
+            }
+        }
+        sendHTTPFile(httpParametersPicture).then((result) => {
+            resolve()
+            //closeCallback(1) userID
+        }, (error) => {
+            reject()
+        })
+    })
     
 }
 

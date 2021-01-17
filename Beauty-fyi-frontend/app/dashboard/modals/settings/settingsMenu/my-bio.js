@@ -1,6 +1,6 @@
 const Observable = require("tns-core-modules/data/observable").Observable;
 const animation = require("~/controllers/animationController").loadAnimation;
-const {sendHTTP, sendHTTPFile} = require("~/controllers/HTTPControllers/sendHTTP");
+const { sendHTTP, sendHTTPFile, getHttpFile} = require("~/controllers/HTTPControllers/sendHTTP");
 const {Builder} = require("@nativescript/core/ui/builder")
 const application = require('application');
 let closeCallback;
@@ -16,19 +16,35 @@ exports.onShownModally = function (args) {
     //    name: "load-into-here"
     //});
     
-    const httpParameters = {
-        url: 'http://192.168.1.12:3333/bioget',
-        method: 'POST',
-        content: {},
-    }
-    
-    //sendHTTP(httpParameters, { display: false }, { display: true }, { display: true },)
-    //    .then((response) => {
-    //        //page.getViewById("myBio").text = response.JSON.bio
-    //        console.log(response)
+    //const httpParameters = {
+    //    url: 'addserviceget',
+    //    method: 'POST',
+    //    content: {},
+    //}
+    //
+    //getHttpFile(httpParameters, { display: true }, { display: true }, { display: true },)
+    //    .then((response) => {     
+    //        console.log(response) 
+    //        page.getViewById("image").src = response._path
+    //        
     //    }, (e) => {
-    //        console.log(e)
+    //            console.log("2 " + e)
+    //            page.getViewById("image").src = e._path
+    //        //console.log(e)
     //    })
+//
+    const httpParameters = {
+        url: 'addserviceget',
+        method: 'POST',
+        content: {serviceID: 9},
+    }
+
+    sendHTTP(httpParameters, { display: false }, { display: true }, { display: true },)
+        .then((response) => {
+            console.log(response)
+        }, (e) => {
+            console.log(e)
+        })
 }
 
 exports.loaded = (args) => {
@@ -75,7 +91,7 @@ exports.save = (args) =>{
         bio: page.getViewById("myBio")
     }
     const httpParameters = {
-        url: 'http://192.168.1.12:3333/bio',
+        url: 'bio',
         method: 'POST',
         content: content,
     }
@@ -115,7 +131,7 @@ function sendTestRequest(args){
         console.log(results)
         console.log("file:" +  results[0].file)
         const httpParametersPicture = {
-            url: "http://192.168.1.12:3333/test",
+            url: "test",
             method: 'POST',
             description: "Creating new service",
             file: {

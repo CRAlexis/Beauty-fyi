@@ -24,7 +24,7 @@
                 <Label text="Reference images" class="h4" textWrap="true" marginBottom="10" />
                 <Label text="" class="line" width="100%" textWrap="true" marginBottom="10" />
 
-                <lv:RadListView id="confirmationImageListS" style="background-color: transp0arent">
+                <lv:RadListView id="confirmationImageListS" style="background-color: transparent">
                     <lv:RadListView.listViewLayout>
                         <lv:ListViewLinearLayout scrollDirection="Horizontal" />
                     </lv:RadListView.listViewLayout>

@@ -1,5 +1,7 @@
 'use strict'
 
+const { route } = require('@adonisjs/framework/src/Route/Manager')
+
 /*
 |--------------------------------------------------------------------------
 | Routes
@@ -41,7 +43,10 @@ Route.post('schedulelimitget', 'Stylist/ScheduleLimitController.GetScheduleLimit
 
 //Services, Events and Products
 Route.post('addservice', 'Stylist/AddServiceController.AddService').as('addservice')
-Route.post('addserviceget', 'Stylist/AddServiceController.GetService')
+Route.post('addservicegetImage', 'Stylist/AddServiceController.GetServiceImage')
+Route.post('addservicegetmeta', 'Stylist/AddServiceController.getMeta')
+Route.post('addserviceget', 'Stylist/AddServiceController.getServiceData')
+
 Route.post('addevent', 'Stylist/AddEventController.AddEvent').as('addevent')
 Route.post('addeventget', 'Stylist/AddEventController.GetEvent')
 Route.post('addproduct', 'Stylist/AddProductController.AddProduct').as('addproduct')

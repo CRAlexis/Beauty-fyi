@@ -6,7 +6,7 @@
     </StackLayout>
     
     <StackLayout xmlns:lv="nativescript-ui-listview" xmlns:CheckBox="@nstudio/nativescript-checkbox">
-        <lv:RadListView id="stepsListView" class="list-group" style="background-color: transparent"> 
+        <lv:RadListView id="stepsListView" class="list-group" style="background-color: transparent" height="100%"> 
         <lv:RadListView.listViewLayout>
             <lv:ListViewGridLayout  spanCount="1" />
         </lv:RadListView.listViewLayout>

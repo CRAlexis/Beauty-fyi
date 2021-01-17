@@ -111,7 +111,7 @@ exports.saveSettings = (args) => {
         gapHours : parseInt(source.get("gapHours")) // set to just int
     }
     const httpParameters = {
-        url: 'http://192.168.1.12:3333/schedulelimit',
+        url: 'schedulelimit',
         method: 'POST',
         content: content,
     }

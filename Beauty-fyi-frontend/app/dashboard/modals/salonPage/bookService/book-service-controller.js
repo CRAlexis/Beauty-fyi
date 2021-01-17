@@ -4,6 +4,7 @@ const navigation = require("~/controllers/navigationController")
 const inAppNotifiationAlert = require("~/controllers/notifications/inApp/notification-alert.js")
 const slideTransition = require("~/controllers/slide-transitionController");
 const { loadAnimation } = require("~/controllers/animationController");
+const { sendHTTPFile } = require("~/controllers/HTTPControllers/sendHTTP");
 const source = new Observable();
 let sourceForm;
 let closeCallback;
@@ -11,16 +12,19 @@ let slideIndex;
 let slides = []
 let context;
 let chooseDate;
+let userID;
+let addonArray;
+let serviceID;
 
 exports.onShownModally = function (args) {
     context = args.context;
-    // Will need to get the clientId in here
-    console.log(context)
+    userID = context.userID
+    addonsArray = context.addons
+    serviceID = context.serviceID
     closeCallback = args.closeCallback;
     const page = args.object;
     page.bindingContext = source
     setTimeout(function () { source.set("width", (page.getMeasuredWidth() / 3)) }, 500)
-    formatContext(context)
     
 }
 
@@ -43,15 +47,6 @@ exports.loaded = function (args) { //third slide
     page.on('goBack', () => {
         backEvent(args)
     })
-}
-
-function formatContext(context){
-    // In here I need to request the length of the service - price and other details - addons etc
-    // I would need to cycle through the services in order - Might be best after payment to close the entire modal with context to re open it
-    console.log(context.servicesTapped)
-    console.log(context.addonsTapped)
-    // Here send a request to jj to get available times and information about the services picked
-    // Going back and multiple services
 }
 
 
@@ -94,19 +89,21 @@ async function goToNextSlide(args){
             await chooseDate.getData(args, sourceForm)
             await consultation.getData(args, sourceForm)
             confirmation.initialise(args, sourceForm)
+            console.log(sourceForm)
             slideTransition.goToNextSlide(args, slideIndex, source, slides).then(function (result) {
                 slideIndex = result
                 page.getViewById("continueButton").text = "Confirm appointment"
-                console.log(sourceForm)
             })
             break;
         case 2:   
-            
-            slideTransition.goToNextSlide(args, slideIndex, source, slides).then(function (result) {
-                slideIndex = result
-               
-                page.getViewById("continueButton").text = "Finish"
-            })
+            //sendHttp(args).then((result) => {
+            //    slideTransition.goToNextSlide(args, slideIndex, source, slides).then(function (result) {
+            //        slideIndex = result
+            //        page.getViewById("continueButton").text = "Finish"
+            //    })
+            //}, (e) => {
+            //        // Im not sure what to do here.
+            //})
             break;
            //success here
         }
@@ -133,6 +130,39 @@ async function hideContinueButton(args) {
     page.getViewById("continueButton").visibility = "collapsedd"
 }
 
+function sendHttp(args) {
+    return new Promise((resolve, reject)=>{
+        let files = []
+        sourceForm.get("images").forEach(element => {
+            files.push({
+                name: "photo[]",
+                filename: element,
+                mimeType: "image/jpeg"
+            })
+        })
+        const httpParametersPicture = {
+            url: "bookservice",
+            method: 'POST',
+            description: "Booking service",
+            file: files,
+            content: {
+                date: sourceForm.get("date"),
+                time: sourceForm.get("time"),
+                consultationAnswers: sourceForm.get("consultationAnswers"),
+                appointmentNotes: sourceForm.get("appointmentNotes"),
+                userID: userID,
+                addons: addonArray,
+                serviceID: serviceID,
+
+            }
+        }
+        sendHTTPFile(httpParametersPicture).then((result) => {
+            resolve()
+        }, (error) => {
+            reject()
+        })
+    })
+}
 
 
 /* ----------- Choose Date ---------------------------*/
@@ -181,7 +211,6 @@ source.set("uploadedImageTapped", function(args){
 /*---------------------Confirmation-------------------*/
 
 exports.openCardModal = (args) =>{
-    console.log("here")
     bookAppointmentSlideTransition.goToNextSlide(args, slideIndex, source).then(function (result) {
         slideIndex = result;
     })
@@ -196,12 +225,4 @@ exports.paymentMethodAction = (args)=>{
     }
 }
 
-function initConfirmationPage(args){
-    console.log("controller: " + args.object.page)
-    try {
-        
-    } catch (error) {
-        console.log(error)
-    }
-}
 

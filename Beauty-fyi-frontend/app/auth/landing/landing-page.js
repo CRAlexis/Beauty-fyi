@@ -28,7 +28,7 @@ async function getEnctrypedKey() {
     const content = { deviceID: deviceID }
 
     const httpParameters = {
-        url: 'http://192.168.1.12:3333/landing',
+        url: 'landing',
         method: 'POST',
         content: content,
     }
@@ -59,7 +59,7 @@ async function autoSignIn(args){
         
     }
     const httpParameters = {
-        url: 'http://192.168.1.12:3333/login',
+        url: 'login',
         method: 'POST',
         content: content,
     }
