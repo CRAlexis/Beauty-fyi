@@ -53,13 +53,13 @@ exports.signUpTapped = async (args) => {
             phoneNumber: source.get("phoneNumber"),
         }
         const httpParameters = {
-            url: 'http://192.168.1.208:3333/register',
+            url: 'register',
             method: 'POST',
             content: content,
         }
-        await sendHTTP(httpParameters, {display: true}, {display: true}, {display: true})
+        await sendHTTP(httpParameters, {display: false}, {display: true}, {display: true})
             .then(async (response) => {
-                //console.log(response.JSON.userID)
+                console.log(response.JSON.userID)
                 await secureStorage.set({ key: "email", value: source.get("password").trim() })
                 await secureStorage.set({ key: "password", value: source.get("password").trim() })
                 await secureStorage.set({ key: "userID", value: response.JSON.userID.toString() })
@@ -96,23 +96,52 @@ exports.lastNameInput = (args) => {
 
 exports.emailInput = (args) => {
     setTimeout(() => {
+        const httpParameters = {
+            url: 'isemailavailable',
+            method: 'POST',
+            content: { email: source.get("email") },
+        }
         var regExCheck = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;;
         if (source.get("email").length == 0) { source.set("emailValidation", [false, false]); return }
         if (!source.get("email").trim().match(regExCheck)) {
             source.set("emailValidation", [false, true])
         } else {
-            source.set("emailValidation", [true, true])
+            sendHTTP(httpParameters)
+                .then((response) => {
+                    if (response.JSON.emailAvailable) {
+                        source.set("emailValidation", [true, true])
+                    } else {
+                        source.set("emailValidation", [false, true])
+                    }
+                }, (e) => {
+                    source.set("emailValidation", [false, true])
+                })
+
         }
     }, 100)
 }
 
 exports.phoneNumberInput = (args) => {
+    const httpParameters = {
+        url: 'isphonenumberavailable',
+        method: 'POST',
+        content: { phoneNumber: source.get("phoneNumber") },
+    }
     setTimeout(() => {
         if (source.get("phoneNumber").length == 0) { source.set("phoneNumberValidation", [false, false]); return }
         if (source.get("phoneNumber").length < 9) {
             source.set("phoneNumberValidation", [false, true])
         } else {
-            source.set("phoneNumberValidation", [true, true])
+            sendHTTP(httpParameters)
+                .then((response) => {
+                    if (response.JSON.phoneNumberAvailable) {
+                        source.set("phoneNumberValidation", [true, true])
+                    } else {
+                        source.set("phoneNumberValidation", [false, true])
+                    }
+                }, (e) => {
+                    source.set("phoneNumberValidation", [false, true])
+                })
         }
     }, 100)
 }

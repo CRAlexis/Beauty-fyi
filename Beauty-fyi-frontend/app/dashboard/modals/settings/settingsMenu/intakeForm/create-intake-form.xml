@@ -7,17 +7,33 @@
             <StackLayout row="1">
                 <StackLayout paddingTop="35">
                     <StackLayout xmlns:lv="nativescript-ui-listview">
-                        <lv:RadListView id="addFormListView" class="list-group" style="background-color: transparent">
+                        <lv:RadListView id="addFormListView" class="list-group" style="background-color: transparent" itemTemplateSelector="templateSelector" itemReorder="true" reorderMode="HoldAndDrag" itemReordered="onItemReorderService">
                             <lv:RadListView.listViewLayout>
                                 <lv:ListViewGridLayout spanCount="1" />
                             </lv:RadListView.listViewLayout>
-                            <lv:RadListView.itemTemplate >
-                                <StackLayout marginBottom="25">
-                                    <TextField id="{{id}}" questionType="{{questionType}}" hint="What do you want to ask?" text="{{text}}" class="textFieldInputSmall" />
-                                    <TextView id="{{id2}}" questionType="{{questionType}}" hint="Seperate answers by comma (,)" text="{{textViewText}}" borderColor="#DEDEDE" borderWidth="1" class="textFieldInputSmall" visibility="{{ visibilityDropDown }}"></TextView>
-                                    <Label id="{{id}}" index="{{index}}" class="h5" paddingLeft="18" paddingTop="5" text="Remove question" tap="removeQuestion" textWrap="true" />
-                                </StackLayout>
-                            </lv:RadListView.itemTemplate>
+                            <lv:RadListView.itemTemplates>
+                                <template key="1">
+                                    <StackLayout>
+                                        <TextField id="{{id}}" index="{{index}}" questionType="{{questionType}}" hint="What do you want to ask?" text="{{question}}" class="textFieldInputSmall" />
+                                        <Label id="{{id}}" index="{{index}}" class="h5" paddingLeft="18" paddingTop="5" text="Remove question" tap="removeQuestion" textWrap="true" />
+                                    </StackLayout>
+                                </template>
+                                <template key="2">
+                                    <StackLayout>
+                                        <TextField id="{{id}}" index="{{index}}" questionType="{{questionType}}" hint="What do you want to ask?" text="{{question}}" class="textFieldInputSmall" />
+                                        <TextView id="{{id}}" index="{{index}}" questionType="{{questionType}}" hint="Seperate answers by comma (,). e.g 'Fine, Medium, Thick'" text="{{options}}" borderColor="#DEDEDE" borderWidth="1" class="textFieldInputSmall"></TextView>
+                                        <Label id="{{id}}" index="{{index}}" class="h5" paddingLeft="18" paddingTop="5" text="Remove question" tap="removeQuestion" textWrap="true" />
+
+                                    </StackLayout>
+                                </template>
+                                <template key="3">
+                                    <StackLayout>
+                                        <TextField id="{{id}}" index="{{index}}" questionType="{{questionType}}" hint="What do you want to ask?" text="{{question}}" class="textFieldInputSmall" />
+                                        <Label id="{{id}}" index="{{index}}" class="h5" paddingLeft="18" paddingTop="5" text="Remove question" tap="removeQuestion" textWrap="true" />
+
+                                    </StackLayout>
+                                </template>
+                            </lv:RadListView.itemTemplates>
                         </lv:RadListView>
                     </StackLayout>
                     <StackLayout>
@@ -29,17 +45,44 @@
                 <Button id="saveButton" text="Save" class="btn btn-white" tap="saveForm" />
             </StackLayout>
         </GridLayout>
-        <GridLayout row="0" rows="*, auto, *" columns="">
-            <StackLayout xmlns:Card="@nstudio/nativescript-cardview" id="saveAsModal" opacity="0"
-                xmlns:lv="nativescript-ui-listview" loaded="loaded" visibility="collapsed" row="1">
+        <GridLayout row="0" rows="*, auto, *" columns=""
+            xmlns:CheckBox="@nstudio/nativescript-checkbox">
+            <StackLayout xmlns:Card="@nstudio/nativescript-cardview"
+                xmlns:lv="nativescript-ui-listview" loaded="loaded" row="1" opacity="0" visibility="collapsed" id="saveAsModal" tap="pageBlocker">
                 <Card:CardView margin="5" elevation="10" radius="10" width="90%">
-                    <StackLayout padding="20">
-                        <Label text="Save form as" class="h4 font-bold" textAlignment="center" textWrap="true"  paddingBottom="10"/>
-                        <TextField hint="Form name" class="textFieldInputSmall" text="" /> 
-                        <Button text="Save" class="btn btn-black" width="60%" marginTop="20" tap="saveFormFinal" />
+                    <StackLayout>
+                        <StackLayout padding="20" id="saveSlide">
+                            <Label text="Save form as" class="h4 font-bold" textAlignment="center" textWrap="true" paddingBottom="10"/>
+                            <TextField hint="Form name" class="textFieldInputSmall" text="" />
+                            <Button text="Save" class="btn btn-black" width="60%" marginTop="20" tap="saveFormFinal" />
+                        </StackLayout>
+                        <StackLayout id="attatchToFormSlide" opacity="0" visibility="collapsed" padding="20">
+                            <Label text="Apply your new form to a service" class="h4 font-bold" textAlignment="center" paddingBottom="30" textWrap="true" />
+                            <StackLayout>
+                                <ScrollView height="250">
+                                    <Repeater id="servicesList" items="{{serviceList}}">
+                                        <Repeater.itemTemplate>
+                                            <GridLayout serviceIndex="{{ serviceIndex }}" row="0" rows="auto, auto" columns="auto, *, auto, 10" marginTop="5">
+                                                <Label row="0" col="1" text="{{ serviceName }}" class="h4" textWrap="true" />
+                                                <CheckBox:CheckBox tap="selectThisService" row="0" col="2" checked="false" serviceIndex="{{ serviceIndex }}"/>
+                                                <Label text="" class="line" row="1" colSpan="3" width="100%" textWrap="true" marginTop="5" />
+                                            </GridLayout>
+                                        </Repeater.itemTemplate>
+                                    </Repeater>
+                                </ScrollView>
+                            </StackLayout>
+                            <StackLayout paddingTop="35">
+                                <Label id="skipLabel" tap="skipApplyToService" text="Skip" class="h5 font-bold" textWrap="true" textAlignment="right"/>
+                                <Button id="applyToServicesButton" text="Apply" class="btn btn-black" tap="applyToServices" width="90%" opacity="0" visibility="collapsed" />
+
+                            </StackLayout>
+
+
+                        </StackLayout>
                     </StackLayout>
+
                 </Card:CardView>
-             </StackLayout>
+            </StackLayout>
         </GridLayout>
     </GridLayout>
 </Page>

@@ -8,7 +8,7 @@ class BioSchema extends Schema {
     this.create('bios', (table) => {
       table.increments()
       table.integer('user_id').unsigned().references('id').inTable('users')
-      table.string('bio', 300)
+      table.string('bio', 500)
       table.timestamps()
     })
   }

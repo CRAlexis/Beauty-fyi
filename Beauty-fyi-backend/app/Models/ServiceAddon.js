@@ -9,8 +9,8 @@ class ServiceAddon extends Model {
     return this.hasOne('App/Models/User')
   }
 
-  AddService () {
-    return this.hasOne('App/Models/AddService')
+  Service () {
+    return this.hasOne('App/Models/Service')
   }
 
 }

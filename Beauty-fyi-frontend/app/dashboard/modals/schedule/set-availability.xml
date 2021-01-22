@@ -14,7 +14,7 @@
                             <Label text="Monday" class="h4 font-bold" paddingLeft="10" paddingRight="10" textWrap="true" />
                             <Label text="{{mondayStartTime + ' to ' +  mondayEndTime}}"  class="h5" paddingTop="6"  color="gray" textWrap="true" />
                         </StackLayout>           
-                        <Switch checked="{{mondayActive}}" marginTop="0" col="1" tap="checkBoxTapped"/>
+                        <Switch color="#A6E6CE" checked="{{mondayActive}}" marginTop="0" col="1" tap="checkBoxTapped"/>
                     </GridLayout>              
                 </StackLayout>
                 <Label class="line" width="100%" marginBottom="10" marginTop="10" textWrap="true" />
@@ -40,13 +40,13 @@
  
 
             <StackLayout >
-                <StackLayout orientation="horizontal">
+                <StackLayout orientation="horizontal" day="tuesday">
                     <GridLayout columns="*, auto">
                         <StackLayout tap="dayTapped" orientation="horizontal" col="0">
                             <Label text="Tuesday" class="h4 font-bold" paddingLeft="10" paddingRight="10" textWrap="true" />
                             <Label  text="{{tuesdayStartTime + ' to ' +  tuesdayEndTime}}"  class="h5" paddingTop="6"  color="gray" textWrap="true" />
                         </StackLayout>                 
-                        <Switch checked="{{tuesdayActive}}" marginTop="0" col="1" tap="checkBoxTapped"/>
+                        <Switch color="#A6E6CE" checked="{{tuesdayActive}}" marginTop="0" col="1" tap="checkBoxTapped"/>
                     </GridLayout>
                 </StackLayout>
                 <Label class="line" width="100%" marginBottom="10" marginTop="10" textWrap="true" />
@@ -71,13 +71,13 @@
             </StackLayout>   
 
             <StackLayout>
-                <StackLayout orientation="horizontal">
+                <StackLayout orientation="horizontal" day="wednesday">
                     <GridLayout columns="*, auto">
                         <StackLayout tap="dayTapped" orientation="horizontal" col="0">
                             <Label text="Wednesday" class="h4 font-bold" paddingLeft="10" paddingRight="10" textWrap="true" />
                             <Label  text="{{wednesdayStartTime + ' to ' +  wednesdayEndTime}}"  class="h5" paddingTop="6"  color="gray" textWrap="true" />
                         </StackLayout>                 
-                        <Switch checked="{{wednesdayActive}}" marginTop="0" col="1" tap="checkBoxTapped"/>
+                        <Switch color="#A6E6CE" checked="{{wednesdayActive}}" marginTop="0" col="1" tap="checkBoxTapped"/>
                     </GridLayout>
                 </StackLayout>
                 <Label class="line" width="100%" marginBottom="10" marginTop="10" textWrap="true" />
@@ -102,13 +102,13 @@
             </StackLayout>   
 
             <StackLayout>
-                <StackLayout orientation="horizontal">
+                <StackLayout orientation="horizontal" day="thursday">
                     <GridLayout columns="*, auto">
                         <StackLayout tap="dayTapped" orientation="horizontal" col="0">
                             <Label text="Thursday" class="h4 font-bold" paddingLeft="10" paddingRight="10" textWrap="true" />
                             <Label text="{{thursdayStartTime + ' to ' +  thursdayEndTime}}"  class="h5" paddingTop="6"  color="gray" textWrap="true" />
                         </StackLayout>                 
-                        <Switch checked="{{thursdayActive}}" marginTop="0" col="1" tap="checkBoxTapped"/>
+                        <Switch color="#A6E6CE" checked="{{thursdayActive}}" marginTop="0" col="1" tap="checkBoxTapped"/>
                     </GridLayout>
                 </StackLayout>
                 <Label class="line" width="100%" marginBottom="10" marginTop="10" textWrap="true" />
@@ -133,13 +133,13 @@
             </StackLayout>   
 
             <StackLayout>
-                <StackLayout orientation="horizontal">
+                <StackLayout orientation="horizontal" day="friday">
                     <GridLayout columns="*, auto">
                         <StackLayout tap="dayTapped" orientation="horizontal" col="0">
                             <Label text="Friday" class="h4 font-bold" paddingLeft="10" paddingRight="10" textWrap="true" />
                             <Label  text="{{fridayStartTime + ' to ' +  fridayEndTime}}"  class="h5" paddingTop="6"  color="gray" textWrap="true" />
                         </StackLayout>                 
-                        <Switch checked="{{fridayActive}}" marginTop="0" col="1" tap="checkBoxTapped"/>
+                        <Switch color="#A6E6CE" checked="{{fridayActive}}" marginTop="0" col="1" tap="checkBoxTapped"/>
                     </GridLayout>
                 </StackLayout>
                 <Label class="line" width="100%" marginBottom="10" marginTop="10" textWrap="true" />
@@ -164,13 +164,13 @@
             </StackLayout>   
 
             <StackLayout>
-                <StackLayout orientation="horizontal">
+                <StackLayout orientation="horizontal" day="saturday">
                     <GridLayout columns="*, auto">
                         <StackLayout tap="dayTapped" orientation="horizontal" col="0">
                             <Label text="Saturday" class="h4 font-bold" paddingLeft="10" paddingRight="10" textWrap="true" />
                             <Label  text="{{saturdayStartTime + ' to ' +  saturdayEndTime}}"  class="h5" paddingTop="6"  color="gray" textWrap="true" />
                         </StackLayout>                 
-                        <Switch checked="{{saturdayActive}}" marginTop="0" col="1" tap="checkBoxTapped"/>
+                        <Switch color="#A6E6CE" checked="{{saturdayActive}}" marginTop="0" col="1" tap="checkBoxTapped"/>
                     </GridLayout>
                 </StackLayout>
                 <Label class="line" width="100%" marginBottom="10" marginTop="10" textWrap="true" />
@@ -195,13 +195,13 @@
             </StackLayout>   
 
             <StackLayout>
-                <StackLayout orientation="horizontal">
+                <StackLayout orientation="horizontal" day="sunday">
                     <GridLayout columns="*, auto">
                         <StackLayout tap="dayTapped" orientation="horizontal" col="0">
                             <Label text="Sunday" class="h4 font-bold" paddingLeft="10" paddingRight="10" textWrap="true" />
                             <Label  text="{{sundayStartTime + ' to ' +  sundayEndTime}}"  class="h5" paddingTop="6"  color="gray" textWrap="true" />
                         </StackLayout>                 
-                        <Switch checked="{{sundayActive}}" marginTop="0" col="1" tap="checkBoxTapped"/>
+                        <Switch color="#A6E6CE" checked="{{sundayActive}}" marginTop="0" col="1" tap="checkBoxTapped"/>
                     </GridLayout>
                 </StackLayout>
                 <Label class="line" width="100%" marginBottom="10" marginTop="10" textWrap="true" />

@@ -1,6 +1,8 @@
 const Observable = require("tns-core-modules/data/observable").Observable;
 const animation = require("~/controllers/animationController").loadAnimation
 const slideTransition = require("~/controllers/slide-transitionController");
+const { SecureStorage } = require("nativescript-secure-storage");
+var secureStorage = new SecureStorage();
 const navigation = require("~/controllers/navigationController")
 const previewServiceModal = require("~/dashboard/modals/salonPage/previewService/preview-service-modal")
 const application = require('application');
@@ -8,11 +10,11 @@ const { sendHTTP, sendHTTPFile, getHttpFile } = require("~/controllers/HTTPContr
 source = new Observable();
 let currentlyNavigating = false;
 let serviceModalActive = false
+let previewServiceContentArray = []
+const serviceListView = [];
 exports.profilePageLoaded = (args) => {
-
     const page = args.object.page
     source.set("page", page)
-
     setTimeout(function () {
         const height = (page.getMeasuredWidth() / 3)
         loadservices(args, height)
@@ -33,7 +35,7 @@ exports.loadProfessionalPage = (args) => {
 exports.serviceTapped = (args) => {
     const object = args.object
     const serviceIndex = object.serviceIndex
-    previewServiceModal.openService(args, serviceIndex).then((result) => {
+    previewServiceModal.openService(args, serviceIndex, previewServiceContentArray, source).then((result) => {
         if (application.android) {
             application.android.on(application.AndroidApplication.activityBackPressedEvent, closeServiceModal);
         }
@@ -75,6 +77,7 @@ exports.selectedIndexChangeInformation = async (args) => {
             break;
         case 1:
             closeServiceModal(args)
+            loadAboutMe(args)
             if (!currentlyScrolled) {
                 animation(page.getViewById("profileTopSection"), "expand section down", { height: '00px' }).then(function () {
                     animation(page.getViewById("profileTopSection"), "fade out")
@@ -87,66 +90,29 @@ exports.selectedIndexChangeInformation = async (args) => {
     }
 }
 
-function loadBio(args) {
-    const page = args.object.page
-    const hoursListView = [];
-    hoursListView.push(
-        {
-            day: 'Monday',
-            hours: 'CLOSED'
-        },
-        {
-            day: 'Tuesday',
-            hours: '10:00 - 17:30'
-        },
-        {
-            day: 'Wednesday',
-            hours: '10:00 - 16:30'
-        },
-        {
-            day: 'Thursday',
-            hours: '11:00 - 12:30'
-        },
-        {
-            day: 'Friday',
-            hours: '10:00 - 19:00'
-        },
-        {
-            day: 'Saturday',
-            hours: '12:00 - 17:30'
-        },
-        {
-            day: 'Sunday',
-            hours: 'CLOSED'
-        },
-    )
-    source.set("openingHoursList", hoursListView)
-    //var listview = page.getViewById("openingHoursList");
-    //listview.items = serviceListView;
-}
-const serviceListView = [];
 async function loadservices(args, height, row = 1) {
     const page = args.object.page
-    
+
     let sendRequests = true
     console.log("row number: " + row)
     console.log("sending Request")
     const httpParameters = {
-        url: 'addserviceget',
+        url: 'servicegetdata',
         method: 'POST',
         content: {
-            serviceID: 9,
+            userID: await secureStorage.get({ key: "userID" }),
             row: row
         },
     }
     let serviceData;
-    
+
     sendHTTP(httpParameters).then((result) => {
         let processedImages = 0
         sendRequests = result.JSON.continueRequests
         serviceData = result.JSON.service
-        serviceData.forEach(async element => {   
-            let image = await getServiceImage(element.id)            
+        serviceData.forEach(async element => {
+            previewServiceContentArray.push(element)
+            let image = await getServiceImage(element.id)
             serviceListView.push({
                 serviceIndex: element.id,
                 serviceImage: image,
@@ -157,45 +123,122 @@ async function loadservices(args, height, row = 1) {
             listview.items = []
             listview.items = serviceListView;
             processedImages++
-            console.log("procossed " + processedImages + " out of " + serviceData.length)
-            if (processedImages == serviceData.length){
+            //console.log("procossed " + processedImages + " out of " + serviceData.length)
+            if (processedImages == serviceData.length) {
                 if (sendRequests) {
-                    console.log("Time to loop")
+                    //console.log("Time to loop")
                     row++
-                    console.log("next row will be: " + row)
+                    //console.log("next row will be: " + row)
                     loadservices(args, height, row)
                 }
             }
         })
     })
-    
 }
-
-    //let numberOfimagesForService = 0
-    //element.image_one ? numberOfimagesForService++ : false
-    //element.image_two ? numberOfimagesForService++ : false
-    //element.image_three ? numberOfimagesForService++ : false
-    //element.image_four ? numberOfimagesForService++ : false
-    //element.image_five ? numberOfimagesForService++ : false
-    //element.image_six ? numberOfimagesForService++ : false
-
-
 
 function getServiceImage(id) {
     return new Promise((resolve, reject) => {
         const httpParametersImages = {
-            url: 'addservicegetImage',
+            url: 'servicegetimage',
             method: 'POST',
-            content: { serviceID: id, index: 1 },
+            content: { serviceID: id, index: 0 },
         }
-        //console.log("Getting file")
-        getHttpFile(httpParametersImages, { display: true }, { display: true }, { display: true }).then((result) => {
+        getHttpFile(httpParametersImages, { display: false }, { display: false }, { display: false }).then((result) => {
             resolve(result ? result._path : "defaultServiceImage.png")
         }, (e) => {
             console.log("e" + e)
         })
     })
 }
+
+function loadAboutMe(args) {
+    loadBio(args)
+    loadOpeningHours(args)
+    loadAdvancedBookings(args)
+}
+async function loadBio(args) {
+    const page = args.object.page
+    const httpParameters = {
+        url: 'bioget', method: 'POST', content: { userID: await secureStorage.get({ key: "userID" }) }
+    }
+    sendHTTP(httpParameters, { display: false }, { display: false }, { display: false })
+        .then((response) => {
+            if (response.JSON.status == "success") {
+                page.getViewById("profileBio").text = response.JSON.bio
+            } else {
+                page.getViewById("profileBio").text = "This stylist has no bio."
+            }
+        }, (e) => {
+            console.log(e)
+        })
+}
+
+async function loadOpeningHours(args) {
+    const page = args.object.page
+    const hoursListView = [];
+    const httpParameters = {
+        url: 'setavailabilityget', method: 'POST', content: { userID: await secureStorage.get({ key: "userID" }) }
+    }
+    sendHTTP(httpParameters, { display: false }, { display: false }, { display: false })
+        .then((response) => {
+            if (response.JSON.status == "success") {
+                response.JSON.schedule.forEach(element => {
+                    const day = element.day
+                        hoursListView.push(
+                            {
+                                day: capitalizeFirstLetter(day),
+                                hours: !!parseInt(element.active) ? element.start_time.slice(0, -3) + " - " + element.end_time.slice(0, -3)  : 'CLOSED'
+                            }
+                        )
+
+                })
+                source.set("openingHoursList", hoursListView)
+                page.getViewById("openingHoursList").refresh()
+            } else {
+                hoursListView.push(
+                    {
+                        day: '',
+                        hours: 'Unable to get scehdule for this stylist.'
+                    })
+                source.set("openingHoursList", hoursListView)
+                page.getViewById("openingHoursList").refresh()
+            }
+        }, (e) => {
+            hoursListView.push(
+                {
+                    day: '',
+                    hours: 'Unable to get scehdule for this stylist.'
+                })
+                source.set("openingHoursList", hoursListView)
+                page.getViewById("openingHoursList").refresh()
+        })
+}
+
+async function loadAdvancedBookings(args) {
+    const page = args.object.page
+    const httpParameters = {
+        url: 'schedulelimitget',
+        method: 'POST',
+        content: { userID: await secureStorage.get({ key: "userID" })},
+    }
+    sendHTTP(httpParameters, { display: false }, { display: false }, { display: false }).then((response) => {
+        if (response.JSON.status == "success") {
+            let data = response.JSON.scheduleLimits
+            page.getViewById("maximumDaysInAdvance").text = "I take bookings for the next " + data.maximumDaysInAdvance + " days"
+            let cancelRescheduleString = "I allow clients to ";
+            if (data.rescheduleAppointments){
+                cancelRescheduleString += "reschedule "
+                if (data.cancelAppointments) { cancelRescheduleString += "and cancel " }
+            }else{
+                if (data.cancelAppointments) { cancelRescheduleString += " cancel " }
+            }
+            cancelRescheduleString += "appointments " + data.maximumHoursForReschedule + " hours' in advance";
+            page.getViewById("cancelReschedule").text = cancelRescheduleString
+        } else { console.log("Unable to get schedule for this user") }
+    }, (e) => { console.log(e) })
+}
+
+
 
 function loadReviews(args) {
     const page = args.object.page
@@ -313,4 +356,8 @@ exports.setSchedulingLimits = (args) => {
             })
         })
     }
+}
+
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
 }

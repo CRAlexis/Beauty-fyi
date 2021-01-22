@@ -1,24 +1,62 @@
 <Page shownModally="onShownModally" loaded="loaded">
-    <GridLayout rows="auto, auto, *, auto" columns="" xmlns:topBar="dashboard/includes/topBar" xmlns:includes="dashboard/includes/schedule">
+    <GridLayout rows="auto, *, auto" columns=""
+        xmlns:topBar="dashboard/includes/topBar"
+        xmlns:includes="dashboard/includes/schedule">
         <topBar:menu-header row="0" header="Account details"/>
-        <StackLayout row="1" paddingLeft="25" paddingRight="25"  marginBottom="25"  paddingTop="10">
-            <Label  text="Manage your account details" class="h3"  textWrap="true"/>
-            <Label  text="Change the details of your account here." class="h5" textWrap="true"/>
-        </StackLayout>
-        <StackLayout row="2" paddingLeft="9" paddingRight="9">
-            <Label text="Name" color="gray" textWrap="true" paddingLeft="20" fontSize="14"/>
-            <TextField tap="changePageState" id="nameTextField" maxLength="60" id="" hint="" class="textFieldInputSmall" paddingBottom="10" blur="" returnPress=""/>
-            <Label editable="false" text="Email" color="gray" textWrap="true" paddingLeft="20" fontSize="14"/>
-            <TextField tap="changePageState" maxLength="60" id="" keyboardType="email" hint="" class="textFieldInputSmall" paddingBottom="10" blur="" returnPress=""/>
-            <Label text="Password" color="gray" textWrap="true" paddingLeft="20" fontSize="14"/>
-            <TextField tap="changePageState" maxLength="60" text="hgifdojgifdojgdfg" id="" secure="true" hint="" class="textFieldInputSmall" paddingBottom="10" blur="" returnPress="" editable="false"/>
-            <Label  text="Phone number" color="gray" textWrap="true" paddingLeft="20" fontSize="14"/>
-            <TextField tap="changePageState" editable="false" maxLength="60" id="" keyboardType="number" hint="" class="textFieldInputSmall" paddingBottom="10" blur="" returnPress=""/>
-            <Label text="Location" color="gray" textWrap="true" paddingLeft="20" fontSize="14"/>
-            <TextField tap="changePageState" editable="false" maxLength="255" id="" hint="" class="textFieldInputSmall" paddingBottom="10" blur="" returnPress=""/>
-        </StackLayout>
+        <ScrollView row="1">
+            <StackLayout marginBottom="25">
+                <StackLayout row="1" paddingLeft="25" paddingRight="25" marginBottom="25" paddingTop="10">
+                    <Label text="Manage your account details" class="h3" textWrap="true"/>
+                    <Label text="Change the details of your account here." class="h5" textWrap="true"/>
+                </StackLayout>
+                <StackLayout row="2" paddingLeft="9" paddingRight="9">
+                    <Label text="First name" color="gray" textWrap="true" paddingLeft="20" fontSize="14"/>
+                    <GridLayout rows="35, auto" columns="*, auto">
+                        <TextField col="0" class="textFieldInputSuperSmall" borderWidth="0" hint="" maxLength="26" marginTop="-8" text="{{ firstName }}" textChange="firstNameInput"></TextField>
+                        <Label col="1" text="{{ firstNameValidation[0] ? '&#xf00c;' : '&#xf068;' }}" visibility="{{ firstNameValidation[1] ? 'visible' : 'collapsed' }}" color="{{ firstNameValidation[0] ? 'green' : 'black' }}" class="fas" paddingTop="5" fontSize="19" textWrap="true" />
+                        <Label row="1" text="" class="fakeTextFieldline" width="91%" marginTop="-8" colSpan="2" textWrap="true" />
+                        
+                    </GridLayout>
+                    <Label text="Last name" color="gray" textWrap="true" paddingLeft="20" fontSize="14"/>
+                    <GridLayout rows="35, auto" columns="*, auto">
+                        <TextField col="0" class="textFieldInputSuperSmall" borderWidth="0" hint="" maxLength="26" marginTop="-8" text="{{ lastName }}" textChange="lastNameInput"></TextField>
+                        <Label col="1" text="{{ lastNameValidation[0] ? '&#xf00c;' : '&#xf068;' }}" visibility="{{ lastNameValidation[1] ? 'visible' : 'collapsed' }}" color="{{ lastNameValidation[0] ? 'green' : 'black' }}" class="fas" paddingTop="5" fontSize="19" textWrap="true" />
+                        <Label row="1" text="" class="fakeTextFieldline" width="91%" marginTop="-8" colSpan="2" textWrap="true" />
+                    </GridLayout>
+                    <Label text="Salon name" color="gray" textWrap="true" paddingLeft="20" fontSize="14"/>
+                    <GridLayout rows="35, auto" columns="*, auto">
+                        <TextField col="0" class="textFieldInputSuperSmall" borderWidth="0" hint="" maxLength="46" marginTop="-8" text="{{ salonName }}" textChange="salonNameInput"></TextField>
+                        <Label col="1" text="{{ salonNameValidation[0] ? '&#xf00c;' : '&#xf068;' }}" visibility="{{ salonNameValidation[1] ? 'visible' : 'collapsed' }}" color="{{ salonNameValidation[0] ? 'green' : 'black' }}" class="fas" paddingTop="5" fontSize="19" textWrap="true" />
+                        <Label row="1" text="" class="fakeTextFieldline" width="91%" marginTop="-8" colSpan="2" textWrap="true" />
+
+                    </GridLayout>
+                    <Label text="Email" color="gray" textWrap="true" paddingLeft="20" fontSize="14"/>
+                    <GridLayout rows="35, auto" columns="*, auto">
+                        <TextField col="0" class="textFieldInputSuperSmall" borderWidth="0" hint="" maxLength="64" marginTop="-8" text="{{ email }}" textChange="emailInput"></TextField>
+                        <Label col="1" text="{{ emailValidation[0] ? '&#xf00c;' : '&#xf068;' }}" visibility="{{ emailValidation[1] ? 'visible' : 'collapsed' }}" color="{{ emailValidation[0] ? 'green' : 'black' }}" class="fas" paddingTop="5" fontSize="19" textWrap="true" />
+                        <Label row="1" text="" class="fakeTextFieldline" width="91%" marginTop="-8" colSpan="2" textWrap="true" />
+
+                    </GridLayout>
+                    <Label text="Phone number" color="gray" textWrap="true" paddingLeft="20" fontSize="14"/>
+                    <GridLayout rows="35, auto" columns="*, auto">
+                        <TextField col="0" class="textFieldInputSuperSmall" borderWidth="0" hint="" keyboardType="number" marginTop="-8" text="{{ phoneNumber }}" maxLength="13" textChange="phoneNumberInput"/>
+                        <Label col="1" text="{{ phoneNumberValidation[0] ? '&#xf00c;' : '&#xf068;' }}" visibility="{{ phoneNumberValidation[1] ? 'visible' : 'collapsed' }}" color="{{ phoneNumberValidation[0] ? 'green' : 'black' }}" class="fas" paddingTop="5" fontSize="19" textWrap="true" />
+                        <Label row="1" text="" class="fakeTextFieldline" width="91%" marginTop="-8" colSpan="2" textWrap="true" />
+                    </GridLayout>
+                    <GridLayout tap="showSocials" rows="" columns="auto, auto" paddingTop="10" paddingLeft="18">
+                        <Label col="0" text="Socials" class="h5" color="gray" textWrap="true" paddingRight="10" />
+                        <Label col="1" text="&#xf0d7;" class="fas" fontSize="17" marginTop="1" />
+                        <Label col="1" text="&#xf0d8;" class="fas" fontSize="17" marginTop="1" visibility="collapsed" />
+                    </GridLayout>
+                    <StackLayout id="socialDetails" visibility="collapsed" marginTop="15">
+                        <Label text="Instgram" color="gray" textWrap="true" paddingLeft="20" fontSize="14"/>
+                        <TextField tap="changePageState" maxLength="255" id="instagramTextField" hint="@instagram" class="textFieldInputSuperSmall" marginBottom="10" marginTop="-8" blur="" returnPress=""/>
+                    </StackLayout>
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
         <StackLayout row="3">
-            <Button tap="save" text="Save" class="btn btn-white" /> 
+            <Button tap="save" text="Save" class="btn btn-white" />
         </StackLayout>
     </GridLayout>
 </Page>

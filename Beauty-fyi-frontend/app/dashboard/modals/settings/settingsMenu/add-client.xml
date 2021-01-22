@@ -1,0 +1,63 @@
+<Page shownModally="onShownModally" loaded="loaded"
+    xmlns:Card="@nstudio/nativescript-cardview">
+    <GridLayout row="0" rows="auto, auto" columns="" id="addClientSlide" height="100%">
+        <StackLayout xmlns:Card="@nstudio/nativescript-cardview" row="0">
+            <Card:CardView class="cardStyle" elevation="10" marginBottom="5" radius="0">
+                <GridLayout columns="40, *, auto, 20" paddingLeft="20" paddingRight="10" paddingBottom="10">
+                    <StackLayout tap="exit" col="0" orientation="horizontal" paddingTop="15">
+                        <Label text="&#xf00d;" class="fas" fontSize="19" textWrap="true" />
+                    </StackLayout>
+                    <StackLayout col="1">
+                        <Label id="title" text="Add client" textAlignment="center" class="h4 font-bold" color="black" paddingTop="15" />
+                    </StackLayout>
+                    <StackLayout tap="createClient" id="infoContainer" col="2" orientation="horizontal" paddingTop="15" paddingLeft="10" paddingRight="10">
+                        <Label text="&#xf00c;" class="fas" fontSize="19" textWrap="true" />
+                    </StackLayout>
+                </GridLayout>
+            </Card:CardView>
+        </StackLayout>
+            <StackLayout row="1" height="90%">
+                <ScrollView >
+                    <StackLayout marginBottom="35">
+                        <StackLayout>
+                            <GridLayout rows="" columns="*, auto, 20, *" paddingBottom="20">
+                                <Image tap="selectPhoto" id="clientImage" src="" col="1" height="75" width="75" borderRadius="37" stretch="aspectFill" visibility="collapsed" />
+                                <Label tap="selectPhoto" id="clientImageAvatar" col="1" text="&#xf2bd;" class="fas" color="gray" fontSize="75" textWrap="true" />
+                            </GridLayout>
+                            <GridLayout rows="" columns="*, auto, 20">
+                                <TextField col="0" class="textFieldInputSmall" hint="*First name" maxLength="16" text="{{ firstName }}" textChange="firstNameInput"></TextField>
+                                <Label col="1" text="{{ firstNameValidation[0] ? '&#xf00c;' : '&#xf068;' }}" visibility="{{ firstNameValidation[1] ? 'visible' : 'collapsed' }}" color="{{ firstNameValidation[0] ? 'green' : 'black' }}" class="fas" paddingTop="15" fontSize="19" textWrap="true" />
+                            </GridLayout>
+                            <GridLayout rows="" columns="*, auto, 20">
+                                <TextField col="0" class="textFieldInputSmall" hint="*Last name" maxLength="16" text="{{ lastName }}" textChange="lastNameInput"/>
+                                <Label col="1" text="{{ lastNameValidation[0] ? '&#xf00c;' : '&#xf068;' }}" visibility="{{ lastNameValidation[1] ? 'visible' : 'collapsed' }}" color="{{ lastNameValidation[0] ? 'green' : 'black' }}" backgroundColor="transparent" class="fas" paddingTop="15" fontSize="19" textWrap="true" />
+                            </GridLayout>
+                            <GridLayout rows="" columns="*, auto, 20">
+                                <TextField col="0" class="textFieldInputSmall" keyboardType="email" maxLength="64" autocorrect="false" autocapitalizationType="none" hint="*Email address" text="{{ email }}" textChange="emailInput"/>
+                                <Label col="1" text="{{ emailValidation[0] ? '&#xf00c;' : '&#xf068;' }}" visibility="{{ emailValidation[1] ? 'visible' : 'collapsed' }}" color="{{ emailValidation[0] ? 'green' : 'black' }}" class="fas" paddingTop="15" fontSize="19" textWrap="true" />
+                            </GridLayout>
+                            <GridLayout rows="" columns="*, auto, 20">
+                                <TextField col="0" class="textFieldInputSmall" hint="Phone number" keyboardType="number" text="{{ phoneNumber }}" maxLength="13" textChange="phoneNumberInput"/>
+                                <Label col="1" text="{{ phoneNumberValidation[0] ? '&#xf00c;' : '&#xf068;' }}" visibility="{{ phoneNumberValidation[1] ? 'visible' : 'collapsed' }}" color="{{ phoneNumberValidation[0] ? 'green' : 'black' }}" class="fas" paddingTop="15" fontSize="19" textWrap="true" />
+                            </GridLayout>
+                            <TextView maxLength="400" id="clientNotes" row="4" borderColor="#DEDEDE" borderWidth="1" hint="Client notes" class="textFieldInputSmall" returnKeyType="done" paddingBottom="10"></TextView>
+                            <GridLayout tap="showAddressDetails" rows="" columns="auto, auto" paddingTop="10" paddingLeft="18">
+                                <Label col="0" text="Address details" class="h5" color="gray" textWrap="true" paddingRight="10" />
+                                <Label col="1" text="&#xf0d7;" class="fas" fontSize="17" marginTop="1"  />
+                                <Label col="1" text="&#xf0d8;" class="fas" fontSize="17" marginTop="1" visibility="collapsed" />
+                            </GridLayout>
+                        </StackLayout>
+
+                        <StackLayout id="addressDetails" visibility="collapsed">
+                            <TextField maxLength="90" id="addressLineOne" hint="Address line 1 (or Company name)" class="textFieldInputSmall" paddingBottom="10"/>
+                            <TextField maxLength="90" id="addressLineTwo" hint="Address line 2" class="textFieldInputSmall" paddingBottom="10"/>
+                            <TextField maxLength="10" id="postCode" hint="Postcode" class="textFieldInputSmall" paddingBottom="10"/>
+                            <TextField maxLength="60" id="cityTown" hint="Town/City" class="textFieldInputSmall" paddingBottom="10"/>
+                        </StackLayout>
+                    </StackLayout>
+                </ScrollView>
+            </StackLayout>
+        
+    </GridLayout>
+</Page>
+

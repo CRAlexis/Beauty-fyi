@@ -31,52 +31,21 @@ class User extends Model {
    *
    * @return {Object}
    */
-  tokens () {
-    return this.hasMany('App/Models/Token')
-  }
-
-  encryptionKey () {
-    return this.hasMany('App/Models/Encryption')
-  }
-
-  userAttr () {
-    return this.hasMany('App/Models/UserAttr')
-  }
-
-  UserMedia () {
-    return this.hasMany('App/Models/UserMedia')
-  }
-
-  UserMessage () {
-    return this.hasMany('App/Models/UserMessage')
-  }
-
-
-  AddService () {
-    return this.hasMany('App/Models/AddService')
-  }
-  ServiceAddon () {
-    return this.hasMany('App/Models/ServiceAddon')
-  }
-  ServiceStep () {
-    return this.hasMany('App/Models/ServiceStep')
-  }
-
-  StylistAddForm () {
-    return this.hasMany('App/Models/StylistAddForm')
-  }
-
-  StylistForm () {
-    return this.hasMany('App/Models/StylistForm')
-  }
-
-  ScheduleLimit () {
-    return this.hasMany('App/Models/ScheduleLimit')
-  }
-
-  ScheduleAvailabilityDay () {
-    return this.hasMany('App/Models/ScheduleAvailabilityDay')
-  }
+  tokens () {return this.hasMany('App/Models/Token')}
+  encryptionKey () {return this.hasMany('App/Models/Encryption')}
+  UserAttr () {return this.hasMany('App/Models/UserAttr')}
+  UserMessage () {return this.hasMany('App/Models/UserMessage')}
+  Service () {return this.hasMany('App/Models/Service')}
+  ServiceAddon () {return this.hasMany('App/Models/ServiceAddon')}
+  ServiceStep () {return this.hasMany('App/Models/ServiceStep')}
+  ServiceForm () {return this.hasMany('App/Models/ServiceForm')}
+  ScheduleLimit () {return this.hasMany('App/Models/ScheduleLimit')}
+  ScheduleAvailabilityDay () {return this.hasMany('App/Models/ScheduleAvailabilityDay')}
+  Location() { return this.hasMany('App/Models/Locations') }
+  ClientMedia() { return this.hasMany('App/Models/ClientMedia') }
+  Client() {return this.belongsToMany('App/Models/UserClient')}
+  Appointment() {return this.belongsToMany('App/Models/Appointment')}
+ervi
 
 }
 

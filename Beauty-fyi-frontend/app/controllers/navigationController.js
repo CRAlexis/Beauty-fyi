@@ -124,6 +124,9 @@ exports.navigateToModal = function (context, page, index, fullScreen){ // For mo
             case 25:
                 destination = "~/dashboard/modals/settings/settingsMenu/card-details"
                 break;
+            case 26:
+                destination = "~/dashboard/modals/settings/settingsMenu/add-client"
+                break;
         }
         
         const option = {

@@ -18,25 +18,30 @@
             <label class="font-regular h4" text="Create an account to run your beauty business." textWrap="true"/>
         </StackLayout>
         <StackLayout row="3">
-            <GridLayout rows="" columns="20, *, auto, 20">
-                <TextField col="1" class="textFieldInput" hint="First name*" maxLength="16" text="{{ firstName }}" width="90%" style="" isEnabled="{{ !processingHTTPRequest }}" textChange="firstNameInput"></TextField>
-                <Label col="2" text="{{ firstNameValidation[0] ? '&#xf00c;' : '&#xf068;' }}" visibility="{{ firstNameValidation[1] ? 'visible' : 'collapsed' }}" color="{{ firstNameValidation[0] ? 'green' : 'black' }}" class="fas" paddingTop="15" fontSize="19" textWrap="true" />
+            <GridLayout rows="55, auto" columns="20, *, auto, 20">
+                <TextField col="1" class="textFieldInput" hint="*First name" borderWidth="0" maxLength="26" text="{{ firstName }}" width="90%" style="" isEnabled="{{ !processingHTTPRequest }}" textChange="firstNameInput"></TextField>
+                <Label col="2" text="{{ firstNameValidation[0] ? '&#xf00c;' : '&#xf068;' }}" visibility="{{ firstNameValidation[1] ? 'visible' : 'collapsed' }}" color="{{ firstNameValidation[0] ? 'green' : 'black' }}" class="fas" paddingTop="20" fontSize="19" textWrap="true" />
+                <Label row="1" colSpan="2" col="1" text="" class="fakeTextFieldline" width="91%" marginTop="-8" colSpan="2" textWrap="true" />
             </GridLayout>
-            <GridLayout rows="" columns="20, *, auto, 20">
-                <TextField col="1" class="textFieldInput" hint="Last name*" maxLength="16" text="{{ lastName }}" width="90%" textChange="lastNameInput"/>
-                <Label col="2" text="{{ lastNameValidation[0] ? '&#xf00c;' : '&#xf068;' }}" visibility="{{ lastNameValidation[1] ? 'visible' : 'collapsed' }}" color="{{ lastNameValidation[0] ? 'green' : 'black' }}" backgroundColor="transparent" class="fas" paddingTop="15" fontSize="19" textWrap="true" />
+            <GridLayout rows="55, auto" columns="20, *, auto, 20">
+                <TextField col="1" class="textFieldInput" hint="*Last name" borderWidth="0" maxLength="26" text="{{ lastName }}" width="90%" textChange="lastNameInput"/>
+                <Label col="2" text="{{ lastNameValidation[0] ? '&#xf00c;' : '&#xf068;' }}" visibility="{{ lastNameValidation[1] ? 'visible' : 'collapsed' }}" color="{{ lastNameValidation[0] ? 'green' : 'black' }}" backgroundColor="transparent" class="fas" paddingTop="20" fontSize="19" textWrap="true" />
+                <Label row="1" colSpan="2" col="1" text="" class="fakeTextFieldline" width="91%" marginTop="-8" colSpan="2" textWrap="true" />
             </GridLayout>
-            <GridLayout rows="" columns="20, *, auto, 20">
-                <TextField col="1" class="textFieldInput" keyboardType="email" maxLength="64" autocorrect="false" autocapitalizationType="none" hint="Email address*" text="{{ email }}" width="90%" textChange="emailInput"/>
-                <Label col="2" text="{{ emailValidation[0] ? '&#xf00c;' : '&#xf068;' }}" visibility="{{ emailValidation[1] ? 'visible' : 'collapsed' }}" color="{{ emailValidation[0] ? 'green' : 'black' }}" class="fas" paddingTop="15" fontSize="19" textWrap="true" />
+            <GridLayout rows="55, auto" columns="20, *, auto, 20">
+                <TextField col="1" class="textFieldInput" keyboardType="email" borderWidth="0" maxLength="64" autocorrect="false" autocapitalizationType="none" hint="*Email address" text="{{ email }}" width="90%" textChange="emailInput"/>
+                <Label col="2" text="{{ emailValidation[0] ? '&#xf00c;' : '&#xf068;' }}" visibility="{{ emailValidation[1] ? 'visible' : 'collapsed' }}" color="{{ emailValidation[0] ? 'green' : 'black' }}" class="fas" paddingTop="20" fontSize="19" textWrap="true" />
+                <Label row="1" colSpan="2" col="1" text="" class="fakeTextFieldline" width="91%" marginTop="-8" colSpan="2" textWrap="true" />
             </GridLayout>
-            <GridLayout rows="" columns="20, *, auto, 20">
-                <TextField col="1" class="textFieldInput" hint="Phone number" keyboardType="number" text="{{ phoneNumber }}" maxLength="13" textChange="phoneNumberInput" width="90%"/>
-                <Label col="2" text="{{ phoneNumberValidation[0] ? '&#xf00c;' : '&#xf068;' }}" visibility="{{ phoneNumberValidation[1] ? 'visible' : 'collapsed' }}" color="{{ phoneNumberValidation[0] ? 'green' : 'black' }}" class="fas" paddingTop="15" fontSize="19" textWrap="true" />
+            <GridLayout rows="55, auto" columns="20, *, auto, 20">
+                <TextField col="1" class="textFieldInput" hint="Phone number" borderWidth="0" keyboardType="number" text="{{ phoneNumber }}" maxLength="13" textChange="phoneNumberInput" width="90%"/>
+                <Label col="2" text="{{ phoneNumberValidation[0] ? '&#xf00c;' : '&#xf068;' }}" visibility="{{ phoneNumberValidation[1] ? 'visible' : 'collapsed' }}" color="{{ phoneNumberValidation[0] ? 'green' : 'black' }}" class="fas" paddingTop="20" fontSize="19" textWrap="true" />
+                <Label row="1" colSpan="2" col="1" text="" class="fakeTextFieldline" width="91%" marginTop="-8" colSpan="2" textWrap="true" />
             </GridLayout>
-            <GridLayout rows="" columns="20, *, auto, 20">
-                <TextField col="1" class="textFieldInput" hint="Password*" text="{{ password }}" secure="true" width="90%" textChange="passwordInput"/>
-                <Label col="2" text="{{ passwordValidation[0] ? '&#xf00c;' : '&#xf068;' }}" visibility="{{ passwordValidation[1] ? 'visible' : 'collapsed' }}" color="{{ passwordValidation[0] ? 'green' : 'black' }}" class="fas" paddingTop="15" fontSize="19" textWrap="true" />
+            <GridLayout rows="55, auto" columns="20, *, auto, 20">
+                <TextField col="1" class="textFieldInput" hint="*Password" borderWidth="0" text="{{ password }}" secure="true" width="90%" textChange="passwordInput"/>
+                <Label col="2" text="{{ passwordValidation[0] ? '&#xf00c;' : '&#xf068;' }}" visibility="{{ passwordValidation[1] ? 'visible' : 'collapsed' }}" color="{{ passwordValidation[0] ? 'green' : 'black' }}" class="fas" paddingTop="20" fontSize="19" textWrap="true" />
+                <Label row="1" colSpan="2" col="1" text="" class="fakeTextFieldline" width="91%" marginTop="-8" colSpan="2" textWrap="true" />
             </GridLayout>
         
 

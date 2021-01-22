@@ -8,7 +8,7 @@ class ServiceAddonsSchema extends Schema {
     this.create('service_addons', (table) => {
       table.increments()
       table.integer('user_id').unsigned().references('id').inTable('users')
-      table.integer('service_id').unsigned().references('id').inTable('add_services')
+      table.integer('service_id').unsigned().references('id').inTable('services')
       table.integer('index')
       table.string('name')
       table.integer('price')

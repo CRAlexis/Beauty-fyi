@@ -38,12 +38,7 @@ exports.loaded = function (args) { //third slide
     slideIndex = 0
     slides = [page.getViewById("chooseDateSlide"), page.getViewById("consultationSlide"), page.getViewById("confirmationSlide"), page.getViewById("successSlide") ]
     initialiseConsultationPage(args)
-    initConfirmationPage(args)
 
-    //listener to close modals in here
-    page.on('headerBarClicked', (args) => {
-        
-    })
     page.on('goBack', () => {
         backEvent(args)
     })
@@ -209,12 +204,6 @@ source.set("uploadedImageTapped", function(args){
 })
 
 /*---------------------Confirmation-------------------*/
-
-exports.openCardModal = (args) =>{
-    bookAppointmentSlideTransition.goToNextSlide(args, slideIndex, source).then(function (result) {
-        slideIndex = result;
-    })
-}
 
 /*--------------Payment--------------*/
 exports.paymentMethodAction = (args)=>{

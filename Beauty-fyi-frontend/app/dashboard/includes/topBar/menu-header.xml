@@ -1,5 +1,5 @@
 <StackLayout xmlns:Card="@nstudio/nativescript-cardview" loaded="load" tap="headerBarClicked">
-<Card:CardView row="0" class="cardStyle" elevation="10" marginBottom="10" radius="0" >
+<Card:CardView row="0" class="cardStyle" elevation="10" marginBottom="5" radius="0" >
     <GridLayout columns="40, *, auto" paddingLeft="20" paddingRight="10" paddingBottom="10">
         <StackLayout tap="goBack" col="0" orientation="horizontal"  paddingTop="15">
             <Label text="&#xf104;"  class="fas" fontSize="19"  textWrap="true" />

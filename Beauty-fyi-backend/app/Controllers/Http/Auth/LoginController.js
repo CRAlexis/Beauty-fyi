@@ -12,7 +12,6 @@ class LoginController {
   }
 
   async login ({ request, auth, session, response }) {
-    console.log("hey")
     try{
       //get form data
       var email = request.all().content.email.trim()

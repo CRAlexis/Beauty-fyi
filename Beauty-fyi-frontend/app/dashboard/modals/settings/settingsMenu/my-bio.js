@@ -1,7 +1,7 @@
 const Observable = require("tns-core-modules/data/observable").Observable;
 const animation = require("~/controllers/animationController").loadAnimation;
-const { sendHTTP, sendHTTPFile, getHttpFile} = require("~/controllers/HTTPControllers/sendHTTP");
-const {Builder} = require("@nativescript/core/ui/builder")
+const { sendHTTP, sendHTTPFile, getHttpFile } = require("~/controllers/HTTPControllers/sendHTTP");
+const { Builder } = require("@nativescript/core/ui/builder")
 const application = require('application');
 let closeCallback;
 let pageStateChanged;
@@ -15,33 +15,14 @@ exports.onShownModally = function (args) {
     //    path: "~/dashboard/modals/settings/settingsMenu",
     //    name: "load-into-here"
     //});
-    
-    //const httpParameters = {
-    //    url: 'addserviceget',
-    //    method: 'POST',
-    //    content: {},
-    //}
-    //
-    //getHttpFile(httpParameters, { display: true }, { display: true }, { display: true },)
-    //    .then((response) => {     
-    //        console.log(response) 
-    //        page.getViewById("image").src = response._path
-    //        
-    //    }, (e) => {
-    //            console.log("2 " + e)
-    //            page.getViewById("image").src = e._path
-    //        //console.log(e)
-    //    })
-//
-    const httpParameters = {
-        url: 'addserviceget',
-        method: 'POST',
-        content: {serviceID: 9},
-    }
-
-    sendHTTP(httpParameters, { display: false }, { display: true }, { display: true },)
+    const httpParameters = {url: 'bioget',method: 'POST', content: {},}
+    sendHTTP(httpParameters, { display: false }, { display: false }, { display: false })
         .then((response) => {
-            console.log(response)
+            if (response.JSON.status == "success") {
+                page.getViewById("myBio").text = response.JSON.bio
+            }else{
+                console.log("This user does not have a bio")
+            }
         }, (e) => {
             console.log(e)
         })
@@ -51,7 +32,7 @@ exports.loaded = (args) => {
     const page = args.object.page
     if (application.android) {
         application.android.on(application.AndroidApplication.activityBackPressedEvent, backEvent);
-    } 
+    }
     page.on('goBack', () => {
         backEvent(args)
     })
@@ -83,12 +64,13 @@ exports.changePageState = (args) => {
     pageStateChanged = true
 }
 
-exports.save = (args) =>{
+exports.save = (args) => {
     const object = args.object
-    const page = object.page;
-    object.text = "saving..."
+    const page = args.object.page;
+    object.text = "Saving..."
+
     const content = {
-        bio: page.getViewById("myBio")
+        bio: page.getViewById("myBio").text
     }
     const httpParameters = {
         url: 'bio',
@@ -98,15 +80,18 @@ exports.save = (args) =>{
     sendHTTP(httpParameters)
         .then((response) => {
             console.log(response)
-            object.text = "saved"
+            object.text = "Saved"
             pageStateChanged = false
         }, (e) => {
             console.log(e)
-            object.text = "error, try again"
+            object.text = "Error, try again"
+            setTimeout(()=>{
+                object.text = "save"
+            }, 3000)
         })
 }
 
-function sendTestRequest(args){
+function sendTestRequest(args) {
     const mPicker = require("nativescript-mediafilepicker");
     const mediafilepicker = new mPicker.Mediafilepicker();
     const page = args.object.page
@@ -129,7 +114,7 @@ function sendTestRequest(args){
     mediafilepicker.on("getFiles", function (res) {
         let results = res.object.get('results');
         console.log(results)
-        console.log("file:" +  results[0].file)
+        console.log("file:" + results[0].file)
         const httpParametersPicture = {
             url: "test",
             method: 'POST',
@@ -140,7 +125,7 @@ function sendTestRequest(args){
                 mimeType: "video/mp4"
             },
             file2: {
-            name: "video[]",
+                name: "video[]",
                 filename: results[1].file,
                 mimeType: "video/mp4"
             },
@@ -156,5 +141,5 @@ function sendTestRequest(args){
             reject()
         })
     })
-    
+
 }

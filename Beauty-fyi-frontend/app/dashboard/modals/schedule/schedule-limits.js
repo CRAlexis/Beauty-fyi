@@ -13,23 +13,34 @@ exports.onShownModally = function (args) {
     page.bindingContext = source
 }
 
-exports.loaded = function(args){
+exports.loaded = function (args) {
     const page = args.object.page
-    source.set("hoursBeforeStartTime", 12)
-    source.set("daysInAdvance", 60)
-    source.set("rescheduleAppointments", true)
-    source.set("cancelAppointments", true)
-    source.set("rescheduledHours", 12)
-    source.set("avoidGaps", true)
-    source.set("allowGaps", false)
-    source.set("gapHours", '3 hours')
-    pageStateChanged = false;
-    if (application.android) {
-        application.android.on(application.AndroidApplication.activityBackPressedEvent, backEvent);
+    const httpParameters = {
+        url: 'schedulelimitget',
+        method: 'POST',
+        content: {},
     }
-    page.on('goBack', () => {
-        backEvent(args)
-    })
+    sendHTTP(httpParameters, { display: false }, { display: false }, { display: false }).then((response) => {
+        if (response.JSON.status == "success") {
+            setDataOnPage(args, response.JSON.scheduleLimits)
+        } else { console.log("Unable to get schedule for this user") }
+    }, (e) => { console.log(e) })
+
+
+    pageStateChanged = false;
+    if (application.android) { application.android.on(application.AndroidApplication.activityBackPressedEvent, backEvent) }
+    page.on('goBack', () => { backEvent(args) })
+}
+
+function setDataOnPage(args, response) {
+    source.set("hoursBeforeStartTime", response.minimumHoursBeforeAppointment)
+    source.set("daysInAdvance", response.maximumDaysInAdvance)
+    source.set("rescheduleAppointments", !!parseInt(response.rescheduleAppointments))
+    source.set("cancelAppointments", !!parseInt(response.cancelAppointments))
+    source.set("rescheduledHours", response.maximumHoursForReschedule)
+    source.set("avoidGaps", !!parseInt(response.avoidGaps))
+    source.set("allowGaps", !!parseInt(response.allowGaps))
+    source.set("gapHours", response.gapHours)
 }
 
 source.set("dropDownClicked", function (args) {
@@ -41,20 +52,20 @@ source.set("dropDownClicked", function (args) {
             args.object.text = result
         })
     }
-    
+
 })
 
 exports.minimizeGaps = (args) => {
-    setTimeout(function(){
+    setTimeout(function () {
         const object = args.object
         const page = args.object.page
-        if (object.id == 'avoidGaps'){
-            if (object.checked){
+        if (object.id == 'avoidGaps') {
+            if (object.checked) {
                 source.set("allowGaps", false)
-            }else{
+            } else {
                 source.set("allowGaps", true)
             }
-        }else{
+        } else {
             if (object.checked) {
                 source.set("avoidGaps", false)
             } else {
@@ -62,7 +73,7 @@ exports.minimizeGaps = (args) => {
             }
         }
     }, 250)
-    
+
 }
 
 exports.pageStateChanged = (args) => {
@@ -99,29 +110,29 @@ function backEvent(args) { // This event is a bit funny
 exports.saveSettings = (args) => {
     console.log(1)
     const object = args.object
-    object.text="Saving..."
+    object.text = "Saving..."
     const content = {
         minimumHoursBeforeAppointment: source.get("hoursBeforeStartTime"),
-        maximumDaysInAdvance :source.get("daysInAdvance"),
-        rescheduleAppointments :source.get("rescheduleAppointments"),
-        cancelAppointments :source.get("cancelAppointments"),
-        maximumHoursForReschedule :source.get("rescheduledHours"),
-        avoidGaps :source.get("avoidGaps"),
-        allowGaps :source.get("allowGaps"),
-        gapHours : parseInt(source.get("gapHours")) // set to just int
+        maximumDaysInAdvance: source.get("daysInAdvance"),
+        rescheduleAppointments: source.get("rescheduleAppointments"),
+        cancelAppointments: source.get("cancelAppointments"),
+        maximumHoursForReschedule: source.get("rescheduledHours"),
+        avoidGaps: source.get("avoidGaps"),
+        allowGaps: source.get("allowGaps"),
+        gapHours: parseInt(source.get("gapHours")) // set to just int
     }
     const httpParameters = {
         url: 'schedulelimit',
         method: 'POST',
         content: content,
     }
-    sendHTTP(httpParameters, { display: true }, { display: true }, { display: true })
+    sendHTTP(httpParameters, { display: false }, { display: false }, { display: false })
         .then((response) => {
             object.text = "saved!"
             console.log(response)
             pageStateChanged = false
         }, (e) => {
             console.log(e)
-                object.text = "error, try again"
+            object.text = "error, try again"
         })
 }

@@ -11,15 +11,16 @@ exports.onNavigatingTo = (args) =>{
     const page = args.object;
     page.bindingContext = source;
 
-    secureStorage.get({
-        key: "plainKey"
-    }).then((value) => {
-        if(value){
-            autoSignIn(args)
-        }else{
+
+    //secureStorage.get({
+    //    key: "plainKey"
+    //}).then((value) => {
+    //    if(value){
+    //        autoSignIn(args)
+    //    }else{
             getEnctrypedKey()
-        }
-    })
+    //    }
+    //})
     
 }
 
@@ -32,7 +33,7 @@ async function getEnctrypedKey() {
         method: 'POST',
         content: content,
     }
-    await sendHTTP(httpParameters, { display: false }, { display: true }, { display: true })
+    await sendHTTP(httpParameters, { display: true }, { display: true }, { display: true })
         .then(async (response) => {
             console.log(response.JSON)
             await secureStorage.set({ key: "plainKey", value: response.JSON.plainKey })

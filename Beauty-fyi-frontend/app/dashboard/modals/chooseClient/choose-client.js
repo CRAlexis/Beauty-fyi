@@ -3,6 +3,7 @@ const Observable = require("tns-core-modules/data/observable").Observable;
 const navigation = require("~/controllers/navigationController")
 const slideTransition = require("~/controllers/slide-transitionController");
 const {sendHTTP} = require("~/controllers/HTTPControllers/sendHTTP");
+const application = require('application');
 source = new Observable();
 let closeCallback;
 let image;
@@ -12,7 +13,18 @@ exports.onShownModally = function (args) {
     closeCallback = args.closeCallback;
     const page = args.object;
     page.bindingContext = source
+    if (application.android) {
+        application.android.on(application.AndroidApplication.activityBackPressedEvent, backEvent);
+    }
     initChooseClientPage(args)
+}
+
+function backEvent(args) { // This event is a bit funny
+    args.cancel = true;
+    if (application.android) {
+        application.android.off(application.AndroidApplication.activityBackPressedEvent, backEvent);
+    }
+    closeCallback();
 }
 
 exports.selectClient = (args) => {
@@ -20,9 +32,15 @@ exports.selectClient = (args) => {
 }
 
 exports.addNewClient = async (args) => {
-    const page = args.object.page
-    let slides = [page.getViewById("chooseClientSlide"), page.getViewById("addClientSlide")]
-    await slideTransition.goToCustomSlide(args, 0, 1, null, slides)
+    const mainView = args.object;
+    const context = ""
+    navigation.navigateToModal(context, mainView, 26, true).then(function (result) {
+        if (application.android) {
+            application.android.off(application.AndroidApplication.activityBackPressedEvent, backEvent);
+        }
+        console.log("UserID in choose client: " + result)
+        closeCallback(result)
+    })
 }
 
 exports.selectPhoto = (args) => {

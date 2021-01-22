@@ -70,7 +70,7 @@
                                          <Label text="&#xf044;" marginTop="5" paddingLeft="10" color="black" class="fas" fontSize="12" textWrap="true" />
                                     </StackLayout>             
                                 </GridLayout>
-                                <Label text="The bio will go here, Just gona write some things so I can get a feel for how it may look...." class="h5" textWrap="true" />
+                                <Label id="profileBio" text="" class="h5" textWrap="true" />
                             </StackLayout>
                             <Label text="" class="line" row="1" textWrap="true" />
                             <StackLayout row="2">
@@ -80,7 +80,7 @@
                                          <Label text="&#xf044;" marginTop="5" paddingLeft="10" color="black" class="fas" fontSize="12" textWrap="true" />
                                     </StackLayout>   
                                 </GridLayout>
-                                <Repeater items="{{ openingHoursList }}">
+                                <Repeater id="openingHoursList" items="{{ openingHoursList }}">
                                     <Repeater.itemTemplate>
                                         <GridLayout rows="" columns="*, auto">
                                             <Label col="0" text="{{day}}" class="h5" textWrap="true" />
@@ -100,9 +100,9 @@
                                 </GridLayout>
                                 <StackLayout>
                                     <Label text="Advanced bookings" class="h5 font-bold" textWrap="true" />
-                                    <Label text="I take bookings for the next 7 days" class="h5" textWrap="true" />
+                                    <Label id="maximumDaysInAdvance" text="I take bookings for the next 7 days" class="h5" textWrap="true" />
                                     <Label text="Reschedule/Cancel" class="h5 font-bold" textWrap="true" />
-                                    <Label text="I allow clients to reschedule and cancel appointments 24 hours' in advance" class="h5" textWrap="true" />
+                                    <Label id="cancelReschedule" text="I allow clients to reschedule and cancel appointments 24 hours' in advance" class="h5" textWrap="true" />
                                 </StackLayout>
                             </StackLayout>
                             <Label text="" class="line" row="5" textWrap="true" />

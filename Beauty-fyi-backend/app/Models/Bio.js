@@ -4,6 +4,9 @@
 const Model = use('Model')
 
 class Bio extends Model {
+    User() {
+        return this.hasOne('App/Models/User')
+    }
 }
 
 module.exports = Bio

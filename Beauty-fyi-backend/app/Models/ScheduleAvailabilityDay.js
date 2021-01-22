@@ -9,6 +9,10 @@ class ScheduleAvailabilityDay extends Model {
     return this.hasOne('App/Models/User')
   }
 
+  Location() {
+    return this.hasOne('App/Models/Location')
+  }
+
 }
 
 module.exports = ScheduleAvailabilityDay

@@ -14,75 +14,77 @@ exports.onShownModally = function (args) {
     closeCallback = args.closeCallback;
     const page = args.object;
     page.bindingContext = source;
+    
+}
+
+function setDataOnPage(args, response){
+    response.forEach(element =>{
+        const day = element.day
+        switch (day) {
+            case "monday":
+                source.set("mondayStartTime", element.start_time.slice(0, -3))
+                source.set("mondayEndTime", element.end_time.slice(0, -3))
+                source.set("mondayActive", !!parseInt(element.active))
+                break;
+            case "tuesday":
+                source.set("tuesdayStartTime", element.start_time.slice(0, -3))
+                source.set("tuesdayEndTime", element.end_time.slice(0, -3))
+                source.set("tuesdayActive", !!parseInt(element.active))
+                break;
+            case "wednesday":
+                source.set("wednesdayStartTime", element.start_time.slice(0, -3))
+                source.set("wednesdayEndTime", element.end_time.slice(0, -3))
+                source.set("wednesdayActive", !!parseInt(element.active))
+                break;
+            case "thursday":
+                source.set("thursdayStartTime", element.start_time.slice(0, -3))
+                source.set("thursdayEndTime", element.end_time.slice(0, -3))
+                source.set("thursdayActive", !!parseInt(element.active))
+                break;
+            case "friday":
+                source.set("fridayStartTime", element.start_time.slice(0, -3))
+                source.set("fridayEndTime", element.end_time.slice(0, -3))
+                source.set("fridayActive", !!parseInt(element.active))
+                break;
+            case "saturday":
+                source.set("saturdayStartTime", element.start_time.slice(0, -3))
+                source.set("saturdayEndTime", element.end_time.slice(0, -3))
+                source.set("saturdayActive", !!parseInt(element.active))
+                break;
+            case "sunday":
+                source.set("sundayStartTime", element.start_time.slice(0, -3))
+                source.set("sundayEndTime", element.end_time.slice(0, -3))
+                source.set("sundayActive", !!parseInt(element.active))
+                break;
+        }
+    })
 }
 
 exports.loaded = (args) => {
     const page = args.object.page
-    if (application.android) {
-        application.android.on(application.AndroidApplication.activityBackPressedEvent, backEvent);
-    } 
-    page.on('goBack', () => {
-        backEvent(args)
-    })
-    pageStateChanged = false
-    // Call JJ to get the info
-    source.set("mondayStartTime", '09:00')
-    source.set("mondayEndTime", '15:00')
-    source.set("tuesdayStartTime", '09:00')
-    source.set("tuesdayEndTime", '15:00')
-    source.set("wednesdayStartTime", '09:00')
-    source.set("wednesdayEndTime", '15:00')
-    source.set("thursdayStartTime", '09:00')
-    source.set("thursdayEndTime", '15:00')
-    source.set("fridayStartTime", '09:00')
-    source.set("fridayEndTime", '15:00')
-    source.set("saturdayStartTime", '09:00')
-    source.set("saturdayEndTime", '15:00')
-    source.set("sundayStartTime", '09:00')
-    source.set("sundayEndTime", '15:00')
-    source.set("mondayActive", true)
-    source.set("tuesdayActive", true)
-    source.set("wednesdayActive", true)
-    source.set("thursdayActive", true)
-    source.set("fridayActive", true)
-    source.set("saturdayActive", false)
-    source.set("sundayActive", false)
-
-    console.log("running")
-    const httpParameters = {
-        url: 'scheduleavailabilityday',
-        method: 'GET',
-        content: {},
-    }
-    sendHTTP(httpParameters)
+    const httpParameters = { url: 'setavailabilityget', method: 'POST', content: {}, }
+    sendHTTP(httpParameters, { display: false }, { display: false }, { display: false })
         .then((response) => {
-            console.log(response)
+            if (response.JSON.status == "success") {
+                setDataOnPage(args, response.JSON.schedule)
+            } else {
+                console.log("Unable to get schedule for this user")
+            }
         }, (e) => {
-            console.log("error 1: " + e)
-            //animation(object, "expand section width", { width: '40%', duration: 500 })
-            //object.text = "error, try again"
+            console.log(e)
         })
+
+
+    if (application.android) {application.android.on(application.AndroidApplication.activityBackPressedEvent, backEvent);}
+    page.on('goBack', () => {backEvent(args)})
+    pageStateChanged = false
 }
 
 
 
 exports.goBack = (args) => {
-    
-    // Would send http request in here to update the information
-    const httpParameters = {
-        url: "url",
-        method: 'POST',
-        headers: { "Content-Type": "application/json" },
-        content: {}
-    }
-//    sendHTTP(httpParameters).then(function (result) {
-//        //This page needs work
-//
-//    }, (error) => {
-//
-//    })
-console.log("ran")
-        backEvent(args)
+
+    backEvent(args)
 }
 
 function backEvent(args) {
@@ -91,19 +93,19 @@ function backEvent(args) {
     if (pageStateChanged) {
         inAppNotifiationAlert.areYouSure("Are you sure?", "Some information may not be saved if you leave.").then(function (result) {
             console.log(result)
-            if (result) { 
+            if (result) {
                 if (application.android) {
                     application.android.off(application.AndroidApplication.activityBackPressedEvent, backEvent);
                 }
                 closeCallback();
-             }
+            }
         })
-    }else{
+    } else {
         closeCallback();
     }
 }
 
-exports.dayTapped = function(args){
+exports.dayTapped = function (args) {
     pageStateChanged = true;
     const object = args.object
     const parentContainer = object.parent.parent.parent;
@@ -113,13 +115,13 @@ exports.dayTapped = function(args){
 
     setTimeout(function () {
         if (checkBox.checked) {
-            if (visibilityContainer.height == 1){
+            if (visibilityContainer.height == 1) {
                 if (lastOpenedContainer) {
                     animation(lastOpenedContainer, "reduce section down", { height: 1 })
                 }
                 lastOpenedContainer = visibilityContainer
                 animation(visibilityContainer, "expand section down", { height: 270 })
-            }  else {
+            } else {
                 lastOpenedContainer = null
                 animation(visibilityContainer, "reduce section down", { height: 1 })
             }
@@ -128,21 +130,22 @@ exports.dayTapped = function(args){
 }
 
 let functionIsRunningcheckBoxTapped = false
-exports.checkBoxTapped = function(args){
+exports.checkBoxTapped = function (args) {
     const object = args.object
     const parentContainer = object.parent.parent.parent;
     const visibilityContainer = parentContainer.getChildAt(2)
     const adjacentText = parentContainer.getChildAt(0).getChildAt(0).getChildAt(0).getChildAt(1);
     //Close column if checkbox is no longer ticked
     //Show text if textbox is clicked
-    if (!functionIsRunningcheckBoxTapped){
-        console.log("tapped")
+    if (!functionIsRunningcheckBoxTapped) {
+
         functionIsRunningcheckBoxTapped = true
         setTimeout(function () {
+            args.object.isEnabled = false
             if (object.checked) {
                 adjacentText.visibility = 'visible'
 
-                
+
             } else {
                 adjacentText.visibility = 'collapsed'
                 if (visibilityContainer.visibility == 'visible') {
@@ -173,30 +176,30 @@ exports.checkBoxTapped = function(args){
                 },
             }
             const httpParameters = {
-                url: 'scheduleavailabilityday',
+                url: 'setavailabilityactive',
                 method: 'POST',
                 content: content,
             }
-           // sendHTTP(httpParameters, { display: true }, { display: true }, { display: true })
-           //     .then((response) => {
-           //         console.log(response)
-           //         object.text = "saved"
-           //     }, (e) => {
-           //         console.log(e)
-           //         animation(object, "expand section width", { width: '40%', duration: 500 })
-           //         object.text = "error, try again"
-           //     })
+            sendHTTP(httpParameters, { display: false }, { display: false }, { display: false })
+                .then((response) => {
+                    console.log(response)
+                    args.object.isEnabled = true
+                }, (e) => {
+                    args.object.isEnabled = true
+                    args.object.checked = !args.object.checked
+                })
+
             functionIsRunningcheckBoxTapped = false
-        }, 1500)    
+        }, 125)
     }
 }
 
-exports.applyThisToDay = function(args){
+exports.applyThisToDay = function (args) {
     const object = args.object;
-    if (object.active == 'false'){
-        object.color = "#9900ff"
+    if (object.active == 'false') {
+        object.color = "#A6E6CE"
         object.active = 'true'
-    }else{
+    } else {
         object.color = "black"
         object.active = 'false'
     }
@@ -206,7 +209,7 @@ exports.applyThisToDay = function(args){
 exports.saveDayAvailabilitySettings = async (args) => {
     const object = args.object
     const container = object.parent
-    if (object.text != "saving..."){}
+    if (object.text != "saving...") { }
     let days = {
         monday: {
             applyTo: false,
@@ -238,7 +241,7 @@ exports.saveDayAvailabilitySettings = async (args) => {
         },
     }
     let startTime, endTime;
-    switch (args.object.id) {
+    switch (object.parent.parent.parent.getChildAt(0).day) {
         case 'monday':
             days.monday.applyTo = true
             startTime = source.get("mondayStartTime")
@@ -275,9 +278,9 @@ exports.saveDayAvailabilitySettings = async (args) => {
             endTime = source.get("sundayEndTime")
             break;
     }
-    
+
     for (let index = 0; index < 7; index++) {
-        if (container.getChildAt(index).active == "true"){
+        if (container.getChildAt(index).active == "true") {
             console.log(index)
             switch (index) {
                 case 0:
@@ -299,18 +302,13 @@ exports.saveDayAvailabilitySettings = async (args) => {
                     days.saturday.applyTo = true
                     break;
                 case 6:
-                    console.log("trued")
-                    try {
-                        days.sunday.applyTo = true
-                    } catch (error) {
-                        console.log(error)
-                    }
-                    
+                    days.sunday.applyTo = true
+
                     break;
             }
         }
     }
-    animation(object, "expand section width", {width: '30%', duration: 500})
+    animation(object, "expand section width", { width: '30%', duration: 500 })
     object.text = "saving..."
     //send
     //button to saved
@@ -326,73 +324,70 @@ exports.saveDayAvailabilitySettings = async (args) => {
             friday: days.friday,
             saturday: days.saturday,
             sunday: days.sunday,
-    }
+        }
     }
     const httpParameters = {
-        url: 'scheduleavailabilityday',
+        url: 'setavailability',
         method: 'POST',
         content: content,
     }
 
 
-    //sendHTTP(httpParameters, { display: true }, { display: true }, { display: true })
-    //    .then((response) => {
-    //        console.log(response)
-    //        object.text = "saved"
-    //    }, (e) => {
-    //        console.log(e)
-    //            animation(object, "expand section width", { width: '40%', duration: 500 })
-    //            object.text = "error, try again"
-    //    })
+    sendHTTP(httpParameters, { display: true }, { display: true }, { display: true })
+        .then((response) => {
+            object.text = "saved"
+            for (let index = 0; index < 7; index++) {
+                if (container.getChildAt(index).active == "true") {
+                    switch (index) {
+                        case 0:
+                            if (days.monday.applyTo) {
+                                source.set("mondayStartTime", startTime)
+                                source.set("mondayEndTime", endTime)
+                            }
+                            break;
+                        case 1:
+                            if (days.tuesday.applyTo) {
+                                source.set("tuesdayStartTime", startTime)
+                                source.set("tuesdayEndTime", endTime)
 
-    for (let index = 0; index < 7; index++) {
-        if (container.getChildAt(index).active == "true") {
-            switch (index) {
-                case 0:
-                    if (days.monday.applyTo) {
-                        source.set("mondayStartTime", startTime)
-                        source.set("mondayEndTime", endTime)
+                            }
+                            break;
+                        case 2:
+                            if (days.wednesday.applyTo) {
+                                source.set("wednesdayStartTime", startTime)
+                                source.set("wednesdayEndTime", endTime)
+                            }
+                            break;
+                        case 3:
+                            if (days.thursday.applyTo) {
+                                source.set("thursdayStartTime", startTime)
+                                source.set("thursdayEndTime", endTime)
+                            }
+                            break;
+                        case 4:
+                            if (days.friday.applyTo) {
+                                source.set("fridayStartTime", startTime)
+                                source.set("fridayEndTime", endTime)
+                            }
+                            break;
+                        case 5:
+                            if (days.saturday.applyTo) {
+                                source.set("saturdayStartTime", startTime)
+                                source.set("saturdayEndTime", endTime)
+                            }
+                            break;
+                        case 6:
+                            if (days.sunday.applyTo) {
+                                source.set("sundayStartTime", startTime)
+                                source.set("sundayEndTime", endTime)
+                            }
+                            break;
                     }
-                    break;
-                case 1:
-                    if (days.tuesday.applyTo) {
-                        source.set("tuesdayStartTime", startTime)
-                        source.set("tuesdayEndTime", endTime)
-     
-                    }
-                    break;
-                case 2:
-                    if (days.wednesday.applyTo) {
-                        source.set("wednesdayStartTime", startTime)
-                        source.set("wednesdayEndTime", endTime)
-                    }
-                    break;
-                case 3:
-                    if (days.thursday.applyTo) {
-                        source.set("wednesdayEndTime", endTime)
-                        source.set("thursdayStartTime", startTime)
-                        source.set("thursdayEndTime", endTime)
-                    }
-                    break;
-                case 4:
-                    if (days.friday.applyTo) {
-                        source.set("fridayStartTime", startTime)
-                        source.set("fridayEndTime", endTime)
-                    }
-                    break;
-                case 5:
-                    if (days.saturday.applyTo) {
-                        source.set("saturdayStartTime", startTime)
-                        source.set("saturdayEndTime", endTime)
-                    }
-                    break;
-                case 6:
-                    if (days.sunday.applyTo) {
-                        source.set("sundayStartTime", startTime)
-                        source.set("sundayEndTime", endTime)
-                    }
-                    break;
+                }
             }
-        }
-    }
+        }, (e) => {
+            console.log(e)
+            animation(object, "expand section width", { width: '40%', duration: 500 })
+            object.text = "error, try again"
+        })    
 }

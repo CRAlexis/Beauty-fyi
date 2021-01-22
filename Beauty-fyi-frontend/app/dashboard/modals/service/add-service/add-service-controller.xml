@@ -1,7 +1,7 @@
 <Page shownModally="onShownModally" loaded="pageLoaded"
     xmlns:Card="@nstudio/nativescript-cardview"
     xmlns:CheckBox="@nstudio/nativescript-checkbox">
-    <GridLayout rows="auto, auto, *, auto, 40" columns=""
+    <GridLayout rows="auto, auto, *, auto, 35" columns=""
         xmlns:topBar="dashboard/includes/topBar"
         xmlns:service="dashboard/includes/add-service/service"
         xmlns:products="dashboard/includes/add-service/products"
@@ -13,14 +13,13 @@
             <StackLayout col="0" class="progressbar-value"></StackLayout>
         </GridLayout>-->
         <StackLayout row="2">
-            <includes:view-service-product-event id="viewServiceProductEvent" paddingTop="35"/>
+            <includes:view-service-product-event id="viewServiceProductEvent"/>
             <service:select-a-photo id="selectAPhotoSlide" paddingTop="35" opacity="0" visibility="collapsed"/>
             <service:service-name id="serviceNameSlide" paddingTop="35" opacity="0" visibility="collapsed"/>
             <service:service-steps id="serviceStepsSlide" opacity="0" visibility="collapsed"/>
             <service:padding-time id="paddingTimeSlide" paddingTop="35" opacity="0" visibility="collapsed"/>
             <service:addons id="addonsSlide" paddingTop="35" opacity="0" visibility="collapsed"/>
             <service:create-service-final-slide id="createServiceFinalSlide" opacity="0" visibility="collapsed"/>
-            <service:add-form id="addForm" opacity="0" visibility="collapsed"/>
             <service:add-service-success id="addServiceSuccess" opacity="0" visibility="collapsed"/>
 
             <products:select-photos-products id="selectPhotosProductsSlide" paddingTop="35" opacity="0" visibility="collapsed"/>
@@ -41,6 +40,7 @@
         </StackLayout>
         <StackLayout row="3">
             <GridLayout rows="" columns="*, auto, auto, *" paddingTop="8">
+                <Button col="1" width="90%" fontSize="18" text="Create new service" class="btn btn-white" buttonId="1" tap="createNewProduct" />
                 <Label col="1" text="Continue" class="h4 font-bold" id="continueButton" tap="goToNextSlide" visibility="collapsed" opacity="0"/>
                 <!--<Label col="3" paddingTop="7.3" text="&#xf054;" class="fas" fontSize="15" textWrap="true" />-->
             </GridLayout>

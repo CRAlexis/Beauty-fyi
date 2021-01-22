@@ -43,6 +43,12 @@ exports.initCalander = (args) => {
         //Will need print out all of gesutre managers methods for apple
     }
 }
+exports.closeModalFromModal = (args) => {
+    const evtData = {
+        eventName: 'headerBarClicked',
+    };
+    args.object.page.notify(evtData)
+}
 
 exports.closeModal = (args) => {
     return new Promise(async (resolve, reject) => {

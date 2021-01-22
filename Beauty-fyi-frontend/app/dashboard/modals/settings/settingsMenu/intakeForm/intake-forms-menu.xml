@@ -1,33 +1,37 @@
 <Page shownModally="onShownModally" loaded="loaded">
     <GridLayout rows="*" columns="">
-        <GridLayout tap="pageClicked" id="profilePageContainer" row="0" rows="auto, auto, *, auto" columns=""
+        <GridLayout tap="pageClicked" id="profilePageContainer" row="0" rows="auto, *, auto, 35" columns=""
             xmlns:topBar="dashboard/includes/topBar"
             xmlns:includes="dashboard/includes/schedule">
             <topBar:menu-header row="0" header="Intake forms"/>
-            <StackLayout row="1" paddingLeft="25" paddingRight="25" marginBottom="25" paddingTop="10">
-                <Label text="Manage your intake forms" class="h3" textWrap="true"/>
-                <Label text="Create, edit and delete your intake forms here." class="h5" textWrap="true"/>
-            </StackLayout>
-            <StackLayout row="2"
+            <StackLayout row="1"
                 xmlns:lv="nativescript-ui-listview" padding="15">
                 <lv:RadListView id="intakeFormListView" class="list-group" style="background-color: transparent">
                     <lv:RadListView.listViewLayout>
                         <lv:ListViewGridLayout spanCount="1" />
                     </lv:RadListView.listViewLayout>
                     <lv:RadListView.itemTemplate >
-                        <GridLayout active="false" tap="viewForm" rows="auto, auto, auto" columns="10, *, auto, 10" paddingBottom="8">
-                            <Label row="0" col="1" text="{{ intakeFormName }}" class="h4"/>
-                            <Label row="0" col="2" text="&#xf0d7;" class="fas" fontSize="20" />
-                            <Label row="2" colSpan="4" text="" class="line" width="95%"/>
+                        <GridLayout rows="auto, auto, auto">
+                            <GridLayout tap="expandSection" row="0" rows="auto, auto, auto" columns="auto, *, auto, 10" marginTop="8" serviceFormID="{{ serviceFormID }}">
+                                <Label row="0" col="1" text="{{ intakeFormName }}" color="{{ serviceActive ? 'black' : 'gray' }}" class="h4" textWrap="true" marginTop="6" />
+                                <Label row="0" col="2" text="&#xf078;" class="fas" marginTop="12" fontSize="16" />
+                                <Label row="0" col="2" text="&#xf077;" class="fas" marginTop="12" fontSize="16" visibility="collapsed" />
+                                <Label text="" class="line" row="1" colSpan="3" width="100%" textWrap="true" marginTop="10" />
+                            </GridLayout>
+                            <StackLayout row="1" opacity="0" height="1">
+                            </StackLayout>
+                            <GridLayout row="2" columns="*, auto, 10" tap="editIntakeForm" visibility="collapsed" opacity="0">
+                                <Label col="1" text="&#xf044;" marginTop="5" paddingLeft="10" paddingRight="10" color="black" class="fas" fontSize="18" textWrap="true" />
+                            </GridLayout>     
                         </GridLayout>
                     </lv:RadListView.itemTemplate>
                 </lv:RadListView>
             </StackLayout>
-        </GridLayout>
-        <GridLayout row="0" rows="*, auto, *" columns=""
-            xmlns:modal="dashboard/modals/settings/settingsMenu/intakeForm"
-            >
-            <modal:intake-form-modal row="1" id="intakeFormModal" visibility="collapsed" opacity="0" backgroundColor="white" tap="modalShield"/>
+            <StackLayout row="2">
+                <GridLayout rows="" columns="*, auto, auto, *" paddingTop="8">
+                    <Button col="1" width="90%" fontSize="18" text="Create new form" class="btn btn-white" tap="createNewIntakeForm" />
+                </GridLayout>
+            </StackLayout>
         </GridLayout>
     </GridLayout>
 </Page>

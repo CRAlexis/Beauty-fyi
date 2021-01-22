@@ -9,10 +9,8 @@ exports.validateSecondPage = (args, sourceForm) => {
         const serviceDescription = page.getViewById("serviceDescription")
         const serviceColor = page.getViewById("serviceColor")
         try {
-            
-        
         sourceForm.set("serviceName", serviceName.text)
-        sourceForm.set("servicePrice", servicePrice.text)
+        sourceForm.set("servicePrice", servicePrice.text.slice(1))
         sourceForm.set("serviceCategory", serviceCategory.text)
         sourceForm.set("serviceDescription", serviceDescription.text)
         sourceForm.set("serviceColor", serviceColor.color)  
@@ -20,7 +18,7 @@ exports.validateSecondPage = (args, sourceForm) => {
             console.log(error)
         }
         console.log("name: " + serviceName.text)
-        console.log("servicePrice: " + servicePrice.text)
+        console.log("servicePrice: " + servicePrice.text.slice(1))
         console.log("serviceCategory: " + serviceCategory.text)
         console.log("serviceDescription: " + serviceDescription.text)
         if (serviceName.text && servicePrice.text && serviceCategory.text && serviceDescription.text) {    
@@ -28,7 +26,6 @@ exports.validateSecondPage = (args, sourceForm) => {
             resolve()
         }
     })
-    
 }
 
 exports.openColorPicker = (args) => {

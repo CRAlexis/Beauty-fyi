@@ -8,11 +8,11 @@ class ScheduleAvailabilityDaySchema extends Schema {
     this.create('schedule_availability_days', (table) => {
       table.increments()
       table.integer('user_id').unsigned().references('id').inTable('users')
+      table.integer('location_id').unsigned().references('id').inTable('locations')
       table.boolean('active')
       table.string('day')
       table.time('start_time')
       table.time('end_time')
-      table.string('location')
       table.string('timezone')
       table.timestamps()
     })

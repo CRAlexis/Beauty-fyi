@@ -3,87 +3,82 @@
             <GridLayout rows="auto, auto, auto, auto, auto" columns="" xmlns:topBar="dashboard/includes/topBar">
                 <topBar:menu-header row="0" header="Set your availability"/>
                 <StackLayout row="1" >
-                    <Label text="My details" class="h5" textWrap="true" padding="25"/>
-                    <GridLayout tap="goToAccountDetails" rows="40, auto" columns="25, 5, *, auto, 25, 25" paddingTop="10" >
+                    <Label text="My details" class="h5" textWrap="true" paddingLeft="25" paddingBottom="15" paddingTop="25"/>
+                    <GridLayout tap="goToAccountDetails" rows="40, auto" columns="25, 5, *, auto, 25, 25" paddingTop="5" >
                         <Label row="0" col="2" text="Account Details" class="h5 font-bold" textWrap="true" />
                         <Label row="0" col="3" text="&#xf054;" class="fas" fontSize="16" textWrap="true" />
-                        <Label row="1" col="1" colSpan="4" text="" class="line" textWrap="true" />
+                        <Label row="1" col="1" colSpan="4" text="" class="line" textWrap="true" visibility="collapsed"  />
                     </GridLayout>
-                    <GridLayout tap="goToMyBio" rows="40, auto" columns="25, 5, *, auto, 25, 25" paddingTop="10" >
+                    <GridLayout tap="goToMyBio" rows="40, auto" columns="25, 5, *, auto, 25, 25" paddingTop="5" >
                         <Label row="0" col="2" text="My Bio" class="h5 font-bold" textWrap="true" />
                         <Label row="0" col="3" text="&#xf054;" class="fas" fontSize="16" textWrap="true" />
-                        <Label row="1" col="1" colSpan="4" text="" class="line" textWrap="true" />
+                        <Label row="1" col="1" colSpan="4" text="" class="line" textWrap="true" visibility="collapsed"  />
                     </GridLayout>
-                    <GridLayout tap="goToCardDetails" rows="40, auto" columns="25, 5, *, auto, 25, 25" paddingTop="10">
-                        <Label row="0" col="2" text="Card Details" class="h5 font-bold" textWrap="true" />
-                        <Label row="0" col="3" text="&#xf054;" class="fas" fontSize="16" textWrap="true" />
-                        <Label row="1" col="1" colSpan="4" text="" class="line" textWrap="true" />
-                    </GridLayout>
-                    <GridLayout tap="setSchedule" rows="40, auto" columns="25, 5, *, auto, 25, 25" paddingTop="20">
+                    <GridLayout tap="setSchedule" rows="40, auto" columns="25, 5, *, auto, 25, 25" paddingTop="5">
                         <Label row="0" col="2" text="Set Schedule Availability" class="h5 font-bold" textWrap="true" />
                         <Label row="0" col="3" text="&#xf054;" class="fas" fontSize="16" textWrap="true" />
-                        <Label row="1" col="1" colSpan="4" text="" class="line" textWrap="true" />
+                        <Label row="1" col="1" colSpan="4" text="" class="line" textWrap="true" visibility="collapsed"  />
                     </GridLayout>
-                    <GridLayout tap="setSchedulingLimits" rows="40, auto" columns="25, 5, *, auto, 25, 25" paddingTop="20">
+                    <GridLayout tap="setSchedulingLimits" rows="40, auto" columns="25, 5, *, auto, 25, 25" paddingTop="5">
                         <Label row="0" col="2" text="Set Scheduling limits" class="h5 font-bold" textWrap="true" />
                         <Label row="0" col="3" text="&#xf054;" class="fas" fontSize="16" textWrap="true" />
-                        <Label row="1" col="1" colSpan="4" text="" class="line" textWrap="true" />
+                        <Label row="1" col="1" colSpan="4" text="" class="line" textWrap="true" visibility="collapsed"  />
                     </GridLayout>
-                     <GridLayout tap="addService" rows="40, auto" columns="25, 5, *, auto, 25, 25" paddingTop="20">
-                        <Label row="0" col="2" text="Add Service" class="h5 font-bold" textWrap="true" />
+                     <GridLayout tap="addService" rows="40, auto" columns="25, 5, *, auto, 25, 25" paddingTop="5">
+                        <Label row="0" col="2" text="Services" class="h5 font-bold" textWrap="true" />
                         <Label row="0" col="3" text="&#xf054;" class="fas" fontSize="16" textWrap="true" />
-                        <Label row="1" col="1" colSpan="4" text="" class="line" textWrap="true" />
+                        <Label row="1" col="1" colSpan="4" text="" class="line" textWrap="true" visibility="collapsed"  />
                     </GridLayout>
-                     <GridLayout tap="addClient" rows="40, auto" columns="25, 5, *, auto, 25, 25" paddingTop="20">
+                     <GridLayout tap="addClient" rows="40, auto" columns="25, 5, *, auto, 25, 25" paddingTop="5">
                         <Label row="0" col="2" text="Add Client" class="h5 font-bold" textWrap="true" />
                         <Label row="0" col="3" text="&#xf054;" class="fas" fontSize="16" textWrap="true" />
-                        <Label row="1" col="1" colSpan="4" text="" class="line" textWrap="true" />
+                        <Label row="1" col="1" colSpan="4" text="" class="line" textWrap="true" visibility="collapsed"  />
                     </GridLayout>
-                    <GridLayout tap="viewIntakeForm" rows="40, auto" columns="25, 5, *, auto, 25, 25" paddingTop="20">
+                    <GridLayout tap="viewIntakeForm" rows="40, auto" columns="25, 5, *, auto, 25, 25" paddingTop="5">
                         <Label row="0" col="2" text="Intake Forms" class="h5 font-bold" textWrap="true" />
                         <Label row="0" col="3" text="&#xf054;" class="fas" fontSize="16" textWrap="true" />
-                        <Label row="1" col="1" colSpan="4" text="" class="line" textWrap="true" />
+                        <Label row="1" col="1" colSpan="4" text="" class="line" textWrap="true" visibility="collapsed"  />
                     </GridLayout>
                 </StackLayout>
                 <StackLayout row="2" >
-                    <Label text="App settings" class="h5" textWrap="true" padding="25"/>
-                    <GridLayout tap="viewNotificationDetails" rows="40, auto" columns="25, 5, *, auto, 25, 25" paddingTop="10">
+                    <Label text="App settings" class="h5" textWrap="true" paddingLeft="25" paddingBottom="15" paddingTop="25"/>
+                    <GridLayout tap="viewNotificationDetails" rows="40, auto" columns="25, 5, *, auto, 25, 25" paddingTop="5">
                         <Label row="0" col="2" text="Notification Details" class="h5 font-bold" textWrap="true" />
                         <Label row="0" col="3" text="&#xf054;" class="fas" fontSize="16" textWrap="true" />
-                        <Label row="1" col="1" colSpan="4" text="" class="line" textWrap="true" />
+                        <Label row="1" col="1" colSpan="4" text="" class="line" textWrap="true" visibility="collapsed"  />
                     </GridLayout>
-                    <GridLayout rows="40, auto" columns="25, 5, *, auto, 25, 25" paddingTop="20">
+                    <GridLayout rows="40, auto" columns="25, 5, *, auto, 25, 25" paddingTop="5">
                         <Label row="0" col="2" text="Export Data" class="h5 font-bold" textWrap="true" />
                         <Label row="0" col="3" text="&#xf054;" class="fas" fontSize="16" textWrap="true" />
-                        <Label row="1" col="1" colSpan="4" text="" class="line" textWrap="true" />
+                        <Label row="1" col="1" colSpan="4" text="" class="line" textWrap="true" visibility="collapsed"  />
                     </GridLayout>
-                    <GridLayout rows="40, auto" columns="25, 5, *, auto, 25, 25" paddingTop="20">
+                    <GridLayout rows="40, auto" columns="25, 5, *, auto, 25, 25" paddingTop="5">
                         <Label row="0" col="2" text="Import Data" class="h5 font-bold" textWrap="true" />
                         <Label row="0" col="3" text="&#xf054;" class="fas" fontSize="16" textWrap="true" />
-                        <Label row="1" col="1" colSpan="4" text="" class="line" textWrap="true" />
+                        <Label row="1" col="1" colSpan="4" text="" class="line" textWrap="true" visibility="collapsed"  />
                     </GridLayout>
-                    <GridLayout tap="logOut" rows="40, auto" columns="25, 5, *, auto, 25, 25" paddingTop="10">
+                    <GridLayout tap="logOut" rows="40, auto" columns="25, 5, *, auto, 25, 25" paddingTop="5">
                         <Label row="0" col="2" text="Log out" class="h5 font-bold" textWrap="true" />
                         <Label row="0" col="3" text="&#xf054;" class="fas" fontSize="16" textWrap="true" />
-                        <Label row="1" col="1" colSpan="4" text="" class="line" textWrap="true" />
+                        <Label row="1" col="1" colSpan="4" text="" class="line" textWrap="true" visibility="collapsed"  />
                     </GridLayout>
                 </StackLayout>
                 <StackLayout row="3" >
-                    <Label text="Terms" class="h5" textWrap="true" padding="25"/>
-                    <GridLayout rows="40, auto" columns="25, 5, *, auto, 25, 25" paddingTop="10">
+                    <Label text="Terms" class="h5" textWrap="true" paddingLeft="25" paddingBottom="15" paddingTop="25"/>
+                    <GridLayout rows="40, auto" columns="25, 5, *, auto, 25, 25" paddingTop="5">
                         <Label row="0" col="2" text="Terms and Conditions" class="h5 font-bold" textWrap="true" />
                         <Label row="0" col="3" text="&#xf054;" class="fas" fontSize="16" textWrap="true" />
-                        <Label row="1" col="1" colSpan="4" text="" class="line" textWrap="true" />
+                        <Label row="1" col="1" colSpan="4" text="" class="line" textWrap="true" visibility="collapsed"  />
                     </GridLayout>
-                    <GridLayout rows="40, auto" columns="25, 5, *, auto, 25, 25" paddingTop="20">
+                    <GridLayout rows="40, auto" columns="25, 5, *, auto, 25, 25" paddingTop="5">
                         <Label row="0" col="2" text="Privacy Policy" class="h5 font-bold" textWrap="true" />
                         <Label row="0" col="3" text="&#xf054;" class="fas" fontSize="16" textWrap="true" />
-                        <Label row="1" col="1" colSpan="4" text="" class="line" textWrap="true" />
+                        <Label row="1" col="1" colSpan="4" text="" class="line" textWrap="true" visibility="collapsed"  />
                     </GridLayout>
-                    <GridLayout rows="40, auto" columns="25, 5, *, auto, 25, 25" paddingTop="20">
+                    <GridLayout rows="40, auto" columns="25, 5, *, auto, 25, 25" paddingTop="5">
                         <Label row="0" col="2" text="Support" class="h5 font-bold" textWrap="true" />
                         <Label row="0" col="3" text="&#xf054;" class="fas" fontSize="16" textWrap="true" />
-                        <Label row="1" col="1" colSpan="4" text="" class="line" textWrap="true" />
+                        <Label row="1" col="1" colSpan="4" text="" class="line" textWrap="true" visibility="collapsed"  />
                     </GridLayout>
                 </StackLayout>
                 <StackLayout row="4">

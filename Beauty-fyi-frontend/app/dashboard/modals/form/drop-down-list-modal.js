@@ -3,12 +3,15 @@ const observableModule = require("tns-core-modules/data/observable");
 let closeCallback;
 
 exports.onShownModally = function (args) {
-    const context = args.context;
-    closeCallback = args.closeCallback;
+    const context = args.context.context;
     const page = args.object;
-    page.bindingContext = context;
-    console.log(context)
-    loadOptionList(page, context)
+    if (args.context.meta){
+        const meta = args.context.meta;
+        loadOptionListWithMeta(page, context, meta)
+    }else {
+        loadOptionList(page, context)
+    }
+    closeCallback = args.closeCallback;
 }
 
 function loadOptionList(page, context){
@@ -20,13 +23,30 @@ function loadOptionList(page, context){
             }
         )
     });
-    
+    //format photos when uploading
+    var optionRadList = page.getViewById("optionList");
+    optionRadList.items = options;
+}
+
+function loadOptionListWithMeta(page, context, meta) {
+    var options = [];
+    let index = 0
+    context.forEach(option => {
+        options.push(
+            {
+                optionList: option,
+                meta: meta[index]
+            }
+        )
+        index++
+    });
     //format photos when uploading
     var optionRadList = page.getViewById("optionList");
     optionRadList.items = options;
 }
 
 exports.selectedOption = function (args) {
-    const option = args.object.text;
-    closeCallback(option);
+    const text = args.object.text;
+    const meta = args.object.meta
+    closeCallback({text: text, meta: meta? meta : null});
 }

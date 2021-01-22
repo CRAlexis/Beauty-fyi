@@ -1,6 +1,0 @@
-<Page shownModally="onShownModally" loaded="loaded" xmlns:Card="@nstudio/nativescript-cardview" xmlns:CheckBox="@nstudio/nativescript-checkbox">
-    <ScrollView>
-        <Label text="MY new intake form" textWrap="true" />
-        
-    </ScrollView>
-</Page>

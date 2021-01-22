@@ -1,40 +1,84 @@
-const SocialShare = require("nativescript-social-share"); 
+const SocialShare = require("nativescript-social-share");
+const { loadAnimation } = require("~/controllers/animationController");
+const { sendHTTP, getHttpFile } = require("~/controllers/HTTPControllers/sendHTTP");
 const navigation = require("~/controllers/navigationController")
 
 
 var clients = [];
-exports.clientPageLoaded = async (args) => {
+exports.clientPageLoaded = async (args, row = 1) => {
     const page = args.object.page
-    console.log("client page loaded")
-    clients.push(
-        {
-            clientImage: "~/images/temp.png",
-            clientName: "Chiedza Kamabarami",
-            id: "1"
-        },
-        {
-            clientImage: "~/images/temp1.png",
-            clientName: "Charles Alexis",
-            id: "2"
-        },
-    )
-    //format photos when uploading
+    let clientQuery = []
+    let sendRequests = true
+    let processesedRequests = 0;
     var listview = page.getViewById("clientList");
-    listview.items = clients;
+    const httpParameters = { url: 'clientsget', method: 'POST', content: { row: row }, }
+    sendHTTP(httpParameters, { display: false }, { display: false }, { display: false }).then((response) => {
+        if (response.JSON.status == "success") {
+            const clientsArray = response.JSON.clients
+            sendRequests = response.JSON.continueRequests
+            console.log("continue?: " + sendRequests)
+            clientsArray.forEach(element => {
+                getClientImages(element).then((result) => {
+                    clients.push(
+                        {
+                            clientImage: result,
+                            clientName: element.firstName + " " + element.lastName,
+                            id: element.clientID
+                        },
+                    )
+                    listview.items = [];
+                    listview.items = clients;
+                    processesedRequests++
+                    if (processesedRequests == clientsArray.length) {
+                        if (sendRequests) {
+                            row++
+                            console.log("sending next request")
+                            try {
+                                this.clientPageLoaded(args, row)
+                            } catch (error) {
+                                console.log(error)
+                            }
+
+                        }
+                    }
+                })
+            })
+        } else {
+        }
+    }, (e) => {
+        console.log(e)
+    })
 }
 
-function addToDB(){
+function getClientImages(client) {
+    return new Promise((resolve, reject) => {
+        const httpParametersImages = {
+            url: 'clientgetimage',
+            method: 'POST',
+            content: { clientID: client.clientID },
+        }
+        //console.log(client)
+        getHttpFile(httpParametersImages, { display: false }, { display: false }, { display: false }).then((result) => {
+            resolve(result ? result._path : "defaultServiceImage.png")
+        }, (e) => {
+            console.log("e" + e)
+        })
+
+    })
+}
+
+function addToDB() {
     new Sqlite("my.db").then(async db => {
         db.execSQL("INSERT INTO lists (list_name) VALUES (?)", "test text").then(id => {
-        console.log("insert---  id: " + id, "list_name " + "test text")
-        readFromDB(db)
-    }, error => {
-        console.log("INSERT ERROR", error);
-    });
-})
+            console.log("insert---  id: " + id, "list_name " + "test text")
+            readFromDB(db)
+        }, error => {
+            console.log("INSERT ERROR", error);
+        });
+    })
 }
 
-function readFromDB(db){
+function readFromDB(db) {
     db.all("SELECT id, list_name FROM lists").then(rows => {
         for (var row in rows) {
             console.log("id: " + rows[row][0], "list_name: " + rows[row][1])
@@ -49,10 +93,10 @@ exports.onPullToRefreshInitiated = (args) => {
     listView.notifyPullToRefreshFinished();
 }
 
-source.set("toggleFilter", async function (args){
+source.set("toggleFilter", async function (args) {
     const mainView = args.object
     navigation.navigateToModal(null, mainView, 6, false).then(function (result) {
-        
+
     })
 })
 
@@ -65,7 +109,7 @@ function addMoreItemsFromSource(radListView, chunkSize) {
     //    id: "4"
     //})
     //
-//
+    //
     //for (let index = 0; index < newItems.length; index++) {
     //    clientHolder.push({
     //        clientImage: newItems[index].clientImage,
@@ -73,20 +117,20 @@ function addMoreItemsFromSource(radListView, chunkSize) {
     //        id: newItems[index].id
     //    })  
     //}
-//
+    //
     //radListView.items = []
     //radListView.items = clientHolder;
     return true
 }
 
-source.set("onLoadMoreItemsRequested", function (args){
+source.set("onLoadMoreItemsRequested", function (args) {
     const radListView = args.object;
     args.returnValue = false;
     if (radListView.items.length > 0) {
-        if(addMoreItemsFromSource(radListView, 2)){
+        if (addMoreItemsFromSource(radListView, 2)) {
             radListView.notifyLoadOnDemandFinished(2);
             args.returnValue = true;
-        }         
+        }
     } else {
         args.returnValue = false;
         radListView.notifyLoadOnDemandFinished(true);
@@ -103,5 +147,10 @@ exports.viewClientProfile = (args) => {
 };
 
 exports.inviteClient = (args) => {
-    SocialShare.shareUrl("https://www.nativescript.org/", "");
+    //SocialShare.shareUrl("https://www.nativescript.org/", "");
+    const mainView = args.object;
+    const context = ""
+    navigation.navigateToModal(context, mainView, 26, true).then(function (result) {
+        if (application.android) { application.android.on(application.AndroidApplication.activityBackPressedEvent, backEvent); }
+    })
 }

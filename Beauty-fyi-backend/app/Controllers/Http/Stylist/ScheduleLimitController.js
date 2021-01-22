@@ -6,49 +6,63 @@ const cleanStrings = use('App/Controllers/sanitize/cleanStrings').cleanStrings
 
 class ScheduleLimitController {
 
-  async AddScheduleLimit ({ request, session, response }){
-    console.log("1")
-    var userID = request.all().auth.userID
-
-    var MinimumHoursBeforeAppointment = request.all().content.minimumHoursBeforeAppointment
-    var MaximumDaysInAdvance = request.all().content.maximumDaysInAdvance
-    var RescheduleAppointments = request.all().content.rescheduleAppointments
-    var CancelAppointments = request.all().content.cancelAppointments
-    var MaximumHoursForReschedule = request.all().content.maximumHoursForReschedule
-    var AvoidGaps = request.all().content.avoidGaps
-    var AllowGaps = request.all().content.allowGaps
-    var GapHours = request.all().content.gapHours
-    console.log("2")
-
-    //Remove all data connected to the user_id before adding data
-    await Database.table('schedule_limits').where('user_id', userID).delete() //Delete the outdated results from table
-    // create ScheduleLimit
-    const scheduleLimit =  await ScheduleLimit.create({
-      user_id: userID,
-      minimumHoursBeforeAppointment: cleanStrings(MinimumHoursBeforeAppointment, "int"),
-      maximumDaysInAdvance: cleanStrings(MaximumDaysInAdvance, "int"),
-      rescheduleAppointments: cleanStrings(RescheduleAppointments, "boolean"),
-      cancelAppointments: cleanStrings(CancelAppointments, "boolean"),
-      maximumHoursForReschedule: cleanStrings(MaximumHoursForReschedule, "int"),
-      avoidGaps: cleanStrings(AvoidGaps, "boolean"),
-      allowGaps: cleanStrings(AllowGaps, "boolean"),
-      gapHours: cleanStrings(GapHours, "int")
-    })
-
-    console.log("3")
-
-    return {"status" : "success"}
+  async addScheduleLimit ({ request, session, response }){
+    try {
+      var userID = request.all().auth.userID
+      const check = await Database.select('user_id').from('schedule_limits').where("user_id", userID).first()
+      if (check) {
+        const affectedRows = await Database
+          .table('schedule_limits')
+          .where("user_id", userID)
+          .update({
+            minimumHoursBeforeAppointment: cleanStrings(request.all().content.minimumHoursBeforeAppointment, "int"),
+            maximumDaysInAdvance: cleanStrings(request.all().content.maximumDaysInAdvance, "int"),
+            rescheduleAppointments: cleanStrings(request.all().content.rescheduleAppointments, "boolean"),
+            cancelAppointments: cleanStrings(request.all().content.cancelAppointments, "boolean"),
+            maximumHoursForReschedule: cleanStrings(request.all().content.maximumHoursForReschedule, "int"),
+            avoidGaps: cleanStrings(request.all().content.avoidGaps, "boolean"),
+            allowGaps: cleanStrings(request.all().content.allowGaps, "boolean"),
+            gapHours: cleanStrings(request.all().content.gapHours, "int"),
+          })
+        console.log("Updated schedule limit", affectedRows)
+      } else {
+        const scheduleLimit = await ScheduleLimit.create({
+          user_id: userID,
+          minimumHoursBeforeAppointment: cleanStrings(request.all().content.minimumHoursBeforeAppointment, "int"),
+          maximumDaysInAdvance: cleanStrings(request.all().content.maximumDaysInAdvance, "int"),
+          rescheduleAppointments: cleanStrings(request.all().content.rescheduleAppointments, "boolean"),
+          cancelAppointments: cleanStrings(request.all().content.cancelAppointments, "boolean"),
+          maximumHoursForReschedule: cleanStrings(request.all().content.maximumHoursForReschedule, "int"),
+          avoidGaps: cleanStrings(request.all().content.avoidGaps, "boolean"),
+          allowGaps: cleanStrings(request.all().content.allowGaps, "boolean"),
+          gapHours: cleanStrings(request.all().content.gapHours, "int"),
+        })
+        console.log("created new schedule limit")
+      }
+      return { "status": "success" }
+    } catch (error) {
+      //error catching
+      console.log(error)
+    }
+    
 
   }
 
-  async GetScheduleLimit ({ request, session, response }){
-    console.log(request.all())
-    userId = request.input('userId');
-
-    //Get data by user_id
-    const schedulelimit = await ScheduleLimit.query().where('user_id', userId)
-
-    return {"status" : "success", "scheduleavailability" : schedulelimit}
+  async getScheduleLimit ({ request, session, response }){
+    console.log("hit")
+    let userID
+    if (request.all().content.userID) {
+      userID = request.all().content.userID
+    } else {
+      userID = request.all().auth.userID
+    }
+    try {
+      const query = await Database.table('schedule_limits').where('user_id', userID).first()
+      console.log("getting schedule limit data")
+      return { "status": query? "success" : "error", scheduleLimits: query? query : false }
+    } catch (error) {
+      return { "status": "error" }
+    }
   }
 
 }

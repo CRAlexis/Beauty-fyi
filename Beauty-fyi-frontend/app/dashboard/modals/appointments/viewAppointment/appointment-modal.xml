@@ -3,16 +3,19 @@
 
     <Card:CardView class="cardStyle" margin="5" elevation="10" radius="10" width="88%" height="90%">
         <ScrollView>
-            <GridLayout rows="auto, auto">
-                <StackLayout row="0">
-                    <SegmentedBar id="appointmentModalSegmentedBar" selectedIndex="0" selectedIndexChanged="selectedIndexChangeInformation" backgroundColor="#fbfbfb" selectedBackgroundColor="#9900ff" marginTop="">
+            <GridLayout rows="auto, auto, auto">
+            <GridLayout row="0" columns="*, auto, 10" backgroundColor="#fbfbfb">
+                <Label col="1" tap="closeModalFromModal" text="&#xf00d;" class="fas" fontSize="24" paddingTop="5" paddingLeft="10" paddingRight="10" textWrap="true" />
+            </GridLayout>
+                <StackLayout row="1">
+                    <SegmentedBar id="appointmentModalSegmentedBar" selectedIndex="0" selectedIndexChanged="selectedIndexChangeInformation" backgroundColor="#fbfbfb" selectedBackgroundColor="#A6E6CE" marginTop="">
                         <SegmentedBar.items>
                             <SegmentedBarItem title="Details" />
                             <SegmentedBarItem title="Consultation" />
                         </SegmentedBar.items>
                     </SegmentedBar>
                 </StackLayout>
-                <ScrollView id="detailsTab" row="1">
+                <ScrollView id="detailsTab" row="2">
                     <GridLayout rows="auto, auto, auto, auto, auto" columns="">
                         <StackLayout row="0" paddingTop="20">
                             <Image tap="goToProfile" src="~/images/temp.png" height="100" width="100" borderRadius="50" stretch="aspectFill" />
@@ -27,8 +30,8 @@
                             </StackLayout>
                         </Card:CardView>
                         <GridLayout row="3" rows="" columns="*, auto, auto, *" paddingTop="15">
-                            <Button col="1" width="40%" text="Edit" class="btn btn-white" tap="editAppointment" />
-                            <Button col="2" width="40%" text="Cancel" class="btn btn-black" tap="" />
+                            <Button col="1" width="40%" height="35" text="Edit" class="btn btn-white" tap="editAppointment" />
+                            <Button col="2" width="40%" height="35" text="Cancel" class="btn btn-black" tap="" />
                         </GridLayout>
                         <StackLayout row="4" padding="20">
                             <Label text="Upcoming appointments" class="h4 font-bold" paddingBottom="15" textWrap="true" />

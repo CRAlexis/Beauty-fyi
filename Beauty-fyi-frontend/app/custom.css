@@ -208,15 +208,15 @@ color: #9900ff;
 
 
 .btn[isEnabled=false] {
-background-color: #9900ff;
+background-color: #acacac;
 }
 
 .btn[isEnabled=false] {
-border-color: #9900ff;
+border-color: #acacac;
 }
 
 .btn[isEnabled=false] {
-color: #cccccc;
+color: #acacac;
 }
 
 .btn-rounded-sm {
@@ -348,10 +348,21 @@ color: #000000;
     padding-left: 5
 }
 
+.textFieldInputSuperSmall {
+    font-size: 15;
+    border-color: #d3d3d3;
+    padding-left: 5
+}
+
 
 .line {
     background: #d4d4d4;
     height: 2px;
+}
+
+.fakeTextFieldline {
+    background: #d4d4d4;
+    height: 3px;
 }
 
 .letterSpacing {

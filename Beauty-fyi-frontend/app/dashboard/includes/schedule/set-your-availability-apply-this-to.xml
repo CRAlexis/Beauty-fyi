@@ -6,6 +6,6 @@
     <Label active="false" tap="applyThisToDay" row="0" col="4" width="14.2%" class="h5 font-bold" textAlignment="center" text="F" textWrap="true" />
     <Label active="false" tap="applyThisToDay" row="0" col="5" width="14.2%" class="h5 font-bold" textAlignment="center" text="S" textWrap="true" />
     <Label active="false" tap="applyThisToDay" row="0" col="6" width="14.2%" class="h5 font-bold" textAlignment="center" text="S" textWrap="true" />
-    <Button row="1" colSpan="7"  id="monday" class="btn btn-white" text="save" tap="saveDayAvailabilitySettings" width="20%" marginTop="5" />     
+    <Button row="1" colSpan="7" class="btn btn-white" text="save" tap="saveDayAvailabilitySettings" width="20%" marginTop="5" />     
     <Label row="2" colSpan="7" class="line" width="100%" marginBottom="20" marginTop="17" textWrap="true" />               
 </GridLayout>   

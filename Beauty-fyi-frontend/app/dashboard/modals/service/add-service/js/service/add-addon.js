@@ -19,19 +19,17 @@ exports.addAddon = (args, sourceForm) => {
     const page = args.object.page
     var listview = page.getViewById("addonsListView")
     const id = listview.items.length + 1
-
     addons = []
-    try {
-        listview.items.forEach(element => {
-            addons.push({
-                index: element.index,
-                id: element.id,
-                addonName: element.addonName,
-                addonPrice: element.addonPrice,
-                addonDuration: element.addonDuration
-            })
-        });
-    } catch (error) { }
+    listview.items.forEach(element => {
+        addons.push({
+            index: element.index,
+            id: element.id,
+            addonName: element.addonName,
+            addonPrice: element.addonPrice,
+            addonDuration: element.addonDuration
+        })
+    });
+
     addons.push(
         {
             index: id,
@@ -44,7 +42,7 @@ exports.addAddon = (args, sourceForm) => {
     //format photos when uploading
     listview.items = [];
     listview.items = addons;
-    sourceForm.set("serviceAddons", addons)
+    
 }
 
 exports.removeAddon = (args, sourceForm) => {
@@ -74,4 +72,22 @@ exports.removeAddon = (args, sourceForm) => {
     listview.items = [];
     listview.items = addons;
     sourceForm.set("serviceAddons", addons)
+}
+
+exports.getData = (args, sourceForm) => {
+    const page = args.object.page
+    var listview = page.getViewById("addonsListView")
+    let sourceFormAddon = []
+    listview.items.forEach(element => {
+        sourceFormAddon.push({
+            index: element.index,
+            id: element.id,
+            addonName: element.addonName,
+            addonPrice: element.addonPrice.slice(1),
+            addonDuration: element.addonDuration
+        })
+    });
+    console.log("getting addon data")
+    console.log(sourceFormAddon)
+    sourceForm.set("serviceAddons", sourceFormAddon)
 }

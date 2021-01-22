@@ -21,7 +21,7 @@ class Android {
     console.log(userID)
     //See If the variables above are valid and in the database
     const encription = await encryptions.query().where('user_id', userID).where('deviceID', deviceID).first()
-
+    
     if(!encription){
       console.log("invalid Request")
       return false

@@ -15,6 +15,7 @@ class UserSchema extends Schema {
       table.boolean('user').defaultTo(1)
       table.boolean('pro').defaultTo(0)
       table.boolean('dev').defaultTo(0)
+      table.string('confirmation_token')
       table.boolean('is_active').defaultTo(0)
       table.timestamps()
     })
