@@ -1,10 +1,10 @@
 const Sqlite = require("nativescript-sqlite");
-//configureDatabases()
-const statusBar = require("nativescript-status-bar");
-statusBar.hide();
+configureDatabases()
+/*const statusBar = require("nativescript-status-bar");
+statusBar.hide();*/
 
 function configureDatabases(){
-    //Sqlite.deleteDatabase("beauty-fyi.db")
+    Sqlite.deleteDatabase("beauty-fyi.db")
     new Sqlite("beauty-fyi.db").then(async db => {
         db.execSQL("CREATE TABLE IF NOT EXISTS http_requests_made (id INTEGER PRIMARY KEY AUTOINCREMENT, function TEXT,  loaded INTEGER DEFAULT 0)").then(id => {
             createDefaultDataHttpRequests(db)
@@ -17,10 +17,7 @@ function configureDatabases(){
 }
 
 function createDefaultDataHttpRequests(db){
-    
-    db.execSQL("INSERT INTO http_requests_made (function) VALUES (?)", ["client function"]).then(id => {
-    //db.execSQL("INSERT INTO http_requests_made (function, loaded) VALUES (?,?)", ["client function", "2"]).then(id => {
-        readFromDB(db)
+    db.execSQL("INSERT INTO http_requests_made (function, loaded) VALUES (?,?)", ["client function", "0"]).then(id => { 
     }, error => {
         console.log("INSERT ERROR", error);
     });

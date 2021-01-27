@@ -42,7 +42,7 @@
 
     <calendar:CalendarWeekViewStyle.selectedDayCellStyle>
         <calendar:DayCellStyle showEventsText="false"  eventFontName="Times New Roman" eventFontStyle="BoldItalic" eventTextSize="34"
-                               cellBackgroundColor="white" cellBorderWidth="0.1" cellBorderColor="white" cellTextColor="#9900ff" cellTextFontName="Times New Roman" cellTextFontStyle="Bold" cellTextSize="17" cellAlignment="Center" />
+                               cellBackgroundColor="white" cellBorderWidth="0.1" cellBorderColor="white" cellTextColor="#A6E6CE" cellTextFontName="Times New Roman" cellTextFontStyle="Bold" cellTextSize="17" cellAlignment="Center" />
     </calendar:CalendarWeekViewStyle.selectedDayCellStyle>
 
     <calendar:CalendarWeekViewStyle.weekNumberCellStyle>
@@ -90,7 +90,7 @@
             </calendar:CalendarMonthViewStyle.monthendCellStyle>
 
             <calendar:CalendarMonthViewStyle.selectedDayCellStyle>
-                <calendar:DayCellStyle showEventsText="false" eventFontName="Times New Roman" eventFontStyle="BoldItalic" eventTextSize="34" cellBackgroundColor="white" cellBorderWidth="0.1" cellBorderColor="white" cellTextColor="#9900ff" cellTextFontName="Times New Roman" cellTextFontStyle="Bold" cellTextSize="17" cellAlignment="Center" />
+                <calendar:DayCellStyle showEventsText="false" eventFontName="Times New Roman" eventFontStyle="BoldItalic" eventTextSize="34" cellBackgroundColor="white" cellBorderWidth="0.1" cellBorderColor="white" cellTextColor="#A6E6CE" cellTextFontName="Times New Roman" cellTextFontStyle="Bold" cellTextSize="17" cellAlignment="Center" />
             </calendar:CalendarMonthViewStyle.selectedDayCellStyle>
 
             <calendar:CalendarMonthViewStyle.monthNumberCellStyle>

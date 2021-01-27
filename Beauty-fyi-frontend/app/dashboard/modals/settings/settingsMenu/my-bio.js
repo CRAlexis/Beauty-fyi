@@ -7,6 +7,21 @@ let closeCallback;
 let pageStateChanged;
 
 exports.onShownModally = function (args) {
+    var Contacts = require("nativescript-contacts-lite");
+    let desiredFields = ['display_name', 'phone', 'thumbnail', 'email', 'address'];
+
+    console.log('Loading contacts...');
+
+    Contacts.getContacts(desiredFields).then((result) => {
+        let index = 0
+        result.forEach(element => {
+            if (index < 10){
+                console.log(element)
+            }
+            index ++
+        })
+    }, (e) => { console.log(e); });
+
     const context = args.context;
     closeCallback = args.closeCallback;
     const page = args.object;

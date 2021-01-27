@@ -48,8 +48,10 @@ source.set("dropDownClicked", function (args) {
         pageStateChanged = true
         const mainView = args.object;
         let context = mainView.optionContext.split(",")
-        navigation.navigateToModal(context, mainView, 4, false).then(function (result) {
-            args.object.text = result
+        navigation.navigateToModal({ context: context, meta: null }, mainView, 4, false).then(function (result) {
+            if (result.text) {
+                args.object.text = result.text
+            }
         })
     }
 

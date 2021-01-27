@@ -27,6 +27,8 @@
 	<key>UIRequiresFullScreen</key>
 	<true/>
 	<key>UIRequiredDeviceCapabilities</key>
+	<key>NSContactsUsageDescription</key>
+	<string>Kindly provide permission to access contact on your device.</string>
 	<array>
 		<string>armv7</string>
 	</array>

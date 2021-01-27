@@ -1,5 +1,5 @@
 <Page navigatingTo="onNavigatedTo" loaded="onPageLoaded" actionBarHidden="true" xmlns:tabs="dashboard/tabs" xmlns:Card="nativescript-cardview">
-    <TabView id="tabViewContainer" androidTabsPosition="bottom" selectedTabTextColor="black" xmlns:topBar="dashboard/includes/topBar">
+    <TabView id="tabViewContainer" androidTabsPosition="bottom" selectedTabTextColor="black" selectedIndexChanged="onSelectedIndexChanged" xmlns:topBar="dashboard/includes/topBar">
         <TabViewItem title="dashboard" >   
             <GridLayout rows="70, auto" columns="">
                 <topBar:dashboard-header row="0" id="dashboardHeader" header="Beauty-fyi"/>

@@ -4,7 +4,7 @@ const navigation = require("~/controllers/navigationController")
 const inAppNotifiationAlert = require("~/controllers/notifications/inApp/notification-alert.js")
 const slideTransition = require("~/controllers/slide-transitionController");
 const { loadAnimation } = require("~/controllers/animationController");
-const { sendHTTPFile } = require("~/controllers/HTTPControllers/sendHTTP");
+const { sendHTTP, sendHTTPFile } = require("~/controllers/HTTPControllers/sendHTTP");
 const source = new Observable();
 let sourceForm;
 let closeCallback;
@@ -12,20 +12,21 @@ let slideIndex;
 let slides = []
 let context;
 let chooseDate;
-let userID;
-let addonArray;
+let clientID;
+let addonArray = ""
 let serviceID;
 
 exports.onShownModally = function (args) {
     context = args.context;
-    userID = context.userID
+    clientID = context.userID
     addonsArray = context.addons
     serviceID = context.serviceID
+    console.log("addons: " + addonsArray, "clientID: " + clientID)
     closeCallback = args.closeCallback;
     const page = args.object;
     page.bindingContext = source
     setTimeout(function () { source.set("width", (page.getMeasuredWidth() / 3)) }, 500)
-    
+
 }
 
 exports.loaded = function (args) { //third slide
@@ -36,9 +37,17 @@ exports.loaded = function (args) { //third slide
     consultation = require("~/dashboard/modals/salonPage/bookService/js/consultation")
     confirmation = require("~/dashboard/modals/salonPage/bookService/js/confirmation")
     slideIndex = 0
-    slides = [page.getViewById("chooseDateSlide"), page.getViewById("consultationSlide"), page.getViewById("confirmationSlide"), page.getViewById("successSlide") ]
-    initialiseConsultationPage(args)
+    slides = [page.getViewById("chooseDateSlide"), page.getViewById("consultationSlide"), page.getViewById("confirmationSlide"), page.getViewById("successSlide")]
+    setTimeout(()=>{
+        initialiseConsultationPage(args)
+    },1000)
+    
+    evtData = {
+        eventName: 'refresh',
+        header: "Select a date"
 
+    };
+    page.notify(evtData)//Change
     page.on('goBack', () => {
         backEvent(args)
     })
@@ -47,16 +56,50 @@ exports.loaded = function (args) { //third slide
 
 function backEvent(args) { // This event is a bit funny
     args.cancel = true;
-    if (slideIndex == 3) { exitModal(args) }
-    if (slideIndex == 0) {
-        inAppNotifiationAlert.areYouSure("Are you sure you want to exit?", "Your information will not be saved").then(function (result) {
-            if (result) { exitModal(args) }
-        })
-    } else {
-        slideTransition.goToPreviousSlide(args, slideIndex, source, slides).then(function (result) {
-            slideIndex = result
-        })
+    const page = args.object.page
+    switch (slideIndex) {
+        case 0:
+            inAppNotifiationAlert.areYouSure("Are you sure you want to exit?", "Your information will not be saved").then(function (result) {
+                if (result) { exitModal(args) }
+            })
+            break;
+        case 3:
+            exitModal(args)
+            break;
+        default:
+            slideTransition.goToPreviousSlide(args, slideIndex, source, slides).then(function (result) {
+                slideIndex = result
+                switch (slideIndex) {
+                    case 0:
+                        evtData = {
+                            eventName: 'refresh',
+                            header: "Select a date"
+                        };
+                        page.notify(evtData)
+                        break;
+                    case 1:
+                        evtData = {
+                            eventName: 'refresh',
+                            header: "Consultation"
+                        };
+                        page.notify(evtData)
+                        break;
+                    case 2:
+                        evtData = {
+                            eventName: 'refresh',
+                            header: "Confirmation"
+                        };
+                        page.notify(evtData)
+                        break;
+                    default:
+                        break;
+                }
+            })
+            break;
+
     }
+    if (slideIndex == 3) { }
+
 }
 
 function exitModal(args) {
@@ -71,16 +114,21 @@ function exitModal(args) {
 
 exports.goToNextSlide = (args) => { goToNextSlide(args) }
 
-async function goToNextSlide(args){
+async function goToNextSlide(args) {
     const page = args.object.page
     switch (slideIndex) {
-        case 0: 
+        case 0:
             slideTransition.goToNextSlide(args, slideIndex, source, slides).then(function (result) {
                 slideIndex = result
                 hideContinueButton(args)
+                evtData = {
+                    eventName: 'refresh',
+                    header: "Consultation"
+                };
+                page.notify(evtData)//Change
             })
             break;
-        case 1: 
+        case 1:
             await chooseDate.getData(args, sourceForm)
             await consultation.getData(args, sourceForm)
             confirmation.initialise(args, sourceForm)
@@ -89,8 +137,13 @@ async function goToNextSlide(args){
                 slideIndex = result
                 page.getViewById("continueButton").text = "Confirm appointment"
             })
+            evtData = {
+                eventName: 'refresh',
+                header: "Confirmation"
+            };
+            page.notify(evtData)//Change
             break;
-        case 2:   
+        case 2:
             //sendHttp(args).then((result) => {
             //    slideTransition.goToNextSlide(args, slideIndex, source, slides).then(function (result) {
             //        slideIndex = result
@@ -100,16 +153,17 @@ async function goToNextSlide(args){
             //        // Im not sure what to do here.
             //})
             break;
-           //success here
-        }
+        //success here
+    }
 }
 
 source.set("dropDownClicked", function (args) {
     const mainView = args.object;
     let context = mainView.optionContext.split(",")
-    navigation.navigateToModal(context, mainView, 4, false).then(function (result) {
-            args.object.text = result
-   
+    navigation.navigateToModal({ context: context, meta: null }, mainView, 4, false).then(function (result) {
+        if (result.text) {
+            args.object.text = result.text
+        }
     })
 })
 
@@ -126,7 +180,7 @@ async function hideContinueButton(args) {
 }
 
 function sendHttp(args) {
-    return new Promise((resolve, reject)=>{
+    return new Promise((resolve, reject) => {
         let files = []
         sourceForm.get("images").forEach(element => {
             files.push({
@@ -145,7 +199,7 @@ function sendHttp(args) {
                 time: sourceForm.get("time"),
                 consultationAnswers: sourceForm.get("consultationAnswers"),
                 appointmentNotes: sourceForm.get("appointmentNotes"),
-                userID: userID,
+                userID: clientID,
                 addons: addonArray,
                 serviceID: serviceID,
 
@@ -161,26 +215,26 @@ function sendHttp(args) {
 
 
 /* ----------- Choose Date ---------------------------*/
-exports.onCalanderLoad = function (args) { setTimeout(function () { chooseDate.initialise(args)}, 250)  }
+exports.onCalanderLoad = function (args) { setTimeout(function () { chooseDate.initialise(args) }, 250) }
 
 source.set("onDateSelected", function (args) {
-    chooseDate.dateSelected(args).then(function (result){
+    chooseDate.dateSelected(args, sendHTTP, serviceID, clientID, addonsArray).then((result) => {
         hideContinueButton(args)
     })
 })
 
-source.set("onTimeSelected", function (args) {
-    chooseDate.timeSelected(args).then((result) =>{
+exports.onTimeSelected = (args) => {
+    chooseDate.timeSelected(args).then((result) => {
         makeContinueButtonAppear(args)
-    }, (e) =>{
+    }, (e) => {
         hideContinueButton(args)
     })
-})
+}
 
 /*-----------------Consultation--------------------*/
 
-function initialiseConsultationPage(args){
-    consultation.initialise(args)
+function initialiseConsultationPage(args) {
+    consultation.initialise(args, sendHTTP, serviceID)
 }
 
 exports.templateSelector = (item, index, items) => {
@@ -195,23 +249,17 @@ exports.validateConsultationPage = (args) => {
     })
 }
 
-source.set("uploadReferenceImage", function(args){
+source.set("uploadReferenceImage", function (args) {
     consultation.uploadeReferenceImage(args)
 })
 
-source.set("uploadedImageTapped", function(args){
+source.set("uploadedImageTapped", function (args) {
     consultation.referenceimageTapped(args)
 })
 
 /*---------------------Confirmation-------------------*/
 
 /*--------------Payment--------------*/
-exports.paymentMethodAction = (args)=>{
-    confirmation.paymentMethodAction(args)
-    if (application.android) {
-        application.android.off(application.AndroidApplication.activityBackPressedEvent, backEvent);
-        application.android.on(application.AndroidApplication.activityBackPressedEvent, closeModal);
-    }
-}
+
 
 

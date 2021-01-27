@@ -50,7 +50,7 @@ exports.navigateToModal = function (context, page, index, fullScreen){ // For mo
         let destination;
         switch (index) {
             case 1:
-                destination = "~/dashboard/modals/intakeForm/create-intake-form";
+                destination = "";
                 break;
             case 2:
                 destination = "~/dashboard/modals/clientTab/full-gallery-view"
@@ -127,6 +127,11 @@ exports.navigateToModal = function (context, page, index, fullScreen){ // For mo
             case 26:
                 destination = "~/dashboard/modals/settings/settingsMenu/add-client"
                 break;
+            case 27:
+                destination = "~/dashboard/modals/settings/settingsMenu/import-clients"
+                break;
+            case 28: 
+                destination = "~/dashboard/modals/salonPage/previewService/preview-service-modal"
         }
         
         const option = {
@@ -134,7 +139,14 @@ exports.navigateToModal = function (context, page, index, fullScreen){ // For mo
             closeCallback: (result) => {
                 resolve(result)
             },
-            fullscreen: fullScreen
+            fullscreen: fullScreen,
+            animated: true,
+            // Set up a transition property on page navigation.
+            transition: {
+                name: "slide",
+                duration: 380,
+                curve: "easeIn"
+            }
         };
         try {
             page.showModal(destination, option);

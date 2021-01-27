@@ -35,32 +35,20 @@ exports.loadProfessionalPage = (args) => {
 exports.serviceTapped = (args) => {
     const object = args.object
     const serviceIndex = object.serviceIndex
-    previewServiceModal.openService(args, serviceIndex, previewServiceContentArray, source).then((result) => {
-        if (application.android) {
-            application.android.on(application.AndroidApplication.activityBackPressedEvent, closeServiceModal);
-        }
-        serviceModalActive = result
+    const context = { serviceID: serviceIndex , services: previewServiceContentArray}
+    navigation.navigateToModal(context, object, 28, true).then((result)=> {
+
     })
 }
 
 
 function closeServiceModal(args) {
-    args.cancel = true;
-    previewServiceModal.closeServiceModal(args).then((result) => {
-        serviceModalActive = result
-    })
+
 }
 
 
 exports.pageClicked = (args) => {
-    if (serviceModalActive) {
-        previewServiceModal.closeServiceModal(args).then((result) => {
-            if (application.android) {
-                application.android.off(application.AndroidApplication.activityBackPressedEvent, closeServiceModal);
-            }
-            serviceModalActive = result
-        })
-    }
+
 }
 
 exports.selectedIndexChangeInformation = async (args) => {

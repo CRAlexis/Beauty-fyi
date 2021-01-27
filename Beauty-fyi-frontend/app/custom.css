@@ -424,11 +424,11 @@ color: #000000;
     color: #9900ff
 }
 
-.purple-thick-border {
+.green-thick-border {
     border: 10px solid;
     border-image-slice: 1;
     border-width: 5px;
-    border-color: rgba(124, 9, 124, 0.445)
+    border-color: rgb(166,230,206)
 }
 
 .progressbar {

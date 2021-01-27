@@ -65,8 +65,8 @@ module.exports = env => {
     externals.push('nativescript-sqlite-sync');
     let appFullPath = resolve(projectRoot, appPath);
     if (!fs.existsSync(appFullPath)) {
-        // some apps use 'app' directory
-        appFullPath = resolve(projectRoot, 'app');
+      // some apps use 'app' directory
+      appFullPath = resolve(projectRoot, 'app');
     }
     const hasRootLevelScopedModules = nsWebpack.hasRootLevelScopedModules({ projectDir: projectRoot });
     let coreModulesPackageName = "tns-core-modules";
@@ -244,9 +244,9 @@ module.exports = env => {
                 "process": "global.process",
             }),
             // Remove all files from the out dir.
-            new CleanWebpackPlugin({
-                cleanOnceBeforeBuildPatterns: itemsToClean,
-                verbose: !!verbose
+            new CleanWebpackPlugin({ 
+              cleanOnceBeforeBuildPatterns: itemsToClean,
+              verbose: !!verbose
             }),
             // Copy assets
             new CopyWebpackPlugin([
@@ -254,7 +254,7 @@ module.exports = env => {
                 { from: { glob: 'fonts/**', dot: false } },
                 { from: { glob: '**/*.jpg', dot: false } },
                 { from: { glob: '**/*.png', dot: false } },
-                { from: { glob: '**/*.mp4', dot: false } },
+                { from: '**/*.mp4', noErrorOnMissing: true, globOptions: { dot: false, ...copyIgnore } },
             ], copyIgnore),
             new nsWebpack.GenerateNativeScriptEntryPointsPlugin("bundle"),
 

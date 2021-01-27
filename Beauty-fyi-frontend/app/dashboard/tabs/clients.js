@@ -2,52 +2,87 @@ const SocialShare = require("nativescript-social-share");
 const { loadAnimation } = require("~/controllers/animationController");
 const { sendHTTP, getHttpFile } = require("~/controllers/HTTPControllers/sendHTTP");
 const navigation = require("~/controllers/navigationController")
-
-
+const Sqlite = require("nativescript-sqlite");
 var clients = [];
+let row = 1;
+let sendRequests = true
+
+
 exports.clientPageLoaded = async (args, row = 1) => {
     const page = args.object.page
-    let clientQuery = []
-    let sendRequests = true
-    let processesedRequests = 0;
-    var listview = page.getViewById("clientList");
-    const httpParameters = { url: 'clientsget', method: 'POST', content: { row: row }, }
-    sendHTTP(httpParameters, { display: false }, { display: false }, { display: false }).then((response) => {
-        if (response.JSON.status == "success") {
-            const clientsArray = response.JSON.clients
-            sendRequests = response.JSON.continueRequests
-            console.log("continue?: " + sendRequests)
-            clientsArray.forEach(element => {
-                getClientImages(element).then((result) => {
-                    clients.push(
-                        {
-                            clientImage: result,
-                            clientName: element.firstName + " " + element.lastName,
-                            id: element.clientID
-                        },
-                    )
-                    listview.items = [];
-                    listview.items = clients;
-                    processesedRequests++
-                    if (processesedRequests == clientsArray.length) {
-                        if (sendRequests) {
-                            row++
-                            console.log("sending next request")
-                            try {
-                                this.clientPageLoaded(args, row)
-                            } catch (error) {
-                                console.log(error)
-                            }
+    page.on('loadClients', () => {
+        //readFromDB().then((result) => {
+            addToDB()
+            this.loadClients(args)
 
-                        }
-                    }
-                })
-            })
-        } else {
-        }
-    }, (e) => {
-        console.log(e)
+        //}, (e) => {
+            console.log("clients already loaded")
+        //})
+
     })
+}
+
+exports.loadClients = (args) => {
+    const page = args.object.page
+    let processesedRequests = 0;
+    const listView = page.getViewById("clientList");
+    console.log(listView)
+    const httpParameters = { url: 'clientsget', method: 'POST', content: { row: row }, }
+    if (sendRequests) {
+        sendHTTP(httpParameters, { display: false }, { display: false }, { display: false }).then((response) => {
+            if (response.JSON.status == "success") {
+                const clientsArray = response.JSON.clients
+                sendRequests = response.JSON.continueRequests
+                console.log("continue?: " + sendRequests)
+                clientsArray.forEach(element => {
+                    getClientImages(element).then((result) => {
+
+                        if (element.lastName.includes("unknown_")) {
+                            clients.push(
+                                {
+                                    clientImage: result,
+                                    clientName: element.firstName,
+                                    clientID: element.clientID
+                                },
+                            )
+                        } else {
+                            clients.push(
+                                {
+                                    clientImage: result,
+                                    clientName: element.firstName + " " + element.lastName,
+                                    clientID: element.clientID
+                                },
+                            )
+                        }
+                        listView.items = [];
+                        listView.items = clients;
+                        processesedRequests++
+                        if (processesedRequests == clientsArray.length) {
+                            if (sendRequests) {
+                                row++
+                                listView.notifyAppendItemsOnDemandFinished(0, false);
+                                /*console.log("sending next request")
+                                try {
+                                    this.loadClients(args, row)
+                                } catch (error) {
+                                    console.log(error)
+                                }*/
+
+                            }else{
+                                listView.notifyAppendItemsOnDemandFinished(0, true);
+                            }
+                        }
+                    })
+                })
+            } else {
+            }
+        }, (e) => {
+            console.log(e)
+        })
+    } else {
+        listView.notifyAppendItemsOnDemandFinished(0, true);
+    }
+
 }
 
 function getClientImages(client) {
@@ -57,35 +92,46 @@ function getClientImages(client) {
             method: 'POST',
             content: { clientID: client.clientID },
         }
-        //console.log(client)
         getHttpFile(httpParametersImages, { display: false }, { display: false }, { display: false }).then((result) => {
-            resolve(result ? result._path : "defaultServiceImage.png")
+            resolve(result ? result._path : false)
         }, (e) => {
-            console.log("e" + e)
+            resolve(false)
         })
-
     })
 }
 
 function addToDB() {
-    new Sqlite("my.db").then(async db => {
-        db.execSQL("INSERT INTO lists (list_name) VALUES (?)", "test text").then(id => {
-            console.log("insert---  id: " + id, "list_name " + "test text")
-            readFromDB(db)
-        }, error => {
-            console.log("INSERT ERROR", error);
-        });
+    new Sqlite("beauty-fyi.db").then(async db => {
+        db.execSQL('DELETE FROM http_requests_made WHERE id=1').then(() => {
+            db.execSQL('INSERT into http_requests_made (function, loaded) VALUES (?,?)', ["client function", "1"]).then(id => {
+                console.log("Created ID: " + id)
+                //readFromDB(db)
+            }, error => {
+                console.log("INSERT ERROR", error);
+            });
+        })
     })
 }
 
 function readFromDB(db) {
-    db.all("SELECT id, list_name FROM lists").then(rows => {
-        for (var row in rows) {
-            console.log("id: " + rows[row][0], "list_name: " + rows[row][1])
-        }
-    }, error => {
-        console.log("SELECT ERROR", error);
-    });
+    return new Promise((resolve, reject) => {
+        new Sqlite("beauty-fyi.db").then(async db => {
+            db.get('SELECT * from http_requests_made where function=?', 'client function').then(row => {
+                console.log(row)
+                let index = row[2]
+                console.log("index: " + index)
+                if (index == 0) {
+                    resolve()
+                } else {
+                    reject()
+                }
+            }, error => {
+                console.log("SELECT ERROR", error);
+                resolve()
+            });
+        });
+    })
+
 }
 
 exports.onPullToRefreshInitiated = (args) => {
@@ -100,47 +146,11 @@ source.set("toggleFilter", async function (args) {
     })
 })
 
-function addMoreItemsFromSource(radListView, chunkSize) {
-    //let clientHolder = clients;
-    //const newItems = []
-    //newItems.push({
-    //    clientImage: "~/images/temp2.png",
-    //    clientName: "NEw Character",
-    //    id: "4"
-    //})
-    //
-    //
-    //for (let index = 0; index < newItems.length; index++) {
-    //    clientHolder.push({
-    //        clientImage: newItems[index].clientImage,
-    //        clientName: newItems[index].clientName,
-    //        id: newItems[index].id
-    //    })  
-    //}
-    //
-    //radListView.items = []
-    //radListView.items = clientHolder;
-    return true
-}
-
-source.set("onLoadMoreItemsRequested", function (args) {
-    const radListView = args.object;
-    args.returnValue = false;
-    if (radListView.items.length > 0) {
-        if (addMoreItemsFromSource(radListView, 2)) {
-            radListView.notifyLoadOnDemandFinished(2);
-            args.returnValue = true;
-        }
-    } else {
-        args.returnValue = false;
-        radListView.notifyLoadOnDemandFinished(true);
-    }
-})
 
 exports.viewClientProfile = (args) => {
-    console.log("tapped")
     const mainView = args.object;
-    const context = ""
+    const clientID = args.object.clientID
+    const context = { clientID: clientID}
     navigation.navigateToModal(context, mainView, 7, true).then(function (result) {
         console.log(result)
     })
@@ -152,5 +162,13 @@ exports.inviteClient = (args) => {
     const context = ""
     navigation.navigateToModal(context, mainView, 26, true).then(function (result) {
         if (application.android) { application.android.on(application.AndroidApplication.activityBackPressedEvent, backEvent); }
+    })
+}
+
+exports.addNewClient = (args) => {
+    const mainView = args.object
+    const context = ""
+    navigation.navigateToModal(context, mainView, 26, true).then((result) => {
+        
     })
 }

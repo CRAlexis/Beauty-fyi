@@ -1,0 +1,36 @@
+<Page shownModally="onShownModally" loaded="loaded"
+    xmlns:lv="nativescript-ui-listview"
+    xmlns:CheckBox="@nstudio/nativescript-checkbox">
+    <GridLayout rows="auto, *, auto, auto" columns=""
+        xmlns:topBar="dashboard/includes/topBar"
+        xmlns:includes="dashboard/includes/schedule">
+        <topBar:menu-header row="0" header="Import clients"/>
+        <StackLayout row="1">
+            <lv:RadListView id="clientList" class="list-group" style="background-color: transparent">
+                <lv:RadListView.listViewLayout>
+                    <lv:ListViewLinearLayout/>
+                </lv:RadListView.listViewLayout>
+                <lv:RadListView.itemTemplate >
+                    <GridLayout rows="auto, auto" columns="" visibility="{{ clientName ? 'visible' : 'collapsed' }}">
+                        <GridLayout tap="expandSection" row="0" rows="auto" columns="5, auto, *, auto, 10" marginTop="8" marginBottom="4">
+                            <Label id="clientImageAvatar" col="1" text="&#xf2bd;" class="fas" color="lightgray" fontSize="40" visibility="{{ clientImage ? 'collapsed' : 'visible' }}" />
+                            <Image row="0" col="1" src="{{ clientImage }}" class="" marginLeft="5" marginRight="4" decodeWidth="40" height="40" stretch="aspectFill" load="async" borderRadius="20"/>
+                            <Label row="0" col="2" text="{{ clientName }}" class="h4" marginTop="6" />
+                            <CheckBox:CheckBox col="3" fillColor="black" tap="checkBoxTapped" index="{{ index }}" clientID="{{ clientID }}" />
+                        </GridLayout>
+                        <GridLayout row="1" rows="auto, auto" height="1" opacity="0" backgroundColor="rgb(250,250,250)">
+                            <TextField row="0" tap="dropDownClicked" index="{{ index }}" element="email" text="{{email}}" optionContext="{{ emailContext }}" editable="false" class="textFieldInputSuperSmall" ></TextField>
+                            <TextField row="1" tap="dropDownClicked" index="{{ index }}" element="phone" text="{{phoneNumber}}" optionContext="{{ phoneNumberContext }}" editable="false" class="textFieldInputSuperSmall" ></TextField>
+                        </GridLayout>
+                    </GridLayout>
+                    
+                </lv:RadListView.itemTemplate>
+            </lv:RadListView>
+        </StackLayout>
+        <StackLayout row="2">
+            <Label text="Client information can be edited after being imported." marginTop="5" marginLeft="15" color="gray" textWrap="true" />
+            <Button id="importButton" text="Import clients" class="btn btn-white h4 " tap="importClients" />
+
+        </StackLayout>
+    </GridLayout>
+</Page>

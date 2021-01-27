@@ -14,6 +14,7 @@ exports.onShownModally = function(args) {
 
 exports.loaded = (args) => {
     const page = args.object.page
+    console.log("Page is loaded")
     if (application.android) {
         application.android.on(application.AndroidApplication.activityBackPressedEvent, backEvent);
     }
@@ -23,6 +24,7 @@ exports.loaded = (args) => {
 }
 
 function backEvent(args) { // This event is a bit funny
+    console.log("back event in menu is firing")
     args.cancel = true;
     if (application.android) {
         application.android.off(application.AndroidApplication.activityBackPressedEvent, backEvent);
@@ -39,6 +41,7 @@ exports.goToAccountDetails = (args) => {
         const context = ""
         animation(args.object.getChildAt(1), "arrow swipe").then(function () {
             navigation.navigateToModal(context, mainView, 15, true).then(function (result) {
+                console.log("we are in menu")
                 if (application.android) { application.android.on(application.AndroidApplication.activityBackPressedEvent, backEvent); }
                 active = false
             })
@@ -119,8 +122,23 @@ exports.addClient = function (args) {
             })
         })
     }
-    
 }
+exports.importClients = function (args) {
+    if (!active) {
+        if (application.android) { application.android.off(application.AndroidApplication.activityBackPressedEvent, backEvent); }
+        active = true
+        const mainView = args.object;
+        const context = ""
+        animation(args.object.getChildAt(1), "arrow swipe").then(function () {
+            navigation.navigateToModal(context, mainView, 27, true).then(function (result) {
+                if (application.android) { application.android.on(application.AndroidApplication.activityBackPressedEvent, backEvent); }
+                active = false
+            })
+        })
+    }
+}
+
+
 
 exports.addService = function (args) {
     if (!active) {

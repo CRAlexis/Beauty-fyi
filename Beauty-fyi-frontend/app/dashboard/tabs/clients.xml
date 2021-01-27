@@ -1,24 +1,27 @@
-<StackLayout  xmlns:Card="@nstudio/nativescript-cardview" xmlns:lv="nativescript-ui-listview" xmlns:topBar="dashboard/includes/topBar" loaded="clientPageLoaded" height="88%">
+<StackLayout xmlns:Card="@nstudio/nativescript-cardview"
+    xmlns:lv="nativescript-ui-listview"
+    xmlns:topBar="dashboard/includes/topBar" loaded="clientPageLoaded" height="88%">
     <GridLayout rows="auto, *, auto">
         <StackLayout row="0">
         </StackLayout>
         <StackLayout row="1" height="90%">
-            <lv:RadListView id="clientList" class="list-group" style="background-color: transparent" pullToRefresh="true" pullToRefreshInitiated="onPullToRefreshInitiated"> 
+            <lv:RadListView id="clientList" class="list-group" style="background-color: transparent" pullToRefresh="true" pullToRefreshInitiated="onPullToRefreshInitiated" loadOnDemandMode="Auto" loadMoreDataRequested="loadClients">
                 <lv:RadListView.listViewLayout>
-                    <lv:ListViewLinearLayout  spanCount="2" />
+                    <lv:ListViewLinearLayout spanCount="2" />
                 </lv:RadListView.listViewLayout>
-                <lv:RadListView.itemTemplate >    
-                    <GridLayout id="{{ id }}" tap="viewClientProfile" rows="5, 70, 5" columns="10, 70, 10, auto" class="list-group-borders">
-                    <Image src="{{ clientImage }}" row="1" col="1" height="100%" decodeWidth="100%" load="async" borderRadius="50" stretch="aspectFill" />  
-                        <StackLayout verticalAlignment="center" row="1" col="3" marginTop="20">
-                            <Label text="{{ clientName }}" class="font-bold h4" textWrap="true" />
+                <lv:RadListView.itemTemplate >
+                    <GridLayout clientID="{{ clientID }}" tap="viewClientProfile" rows="5, auto, 5" columns="10, auto, 10, *">
+                        <Label id="clientImageAvatar" row="1" col="1" text="&#xf2bd;" class="fas" color="lightgray" fontSize="50" />
+                        <Image src="{{ clientImage }}" row="1" col="1" height="50" decodeWidth="50" width="50" load="async" borderRadius="50" stretch="aspectFill" />
+                        <StackLayout verticalAlignment="center" row="1" col="3" marginTop="10">
+                            <Label text="{{ clientName }}" fontSize="15" />
                         </StackLayout>
                     </GridLayout>
                 </lv:RadListView.itemTemplate>
             </lv:RadListView>
         </StackLayout>
-            <StackLayout row="2" orientation="horizontal" horizontalAlignment="center" verticalAlignment="bottom">
-                <Button class="btn btn-white" text="Add a client" tap="inviteClient" width="50%" />
-            </StackLayout>
+        <GridLayout columns="*, auto, 10" row="2">
+            <Button col="1" class="btn btn-black" fontSize="20" text="+" tap="addNewClient" width="50" height="50" borderRadius="50" />
+        </GridLayout>
     </GridLayout>
 </StackLayout>

@@ -126,3 +126,21 @@ exports.serviceSetActive = (args) => {
 
     }, 125)
 }
+
+exports.deleteService = (args) => {
+    const object = args.object
+    const page = object.page
+    const serviceID = object.serviceID
+    const httpParameters = {
+        url: 'deleteservice',
+        method: 'POST',
+        content: {
+            serviceID: object.serviceID,
+        },
+    }
+    sendHTTP(httpParameters).then((result) => {
+        console.log(result)
+    }, (e) => {
+        console.log(e)
+    })
+}

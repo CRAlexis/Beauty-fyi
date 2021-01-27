@@ -20,9 +20,10 @@
                             </GridLayout>
                             <StackLayout row="1" opacity="0" height="1">
                             </StackLayout>
-                            <GridLayout row="2" columns="*, auto, 10" tap="editIntakeForm" visibility="collapsed" opacity="0">
-                                <Label col="1" text="&#xf044;" marginTop="5" paddingLeft="10" paddingRight="10" color="black" class="fas" fontSize="18" textWrap="true" />
-                            </GridLayout>     
+                            <GridLayout row="2" columns="10, auto, *, auto, 10" visibility="collapsed" opacity="0" marginTop="10">
+                                <Label col="1" text="&#xf2ed;" class="far" fontSize="16" color="gray" tap="deleteIntakeForm" serviceFormID="{{ serviceFormID }}"/>
+                                <Label col="3" text="&#xf044;" marginTop="5" color="gray" paddingLeft="10" paddingRight="10" class="fas" fontSize="16" textWrap="true" />
+                            </GridLayout>
                         </GridLayout>
                     </lv:RadListView.itemTemplate>
                 </lv:RadListView>

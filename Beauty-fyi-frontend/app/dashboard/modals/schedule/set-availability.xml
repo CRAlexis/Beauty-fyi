@@ -23,8 +23,8 @@
                         <!--<Label text="&#xf017;" class="far" fontSize="20" paddingRight="10" textWrap="true" />-->
                         <StackLayout orientation="horizontal" marginLeft="-10"
                             xmlns:datetime="@nativescript/datetimepicker">
-                            <datetime:TimePickerField id="eventStartTime" width="45%" marginRight="-5" class="textFieldInputSmall" text="{{mondayStartTime}}" hint="Start time" textChange="eventEndTimeChanged" borderWidth="0"/>
-                            <datetime:TimePickerField id="eventEndTime" width="45%" marginRight="-5" class="textFieldInputSmall" text="{{mondayEndTime}}" hint="End time" textChange="eventEndTimeChanged" borderWidth="0"/>
+                            <datetime:TimePickerField id="eventStartTime" width="45%" marginRight="-5" class="textFieldInputSmall" text="{{mondayStartTime}}" time="{{ mondayStartTimeDatePicker }}" minuteInterval="15" maxHour="22" minHour="6" hint="Start time" textChange="eventEndTimeChanged" borderWidth="0"/>
+                            <datetime:TimePickerField id="eventEndTime" width="45%" marginRight="-5" class="textFieldInputSmall" text="{{mondayEndTime}}" time="{{ mondayStartTimeDatePicker }}" minuteInterval="15" maxHour="22" minHour="6" hint="End time" textChange="eventEndTimeChanged" borderWidth="0"/>
                         </StackLayout>  
                     </StackLayout>
                     <Label class="line" width="100%" marginBottom="20" marginTop="10" textWrap="true" />
@@ -55,8 +55,8 @@
                         <!--<Label text="&#xf017;" class="far" fontSize="20" paddingRight="10" textWrap="true" />-->
                         <StackLayout orientation="horizontal" marginLeft="-10"
                             xmlns:datetime="@nativescript/datetimepicker">
-                            <datetime:TimePickerField id="eventStartTime" width="45%" marginRight="-5" class="textFieldInputSmall" text="{{tuesdayStartTime}}" hint="Start time" textChange="eventEndTimeChanged" borderWidth="0"/>
-                            <datetime:TimePickerField id="eventEndTime" width="45%" marginRight="-5" class="textFieldInputSmall" text="{{tuesdayEndTime}}" hint="End time" textChange="eventEndTimeChanged" borderWidth="0"/>
+                            <datetime:TimePickerField id="eventStartTime" width="45%" marginRight="-5" class="textFieldInputSmall" text="{{tuesdayStartTime}}" time="{{ tuesdayStartTimeDatePicker }}" hint="Start time" textChange="eventEndTimeChanged" borderWidth="0"/>
+                            <datetime:TimePickerField id="eventEndTime" width="45%" marginRight="-5" class="textFieldInputSmall" text="{{tuesdayEndTime}}" time="{{ tuesdayStartTimeDatePicker }}" hint="End time" textChange="eventEndTimeChanged" borderWidth="0"/>
                         </StackLayout>
                     </StackLayout>
                     <Label class="line" width="100%" marginBottom="20" marginTop="10" textWrap="true" />
@@ -86,8 +86,8 @@
                         <!--<Label text="&#xf017;" class="far" fontSize="20" paddingRight="10" textWrap="true" />-->
                         <StackLayout orientation="horizontal" marginLeft="-10"
                             xmlns:datetime="@nativescript/datetimepicker">
-                            <datetime:TimePickerField id="eventStartTime" width="45%" marginRight="-5" class="textFieldInputSmall" text="{{wednesdayStartTime}}" hint="Start time" textChange="eventEndTimeChanged" borderWidth="0"/>
-                            <datetime:TimePickerField id="eventEndTime" width="45%" marginRight="-5" class="textFieldInputSmall" text="{{wednesdayEndTime}}" hint="End time" textChange="eventEndTimeChanged" borderWidth="0"/>
+                            <datetime:TimePickerField id="eventStartTime" width="45%" marginRight="-5" class="textFieldInputSmall" text="{{wednesdayStartTime}}" time="{{ wednesdayStartTimeDatePicker }}" hint="Start time" textChange="eventEndTimeChanged" borderWidth="0"/>
+                            <datetime:TimePickerField id="eventEndTime" width="45%" marginRight="-5" class="textFieldInputSmall" text="{{wednesdayEndTime}}" time="{{ wednesdayStartTimeDatePicker }}" hint="End time" textChange="eventEndTimeChanged" borderWidth="0"/>
                         </StackLayout>
                     </StackLayout>
                     <Label class="line" width="100%" marginBottom="20" marginTop="10" textWrap="true" />
@@ -117,8 +117,8 @@
                         <!--<Label text="&#xf017;" class="far" fontSize="20" paddingRight="10" textWrap="true" />-->
                         <StackLayout orientation="horizontal" marginLeft="-10"
                             xmlns:datetime="@nativescript/datetimepicker">
-                            <datetime:TimePickerField id="eventStartTime" width="45%" marginRight="-5" class="textFieldInputSmall" text="{{thursdayStartTime}}" hint="Start time" textChange="eventEndTimeChanged" borderWidth="0"/>
-                            <datetime:TimePickerField id="eventEndTime" width="45%" marginRight="-5" class="textFieldInputSmall" text="{{thursdayEndTime}}" hint="End time" textChange="eventEndTimeChanged" borderWidth="0"/>
+                            <datetime:TimePickerField id="eventStartTime" width="45%" marginRight="-5" class="textFieldInputSmall" text="{{thursdayStartTime}}" time="{{ thursdayStartTimeDatePicker }}" hint="Start time" textChange="eventEndTimeChanged" borderWidth="0"/>
+                            <datetime:TimePickerField id="eventEndTime" width="45%" marginRight="-5" class="textFieldInputSmall" text="{{thursdayEndTime}}" time="{{ thursdayStartTimeDatePicker }}" hint="End time" textChange="eventEndTimeChanged" borderWidth="0"/>
                         </StackLayout>
                     </StackLayout>
                     <Label class="line" width="100%" marginBottom="20" marginTop="10" textWrap="true" />
@@ -148,8 +148,8 @@
                         <!--<Label text="&#xf017;" class="far" fontSize="20" paddingRight="10" textWrap="true" />-->
                         <StackLayout orientation="horizontal" marginLeft="-10"
                             xmlns:datetime="@nativescript/datetimepicker">
-                            <datetime:TimePickerField id="eventStartTime" width="45%" marginRight="-5" class="textFieldInputSmall" text="{{fridayStartTime}}" hint="Start time" textChange="eventEndTimeChanged" borderWidth="0"/>
-                            <datetime:TimePickerField id="eventEndTime" width="45%" marginRight="-5" class="textFieldInputSmall" text="{fridayEndTime}}" hint="End time" textChange="eventEndTimeChanged" borderWidth="0"/>
+                            <datetime:TimePickerField id="eventStartTime" width="45%" marginRight="-5" class="textFieldInputSmall" text="{{fridayStartTime}}" time="{{ fridayStartTimeDatePicker }}" hint="Start time" textChange="eventEndTimeChanged" borderWidth="0"/>
+                            <datetime:TimePickerField id="eventEndTime" width="45%" marginRight="-5" class="textFieldInputSmall" text="{fridayEndTime}}" time="{{ fridayStartTimeDatePicker }}" hint="End time" textChange="eventEndTimeChanged" borderWidth="0"/>
                         </StackLayout>
                     </StackLayout>
                     <Label class="line" width="100%" marginBottom="20" marginTop="10" textWrap="true" />
@@ -179,8 +179,8 @@
                         <!--<Label text="&#xf017;" class="far" fontSize="20" paddingRight="10" textWrap="true" />-->
                         <StackLayout orientation="horizontal" marginLeft="-10"
                             xmlns:datetime="@nativescript/datetimepicker">
-                            <datetime:TimePickerField id="eventStartTime" width="45%" marginRight="-5" class="textFieldInputSmall" text="{{saturdayStartTime}}" hint="Start time" textChange="eventEndTimeChanged" borderWidth="0"/>
-                            <datetime:TimePickerField id="eventEndTime" width="45%" marginRight="-5" class="textFieldInputSmall" text="{{saturdayEndTime}}" hint="End time" textChange="eventEndTimeChanged" borderWidth="0"/>
+                            <datetime:TimePickerField id="eventStartTime" width="45%" marginRight="-5" class="textFieldInputSmall" text="{{saturdayStartTime}}" time="{{ saturdayStartTimeDatePicker }}" hint="Start time" textChange="eventEndTimeChanged" borderWidth="0"/>
+                            <datetime:TimePickerField id="eventEndTime" width="45%" marginRight="-5" class="textFieldInputSmall" text="{{saturdayEndTime}}" time="{{ saturdayStartTimeDatePicker }}" hint="End time" textChange="eventEndTimeChanged" borderWidth="0"/>
                         </StackLayout>
                     </StackLayout>
                     <Label class="line" width="100%" marginBottom="20" marginTop="10" textWrap="true" />
@@ -210,8 +210,8 @@
                         <!--<Label text="&#xf017;" class="far" fontSize="20" paddingRight="10" textWrap="true" />-->
                         <StackLayout orientation="horizontal" marginLeft="-10"
                             xmlns:datetime="@nativescript/datetimepicker">
-                            <datetime:TimePickerField id="eventStartTime" width="45%" marginRight="-5" class="textFieldInputSmall" text="{{sundayStartTime}}" hint="Start time" textChange="eventEndTimeChanged" borderWidth="0"/>
-                            <datetime:TimePickerField id="eventEndTime" width="45%" marginRight="-5" class="textFieldInputSmall" text="{{sundayEndTime}}" hint="End time" textChange="eventEndTimeChanged" borderWidth="0"/>
+                            <datetime:TimePickerField id="eventStartTime" width="45%" marginRight="-5" class="textFieldInputSmall" text="{{sundayStartTime}}" time="{{ sundayStartTimeDatePicker }}" hint="Start time" textChange="eventEndTimeChanged" borderWidth="0"/>
+                            <datetime:TimePickerField id="eventEndTime" width="45%" marginRight="-5" class="textFieldInputSmall" text="{{sundayEndTime}}" time="{{ sundayStartTimeDatePicker }}" hint="End time" textChange="eventEndTimeChanged" borderWidth="0"/>
                         </StackLayout>
                     </StackLayout>
                     <Label class="line" width="100%" marginBottom="20" marginTop="10" textWrap="true" />

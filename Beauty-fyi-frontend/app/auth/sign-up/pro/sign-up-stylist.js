@@ -101,7 +101,7 @@ exports.emailInput = (args) => {
             method: 'POST',
             content: { email: source.get("email") },
         }
-        var regExCheck = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;;
+        var regExCheck = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
         if (source.get("email").length == 0) { source.set("emailValidation", [false, false]); return }
         if (!source.get("email").trim().match(regExCheck)) {
             source.set("emailValidation", [false, true])

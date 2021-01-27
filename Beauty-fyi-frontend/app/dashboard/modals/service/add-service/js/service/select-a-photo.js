@@ -1,5 +1,6 @@
 let images = []
 let height;
+let isActive = false
 
 exports.initSlide = (args) => {
     const page = args.object.page
@@ -11,14 +12,15 @@ exports.initSlide = (args) => {
 }
 
 exports.openGallery = (args, sourceForm) => {
-    console.log(images)
+    console.log("is active: " + isActive)
+
     return new Promise((resolve, reject) => {
         const animation = require("~/controllers/animationController").loadAnimation;
         const mPicker = require("nativescript-mediafilepicker");
         const mediafilepicker = new mPicker.Mediafilepicker();
         const page = args.object.page
-        
-        
+
+
         let maxNumberFiles = 6 - images.length
         let options = {
             android: {
@@ -33,7 +35,10 @@ exports.openGallery = (args, sourceForm) => {
             }
         };
 
-        if (images.length < 6) { mediafilepicker.openImagePicker(options); }
+        if (images.length < 6 && !isActive) {
+            isActive = true
+            mediafilepicker.openImagePicker(options);
+        }
 
         mediafilepicker.on("getFiles", function (res) {
 
@@ -50,9 +55,14 @@ exports.openGallery = (args, sourceForm) => {
             page.getViewById("servicePhotosList").items = []
             page.getViewById("servicePhotosList").items = images;
             sourceForm.set("serviceImages", images)
+            isActive = false
+            if (images.length != 0) {
+                resolve()
+            }
         })
         if (images.length == 6) { page.getViewById("uploadImageContainer").visibility = "collapsed" } else { page.getViewById("uploadImageContainer").visibility = "visible" }
-        resolve()
+        
+        
     })
 }
 
@@ -77,7 +87,7 @@ exports.onItemReorderService = (args, sourceForm) => {
     const items = page.getViewById("servicePhotosList").items
     images = []
     let i = 0;
-    items.forEach(element =>{
+    items.forEach(element => {
         images.push({
             image: element.image,
             height: height + "px",

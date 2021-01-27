@@ -33,7 +33,7 @@ exports.loaded = (args) => {
                 source.set("phoneNumberValidation", [false, false])
                 page.getViewById("instagramTextField").text = accountDetails.instagram
             } else {
-                console.log("This user does have an account")
+                console.log("This user does not have an account")
             }
         }, (e) => {
             console.log(e)
@@ -52,6 +52,7 @@ exports.goBack = (args) => {
 function backEvent(args) { // This event is a bit funny
     const inAppNotifiationAlert = require("~/controllers/notifications/inApp/notification-alert.js")
     args.cancel = true;
+    
     if (pageStateChanged) {
         inAppNotifiationAlert.areYouSure("Are you sure?", "Some information may not be saved if you leave.").then(function (result) {
             console.log(result)
@@ -59,6 +60,7 @@ function backEvent(args) { // This event is a bit funny
                 if (application.android) {
                     application.android.off(application.AndroidApplication.activityBackPressedEvent, backEvent);
                 }
+                console.log("Closed call back in accoutn details")
                 closeCallback();
             }
         })

@@ -24,6 +24,8 @@ exports.validateSecondPage = (args, sourceForm) => {
         if (serviceName.text && servicePrice.text && serviceCategory.text && serviceDescription.text) {    
             console.log("resolved")
             resolve()
+        }else{
+            reject()
         }
     })
 }

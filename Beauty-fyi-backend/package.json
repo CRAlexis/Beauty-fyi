@@ -34,6 +34,7 @@
     "base64-arraybuffer": "^0.2.0",
     "base64id": "^2.0.0",
     "cors": "^2.8.5",
+    "dateformat": "^4.5.0",
     "ffmpeg": "0.0.4",
     "http": "0.0.1-security",
     "mysql": "^2.18.1",

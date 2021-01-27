@@ -3,15 +3,15 @@
     <GridLayout row="0" rows="auto, auto" columns="" id="addClientSlide" height="100%">
         <StackLayout xmlns:Card="@nstudio/nativescript-cardview" row="0">
             <Card:CardView class="cardStyle" elevation="10" marginBottom="5" radius="0">
-                <GridLayout columns="40, *, auto, 20" paddingLeft="20" paddingRight="10" paddingBottom="10">
-                    <StackLayout tap="exit" col="0" orientation="horizontal" paddingTop="15">
-                        <Label text="&#xf00d;" class="fas" fontSize="19" textWrap="true" />
+                <GridLayout columns="auto, *, auto" paddingBottom="10">
+                    <StackLayout tap="exit" col="0" orientation="horizontal" orientation="horizontal" paddingTop="15" paddingRight="30" paddingLeft="30">
+                        <Label text="&#xf00d;" class="fas" fontSize="19" textAlignment="center" />
                     </StackLayout>
                     <StackLayout col="1">
                         <Label id="title" text="Add client" textAlignment="center" class="h4 font-bold" color="black" paddingTop="15" />
                     </StackLayout>
-                    <StackLayout tap="createClient" id="infoContainer" col="2" orientation="horizontal" paddingTop="15" paddingLeft="10" paddingRight="10">
-                        <Label text="&#xf00c;" class="fas" fontSize="19" textWrap="true" />
+                    <StackLayout tap="createClient" id="infoContainer" col="2" orientation="horizontal" paddingTop="15" paddingRight="30" paddingLeft="30">
+                        <Label text="&#xf00c;" class="fas" fontSize="19" textAlignment="center" />
                     </StackLayout>
                 </GridLayout>
             </Card:CardView>

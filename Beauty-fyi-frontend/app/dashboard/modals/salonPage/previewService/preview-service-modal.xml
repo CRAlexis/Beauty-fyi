@@ -1,51 +1,67 @@
-<StackLayout xmlns:Card="@nstudio/nativescript-cardview" loaded="init">
-<Card:CardView  row="0" class="cardStyle" margin="5" elevation="10" radius="10" width="90%" height="90%">
-    <GridLayout rows="*, auto" columns="">
-        <ScrollView row="0">
-            <GridLayout rows="auto, auto, 20, auto, auto, auto, auto" columns="">
+<Page shownModally="onShownModally" loaded="loaded"
+    xmlns:topBar="dashboard/includes/topBar">
+    <StackLayout xmlns:Card="@nstudio/nativescript-cardview">
+        <GridLayout rows="auto, *, auto" columns="">
+            <topBar:menu-header row="0" header=""/>
+            <ScrollView row="1">
+                <GridLayout rows="auto, auto, auto, auto, auto, auto, auto" columns="">
+                    <StackLayout backgroundColor="rgb(245,245,245)" height="35" row="0">
 
-                <GridLayout rows="*, auto, *" columns="20, auto, * , auto, 20">                      
-                    <Image id="serviceModalImage" rowSpan="3" colSpan="5" src="" height="235" stretch="aspectFit" opacity="0.9"/>
-                    <Label direction="back" tap="goToNextImage" row="1" col="1" marginTop="35"  text="&#xf053;" color="black" class="fas" fontSize="20" textWrap="true" />
-                    <Label direction="forward" tap="goToNextImage" row="1" col="3" marginTop="35" text="&#xf054;" color="black" class="fas" fontSize="20" textWrap="true" />
+                    </StackLayout>
+                    <GridLayout row="1" rows="*, auto, *" columns="20, auto, * , auto, 20">
+                        <Image id="serviceModalImage" rowSpan="3" colSpan="5" src="" height="235" stretch="aspectFill" opacity="0.9"/>
+                        <Label direction="back" tap="goToNextImage" row="1" col="1" marginTop="35" text="&#xf053;" color="white" class="fas" fontSize="28" textWrap="true" />
+                        <Label direction="forward" tap="goToNextImage" row="1" col="3" marginTop="35" text="&#xf054;" color="white" class="fas" fontSize="28" textWrap="true" />
+                    </GridLayout>
+
+                    <StackLayout backgroundColor="rgb(245,245,245)" height="35" row="2">
+
+                    </StackLayout>
+                    <StackLayout row="3" visibility="collapsed">
+
+                    </StackLayout>
+
+                    <StackLayout row="4" backgroundColor="rgb(250,250,250)" paddingBottom="25">
+                        <StackLayout marginLeft="20" marginRight="20" paddingTop="15">
+                            <Label text="Service Details" class="h4 font-bold"/>
+                            <Label id="previewServiceDescription" text="" class="h4" textWrap="true"/>
+                        </StackLayout>
+
+                        <StackLayout marginLeft="20" marginRight="20" marginTop="20">
+                            <Label text="Addons" class="h4 font-bold" paddingBottom="5"/>
+                        </StackLayout>
+                        <StackLayout id="addonContainer"
+                            xmlns:CheckBox="@nstudio/nativescript-checkbox" paddingLeft="13" paddingRight="10">
+                            <Repeater items="{{ addonsListView }}">
+                                <Repeater.itemTemplate>
+                                    <CheckBox:CheckBox tap="addonTapped" addonID="{{addonID}}" text="{{addonText}}" fontSize="16" class="font-bold" checked="false" paddingLeft="13" marginTop="-5"/>
+                                </Repeater.itemTemplate>
+                            </Repeater>
+                        </StackLayout>
+                    </StackLayout>
+
+                    <StackLayout row="5" marginLeft="20" marginRight="20" marginTop="20">
+                        <GridLayout rows="auto, auto, auto">
+                            <StackLayout row="0" orientation="horizontal">
+                                <Label text="&#xf111;" class="far" fontSize="16" paddingRight="10"/>
+                                <Label id="previewServiceCateogry" text="" class="h5" />
+                            </StackLayout>
+                            <StackLayout row="1" orientation="horizontal">
+                                <Label text="&#xf3d1;" class="far" fontSize="16" paddingRight="10"/>
+                                <Label id="previewServicePrice" text="" class="h5" />
+                            </StackLayout>
+                            <StackLayout row="2" orientation="horizontal" paddingBottom="5">
+                                <Label text="&#xf017;" class="far" fontSize="16" paddingRight="10"/>
+                                <Label id="previewServiceTime" text="" class="h5" />
+                            </StackLayout>
+                        </GridLayout>
+                    </StackLayout>
+
                 </GridLayout>
-                <StackLayout row="2" backgroundColor="rgb(248, 248, 248)" ></StackLayout>
-                <!--<GridLayout row="3" rows="" columns="auto, *" padding="10">
-                    <StackLayout col="0" orientation="horizontal" paddingRight="5" paddingTop="3">
-                        <Label text="&#xf005;" color="orange" class="{{ starOne ? 'fas' : 'far' }}" fontSize="15" textWrap="true" />
-                        <Label text="&#xf005;" color="orange" class="{{ starTwo ? 'fas' : 'far' }}" fontSize="15" textWrap="true" />
-                        <Label text="&#xf005;" color="orange" class="{{ starThree ? 'fas' : 'far' }}" fontSize="15" textWrap="true" />
-                        <Label text="&#xf005;" color="orange" class="{{ starFour ? 'fas' : 'far' }}" fontSize="15" textWrap="true" />
-                        <Label text="&#xf005;" color="orange" class="{{ starFive ? 'fas' : 'far' }}" fontSize="15" textWrap="true" />
-                    </StackLayout>
-                    <Label col="1" text="20 reviews" color="gray" textDecoration="underline" class="h5" textWrap="true"/>
-                </GridLayout>-->
-                <StackLayout row="4" padding="20">
-                    <StackLayout orientation="horizontal" paddingBottom="5">
-                        <Label text="&#xf3d1;" class="far" fontSize="20" textWrap="true" paddingRight="10" paddingTop="5"/>        
-                        <Label id="previewServicePrice" text="" class="h4" textWrap="true" />
-                    </StackLayout>
-
-                    <StackLayout orientation="horizontal"  paddingBottom="5">
-                        <Label text="&#xf017;" class="far" fontSize="20" textWrap="true" paddingRight="10" paddingTop="5"/>        
-                        <Label id="previewServiceTime" text="" textWrap="true" class="h4" />
-                    </StackLayout>
-                    <Label id="previewServiceDescription" text="" class="h5" textWrap="true" paddingBottom="10" paddingTop="10"/>  
-                </StackLayout>
-                <StackLayout id="addonContainer" row="5" xmlns:CheckBox="@nstudio/nativescript-checkbox" paddingLeft="10" paddingRight="10">
-                <Repeater items="{{ addonsListView }}">
-                    <Repeater.itemTemplate>
-                        <CheckBox:CheckBox tap="addonTapped" addonID="{{addonID}}" text="{{addonText}}" fontSize="14" color="black" checked="false" paddingLeft="10" marginTop="-5"/>
-                    </Repeater.itemTemplate>
-                </Repeater>
-                </StackLayout> 
-
-            </GridLayout>
-       </ScrollView>
-       <StackLayout row="1" class="border-top-grey">
-           <Button tap="bookService" text="Book Now" class="btn btn-white " width="50%"/>
-
-       </StackLayout>
-    </GridLayout>
-</Card:CardView>  
-</StackLayout>
+            </ScrollView>
+            <StackLayout row="2">
+                <Button tap="bookService" text="Book Now" class="btn btn-black" height="40" width="50%"/>
+            </StackLayout>
+        </GridLayout>
+    </StackLayout>
+</Page>

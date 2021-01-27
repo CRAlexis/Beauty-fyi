@@ -50,7 +50,7 @@ exports.addSteps = (args, sourceForm) => {
     listview.items = steps;
 
     sourceForm.set("serviceSteps", steps)
-    
+
 }
 
 exports.removeStep = (args, sourceForm) => {
@@ -77,4 +77,31 @@ exports.removeStep = (args, sourceForm) => {
     listview.items = [];
     listview.items = steps;
     sourceForm.set("serviceSteps", steps)
+}
+
+exports.validatePage = (args, sourceForm) => {
+    return new Promise((resolve, reject) => {
+        const page = args.object.page;
+        const listview = page.getViewById("stepsListView")
+        let index = 0
+        let rejectOrResolve = true;
+        setTimeout(() => {
+            listview.items.forEach(element => {
+                if (!element.stepName || !element.stepDuration) {
+                    console.log("Page is invalid")
+                    rejectOrResolve = false
+                }
+                index++
+                if (index == listview.items.length) {
+                    if (rejectOrResolve) {
+                        console.log("resolving step page")
+                        resolve()
+                    } else {
+                        console.log("rejecting step page")
+                        reject()
+                    }
+                }
+            });
+        }, 125)
+    })
 }

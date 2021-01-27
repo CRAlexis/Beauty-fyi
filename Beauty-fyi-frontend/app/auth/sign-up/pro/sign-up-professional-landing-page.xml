@@ -11,7 +11,7 @@
             </GridLayout>    
         </StackLayout>
         <StackLayout row="2" style="padding-left: 80px; padding-right: 80px">
-            <Label class="font-regular h1 letterSpacing" text="Become a Beauty-fyi Pro" style="color: #9900ff;" horizontalAlignment="center" textWrap="true"/>
+            <Label class="font-regular h1 letterSpacing" text="Become a Beauty-fyi Pro" style="color: #A6E6CE;" horizontalAlignment="center" textWrap="true"/>
             <label class="font-regular h4" text="Sign up now to join our community of Beauty Professionals! Sell your services with Beauty-fyi" horizontalAlignment="center" textWrap="true"/>
         </StackLayout>
         <StackLayout class="form" row="4">

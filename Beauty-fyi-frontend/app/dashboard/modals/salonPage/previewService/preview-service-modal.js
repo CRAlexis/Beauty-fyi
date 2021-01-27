@@ -1,43 +1,60 @@
-let images = []
 const animation = require("~/controllers/animationController").loadAnimation
 const navigation = require("~/controllers/navigationController")
 const { sendHTTP, sendHTTPFile, getHttpFile } = require("~/controllers/HTTPControllers/sendHTTP");
+const application = require('application');
+const Observable = require("tns-core-modules/data/observable").Observable;
+let source = new Observable();
 let imageIndex = 0
 let serviceModalActive = false
-let pageObject;
 let addonArray = []
-let serviceID
+let addonIDs = []
+let serviceID;
+let images = []
+let closeCallback;
+let previewServiceContentArray;
 
-exports.openService = async (args, serviceIndex, previewServiceContentArray, source) => {
-    return new Promise((resolve, reject)=>{
-        pageObject = args.object.page
-        if (!serviceModalActive) {
-            console.log("is the modal active: " + serviceModalActive)
-            setTimeout(async function () {
-                const object = args.object;
-                const index = object.serviceIndex
-                const page = object.page
-                serviceID = serviceIndex
-                
-                let addonArray = []
-                await populate(args, serviceIndex, previewServiceContentArray, source)
-                serviceModalActive = true
-                await animation(page.getViewById("profilePageContainer"), "fade out", { opacity: 0.2 })
-                page.getViewById("serviceModal").visibility = 'visible';
-                await animation(page.getViewById("serviceModal"), "fade in")
-                resolve(true)
-            }, 100)
-        }
-    })
+exports.onShownModally = async (args) => {
+    console.log("is this running?")
+    let context = args.context;
+    closeCallback = args.closeCallback;
+    //console.log(context)
+    const page = args.object;
+    page.bindingContext = source
+    serviceID = context.serviceID
+    previewServiceContentArray = context.services
+    //console.log("ServiceID: " + context.serviceID)
+    //console.dir("previewServiceContentArray: " + context.services)
+    await populate(args)
     
 }
 
-function populate(args, serviceIndex, previewServiceContentArray, source){
-    return new Promise((resolve, reject)=>{
+exports.loaded = async (args) => {
+    const page = args.object.page
+    if (application.android) { application.android.on(application.AndroidApplication.activityBackPressedEvent, backEvent); }
+    page.on('goBack', () => { backEvent(args) })
+    evtData = {
+        eventName: 'refresh',
+        header: "Service name"
+
+    };
+    page.notify(evtData)//Change
+}
+
+function backEvent(args) { // This event is a bit funny
+    args.cancel = true
+    if (application.android) {
+        application.android.off(application.AndroidApplication.activityBackPressedEvent, backEvent);
+    }
+    closeCallback();
+}
+
+
+function populate(args) {
+    return new Promise((resolve, reject) => {
         const page = args.object.page
-        console.log("The service ID is received: " + serviceIndex) 
+        console.log("The service ID is received: " + serviceID)
         previewServiceContentArray.forEach(element => {
-            if (element.id == serviceIndex){
+            if (element.id == serviceID) {
                 let serviceImageInteger = 0;
                 element.image_one ? serviceImageInteger++ : false
                 element.image_two ? serviceImageInteger++ : false
@@ -45,23 +62,24 @@ function populate(args, serviceIndex, previewServiceContentArray, source){
                 element.image_four ? serviceImageInteger++ : false
                 element.image_five ? serviceImageInteger++ : false
                 element.image_six ? serviceImageInteger++ : false
-                getServiceImages(args, serviceIndex, serviceImageInteger)
+                getServiceImages(args, serviceID, serviceImageInteger)
                 page.getViewById("serviceModalImage").src = images[0]
-                page.getViewById("previewServicePrice").text = "£" + element.price 
+                page.getViewById("previewServicePrice").text = "£" + element.price
                 page.getViewById("previewServiceDescription").text = element.description
+                page.getViewById("previewServiceCateogry").text = element.category
             }
         })
         const httpParameters = {
             url: 'servicegetaddon',
             method: 'POST',
             content: {
-                serviceID: serviceIndex
+                serviceID: serviceID
             },
         }
         sendHTTP(httpParameters).then((result) => {
             let addons = result.JSON.addons
             let addonArray = []
-            addons.forEach(element =>{
+            addons.forEach(element => {
                 addonArray.push({
                     addonID: element.id,
                     addonText: element.name + " (£" + element.price + ")"
@@ -74,7 +92,7 @@ function populate(args, serviceIndex, previewServiceContentArray, source){
             url: 'servicegetlength',
             method: 'POST',
             content: {
-                serviceID: serviceIndex
+                serviceID: serviceID
             },
         }
         sendHTTP(httpParametersTime).then((result) => {
@@ -86,42 +104,23 @@ function populate(args, serviceIndex, previewServiceContentArray, source){
     })
 }
 
-function getServiceImages(args, serviceIndex, serviceImageInteger){
+function getServiceImages(args, serviceID, serviceImageInteger) {
     const page = args.object.page
     for (let index = 0; index < serviceImageInteger; index++) {
         const httpParametersImages = {
             url: 'servicegetimage',
             method: 'POST',
-            content: { serviceID: serviceIndex, index: index },
+            content: { serviceID: serviceID, index: index },
         }
         getHttpFile(httpParametersImages, { display: false }, { display: false }, { display: false }).then((result) => {
             result ? images.push(result._path) : false;
-            if (index == 0) { page.getViewById("serviceModalImage").src = images[0]}
+            if (index == 0) { page.getViewById("serviceModalImage").src = images[0] }
         }, (e) => {
             console.log("e" + e)
         })
     }
 }
 
-exports.closeServiceModal = (args) => {
-    return new Promise(async (resolve, reject) => {
-        if (serviceModalActive) {
-            //const page = args.object.page
-            await animation(pageObject.getViewById("serviceModal"), "fade out")
-            await animation(pageObject.getViewById("profilePageContainer"), "fade in")
-            pageObject.getViewById("serviceModal").visibility = 'collapsed';
-            serviceModalActive = false
-            try {
-                images = []
-                console.log(images)
-            } catch (error) {
-                console.log(error)
-            }
-            
-            resolve(false)
-        }
-    })
-}
 
 
 exports.goToNextImage = async (args) => {
@@ -146,19 +145,46 @@ exports.goToNextImage = async (args) => {
 exports.bookService = (args) => {
     const mainView = args.object;
     const page = args.object.page
-    let parent = page.getViewById("addonContainer")
-    animation(args.object, "expand section width", { width: "80%", duration: 250 }).then(function () {
-        navigation.navigateToModal("", mainView, 24, true).then(function (result) {        
-            console.log("User ID in preview service modal: " + result)
-            for (let index = 0; index < parent.getChildrenCount(); index++) {
-                if (parent.getChildAt(index).checked) {
-                    addonArray.push(parent.getChildAt(index).addonID)
-                }
-            }
-            let context = { userID: result, addons: addonArray, serviceID: serviceID }           
-            navigation.navigateToModal(context, mainView, 3, true).then((result)=>{
-                args.object.width = "50%"
+
+    animation(args.object, "expand section width", { width: "80%", duration: 250 }).then(()=> {
+        navigation.navigateToModal("", mainView, 24, true).then((result)=> {
+            console.log("addon: " + addonIDs)
+            let context = { userID: result, addons: addonIDs, serviceID: serviceID }
+            navigation.navigateToModal(context, mainView, 3, true).then((result) => {
+            args.object.width = "50%"
             })
         })
     })
+}
+
+exports.addonTapped = (args) => {
+    const checkbox = args.object
+    const page = args.object.page
+    checkbox.isEnabled = false
+    setTimeout(() => {
+        const addonID = checkbox.addonID
+        if (!checkbox.checked) {
+            let i = 0
+            addonIDs.forEach(element => {
+                if (element == addonID) {
+                    addonIDs.splice(i, 1)
+                }
+                i++
+            })
+            addonIDs.push(addonID)
+            checkbox.isEnabled = true
+            checkbox.checked = true
+        } else {
+            let i = 0
+            addonIDs.forEach(element => {
+                if (element == addonID) {
+                    addonIDs.splice(i, 1)
+                    checkbox.isEnabled = true
+                    checkbox.checked = false
+                }
+                i++
+            })
+        }
+        console.log(addonIDs)
+    }, 125)
 }

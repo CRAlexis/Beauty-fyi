@@ -113,7 +113,7 @@ function createPaymentMethodList(args){
     }
 }
 
-exports.paymentMethodAction = (args) => {
+/*exports.paymentMethodAction = (args) => {
     object = args.object;
     index = object.index;
     const page = object.page
@@ -136,5 +136,5 @@ exports.paymentMethodAction = (args) => {
             //add voucher
             break;
     }
-}
+}*/
 

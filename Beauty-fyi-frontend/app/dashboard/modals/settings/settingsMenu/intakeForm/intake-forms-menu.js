@@ -26,9 +26,9 @@ exports.loaded = (args) => {
     pageStateChanged = false;
 }
 
-function getData(args){
+function getData(args) {
     const httpParameters = { url: 'formsget', method: 'POST', content: {}, }
-    sendHTTP(httpParameters, { display: false }, { display: false }, { display: false })
+    sendHTTP(httpParameters, { display: true }, { display: false }, { display: false })
         .then((response) => {
             if (response.JSON.status == "success") {
                 formData = response.JSON.serviceForms
@@ -134,6 +134,26 @@ exports.createNewIntakeForm = (args) => {
     })
 }
 
+exports.deleteIntakeForm = (args) => {
+    const object = args.object
+    const page = object.page
+    const serviceFormID = object.serviceFormID
+    const httpParameters = {
+        url: 'deleteform',
+        method: 'POST',
+        content: {
+            serviceFormID: serviceFormID,
+        },
+    }
+    sendHTTP(httpParameters, { display: false }, { display: false }, { display: true }).then((result) => {
+        if (result.JSON.status == "success") {
+            getData(args)
+        }
+    }, (e) => {
+        console.log(e)
+    })
+}
+
 
 function backEvent(args) { // This event is a bit funny
     args.cancel = true;
@@ -154,7 +174,9 @@ function createFormsListView(args, forms) {
         })
     });
     //format photos when uploading
+    console.log(formArray)
     var listview = page.getViewById("intakeFormListView");
+    listview.items = []
     listview.items = formArray;
 }
 

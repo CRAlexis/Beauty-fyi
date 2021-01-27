@@ -8,19 +8,17 @@ class AccountDetailsController {
     async getAccountDetails({ request, session, response }) {
         console.log("Getting account details data");
         try {
-            const userID = request.all().auth.userID;
+            const userID = request.all().auth.userID;ID)
             const userQuery = await User.query().where('id', userID).first()
-            const instagram = await UserAttr.query().where('user_id', userID).where('attr', 'instagram').first()
             const salonName = await UserAttr.query().where('user_id', userID).where('attr', 'salon_name').first()
             let accountDetails = {
                 firstName: userQuery.firstName,
                 lastName: userQuery.lastName,
                 email: userQuery.email,
                 phoneNumber: userQuery.phoneNumber,
-                instagram: instagram.value,
-                salon_name: salonName.value
+                instagram: instagram ? instagram.value : null,
+                salon_name: salonName ? salonName.value : null
             }
-            console.log(accountDetails)
             return { "status": "success", "accountDetails": accountDetails }
         } catch (e) {
             console.log(e)

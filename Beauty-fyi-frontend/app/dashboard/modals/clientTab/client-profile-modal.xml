@@ -1,50 +1,73 @@
-<Page shownModally="onShownModally" loaded="onPageLoaded" xmlns:Card="@nstudio/nativescript-cardview" xmlns:lv="nativescript-ui-listview" backgroundColor="rgb(247,247,247)">
+<Page shownModally="onShownModally" loaded="onPageLoaded"
+    xmlns:Card="@nstudio/nativescript-cardview"
+    xmlns:lv="nativescript-ui-listview" backgroundColor="rgb(247,247,247)">
     <ScrollView height="100%">
-        <GridLayout rows="auto, auto, auto, auto, auto, auto" xmlns:topBar="dashboard/includes/topBar">
-            <topBar:menu-header row="0" header="Name of client" tap="goBack"/>
+        <GridLayout rows="auto, auto, auto, auto, auto, auto"
+            xmlns:topBar="dashboard/includes/topBar">
+            <topBar:menu-header row="0"/>
 
-            <GridLayout row="1" rows="auto," columns="auto, auto" class="" style="margin-bottom: 10; padding-bottom: 10;" backgroundColor="white">
-                <Image row="0" col="0"  tap="{{ openClientGallery }}" src="~/images/temp.png" class="" margin="20" marginLeft="20" horizontalAlignment="center" height="130" width="130" borderRadius="130" stretch="aspectFill" />
+            <GridLayout row="1" rows="auto," columns="auto, auto" class="" marginTop="9" marginBottom="10" backgroundColor="white">
+                <Label id="clientImageAvatar" row="0" col="0" text="&#xf2bd;" class="fas" color="lightgray" marginLeft="20" marginRight="20" marginTop="10" marginBottom="10" fontSize="130" />
+                <Image id="clientThumbnail" row="0" col="0" tapa="{{ openClientGallery }}" src="" marginLeft="20" marginRight="20" marginTop="10" marginBottom="10" horizontalAlignment="center" height="130" width="130" borderRadius="130" stretch="aspectFill" />
 
-                <StackLayout row="0" col="1" paddingTop="30">
-                    <Label class="h5" text="Next appointment" textWrap="true" />
-                    <Label class="h4 font-bold" text="17th October 2020" textWrap="true" />
-                    
-                    <Label class="h5" text="Last appointment" textWrap="true" />
-                    <Label class="h4 font-bold" text="10th October 2020" textWrap="true" />
-                    
+                <StackLayout row="0" col="1" paddingTop="20">
+                    <Label class="h5" text="Next appointment" textWrap="true" marginBottom="-3" />
+                    <Label class="h5 font-bold" text="17th October 2020"  marginTop="-3" textWrap="true" />
+
+                    <Label class="h5" text="Last appointment" textWrap="true" marginBottom="-3" />
+                    <Label class="h5 font-bold" text="10th October 2020" textWrap="true" marginTop="-3" />
+
+                    <Label class="h5" text="Total spend" textWrap="true" marginBottom="-3" />
+                    <Label class="h5 font-bold" text="£137" textWrap="true"  marginTop="-3" />
                 </StackLayout>
             </GridLayout>
-    
-            <SegmentedBar row="2" selectedIndex="0" selectedIndexChanged="{{ selectedIndexChangeInformation }}" backgroundColor="white" selectedBackgroundColor="#9900ff">>
+
+            <StackLayout row="2" marginBottom="10" backgroundColor="white">
+                <StackLayout paddingTop="8">
+                    <lv:RadListView id="clientGalleryList" class="list-group">
+                        <lv:RadListView.listViewLayout>
+                            <lv:ListViewLinearLayout scrollDirection="Horizontal" />
+                        </lv:RadListView.listViewLayout>
+                        <lv:RadListView.itemTemplate >
+                            <GridLayout id="{{contentId}}" rows="auto, *, auto" columns="" tap="viewContent" longPress="longPressedImage" margin="1">
+                                <Image rowSpan="3" col="0" isImage="{{isImage}}" contentSource="{{contentSource}}" src="{{ contentImage }}" height="{{height}}" decodeWidth="{{height}}" stretch="aspectFill" load="async"/>
+                                <Label row="1" text="{{isImage ? '' : '&#xf144;'}}" textAlignment="center" color="white" class="fas" fontSize="25"/>
+                            </GridLayout>
+                        </lv:RadListView.itemTemplate>
+                    </lv:RadListView>
+                </StackLayout>
+
+            </StackLayout>
+
+            <!--<SegmentedBar row="2" selectedIndex="0" selectedIndexChanged="{{ selectedIndexChangeInformation }}" backgroundColor="white" selectedBackgroundColor="">>
                 <SegmentedBar.items>
                     <SegmentedBarItem title="Hair Type" />
-                    <SegmentedBarItem title="Hair Behaviour" />         
+                    <SegmentedBarItem title="Hair Behaviour" />
                 </SegmentedBar.items>
             </SegmentedBar>
 
-            <StackLayout id="clientInfoSection" row="3"  paddingBottom="20" marginBottom="10" backgroundColor="white" xmlns:includes="dashboard/includes/clientTab">
+            <StackLayout id="clientInfoSection" row="3" paddingBottom="20" marginBottom="10" backgroundColor="white" xmlns:includes="dashboard/includes/clientTab">
                 <includes:hair-type-container/>
                 <includes:hair-care-container/>
-            </StackLayout>
-    
-            
-            <SegmentedBar row="4" selectedIndex="0" selectedIndexChanged="{{ selectedIndexChangeAppointments }}" backgroundColor="white" selectedBackgroundColor="#9900ff">>
+            </StackLayout> -->
+
+
+            <SegmentedBar row="3" selectedIndex="0" selectedIndexChanged="{{ selectedIndexChangeAppointments }}" backgroundColor="white" selectedBackgroundColor="#A6E6CE">
                 <SegmentedBar.items>
                     <SegmentedBarItem title="Previous appointments" />
-                    <SegmentedBarItem title="Future appointments" />   
+                    <SegmentedBarItem title="Future appointments" />
                 </SegmentedBar.items>
             </SegmentedBar>
             <StackLayout row="5" paddingLeft="20" paddingTop="20" backgroundColor="white">
                 <StackLayout xmlns:lv="nativescript-ui-listview" visibility="{{ pastAppointmentsContainerVisbility ? 'visible' : 'collapsed' }}">
-                    <lv:RadListView id="pastClientAppointmentsFromProView" class="list-group" style="background-color: transparent" > 
+                    <lv:RadListView id="pastClientAppointmentsFromProView" class="list-group" style="background-color: transparent">
                         <lv:RadListView.listViewLayout>
-                            <lv:ListViewLinearLayout  spanCount="2" />
+                            <lv:ListViewLinearLayout spanCount="2" />
                         </lv:RadListView.listViewLayout>
-                        <lv:RadListView.itemTemplate >    
+                        <lv:RadListView.itemTemplate >
                             <StackLayout orientation="horizontal">
                                 <Label text="{{ serviceDate }}" class="h4" textWrap="true" />
-                                <Label text="-" textWrap="true" />  
+                                <Label text="-" textWrap="true" />
                                 <Label text="{{ serviceName }}" class="font-bold h4" textWrap="true" />
                             </StackLayout>
                         </lv:RadListView.itemTemplate>
@@ -52,14 +75,14 @@
                 </StackLayout>
 
                 <StackLayout xmlns:lv="nativescript-ui-listview" visibility="{{ pastAppointmentsContainerVisbility ? 'collapsed' : 'visible' }}">
-                    <lv:RadListView id="futureClientAppointmentsFromProView" class="list-group" style="background-color: transparent" > 
+                    <lv:RadListView id="futureClientAppointmentsFromProView" class="list-group" style="background-color: transparent">
                         <lv:RadListView.listViewLayout>
-                            <lv:ListViewLinearLayout  spanCount="2" />
+                            <lv:ListViewLinearLayout spanCount="2" />
                         </lv:RadListView.listViewLayout>
-                        <lv:RadListView.itemTemplate >    
+                        <lv:RadListView.itemTemplate >
                             <StackLayout orientation="horizontal">
                                 <Label text="{{ serviceDate }}" class="h4" textWrap="true" />
-                                <Label text="-" textWrap="true" />  
+                                <Label text="-" textWrap="true" />
                                 <Label text="{{ serviceName }}" class="font-bold h4" textWrap="true" />
                             </StackLayout>
                         </lv:RadListView.itemTemplate>

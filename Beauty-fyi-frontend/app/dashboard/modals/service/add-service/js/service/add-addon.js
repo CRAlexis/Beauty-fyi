@@ -2,15 +2,6 @@ let addons = []
 exports.initialise = (args, sourceForm) => {
     const page = args.object.page
     addons = [];
-    addons.push(
-        {
-            index: 1,
-            id: "addonsListView" + 1,
-            addonName: "",
-            addonPrice: "",
-            addonDuration: "",
-        },
-    )
     var listview = page.getViewById("addonsListView"); try { listview.items = addons; } catch (error) { }
     sourceForm.set("serviceAddons", addons)
 }
@@ -18,7 +9,8 @@ exports.initialise = (args, sourceForm) => {
 exports.addAddon = (args, sourceForm) => {
     const page = args.object.page
     var listview = page.getViewById("addonsListView")
-    const id = listview.items.length + 1
+    let id = 0
+    try { id = listview.items.length } catch (error) { }
     addons = []
     listview.items.forEach(element => {
         addons.push({
@@ -42,7 +34,7 @@ exports.addAddon = (args, sourceForm) => {
     //format photos when uploading
     listview.items = [];
     listview.items = addons;
-    
+
 }
 
 exports.removeAddon = (args, sourceForm) => {
@@ -51,23 +43,22 @@ exports.removeAddon = (args, sourceForm) => {
     var listview = page.getViewById("addonsListView")
     const length = listview.items.length
     const index = args.object.index
-    
-    if (length > 1) {
-        addons.splice(index - 1, 1)
-        let addonsHolder = addons
-        addons = []
-        let i = 1;
-        addonsHolder.forEach(element => {
-            addons.push({
-                index: i,
-                id: element.id,
-                addonName: element.addonName,
-                addonPrice: element.addonPrice,
-                addonDuration: element.addonDuration
-            })
-            i++
-        });
-    }
+
+    addons.splice(index - 1, 1)
+    let addonsHolder = addons
+    addons = []
+    let i = 0;
+    addonsHolder.forEach(element => {
+        addons.push({
+            index: i,
+            id: element.id,
+            addonName: element.addonName,
+            addonPrice: element.addonPrice,
+            addonDuration: element.addonDuration
+        })
+        i++
+    });
+
 
     listview.items = [];
     listview.items = addons;
@@ -87,7 +78,36 @@ exports.getData = (args, sourceForm) => {
             addonDuration: element.addonDuration
         })
     });
-    console.log("getting addon data")
-    console.log(sourceFormAddon)
-    sourceForm.set("serviceAddons", sourceFormAddon)
+}
+
+exports.validatePage = (args, sourceForm, forceCancel) => {
+    return new Promise((resolve, reject) => {
+        const page = args.object.page;
+        var listview = page.getViewById("addonsListView")
+        let index = 0
+        let rejectOrResolve = true;
+        console.log("force cancel: " + forceCancel)
+        if (forceCancel) {
+            resolve()
+            return true
+        }
+        setTimeout(() => {
+            listview.items.forEach(element => {
+                if (!element.addonName || !element.addonPrice || !element.addonDuration) {
+                    console.log("Page is invalid")
+                    rejectOrResolve = false
+                }
+                index++
+                if (index == listview.items.length) {
+                    if (rejectOrResolve) {
+                        console.log("resolving addons page")
+                        resolve()
+                    } else {
+                        console.log("rejecting addons page")
+                        reject()
+                    }
+                }
+            });
+        }, 125)
+    })
 }

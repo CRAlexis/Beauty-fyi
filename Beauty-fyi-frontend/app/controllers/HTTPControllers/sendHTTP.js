@@ -1,4 +1,4 @@
-const httpModule = require("tns-core-modules/http");
+//const httpModule = require("tns-core-modules/http");
 const fileSystemModule = require("tns-core-modules/file-system");
 const { Http } = require("@klippa/nativescript-http");
 const { httpRequestLoading, httpRequestFinished, dismissAlert } = require("~/controllers/notifications/inApp/notification-alert");
@@ -48,7 +48,6 @@ async function sendHTTP(httpParameters,
                         "String": responseString
                     })
                 } else {
-                    console.log(response)
                     reject("error")
                 }
             }, (e) => {
@@ -59,19 +58,15 @@ async function sendHTTP(httpParameters,
                 }
                 // send to database
                 //rejectRequest(e)
-                console.log("error: " + e)
+
                 reject(e)
 
             })
         } catch (error) {
-            console.log(3)
             dismissAlert(alertObject)
             if (errorParameters.display) {
                 httpRequestFinished(errorParameters.title ? errorParameters.title : "Error", errorParameters.message ? errorParameters.message : "We was unable to process your request. Tap anywhere to exit.").then((alert) => { alertObject = alert })
             }
-            // send to database
-            //rejectRequest(error)
-            console.log("error 3: " + error)
             reject(error)
         } finally {
 
@@ -141,19 +136,17 @@ async function sendHTTPFile(httpParameters,
         }
 
         function errorHandler(e) {
+            dismissAlert(alertObject)
             if (errorParameters.display) {
                 httpRequestFinished(errorParameters.title ? errorParameters.title : "Error", errorParameters.message ? errorParameters.message : "We was unable to process your request. Tap anywhere to exit.").then((alert) => { alertObject = alert })
-            }else{
-                dismissAlert(alertObject)
             }
             console.log('error2:' + e)
             reject(e)
         }
         function respondedHandler(result) {
+            dismissAlert(alertObject)
             if (successParameters.display) {
                 httpRequestFinished(successParameters.title ? successParameters.title : "Success", successParameters.message ? successParameters.message : "Your request was processed successfully").then((alert) => { alertObject = alert })
-            }else{
-                dismissAlert(alertObject)
             }
             let data;
             try { data = JSON.parse(result.data)} catch (error) {data = null}

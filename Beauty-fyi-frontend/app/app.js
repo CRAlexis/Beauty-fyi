@@ -15,10 +15,10 @@ const { setupTimestampConsoleWriter } = require("~/traceWriter");
 setupTimestampConsoleWriter();
 //traceModule.Trace.enable()
 
-const statusBar = require("nativescript-status-bar");
+/*const statusBar = require("nativescript-status-bar");
 setInterval(() => {
     statusBar.hide()
-}, 10000);
+}, 10000);*/
 
 //const { openWebsocketConnection } = require("./websocket");
 //openWebsocketConnection()

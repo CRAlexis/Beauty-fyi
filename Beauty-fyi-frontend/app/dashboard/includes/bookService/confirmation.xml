@@ -46,9 +46,5 @@
             </StackLayout>
         </StackLayout>
     </ScrollView>
-    <GridLayout rows="*, auto, 2*" columns="" row="0" id="addNewCardModal"
-        xmlns:includes="dashboard/includes/bookService" visibility="collapsed" opacity="0">
-        <includes:add-new-card row="1" />
-    </GridLayout>
 
 </GridLayout>

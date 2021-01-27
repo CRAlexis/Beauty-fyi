@@ -3,7 +3,6 @@
     xmlns:Card="@nstudio/nativescript-cardview">
     <GridLayout rows="auto, *" columns="">
         <StackLayout row="0">
-            <Label text="Consultation" class="h4" textWrap="true" paddingLeft="20" paddingRight="20" paddingTop="10"/>
             <StackLayout paddingTop="20" paddingBottom="20"
                 xmlns:lv="nativescript-ui-listview">
                 <lv:RadListView id="consultationPageForm" itemTemplateSelector="templateSelector" class="list-group" style="background-color: transparent">
@@ -11,22 +10,21 @@
                         <lv:ListViewLinearLayout/>
                     </lv:RadListView.listViewLayout>
                     <lv:RadListView.itemTemplates>
-                        <template key="0">
-                            <StackLayout>
-                                <Label visibility="{{ isCheckBox ? 'collapsed' : 'visible' }}" text="{{question}}" color="gray" textWrap="true" paddingLeft="20" fontSize="14"/>
-                                <TextField id="{{id}}" textChange="validateConsultationPage" visibility="{{ isTextField ? 'visible' : 'collapsed' }}" class="textFieldInputSmall" marginBottom="15" hint="Enter text here" text="" editable="true"/>
-                            </StackLayout>
-                        </template>
                         <template key="1">
                             <StackLayout>
-                                <Label visibility="{{ isCheckBox ? 'collapsed' : 'visible' }}" text="{{question}}" color="gray" textWrap="true" paddingLeft="20" fontSize="14"/>
-                                <TextField id="{{id}}" textChange="validateConsultationPage" visibility="{{ isDropDown ? 'visible' : 'collapsed' }}" optionContext="{{optionContext}}" class="textFieldInputSmall" tap="{{ dropDownClicked }}" marginBottom="15" hint="Please select" editable="false"/>
-
+                                <Label text="{{question}}" color="gray" class="font-bold" textWrap="true" paddingLeft="4" fontSize="14"/>
+                                <TextField id="{{id}}" textChange="validateConsultationPage"  width="100%" class="textFieldInputSuperSmall" marginTop="-8" marginBottom="8" hint="Enter text here" text="" editable="true"/>
                             </StackLayout>
                         </template>
                         <template key="2">
                             <StackLayout>
-                                <CheckBox:CheckBox id="{{id}}" tap="validateConsultationPage" visibility="{{ isCheckBox ? 'visible' : 'collapsed' }}" class="textFieldInputSmall" fontSize="14" text="{{question}}" color="gray" checked="false" margin="10" marginLeft="14" paddingBottom="5"/>
+                                <Label text="{{question}}" color="gray" class="font-bold" textWrap="true" paddingLeft="4" fontSize="14"/>
+                                <TextField id="{{id}}" textChange="validateConsultationPage" optionContext="{{optionContext}}" width="100%" class="textFieldInputSuperSmall" marginTop="-8" tap="{{ dropDownClicked }}" marginBottom="8" hint="Please select" editable="false"/>
+                            </StackLayout>
+                        </template>
+                        <template key="3">
+                            <StackLayout marginBottom="-5" maringTop="-5">
+                                <CheckBox:CheckBox id="{{id}}" tap="validateConsultationPage" class="font-bold" fontSize="14" text="{{question}}" color="gray" checked="false" />
                             </StackLayout>
                         </template>
                     </lv:RadListView.itemTemplates>
@@ -34,13 +32,13 @@
             </StackLayout>
 
             <StackLayout paddingBottom="10">
-                <TextView id="appointmentNotes" width="88%" marginTop="" borderColor="#DEDEDE" borderWidth="1" hint="Is there anything else you want to say?" class="textFieldInputSmall"></TextView>
+                <TextView id="appointmentNotes" width="96%" marginTop="" borderColor="#DEDEDE" borderWidth="1" hint="Is there anything else you want to say?" class="textFieldInputSmall"></TextView>
             </StackLayout>
         </StackLayout>
         <StackLayout row="1"
             xmlns:lv="nativescript-ui-listview">
-            <Button id="uploadReferenceImageButton" class="btn btn-white" text="Upload reference images" width="88%" tap="{{ uploadReferenceImage }}" />
-            <lv:RadListView id="uploadedImageList" class="list-group" style="background-color: transparent">
+            <Button id="uploadReferenceImageButton" class="btn btn-white" text="Upload reference images" width="96%" tap="{{ uploadReferenceImage }}" />
+            <lv:RadListView id="uploadedImageList" class="list-group" style="background-color: transparent" visibility="collapsed">
                 <lv:RadListView.listViewLayout>
                     <lv:ListViewLinearLayout scrollDirection="Horizontal" />
                 </lv:RadListView.listViewLayout>

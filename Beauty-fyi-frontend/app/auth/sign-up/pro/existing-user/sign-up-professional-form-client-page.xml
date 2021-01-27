@@ -1,4 +1,4 @@
-<Page navigatingTo="onNavigatingTo" actionBarHidden="true" xmlns:CheckBox="nativescript-checkbox-ns-7" xmlns:df="nativescript-ui-dataform">
+<Page navigatingTo="onNavigatingTo" actionBarHidden="true" xmlns:CheckBox="nativescript-checkbox-ns-7">
     <ActionBar title="" icon=""></ActionBar>
         <GridLayout rows="*, 60, auto, auto, 160" class="bottom-gradient" >
         
@@ -22,11 +22,6 @@
                     </StackLayout>
 
                     <StackLayout>
-                        <df:RadDataForm id="myDataForm" source="{{ checkBox }}" style="margin-left: 15px; margin-right: 15px">
-                            <df:RadDataForm.properties>
-                                <df:EntityProperty name="checkBox" displayName="I accept the terms and conditions" index="0" />
-                            </df:RadDataForm.properties>
-                        </df:RadDataForm>
                     </StackLayout>
 
                     <Button tap="{{ signUpTapped }}" class="btn btn-primary" text="Continue" style="font-size: 20px; height: 150px; margin-top: 30px"></Button>

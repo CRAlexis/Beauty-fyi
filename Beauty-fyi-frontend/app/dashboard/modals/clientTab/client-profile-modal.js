@@ -2,6 +2,7 @@ const Observable = require("tns-core-modules/data/observable").Observable;
 const clientGalleryModal = "~/dashboard/modals/clientTab/client-gallery-modal";
 const navigation = require("~/controllers/navigationController")
 const animation = require("~/controllers/animationController").loadAnimation
+const { sendHTTP, getHttpFile } = require("~/controllers/HTTPControllers/sendHTTP");
 const source = new Observable();
 source.set("selectedIndex", 0)
 source.set("editHairType", false)
@@ -18,64 +19,122 @@ var services = [];
 
 exports.onShownModally = function (args) {
     const context = args.context;
+    const clientID = context.clientID
     closeCallback = args.closeCallback;
     const page = args.object;
-    //page.bindingContext = observableModule.fromObject(context); For context information
     page.bindingContext = source
-    
-    
+    getPageData(args, clientID)
+    getThumbnail(args, clientID)
+}
 
-    //hairTypeRadList = {
-    //    hairPattern: "Locked",
-    //    hairThickness: "Coarse",
-    //    hairDensity: "Dense",
-    //    hairLength: "Waist",
-    //    hairColor: "Bleached",
-    //    hairSebum: "Very Oily",
-    //    hairPorosity: "Retains moisture well"
-    //};
-//
-    //source.set("hairTypeRadList", hairTypeRadList);
+function getPageData(args, clientID){
+    const page = args.object.page
+    const httpParameters = { url: 'clientget', method: 'POST', content: { clientID: clientID }, }
+    sendHTTP(httpParameters, { display: false }, { display: false }, { display: false })
+        .then((response) => {
+            console.log(response.JSON.client[0])
+            let client = response.JSON.client[0]
+            if (response.JSON.status == "success") {
+                if (client.lastName.includes("unknown_")) {
+                    source.set("clientName", client.firstName)
+                } else {
+                    source.set("clientName", client.firstName + " " + client.lastName)
+                }
+                const evtData = {
+                    eventName: 'refresh',
+                    header: source.get("clientName")
+                };
+                page.notify(evtData)
+            } else {
+                console.log("This user does not exsists or you are not allowed to get this user's details")
+            }
+        }, (e) => {
+            console.log(e)
+        })
+}
+
+function getThumbnail(args, clientID){
+    const page = args.object.page
+    const httpParametersImages = {
+        url: 'clientgetimage',
+        method: 'POST',
+        content: { clientID: clientID },
+    }
+    getHttpFile(httpParametersImages, { display: false }, { display: false }, { display: false }).then((result) => {
+        console.log("Got client thumbnail")
+        page.getViewById("clientThumbnail").src = result._path
+    }, (e) => {
+        console.log("must be a http error if we are in here")
+    })
 }
 
 exports.onPageLoaded = function (args) {
-    const page = args.object.page; //edited
-    page.bindingContext = source
-    setTimeout(function () {
-        source.set("height", (page.getMeasuredWidth() / 3))
-        loadImages(page)
+    setTimeout(()=>{
+        const page = args.object.page; //edited
+        let height = page.getMeasuredWidth() / 4
+        loadImages(height, page)
         loadAppointments(page)
-        const clientInfoSection = page.getViewById("clientInfoSection");
-        console.log(clientInfoSection.getMeasuredHeight())
     }, 1000)
     
 }
 
-function loadImages(page) {
+function loadImages(height, page) {
     let images = []
     images.push(
         {
-            image: "~/images/temp.png",
-            height: source.get("height") + "px",
-            index: 1,
-            date: "19th November 2020"
+            contentImage: "~/images/temp.png",
+            contentId: "contentImage0",
+            height: height + "px",
+            isImage: true
         },
         {
-            image: "~/images/temp5.png",
-            height: source.get("height") + "px",
-            index: 2,
-            date: "20th November 2020"
+            contentImage: "~/images/temp2.png",
+            contentId: "contentImage1",
+            height: height + "px",
+            isImage: true
         },
         {
-            image: "~/images/temp6.png",
-            height: source.get("height") + "px",
-            index: 3,
-            date: "21th November 2020"
+            contentImage: "~/images/temp3.png",
+            contentId: "contentImage2",
+            height: height + "px",
+            isImage: true
+        },
+        {
+            contentImage: "~/images/temp4.png",
+            contentId: "contentImage3",
+            height: height + "px",
+            isImage: true
+        },
+        {
+            contentImage: "~/images/temp7.png",
+            contentId: "contentImage4",
+            height: height + "px",
+            isImage: true
+        },
+        {
+            contentImage: "~/images/temp8.png",
+            contentSource: "~/videos/temp.mp4",
+            contentId: "contentImage5",
+            height: height + "px",
+            isImage: false
+        },
+        {
+            contentImage: "~/images/temp9.png",
+
+            contentId: "contentImage6",
+            height: height + "px",
+            isImage: true
+        },
+        {
+            contentImage: "~/images/temp10.png",
+            contentId: "contentImage7",
+            height: height + "px",
+            isImage: true
         },
     )
     //format photos when uploading
-    // /var listview = page.getViewById("clientGalleryList");
-    //listview.items = images;
+    const listView = page.getViewById("clientGalleryList");
+    listView.items = images;
 }
 
 function loadAppointments(page) { // am not able to get page object
@@ -101,7 +160,7 @@ function loadAppointments(page) { // am not able to get page object
     
 }
 exports.goBack = (args) => {
-    closeCallback();
+    closeCallback("client profile closed");
 }
 
 

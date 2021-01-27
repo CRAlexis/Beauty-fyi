@@ -1,4 +1,4 @@
-<StackLayout id="hairTypeContainer" visibility="{{ hairTypeContainerVisbility ? 'visible' : 'collapsed' }}" xmlns:df="nativescript-ui-dataform" xmlns:Card="@nstudio/nativescript-cardview" xmlns:lv="nativescript-ui-listview" paddingTop="20">
+<StackLayout id="hairTypeContainer" visibility="{{ hairTypeContainerVisbility ? 'visible' : 'collapsed' }}" xmlns:Card="@nstudio/nativescript-cardview" xmlns:lv="nativescript-ui-listview" paddingTop="20">
         <!--<GridLayout row="0" id="hairTypeUneditable" rows="40, 40" columns="*, *, *" horizontalAlignment="center" width="100%" visibility="{{ editHairType ? 'collapsed' : 'visible' }}">
             <StackLayout id="hairType0" row="0" col="0" tap="{{ editClientInformation }}" >
                 <Label text="4C" class="h4 font-bold" textWrap="true" textAlignment="center" />

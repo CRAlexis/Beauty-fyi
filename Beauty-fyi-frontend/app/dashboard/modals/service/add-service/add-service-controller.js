@@ -18,21 +18,14 @@ let slides = []
 let creationType;
 let disableNavigateBack = false
 let creationProcessStarted = false
+let Args;
 
 exports.onShownModally = function (args) {
     const context = args.context;
     closeCallback = args.closeCallback;
     const page = args.object;
     page.bindingContext = source
-    page.on('viewServiceProductLoaded', (args) => {
-        console.log("recevied the other page has loaded")
-        const evtData = {
-            eventName: 'receiveSource',
-            source: source,
-        };
-        args.object.page.notify(evtData)
-        console.log("sent the source")
-    })
+    Args = args
     // get option context to know if we editing the service - so ican change continue button to save changes or something 
 }
 
@@ -46,28 +39,28 @@ exports.pageLoaded = function (args) {
     slideIndex = 0
 }
 
-exports.goToNextSlide = function goToNextSlideFunction(args) {
-    switch (creationType) {
+exports.goToNextSlide = (args) => {//This gona go up by one or something like that
+    switch (slideIndex) {
+        case 0:
+            this.validateSecondPage(args)
+            slideTransition.goToNextSlide(args, slideIndex, source, slides).then(function (result) {
+                slideIndex = result
+            })
+            break;
         case 1:
-            goToNextSlideService(args)
+            this.validateThirdPage(args)
+            slideTransition.goToNextSlide(args, slideIndex, source, slides).then(function (result) {
+                slideIndex = result
+            })
             break;
         case 2:
-            goToNextSlideProduct(args)
-            //create product
+            slideTransition.goToNextSlide(args, slideIndex, source, slides).then(function (result) {
+                slideIndex = result
+            })
             break;
         case 3:
-            goToNextSlideEvent(args)
-            //create event
-            break;
-    }
-}
-
-function goToNextSlideService(args) {//This gona go up by one or something like that
-    switch (slideIndex) {
-        case 0: hideContinueButton(args)
-        case 1:
-        case 2:
-        case 3: paddingTime.getPaddingData(args, sourceForm)
+            paddingTime.getPaddingData(args, sourceForm)
+            this.validateFourthPage(args)
             slideTransition.goToNextSlide(args, slideIndex, source, slides).then(function (result) {
                 slideIndex = result
             })
@@ -94,12 +87,10 @@ function goToNextSlideService(args) {//This gona go up by one or something like 
             })
             break;
         case 6:
+            console.log("trying to close callback")
             closeCallback()
     }
-    //updateBarValue(args, (slideIndex + 1) * 16.6)
 }
-
-
 
 function sendServiceData(args) {
     return new Promise((resolve, reject) => {
@@ -140,6 +131,10 @@ function sendServiceData(args) {
     })
 }
 
+exports.deleteService = (args) => {
+    viewServiceProduct.deleteService(args)
+}
+
 
 async function makeContinueButtonAppear(args) {
     const page = args.object.page;
@@ -148,31 +143,41 @@ async function makeContinueButtonAppear(args) {
 }
 
 async function hideContinueButton(args) {
+    console.log("this is running")
+    console.log(args.object)
     const page = args.object.page;
     await loadAnimation(page.getViewById("continueButton"), "fade out")
     page.getViewById("continueButton").visibility = "collapsedd"
 }
 
 source.set("dropDownClicked", function (args) {
+    console.log("we are here")
     const mainView = args.object;
     const page = mainView.page
     let context = mainView.optionContext.split(",")
     let meta;
     try { meta = mainView.optionContextMeta.split(",") } catch (error) { }
-    console.log(context, meta)
-    navigation.navigateToModal({ context: context, meta: meta }, mainView, 4, false).then((result) => {
-        console.log(result)
-        page.getViewById("serviceForm").formID = result.meta
-        try {
-            if (result.text.localeCompare("Add new form") == '0') {
-
+    try {
+        navigation.navigateToModal({ context: context, meta: meta }, mainView, 4, false).then((result) => {
+            console.log(result)
+            page.getViewById("serviceForm").formID = result.meta
+            if (result.text.localeCompare("*Create a new form*") == '0') {
+                navigation.navigateToModal({ skipAttachForm: true }, mainView, 22, true).then((Result) => {
+                    console.log("Result: " + Result)
+                    createServiceFinalSlide.createFormOptions(args, sendHTTP)
+                    page.getViewById("serviceForm").text = Result.text
+                    page.getViewById("serviceForm").formID = Result.meta
+                })
             } else {
-                args.object.text = result.text
+                if (result.text) {
+                    args.object.text = result.text
+                }
             }
-        } catch (error) {
-            console.log(error)
-        }
-    })
+
+        })
+    } catch (error) {
+        console.log(error)
+    }
 })
 
 exports.goBack = function (args) {
@@ -191,6 +196,7 @@ function backEvent(args) { // This event is a bit funny
     } else if (!disableNavigateBack) {
         slideTransition.goToPreviousSlide(args, slideIndex, source, slides).then(function (result) {
             slideIndex = result
+            makeContinueButtonAppear(args)
             //slideValidated(args)
         })
     }
@@ -310,22 +316,27 @@ exports.onItemReorderService = (args) => {
 }
 /*----------second slide----------------*/
 
-exports.currencyFormattingStarted = function (args) {
+exports.currencyFormattingLiveAndValidateSecondPage = (args) => {
+    this.currencyFormattingLive(args)
+    this.validateSecondPage(args)
+}
+exports.currencyFormattingStarted = (args) => {
     textFieldFormatting.currencyFormattingStarted(args)
 }
 
-exports.currencyFormattingLive = function (args) {
+exports.currencyFormattingLive = (args) => {
     textFieldFormatting.currencyFormattingLive(args)
 }
-exports.currencyFormattingFinished = function (args) {
+exports.currencyFormattingFinished = (args) => {
     textFieldFormatting.currencyFormattingFinished(args)
 }
 
 exports.validateSecondPage = (args) => {
-    console.log(slideIndex)
-    if (slideIndex == 1) { // Something was causing this function to fire twice
+    if (slideIndex == 1 || slideIndex == 0) { // Something was causing this function to fire twice
         serviceNameJs.validateSecondPage(args, sourceForm).then(function (result) {
             makeContinueButtonAppear(args)
+        }, (e) => {
+            hideContinueButton(args)
         })
     }
 };
@@ -341,14 +352,24 @@ function initialiseThirdSlide(args) {
     serviceSteps.initialise(args, sourceForm)
 }
 
-exports.addStep = function (args) {
+exports.addStep = (args) => {
     serviceSteps.addSteps(args, sourceForm)
+    hideContinueButton(args)
 }
 
-exports.removeStep = function (args) {
+exports.removeStep = (args) => {
     serviceSteps.removeStep(args, sourceForm)
 }
 
+exports.validateThirdPage = (args) => {
+    if (slideIndex == 2 || slideIndex == 1) { // Something was causing this function to fire twice
+        serviceSteps.validatePage(args, sourceForm).then(function (result) {
+            makeContinueButtonAppear(args)
+        }, (e) => {
+            hideContinueButton(args)
+        })
+    }
+}
 /*-----------fourth slide--------------*/
 function initiliaseFourthSlide(args) {
 
@@ -359,12 +380,31 @@ function initialiseFifthSlide(args) {
     addAddonJs.initialise(args, sourceForm)
 }
 
-exports.addAddon = function (args) {
+exports.addAddon = (args) => {
     addAddonJs.addAddon(args, sourceForm)
+    hideContinueButton(args)
 }
 
-exports.removeAddon = function (args) {
-    addAddonJs.removeAddon(args, sourceForm)
+exports.removeAddon = async (args) => {
+    await addAddonJs.removeAddon(args, sourceForm)
+    this.validateFourthPage(Args, true)
+
+}
+
+exports.currencyFormattingLiveAndtextChangevalidateFourthPage = (args) => {
+    this.validateFourthPage(args)
+    this.currencyFormattingLive(args)
+}
+
+exports.validateFourthPage = (args, forceCancel = false) => {
+    console.log("args: " + args)
+    if (slideIndex == 4 || slideIndex == 3) { // Something was causing this function to fire twice
+        addAddonJs.validatePage(args, sourceForm, forceCancel).then(function (result) {
+            makeContinueButtonAppear(args)
+        }, (e) => {
+            hideContinueButton(args)
+        })
+    }
 }
 /*-----------sixth slide-----------------------*/
 

@@ -11,7 +11,12 @@ class AppointmentsSchema extends Schema {
       table.integer('client_id').unsigned().references('id').inTable('users')
       table.integer('service_id').unsigned().references('id').inTable('services')
       table.string('addon_ids')
-      table.string('status')
+      table.string('status').notNullable()
+      table.time('client_start_time').notNullable()
+      table.time('client_end_time').notNullable()
+      table.time('stylist_start_time').notNullable()
+      table.time('stylist_end_time').notNullable()
+      table.date('appointment_date').notNullable()
       table.timestamps()
     })
   }

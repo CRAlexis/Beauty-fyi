@@ -3,6 +3,7 @@ const { loadAnimation } = require('~/controllers/animationController');
 let lastSelectedTime = null
 let date;
 let time;
+let rawDate;
 exports.initialise = (args) => {
     const isAndroid = require("tns-core-modules/platform");
     let telCalendar = args.object.getChildAt(0).nativeView;
@@ -22,37 +23,86 @@ exports.initialise = (args) => {
         //Will need print out all of gesutre managers methods for apple
     }
 
-    
-    
+
+
 }
 
-exports.dateSelected = (args) => {
+exports.dateSelected = (args, sendHTTP, serviceID, clientID, addonsArray) => {
     const page = args.object.page
     return new Promise((resolve) => {
+        rawDate = args.date
         date = dateFormat(args.date, "fullDate");
         console.log(date.replace(/,/g, ''))
         const day = dateFormat(args.date, "d")
         const month = dateFormat(args.date, "mmmm")
         page.getViewById("bookAppointmentAvaliableTimes").visibility = "visible";
-        page.getViewById("onTimeSelectedText").text = "Availability on the " + day + "th of " + month;
-        createNewTimes(args)
+        let suffix;
+        switch (parseInt(day)) {
+            case 1:
+                suffix = "st"
+                break;
+            case 2:
+                suffix = "nd"
+                break;
+            case 3:
+                suffix = "rd"
+                break;
+            case 21:
+                suffix = "st"
+                break
+            case 22:
+                suffix = "nd"
+                break;
+            case 23:
+                suffix = "rd"
+                break;
+            case 31:
+                suffix = "st"
+                break;
+            default:
+                suffix = "th"
+                break;
+        }
+        page.getViewById("onTimeSelectedText").text = "Availability on the " + day + suffix + " of " + month;
+        getAvailableTimes(args, sendHTTP, date, serviceID, clientID, addonsArray)
         resolve()
     })
 }
 
-function createNewTimes(args){
-    const page = args.object.page
-    let times = []
-    for (let index = 0; index < 6; index++) {
-        a = Math.floor(Math.random() * 23) + 1;
-        b = Math.floor((Math.random() * 11) + 1) * 5;
-        times.push({ time: a + ":" + b})
+function getAvailableTimes(args, sendHTTP, date, serviceID, clientID, addonsArray) {
+    try {
+        const page = args.object.page
+        const httpParameters = { url: 'availabletimesget', method: 'POST', content: { date: rawDate, serviceID: serviceID, clientID: clientID, addonIDs: addonsArray } }
+        sendHTTP(httpParameters, { display: false }, { display: false }, { display: false })
+            .then((response) => {
+                if (response.JSON.status == "success") {
+                    createNewTimes(args, response.JSON.times)
+                } else {
+                    page.getViewById("bookAppointmentAvaliableTimes").items = []
+                }
+            }, (e) => {
+                console.log(e)
+            })
+    } catch (error) {
+        console.log(error)
     }
 
+}
+
+function createNewTimes(args, times) {
+    const page = args.object.page
+    let timeArray = []
+    times.forEach(element => {
+        timeArray.push({
+            time: element.hour + ":" + element.minute,
+            hour: element.hour,
+            minute: element.minute,
+        })
+    })
     //format photos when uploading
     var listview = page.getViewById("bookAppointmentAvaliableTimes");
     listview.items = []
-    listview.items = times;
+    listview.items = timeArray;
 }
 exports.timeSelected = (args) => {
     const timeLabel = args.object.getChildAt(0)
@@ -73,7 +123,7 @@ exports.timeSelected = (args) => {
         time = timeLabel.text
         timeLabel.id = "currentSelectedTimeLabel" // This sets new time clicked and sets it to preivousTime
         timeLabel.color = "white"; // this will change
-        loadAnimation(timeLabel.parent, "change background color", { color: '#A6E6CE'})
+        loadAnimation(timeLabel.parent, "change background color", { color: '#A6E6CE' })
         lastSelectedTime = timeLabel;
         resolve()
     })

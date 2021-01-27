@@ -14,8 +14,11 @@ let applyToServiceArray = []
 let i = 0;
 let serviceFormID;
 let ejectOnPageClick = false
+let skipAttachForm;
 exports.onShownModally = function (args) {
     const context = args.context;
+    skipAttachForm = context.skipAttachForm
+    console.log("skipAttachForm?: " + skipAttachForm)
     const page = args.object;
     page.bindingContext = source;
     closeCallback = args.closeCallback;
@@ -133,14 +136,17 @@ exports.saveFormFinal = async (args) => {
             .then((response) => {
                 if (response.JSON.status == "success") {
                     serviceFormID = response.JSON.serviceFormID
-                    attachFormToService(args, response.JSON.serviceFormID)
-                    object.isEnabled = true
-                    ejectOnPageClick = true
+                    if (skipAttachForm){
+                        closeCallback({id: serviceFormID, text: formName})
+                    }else{
+                        attachFormToService(args, response.JSON.serviceFormID)
+                        object.isEnabled = true
+                        ejectOnPageClick = true
+                    } 
                 } else {
                     errorMessage("Unable to create your intake form. Please try again later.")
                     object.isEnabled = true
                 }
-
             }, (e) => {
                 console.log(e)
             })
@@ -289,10 +295,10 @@ exports.addQuestion = (args) => {
     const mainView = args.object;
     let context = mainView.optionContext.split(",")
     pageStateChanged = false;
-    navigation.navigateToModal(context, mainView, 4, false).then(function (result) {
-        if (result.localeCompare("Textbox") == '0') { createQuestion(args, 1) }
-        if (result.localeCompare("Drop down list") == '0') { createQuestion(args, 2) }
-        if (result.localeCompare("Yes/No choice") == '0') { createQuestion(args, 3) }
+    navigation.navigateToModal({context: context, meta: null}, mainView, 4, false).then(function (result) {
+        if (result.text.localeCompare("Textbox") == '0') { createQuestion(args, 1) }
+        if (result.text.localeCompare("Drop down list") == '0') { createQuestion(args, 2) }
+        if (result.text.localeCompare("Yes/No choice") == '0') { createQuestion(args, 3) }
     })
 }
 

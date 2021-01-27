@@ -192,11 +192,98 @@ class RegisterController {
       //response.send({ "status": "success", "userID": user.id })
       response.json({ userID: user.id })
     } catch (error) {
-      
+
       console.log("2")
       console.log(error)
     }
   };
+
+  async createBulkClientWithImage({ request, session, response }) {
+    let clients = request.all().content.clients
+    const userID = request.all().auth.userID
+    console.log(request.all().content)
+    let clientsImportedSuccessfully = 0
+    let index = 0
+
+    // bassically want this but loop it for as many clients
+    // First wana check if the number is already in our system 
+    // If it is create a link between the two and skip the rest
+    // clients have temporary password
+    await new Promise((resolve) => {
+      clients.forEach(async element => {
+        let exsistingUser = await Database.table("users").where("phoneNumber", element.phoneNumber).first()
+        if (exsistingUser) {
+          try {
+            console.log("exsisting client found")
+            let linkExsists = await Database.table("user_clients").where("user_id", userID).where("client_id", exsistingUser.id).first()
+            if (!linkExsists) {
+              const userClient = await UserClient.create({
+                user_id: userID,
+                client_id: exsistingUser.id,
+              })
+              clientsImportedSuccessfully++
+              console.log("Connected salon owner to client")
+            } else {
+              clientsImportedSuccessfully++
+              console.log("link already exsists")
+            }
+          } catch (error) {
+            console.log(error)
+          }
+        } else {
+          try {
+            let firstName = cleanStrings(element.clientName.trim(), "string")
+            let lastName = /*null*/ "unknown_" + randomString({ length: 40 })
+            let emailAddress;
+            if (element.email != "no email found") {
+              console.log("An email was found")
+              emailAddress = cleanStrings(element.email.trim(), "email")
+            } else {
+              emailAddress = "unknown_" + randomString({ length: 40 })
+            }
+
+            const validation = await validateAll(element, {
+              clientName: 'required',
+            })
+            if (validation.fails()) {
+              console.log(validation.messages())
+              return false;
+            }
+            const user = await User.create({
+              firstName: firstName,
+              lastName: lastName,
+              email: emailAddress,
+              password: randomString({ length: 40 }),
+              phoneNumber: element.phoneNumber,
+              confirmation_token: randomString({ length: 40 })
+            })
+            console.log("Created new client")
+
+            const userClient = await UserClient.create({
+              user_id: auth.userID,
+              client_id: user.id,
+            })
+            console.log("Connected new client to stylist")
+            clientsImportedSuccessfully++
+          } catch (error) {
+            console.log(error)
+          }
+        }
+        index++
+        if (clients.length == index) {
+          resolve()
+        }
+      })
+    })
+    response.send({ status: "success", clientsImported: clientsImportedSuccessfully })
+  
+    
+
+    
+    
+    
+  };
+
 
 }
 

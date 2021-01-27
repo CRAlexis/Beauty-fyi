@@ -1,74 +1,73 @@
-
-    <StackLayout xmlns:lv="nativescript-ui-listview"  loaded="profilePageLoaded" xmlns:includes="dashboard/modals/salonPage/previewService" height="89%">
-        <GridLayout rows="*" columns="" >
-            <StackLayout id="profilePageContainer" row="0" tap="pageClicked" height="100%">
-                <GridLayout rows="auto, auto, *" columns="" >
-                    <GridLayout rows="auto, auto" columns="" paddingTop="20" id="profileTopSection" height="240">
-                        <GridLayout row="0"  rows="" columns="15, auto, *" >
-                            <StackLayout col="1">
-                                <Image  src="~/images/temp7.png" class="purple-thick-border" stretch="aspectFill" marginRight="20" verticalAlignment="center" width="115" height="115" stretch="aspectFill" borderRadius="100"/>
+<StackLayout xmlns:lv="nativescript-ui-listview" loaded="profilePageLoaded"
+    xmlns:includes="dashboard/modals/salonPage/previewService" height="89%">
+    <GridLayout rows="*" columns="">
+        <StackLayout id="profilePageContainer" row="0" tap="pageClicked" height="100%">
+            <GridLayout rows="auto, auto, *" columns="">
+                <GridLayout rows="auto, auto" columns="" paddingTop="20" id="profileTopSection" height="240">
+                    <GridLayout row="0" rows="" columns="15, auto, *">
+                        <StackLayout col="1">
+                            <Image src="~/images/temp7.png" class="green-thick-border" stretch="aspectFit" marginRight="20" verticalAlignment="center" width="115" height="115" stretch="aspectFill" borderRadius="100"/>
+                        </StackLayout>
+                        <GridLayout col="2" rows="5, auto" columns="*, auto, auto, auto, *" paddingTop="15">
+                            <StackLayout row="1" col="1" width="33%">
+                                <Label textAlignment="center" class="font-bold h4" text="130" textWrap="true" />
+                                <Label fontSize="15" textAlignment="center" text="Something" textWrap="true" marginTop="-5"/>
                             </StackLayout>
-                            <GridLayout col="2" rows="5, auto" columns="*, auto, auto, auto, *" paddingTop="15">
-                                <StackLayout row="1" col="1" width="33%" >       
-                                    <Label textAlignment="center" class="font-bold h4" text="130" textWrap="true" />
-                                    <Label fontSize="15" textAlignment="center" text="Something" textWrap="true" marginTop="-5"/>
-                                </StackLayout>
 
-                                <StackLayout row="1" col="2" width="33%">       
-                                    <Label textAlignment="center" class="font-bold h4" text="6" textWrap="true" />
-                                    <Label fontSize="15" textAlignment="center" text="Services" textWrap="true" marginTop="-5"/>
-                                </StackLayout>
+                            <StackLayout row="1" col="2" width="33%">
+                                <Label textAlignment="center" class="font-bold h4" text="6" textWrap="true" />
+                                <Label fontSize="15" textAlignment="center" text="Services" textWrap="true" marginTop="-5"/>
+                            </StackLayout>
 
-                                <StackLayout row="1" col="3" width="33%">       
-                                    <Label  textAlignment="center" class="font-bold h4" text="130" textWrap="true" />
-                                    <Label fontSize="15" textAlignment="center" text="Clients" textWrap="true" marginTop="-5" />
-                                </StackLayout>
-                            </GridLayout>
-                        </GridLayout>
-                        <GridLayout rows="auto" columns="*, auto" row="1" paddingLeft="15" paddingTop="10">
-                            <StackLayout col="0">
-                                <Label text="CBN qualification level 3" class="h5" textWrap="true" marginBottom="-2" />
-                                <Label text="079 000 000 00" textWrap="true" class="h5" marginTop="-2" marginBottom="-2"/>
-                                <Label text="London, Wembley" textWrap="true" class="h5" marginTop="-2" marginBottom="-2"/>
-                                <Label text="@curlybyn" textWrap="true" class="font-bold h5" marginTop="-2" />
-                            </StackLayout>                        
-                            <StackLayout col="1" width="40" tap="goToAccountDetails">
-                                <Label text="&#xf044;" marginTop="5" paddingLeft="10" color="black" class="fas" fontSize="12" textWrap="true" />
-                            </StackLayout>  
+                            <StackLayout row="1" col="3" width="33%">
+                                <Label textAlignment="center" class="font-bold h4" text="130" textWrap="true" />
+                                <Label fontSize="15" textAlignment="center" text="Clients" textWrap="true" marginTop="-5" />
+                            </StackLayout>
                         </GridLayout>
                     </GridLayout>
+                    <GridLayout rows="auto" columns="*, auto" row="1" paddingLeft="15" paddingTop="10">
+                        <StackLayout col="0">
+                            <Label text="CBN qualification level 3" class="h5" textWrap="true" marginBottom="-2" />
+                            <Label text="079 000 000 00" textWrap="true" class="h5" marginTop="-2" marginBottom="-2"/>
+                            <Label text="London, Wembley" textWrap="true" class="h5" marginTop="-2" marginBottom="-2"/>
+                            <Label text="@curlybyn" textWrap="true" class="font-bold h5" marginTop="-2" />
+                        </StackLayout>
+                        <StackLayout col="1" width="40" tap="goToAccountDetails">
+                            <Label text="&#xf044;" marginTop="5" paddingLeft="10" color="black" class="fas" fontSize="12" textWrap="true" />
+                        </StackLayout>
+                    </GridLayout>
+                </GridLayout>
 
-                    <StackLayout row="1">
-                        <SegmentedBar selectedIndex="0" selectedIndexChanged="selectedIndexChangeInformation" backgroundColor="white" selectedBackgroundColor="#9900ff" marginTop="">
-                            <SegmentedBar.items>
-                                <SegmentedBarItem title="My services" />
-                                <SegmentedBarItem title="About me" />         
-                            </SegmentedBar.items>
-                        </SegmentedBar>
-                    </StackLayout>
-                    <StackLayout row="2" id="myServicesId" height="100%">
-                        <lv:RadListView id="profileServicesList" class="list-group" width="100%" itemReorder="true"  reorderMode="HoldAndDrag"
-                        scrolled="onScrolled" scrollEnded="onScrollEnded" height="100%" > 
-                            <lv:RadListView.listViewLayout>
-                                <lv:ListViewGridLayout spanCount="3" scrollDirection="Vertical"/>
-                            </lv:RadListView.listViewLayout>
-                            <lv:RadListView.itemTemplate >
-                                <GridLayout rows="*, auto" columns="" tap="serviceTapped" serviceIndex="{{ serviceIndex }}" margin="1" backgroundColor="black">
-                                    <Image rowSpan="2" col="0" serviceIndex="{{ serviceIndex }}" src="{{ serviceImage }}" height="{{ height }}" decodeWidth="{{height}}" stretch="aspectFill" load="async" opacity="0.85"/>
-                                    <Label row="1" col="0" color="white" class="font-bold h5" text="{{ serviceName }}" textWrap="true" /> 
-                                </GridLayout>
-                            </lv:RadListView.itemTemplate>
-                        </lv:RadListView>
-                    </StackLayout>
-                    <StackLayout row="2" id="aboutMeId" padding="20" opacity="0" visibility="collapsed">
-                        <ScrollView>
-                        <GridLayout rows="auto, 20, auto, 20, auto, 20, auto" columns="">
+                <StackLayout row="1">
+                    <SegmentedBar selectedIndex="0" selectedIndexChanged="selectedIndexChangeInformation" backgroundColor="white" selectedBackgroundColor="#A6E6CE" marginTop="">
+                        <SegmentedBar.items>
+                            <SegmentedBarItem title="My services" />
+                            <SegmentedBarItem title="About me" />
+                        </SegmentedBar.items>
+                    </SegmentedBar>
+                </StackLayout>
+                <StackLayout row="2" id="myServicesId" height="100%">
+                    <lv:RadListView id="profileServicesList" class="list-group" width="100%" itemReorder="true" reorderMode="HoldAndDrag" scrolled="onScrolled" scrollEnded="onScrollEnded" height="100%">
+                        <lv:RadListView.listViewLayout>
+                            <lv:ListViewGridLayout spanCount="3" scrollDirection="Vertical"/>
+                        </lv:RadListView.listViewLayout>
+                        <lv:RadListView.itemTemplate >
+                            <GridLayout rows="*, auto" columns="" tap="serviceTapped" serviceIndex="{{ serviceIndex }}" margin="1" backgroundColor="black">
+                                <Image rowSpan="2" col="0" serviceIndex="{{ serviceIndex }}" src="{{ serviceImage }}" height="{{ height }}" decodeWidth="{{height}}" stretch="aspectFill" load="async" opacity="0.85"/>
+                                <Label row="1" col="0" color="white" class="font-bold h5" text="{{ serviceName }}" textWrap="true" />
+                            </GridLayout>
+                        </lv:RadListView.itemTemplate>
+                    </lv:RadListView>
+                </StackLayout>
+                <StackLayout row="2" id="aboutMeId" opacity="0" visibility="collapsed">
+                    <ScrollView>
+                        <GridLayout rows="auto, 20, auto, 20, auto, 20, auto" columns="" padding="20">
                             <StackLayout row="0">
                                 <GridLayout columns="*, auto">
                                     <Label col="0" text="Bio" class="h3" textWrap="true" paddingBottom="10"/>
                                     <StackLayout col="1" width="40" tap="goToMyBio">
-                                         <Label text="&#xf044;" marginTop="5" paddingLeft="10" color="black" class="fas" fontSize="12" textWrap="true" />
-                                    </StackLayout>             
+                                        <Label text="&#xf044;" marginTop="5" paddingLeft="10" color="black" class="fas" fontSize="12" textWrap="true" />
+                                    </StackLayout>
                                 </GridLayout>
                                 <Label id="profileBio" text="" class="h5" textWrap="true" />
                             </StackLayout>
@@ -77,8 +76,8 @@
                                 <GridLayout columns="*, auto">
                                     <Label col="0" text="Opening hours" class="h3" textWrap="true" paddingBottom="10"/>
                                     <StackLayout col="1" width="40" tap="setSchedule">
-                                         <Label text="&#xf044;" marginTop="5" paddingLeft="10" color="black" class="fas" fontSize="12" textWrap="true" />
-                                    </StackLayout>   
+                                        <Label text="&#xf044;" marginTop="5" paddingLeft="10" color="black" class="fas" fontSize="12" textWrap="true" />
+                                    </StackLayout>
                                 </GridLayout>
                                 <Repeater id="openingHoursList" items="{{ openingHoursList }}">
                                     <Repeater.itemTemplate>
@@ -95,8 +94,8 @@
                                 <GridLayout columns="*, auto">
                                     <Label col="0" text="Booking policy" class="h3" textWrap="true" paddingBottom="10"/>
                                     <StackLayout col="1" width="40" tap="setSchedulingLimits">
-                                         <Label text="&#xf044;" marginTop="5" paddingLeft="10" color="black" class="fas" fontSize="12" textWrap="true" />
-                                    </StackLayout>   
+                                        <Label text="&#xf044;" marginTop="5" paddingLeft="10" color="black" class="fas" fontSize="12" textWrap="true" />
+                                    </StackLayout>
                                 </GridLayout>
                                 <StackLayout>
                                     <Label text="Advanced bookings" class="h5 font-bold" textWrap="true" />
@@ -133,11 +132,10 @@
                                     </Repeater.itemTemplate>
                                 </Repeater>
                             </StackLayout>
-                        </GridLayout>      
-                        </ScrollView>                          
-                    </StackLayout>
-                </GridLayout>
-            </StackLayout>
-            <includes:preview-service-modal row="0" id="serviceModal" visibility="collapsed" opacity="0"/>
-        </GridLayout>  
-    </StackLayout>
+                        </GridLayout>
+                    </ScrollView>
+                </StackLayout>
+            </GridLayout>
+        </StackLayout>
+    </GridLayout>
+</StackLayout>

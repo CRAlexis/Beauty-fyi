@@ -1,4 +1,4 @@
-const animation = require("~/controllers/animationController").loadAnimation
+/*const animation = require("~/controllers/animationController").loadAnimation
 const navigation = require("~/controllers/navigationController")
 confirmation = require("~/dashboard/modals/salonPage/bookService/js/confirmation")
 const application = require('application');
@@ -101,4 +101,4 @@ exports.createNewPayment = (args) => {
 
 exports.exit = (args) => {
     confirmation.closeModal(args)
-}
+}*/

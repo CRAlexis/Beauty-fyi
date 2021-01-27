@@ -5,7 +5,7 @@
     </StackLayout>
     <StackLayout row="1" paddingLeft="9">
         <TextField maxLength="60" id="serviceName" row="1" hint="Service name" class="textFieldInputSmall" paddingBottom="10" textChange="validateSecondPage"/>
-        <TextField keyboardType="number" maxLength="6" id="servicePrice" row="2" resetText="" hint="Service price" blur="currencyFormattingFinished" focus="currencyFormattingStarted" returnPress="currencyFormattingFinished" textChange="validateSecondPage" returnKeyType="done" class="textFieldInputSmall" paddingBottom="10"/>
+        <TextField keyboardType="number" maxLength="6" id="servicePrice" row="2" resetText="" hint="Service price" blur="currencyFormattingFinished" focus="currencyFormattingStarted" returnPress="currencyFormattingFinished" textChange="currencyFormattingLiveAndValidateSecondPage" returnKeyType="done" class="textFieldInputSmall" paddingBottom="10"/>
         <TextField id="serviceCategory" row="3" optionContext="Children,Natural Hair,Extensions,Coaching,Loc Care,Colouring,Treatments" class="textFieldInputSmall" tap="{{ dropDownClicked }}" textChange="validateSecondPage"  hint="Category" editable="false" paddingBottom="10"/>
         <TextField id="serviceColor" class="textFieldInputSmall" color="black" colorId="0" text="Service color" tap="openColorPicker" textChange="validateSecondPage" hint="Service color" editable="false" paddingBottom="10"/>
         <TextView  maxLength="400" id="serviceDescription" row="4" borderColor="#DEDEDE" borderWidth="1" hint="Service description" textChange="validateSecondPage" class="textFieldInputSmall" returnKeyType="done" paddingBottom="10"></TextView>

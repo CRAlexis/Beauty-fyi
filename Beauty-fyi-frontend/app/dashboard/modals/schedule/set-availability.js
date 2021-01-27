@@ -24,36 +24,50 @@ function setDataOnPage(args, response){
             case "monday":
                 source.set("mondayStartTime", element.start_time.slice(0, -3))
                 source.set("mondayEndTime", element.end_time.slice(0, -3))
+                source.set("mondayStartTimeDatePicker", element.start_time.slice(0, -3))
+                source.set("mondayEndTimeDatePicker", element.end_time.slice(0, -3))
                 source.set("mondayActive", !!parseInt(element.active))
                 break;
             case "tuesday":
                 source.set("tuesdayStartTime", element.start_time.slice(0, -3))
                 source.set("tuesdayEndTime", element.end_time.slice(0, -3))
+                source.set("tuesdayStartTimeDatePicker", element.start_time.slice(0, -3))
+                source.set("tuesdayEndTimeDatePicker", element.end_time.slice(0, -3))
                 source.set("tuesdayActive", !!parseInt(element.active))
                 break;
             case "wednesday":
                 source.set("wednesdayStartTime", element.start_time.slice(0, -3))
                 source.set("wednesdayEndTime", element.end_time.slice(0, -3))
+                source.set("wednesdayStartTimeDatePicker", element.start_time.slice(0, -3))
+                source.set("wednesdayEndTimeDatePicker", element.end_time.slice(0, -3))
                 source.set("wednesdayActive", !!parseInt(element.active))
                 break;
             case "thursday":
                 source.set("thursdayStartTime", element.start_time.slice(0, -3))
                 source.set("thursdayEndTime", element.end_time.slice(0, -3))
+                source.set("thursdayStartTimeDatePicker", element.start_time.slice(0, -3))
+                source.set("thursdayEndTimeDatePicker", element.end_time.slice(0, -3))
                 source.set("thursdayActive", !!parseInt(element.active))
                 break;
             case "friday":
                 source.set("fridayStartTime", element.start_time.slice(0, -3))
                 source.set("fridayEndTime", element.end_time.slice(0, -3))
+                source.set("fridayStartTimeDatePicker", element.start_time.slice(0, -3))
+                source.set("fridayEndTimeDatePicker", element.end_time.slice(0, -3))
                 source.set("fridayActive", !!parseInt(element.active))
                 break;
             case "saturday":
                 source.set("saturdayStartTime", element.start_time.slice(0, -3))
                 source.set("saturdayEndTime", element.end_time.slice(0, -3))
+                source.set("saturdayStartTimeDatePicker", element.start_time.slice(0, -3))
+                source.set("saturdayEndTimeDatePicker", element.end_time.slice(0, -3))
                 source.set("saturdayActive", !!parseInt(element.active))
                 break;
             case "sunday":
                 source.set("sundayStartTime", element.start_time.slice(0, -3))
                 source.set("sundayEndTime", element.end_time.slice(0, -3))
+                source.set("sundayStartTimeDatePicker", element.start_time.slice(0, -3))
+                source.set("sundayEndTimeDatePicker", element.end_time.slice(0, -3))
                 source.set("sundayActive", !!parseInt(element.active))
                 break;
         }

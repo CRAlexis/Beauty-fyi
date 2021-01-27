@@ -41,6 +41,7 @@ Route.group(() => {
 
   //Services
   Route.post('addservice', 'Service/ServiceController.AddService').as('addservice')
+  Route.post('deleteservice', 'Service/ServiceController.deleteService').as('deleteService')
   Route.post('servicesetactive', 'Service/ServiceController.setServiceActive')
   Route.post('servicedelete', 'Service/ServiceController.deleteService')
   Route.post('servicegetimage', 'Service/ServiceController.getServiceImage')
@@ -50,6 +51,7 @@ Route.group(() => {
 
   //Service Forms
   Route.post('addform', 'ServiceForm/ServiceFormController.addForm')
+  Route.post('deleteform', 'ServiceForm/ServiceFormController.deleteForm')
   Route.post('connectformtoservice', 'ServiceForm/ServiceFormController.connectFormToService')
   Route.post('formsget', 'ServiceForm/ServiceFormController.getForms')
   Route.post('formquestionsget', 'ServiceForm/ServiceFormController.getFormQuestions')
@@ -61,9 +63,15 @@ Route.group(() => {
   Route.post('bioget', 'User/BioController.GetBio')
 
   //Clients
+  Route.post('clientget', 'Client/ClientController.getClient')
   Route.post('clientsget', 'Client/ClientController.getClients')
   Route.post('clientgetimage', 'Client/ClientController.clientGetImage')
   Route.post('createclientwithimage', 'Auth/RegisterController.createClientwithimage')
+  Route.post('createbulkclientwithimage', 'Auth/RegisterController.createBulkClientWithImage')
+
+  //Appointments
+  Route.post('availabletimesget', 'Appointment/AppointmentController.getAvailableTimes')
+  Route.post('getconsultationquestions', 'Appointment/AppointmentController.getConsultationQuestions')
 
 }).middleware([/*'android'*/])
 

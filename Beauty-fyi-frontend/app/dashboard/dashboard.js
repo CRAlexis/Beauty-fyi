@@ -70,4 +70,16 @@ exports.goToTab = (args) => {
     }
 }
 
-
+exports.onSelectedIndexChanged = (args) => {
+    switch (args.newIndex) {
+        case 1:
+            const evtData = {
+                eventName: 'loadClients',
+            };
+            args.object.page.notify(evtData)
+            break;
+    
+        default:
+            break;
+    }
+}

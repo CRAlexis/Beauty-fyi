@@ -40,6 +40,44 @@ class ServiceFormController {
         }
     }
 
+    async deleteForm({ request, response }) {
+        try {
+            const userID = request.all().auth.userID;
+            const serviceFormID = request.all().content.serviceFormID;
+            const servicesUsingForm = await Database.table('services').where("form_id", serviceFormID)
+            if (servicesUsingForm) { // Removing form ID from services table
+                servicesUsingForm.forEach(async element => {
+                    const query = await Database.table('services').where("id", element.id).update("form_id", null)
+                    console.log("Set service to use no form: " + query)
+                })
+            }
+            let index = 0
+            const questionsUsingForm = await Database.table('service_questions').where("form_id", serviceFormID)
+            if (questionsUsingForm.length > 0) {
+                questionsUsingForm.forEach(async element => {
+                    await Database.table('service_questions').where("id", element.id).update("form_id", null)
+                    const query = await Database.table('service_questions').where("id", element.id).delete()
+                    console.log("deleted a question: " + query)
+                    index++
+                    if (index == questionsUsingForm.length) {
+                        const serviceForm = await Database.table('service_forms').where("id", serviceFormID).where('user_id', userID).delete()
+                        console.log("Deleted form")
+                        return { "status": "success" }
+                    }
+                })
+            } else {
+                const serviceForm = await Database.table('service_forms').where("id", serviceFormID).where('user_id', userID).delete()
+                console.log("Deleted form")
+                return { "status": "success" }
+            }
+            
+        } catch (e) {
+            console.log(e)
+            console.log("Service form not found")
+        }
+        return { "status": "error" }
+    }
+
 
     async connectFormToService({ request, session, response }) {
         try {
@@ -100,7 +138,7 @@ class ServiceFormController {
         return { "status": "error" }
     }
 
-    
+
 }
 
 module.exports = ServiceFormController

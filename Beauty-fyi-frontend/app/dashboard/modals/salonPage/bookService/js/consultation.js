@@ -2,46 +2,40 @@ const { areYouSure } = require("~/controllers/notifications/inApp/notification-a
 
 let uploadedImageArray = []
 let uploadedImageIndex = 0;
-let form = []
-exports.initialise = (args) => {
-    createForm(args)
+let formFormmated = []
+exports.initialise = (args, sendHTTP, serviceID) => {
+    console.log("inside file: ", serviceID)
+    const httpParameters = { url: 'getconsultationquestions', method: 'POST', content: { serviceID: serviceID}, }
+    sendHTTP(httpParameters, { display: false }, { display: false }, { display: false })
+        .then((response) => {
+            if (response.JSON.status == "success"){
+                //console.log(response.JSON.form)
+                createForm(args, response.JSON.form)
+            }else{
+                console.log("failed to get form")
+            }
+        }, (e) => {
+            console.log(e)
+        })
 }
 
-function createForm(args){
+function createForm(args, form){
     const page = args.object.page
     const listView = page.getViewById("consultationPageForm");
     
-    form.push(
-        {
-            id: "consultationQuestion" + 0,
-            key: 0,
-            question: 'What type of hair do you have?',
-            isTextField: true,
-            isDropDown: false,
-            isCheckBox: false,
-            optionContext: '',
-        },
-        {
-            id: "consultationQuestion" + 1,
-            key: 1,
-            question: 'How would you describe the health of your hair?',
-            isTextField: false,
-            isDropDown: true,
-            isCheckBox: false,
-            optionContext: 'option1,option2,option3,option4',
-        },
-        {
-            id: "consultationQuestion" + 2,
-            key: 2,
-            question: 'Would you like to listen to music?',
-            isTextField: false,
-            isDropDown: false,
-            isCheckBox: true,
-            optionContext: '',
-        },
-    )
+    form.forEach(element => {
+        formFormmated.push(
+            {
+                id: "consultationQuestion" + element.id,
+                mysqlID: element.id,
+                key: element.questionTypeIndex,
+                question: element.question.trim(),
+                optionContext: element.questionOptions,
+            },
+        )
+    })
     
-    listView.items = form
+    listView.items = formFormmated
 }
 
 exports.uploadeReferenceImage = (args) =>{
@@ -71,6 +65,7 @@ exports.uploadeReferenceImage = (args) =>{
 
     if (uploadedImageIndex < 3) { mediafilepicker.openImagePicker(options); }
     mediafilepicker.on("getFiles", function (res) {
+        page.getViewById("uploadedImageList").visibility = "visible"
         let results = res.object.get('results');
         Object.keys(results).forEach(key => {
             uploadedImageArray.push(
@@ -115,7 +110,7 @@ exports.referenceimageTapped = (args) => {
 }
 
 exports.templateSelector = (item, index, items) =>{
-    return form[index].key.toString()
+    return formFormmated[index].key.toString()
 }
 
 exports.validateConsultationPage = (args) => {
@@ -124,7 +119,7 @@ exports.validateConsultationPage = (args) => {
         let formAraryId = []
         let currentState = true
         setTimeout(async ()=>{
-            form.forEach(element => {
+            formFormmated.forEach(element => {
                 console.log(element.id)
                 if (element.key == 2) {
                     formAraryId.push(page.getViewById(element.id).checked)
@@ -135,8 +130,8 @@ exports.validateConsultationPage = (args) => {
             console.log(formAraryId)
             let index = 0
             await formAraryId.forEach(element => {
-                console.log("key: " + form[index].key)
-                if (form[index].key != 2 && !element) {
+                console.log("key: " + formFormmated[index].key)
+                if (formFormmatedrm[index].key != 2 && !element) {
                     currentState = false           
                 }
                 index++
@@ -157,7 +152,7 @@ exports.getData = (args, sourceForm) => {
     const page = args.object.page
     let sourceFormArray = []
     let images = []
-    form.forEach(element => {
+    formFormmated.forEach(element => {
         if (element.key == 2) {
             sourceFormArray.push(page.getViewById(element.id).checked)
         } else {

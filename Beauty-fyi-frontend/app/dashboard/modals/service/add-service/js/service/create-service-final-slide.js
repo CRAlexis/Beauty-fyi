@@ -1,5 +1,4 @@
 exports.getData  = (args, sourceForm) =>{
-    // Set context for form dropdown { will need to do http request}
     const page = args.object.page;
     sourceForm.set("serviceForm", page.getViewById("serviceForm").formID)
     sourceForm.set("serviceOptionalQuestion", page.getViewById("serviceOptionalQuestion").text)
@@ -16,15 +15,15 @@ exports.createFormOptions = (args, sendHTTP) => {
                 let optionString = "";
                 let optionMetaString = "";
                 formData = response.JSON.serviceForms
-                console.log(formData)
                 formData.forEach(element => {
                     optionString += element.form_name + ","
                     optionMetaString += element.id + ",";
                 })
-                optionString += "Add new form";
+                optionString += "*Create a new form*";
                 optionMetaString += "null"
                 page.getViewById("serviceForm").optionContext = optionString
                 page.getViewById("serviceForm").optionContextMeta = optionMetaString
+                console.log(optionMetaString)
             } else {
                 page.getViewById("serviceForm").optionContext = ""
             }

@@ -3,16 +3,16 @@
         <StackLayout paddingBottom="10" >
             <includesCalander:book-service-calander/>
             <StackLayout padding="10" xmlns:lv="nativescript-ui-listview">
-                <Label class="line" width="90%" text="" textWrap="true" />
-                <Label id="onTimeSelectedText" text="" class="h4" textAlignment="center" paddingTop="15" textWrap="true" />
+                <!--<Label class="line" width="90%" text="" textWrap="true" />-->
+                <Label id="onTimeSelectedText" text="" class="h4" textAlignment="center" paddingTop="15" paddingBottom="10" textWrap="true" />
                 <StackLayout>
                     <lv:RadListView id="bookAppointmentAvaliableTimes" class="list-group" style="background-color: transparent" visibility="collapsed"> 
                     <lv:RadListView.listViewLayout>
-                        <lv:ListViewGridLayout  spanCount="2" />
+                        <lv:ListViewLinearLayout scrollDirection="Horizontal" />
                     </lv:RadListView.listViewLayout>
                     <lv:RadListView.itemTemplate >    
-                        <StackLayout tap="{{onTimeSelected}}" class="btn-light-grey-outline btn-rounded-sm" margin="5" backgroundColor="white">
-                            <Label id="" selectedTime="false" text="{{time}}" class="h4 font-bold" textAlignment="center" textWrap="true" />
+                        <StackLayout tap="onTimeSelected" class="btn-light-grey-outline btn-rounded-sm" margin="5" backgroundColor="white">
+                            <Label id="" width="80" height="30" selectedTime="false" text="{{time}}" hour="{{hour}}" minute="{{minute}}" class="h4 font-bold" textAlignment="center" />
                         </StackLayout>
                     </lv:RadListView.itemTemplate>
                     </lv:RadListView>

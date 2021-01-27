@@ -17,7 +17,7 @@
             
             <StackLayout paddingBottom="35">
                 <GridLayout rows="auto, auto, auto, auto" columns="*, auto, 20">
-                    <Label row="0" class="h5" text="MINIMUM DAYS" textWrap="true" />                
+                    <Label row="0" class="h5" text="MAXIMUM DAYS" textWrap="true" />                
                     <TextField row="1" colSpan="3" width="100%" text="{{daysInAdvance}}" blur="pageStateChanged" row="1" keyboardType="number" maxLength="3" id="servicePrice" class="textFieldInputSmall"/>       
                     <Label row="2" colSpan="3" class="h5" text="Set the maximum days in advance that appointments can be scheduled" textWrap="true" />
                 </GridLayout>
