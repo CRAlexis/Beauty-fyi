@@ -38,10 +38,10 @@ exports.loaded = function (args) { //third slide
     confirmation = require("~/dashboard/modals/salonPage/bookService/js/confirmation")
     slideIndex = 0
     slides = [page.getViewById("chooseDateSlide"), page.getViewById("consultationSlide"), page.getViewById("confirmationSlide"), page.getViewById("successSlide")]
-    setTimeout(()=>{
+    setTimeout(() => {
         initialiseConsultationPage(args)
-    },1000)
-    
+    }, 1000)
+
     evtData = {
         eventName: 'refresh',
         header: "Select a date"
@@ -76,6 +76,7 @@ function backEvent(args) { // This event is a bit funny
                             header: "Select a date"
                         };
                         page.notify(evtData)
+                        page.getViewById("continueButton").text = "Continue"
                         break;
                     case 1:
                         evtData = {
@@ -83,6 +84,7 @@ function backEvent(args) { // This event is a bit funny
                             header: "Consultation"
                         };
                         page.notify(evtData)
+                        page.getViewById("continueButton").text = "Continue"
                         break;
                     case 2:
                         evtData = {
@@ -108,19 +110,24 @@ function exitModal(args) {
 
     if (application.android) {
         application.android.off(application.AndroidApplication.activityBackPressedEvent, backEvent);
-        closeCallback();
+        try {
+            closeCallback();
+        } catch (error) {
+            console.log(error)
+        }
+
     }
 }
 
-exports.goToNextSlide = (args) => { goToNextSlide(args) }
 
-async function goToNextSlide(args) {
+exports.goToNextSlide = async (args) => {
     const page = args.object.page
     switch (slideIndex) {
         case 0:
-            slideTransition.goToNextSlide(args, slideIndex, source, slides).then(function (result) {
+            this.validateConsultationPage(args)
+            slideTransition.goToNextSlide(args, slideIndex, source, slides).then(async (result) => {
                 slideIndex = result
-                hideContinueButton(args)
+                //hideContinueButton(args)
                 evtData = {
                     eventName: 'refresh',
                     header: "Consultation"
@@ -131,27 +138,32 @@ async function goToNextSlide(args) {
         case 1:
             await chooseDate.getData(args, sourceForm)
             await consultation.getData(args, sourceForm)
-            confirmation.initialise(args, sourceForm)
-            console.log(sourceForm)
-            slideTransition.goToNextSlide(args, slideIndex, source, slides).then(function (result) {
-                slideIndex = result
-                page.getViewById("continueButton").text = "Confirm appointment"
+            confirmation.initialise(args, sourceForm, serviceID, addonsArray, sendHTTP).then((result) => {
+                console.log(sourceForm)
+                slideTransition.goToNextSlide(args, slideIndex, source, slides).then(function (result) {
+                    slideIndex = result
+                    page.getViewById("continueButton").text = "Confirm appointment"
+                })
+                evtData = {
+                    eventName: 'refresh',
+                    header: "Confirmation"
+                };
+                page.notify(evtData)//Change
+                c
+            }, (e) => {
+                inAppNotifiationAlert.errorMessage("An error occurred while processing your information. Please try again later.")
             })
-            evtData = {
-                eventName: 'refresh',
-                header: "Confirmation"
-            };
-            page.notify(evtData)//Change
             break;
+
         case 2:
-            //sendHttp(args).then((result) => {
-            //    slideTransition.goToNextSlide(args, slideIndex, source, slides).then(function (result) {
-            //        slideIndex = result
-            //        page.getViewById("continueButton").text = "Finish"
-            //    })
-            //}, (e) => {
-            //        // Im not sure what to do here.
-            //})
+            sendHttp(args).then((result) => {
+                //slideTransition.goToNextSlide(args, slideIndex, source, slides).then(function (result) {
+                //    slideIndex = result
+                //    page.getViewById("continueButton").text = "Finish"
+                //})
+            }, (e) => {
+                // Im not sure what to do here.
+            })
             break;
         //success here
     }
@@ -190,7 +202,7 @@ function sendHttp(args) {
             })
         })
         const httpParametersPicture = {
-            url: "bookservice",
+            url: "createappointment",
             method: 'POST',
             description: "Booking service",
             file: files,
@@ -199,15 +211,17 @@ function sendHttp(args) {
                 time: sourceForm.get("time"),
                 consultationAnswers: sourceForm.get("consultationAnswers"),
                 appointmentNotes: sourceForm.get("appointmentNotes"),
-                userID: clientID,
+                clientID: clientID,
                 addons: addonArray,
                 serviceID: serviceID,
-
+                duration: sourceForm.get("duration")
             }
         }
         sendHTTPFile(httpParametersPicture).then((result) => {
+            console.log(result)
             resolve()
         }, (error) => {
+            console.log(result)
             reject()
         })
     })
@@ -218,7 +232,7 @@ function sendHttp(args) {
 exports.onCalanderLoad = function (args) { setTimeout(function () { chooseDate.initialise(args) }, 250) }
 
 source.set("onDateSelected", function (args) {
-    chooseDate.dateSelected(args, sendHTTP, serviceID, clientID, addonsArray).then((result) => {
+    chooseDate.dateSelected(args, sendHTTP, serviceID, clientID, addonsArray, sourceForm).then((result) => {
         hideContinueButton(args)
     })
 })

@@ -204,8 +204,7 @@ class RegisterController {
     console.log(request.all().content)
     let clientsImportedSuccessfully = 0
     let index = 0
-
-    // bassically want this but loop it for as many clients
+    // Basically want this but loop it for as many clients
     // First wana check if the number is already in our system 
     // If it is create a link between the two and skip the rest
     // clients have temporary password
@@ -231,6 +230,7 @@ class RegisterController {
             console.log(error)
           }
         } else {
+          const trx = await Database.beginTransaction()
           try {
             let firstName = cleanStrings(element.clientName.trim(), "string")
             let lastName = /*null*/ "unknown_" + randomString({ length: 40 })
@@ -256,16 +256,24 @@ class RegisterController {
               password: randomString({ length: 40 }),
               phoneNumber: element.phoneNumber,
               confirmation_token: randomString({ length: 40 })
-            })
-            console.log("Created new client")
+            }, trx)
+            
+            console.log("Added User.create to trx " + trx)
+            
 
             const userClient = await UserClient.create({
-              user_id: auth.userID,
+              user_id: userID,
               client_id: user.id,
-            })
+            }, trx)
+           
+            console.log("Added User.create to trx " + userClient)
+
+            await trx.commit()
+            console.log("Created new client")
             console.log("Connected new client to stylist")
             clientsImportedSuccessfully++
           } catch (error) {
+            await trx.rollback()
             console.log(error)
           }
         }
@@ -275,13 +283,7 @@ class RegisterController {
         }
       })
     })
-    response.send({ status: "success", clientsImported: clientsImportedSuccessfully })
-  
-    
-
-    
-    
-    
+    response.send({ status: "success", clientsImported: clientsImportedSuccessfully })  
   };
 
 

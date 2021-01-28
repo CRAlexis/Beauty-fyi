@@ -14,6 +14,9 @@ class Appointment extends Model {
     Answer() {
         this.hasMany('App/Models/ServiceQuestionAnswer')
     }
+    Transaction() {
+        this.hasOne('App/Models/Transaction')
+    }
 }
 
 module.exports = Appointment

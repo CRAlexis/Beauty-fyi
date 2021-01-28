@@ -1,0 +1,15 @@
+<Page shownModally="onShownModally" loaded="loaded">
+    <GridLayout rows="auto, auto,  *, auto, auto" columns=""
+        xmlns:topBar="dashboard/includes/topBar"
+        xmlns:includes="dashboard/includes/schedule">
+        <topBar:menu-header row="0" header="Support"/>
+        <Label row="1" text="If you need to contact us you can send an email to support@beauty-fyi.com. Or you can contact us directly in the app using our support ticket feature." padding="20" class="h5" textWrap="true" />
+        <StackLayout row="2" paddingLeft="9" paddingRight="9" paddingTop="10">
+            <TextField tap="changePageState" id="supportSubject" hint="Subject" text="" maxLength="50" class="textFieldInputSmall" />
+            <TextView tap="changePageState" id="supportMessage" height="50%" maxLength="250" row="4" borderColor="#DEDEDE" borderWidth="1" hint="Message" class="textFieldInputSmall" paddingBottom="10"></TextView>
+        </StackLayout>
+        <StackLayout row="3">
+            <Button tap="submit" text="Submit" class="btn btn-white" />
+        </StackLayout>
+    </GridLayout>
+</Page>

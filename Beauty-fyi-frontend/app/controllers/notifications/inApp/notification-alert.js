@@ -21,7 +21,8 @@ exports.errorMessage = function(message){
         let options = {
             // Options go here
             dialogStyle: CFAlertStyle.ALERT,
-            title: message,
+            title: "Error",
+            message: message,
             onDismiss: function(){
                 active = true;
             }

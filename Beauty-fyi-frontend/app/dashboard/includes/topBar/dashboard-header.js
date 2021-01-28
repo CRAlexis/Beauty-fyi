@@ -1,5 +1,6 @@
 const navigation = require("~/controllers/navigationController");
 const animation = require("~/controllers/animationController").loadAnimation;
+let transitioning = false
 exports.load = function(args){
     const includeObject = args.object;
     const page = includeObject.page;
@@ -13,14 +14,18 @@ exports.load = function(args){
 }
 
 exports.goToSettings = function (args) {
-    const mainView = args.object;
-    const context = ""
+    if (!transitioning){
+        transitioning = true
+        const mainView = args.object;
+        const context = ""
 
-    animation(args.object, "nudge up").then(function () {
-        navigation.navigateToModal(context, mainView, 13, true).then(function (result) {
-            console.log(result)
+        animation(args.object, "nudge up").then(function () {
+            navigation.navigateToModal(context, mainView, 13, true).then(function (result) {
+                transitioning = false
+            })
         })
-    })
+    }
+    
 }
 
 exports.goToMessages = (args) => {

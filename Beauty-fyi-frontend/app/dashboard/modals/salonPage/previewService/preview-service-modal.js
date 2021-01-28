@@ -25,7 +25,7 @@ exports.onShownModally = async (args) => {
     //console.log("ServiceID: " + context.serviceID)
     //console.dir("previewServiceContentArray: " + context.services)
     await populate(args)
-    
+
 }
 
 exports.loaded = async (args) => {
@@ -106,6 +106,7 @@ function populate(args) {
 
 function getServiceImages(args, serviceID, serviceImageInteger) {
     const page = args.object.page
+    console.log("amount of images: " + serviceImageInteger)
     for (let index = 0; index < serviceImageInteger; index++) {
         const httpParametersImages = {
             url: 'servicegetimage',
@@ -145,14 +146,18 @@ exports.goToNextImage = async (args) => {
 exports.bookService = (args) => {
     const mainView = args.object;
     const page = args.object.page
-
-    animation(args.object, "expand section width", { width: "80%", duration: 250 }).then(()=> {
-        navigation.navigateToModal("", mainView, 24, true).then((result)=> {
-            console.log("addon: " + addonIDs)
-            let context = { userID: result, addons: addonIDs, serviceID: serviceID }
-            navigation.navigateToModal(context, mainView, 3, true).then((result) => {
+    if (application.android) { application.android.off(application.AndroidApplication.activityBackPressedEvent, backEvent); }
+    animation(args.object, "expand section width", { width: "80%", duration: 250 }).then(() => {
+        navigation.navigateToModal({ serviceID: serviceID }, mainView, 24, true).then((result) => {
+            if (application.android) { application.android.on(application.AndroidApplication.activityBackPressedEvent, backEvent); }
             args.object.width = "50%"
-            })
+            if (result) {
+                let context = { userID: result, addons: addonIDs, serviceID: serviceID }
+                navigation.navigateToModal(context, mainView, 3, true).then((result) => {
+                    if (application.android) { application.android.off(application.AndroidApplication.activityBackPressedEvent, backEvent); }
+                    args.object.width = "50%"
+                })
+            }
         })
     })
 }

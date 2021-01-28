@@ -25,12 +25,12 @@ Factory.blueprint('App/Models/Appointment', (faker) => {
         client_id: faker.integer({ min: 35, max: 40 }),
         service_id: 35,
         addon_ids: 20,
-        status: "pending",
         client_start_time: clientStartTime + ":" + faker.minute() + ":" + faker.second(),
         client_end_time: clientEndTime + ":" + faker.minute() + ":" + faker.second(),
         stylist_start_time: stylistStartTime + ":" + faker.minute() + ":" + faker.second(),
         stylist_end_time: stylistEndTime + ":" + faker.minute() + ":" + faker.second(),
         stylist_end_time: stylistEndTime + ":" + faker.minute() + ":" + faker.second(),
-        appointment_date: faker.date({ year: 2021, month: 2 })
+        appointment_date: faker.date({ year: 2021, month: 2 }),
+        transaction_id: 1
     }
 })

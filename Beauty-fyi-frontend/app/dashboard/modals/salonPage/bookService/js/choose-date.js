@@ -27,7 +27,7 @@ exports.initialise = (args) => {
 
 }
 
-exports.dateSelected = (args, sendHTTP, serviceID, clientID, addonsArray) => {
+exports.dateSelected = (args, sendHTTP, serviceID, clientID, addonsArray, sourceForm) => {
     const page = args.object.page
     return new Promise((resolve) => {
         rawDate = args.date
@@ -64,12 +64,12 @@ exports.dateSelected = (args, sendHTTP, serviceID, clientID, addonsArray) => {
                 break;
         }
         page.getViewById("onTimeSelectedText").text = "Availability on the " + day + suffix + " of " + month;
-        getAvailableTimes(args, sendHTTP, date, serviceID, clientID, addonsArray)
+        getAvailableTimes(args, sendHTTP, date, serviceID, clientID, addonsArray, sourceForm)
         resolve()
     })
 }
 
-function getAvailableTimes(args, sendHTTP, date, serviceID, clientID, addonsArray) {
+function getAvailableTimes(args, sendHTTP, date, serviceID, clientID, addonsArray, sourceForm) {
     try {
         const page = args.object.page
         const httpParameters = { url: 'availabletimesget', method: 'POST', content: { date: rawDate, serviceID: serviceID, clientID: clientID, addonIDs: addonsArray } }
@@ -77,6 +77,7 @@ function getAvailableTimes(args, sendHTTP, date, serviceID, clientID, addonsArra
             .then((response) => {
                 if (response.JSON.status == "success") {
                     createNewTimes(args, response.JSON.times)
+                    sourceForm.set("duration", response.JSON.duration)
                 } else {
                     page.getViewById("bookAppointmentAvaliableTimes").items = []
                 }

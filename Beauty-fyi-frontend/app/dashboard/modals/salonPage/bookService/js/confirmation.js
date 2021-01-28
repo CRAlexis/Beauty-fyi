@@ -1,91 +1,91 @@
 const animation = require("~/controllers/animationController").loadAnimation;
 const addNewCardModal = require("~/dashboard/includes/bookService/add-new-card")
-const application = require('application'); 
-let modalActive = false;
-exports.initialise = (args, sourceForm) => {
-    createTimeAndLocation(args, sourceForm)
-    createReciept(args)
-    createPhotos(args, sourceForm)
+const application = require('application');
+
+exports.initialise = (args, sourceForm, serviceID, addonsArray, sendHTTP) => {
+    return new Promise((resolve, reject) => {
+        createTimeAndLocation(args, sourceForm)
+        createReciept(args, sourceForm, serviceID, addonsArray, sendHTTP).then((result) => {
+            resolve()
+        }, (e) => {
+            reject()
+        })
+        createPhotos(args, sourceForm)
+    })
     
 }
 
-function createTimeAndLocation(args, sourceForm){
+function createTimeAndLocation(args, sourceForm) {
     try {
         const page = args.object.page
-        page.getViewById("confirmationTimeDisplayed").text = sourceForm.date + " - " + sourceForm.time 
+        page.getViewById("confirmationTimeDisplayed").text = sourceForm.date + " - " + sourceForm.time
     } catch (error) {
         console.log(error)
     }
-    
 }
 
-function createReciept(args){
-    const page = args.object.page;
-    let recieptList = []
-    recieptList.push(
-        {
-            serviceName: 'Hair deep conditioning, treatment & mask',
-            servicePrice: "£100",
-            class: "h5"
-        },
-        {
-            serviceName: 'Extra shampoo',
-            servicePrice: "£30",
-            class: "h5"
-        },
-        {
-            serviceName: 'Deposit',
-            servicePrice: "£75",
-            class: "h5 font-bold"
-        },
-        {
-            serviceName: 'Total',
-            servicePrice: "£150",
-            class: "h5 font-bold"
-        }
-    )
-
-    var listview = page.getViewById("recieptList");
-    try {
-        listview.items = recieptList;
-    } catch (error) {
-        console.log("error1: " + error)
-    }
-    
+function createReciept(args, sourceForm, serviceID, addonsArray, sendHTTP) {
+    return new Promise((resolve, reject) => {
+        const page = args.object.page;
+        const httpParameters = { url: 'servicereceiptget', method: 'POST', content: { serviceID: serviceID, addons: addonsArray }, }
+        sendHTTP(httpParameters, { display: false }, { display: false }, { display: true })
+            .then((response) => {
+                if (response.JSON.status == "success") {
+                    let recieptList = []
+                    response.JSON.receipt.forEach(element => {
+                        if (element.serviceName == "Deposit" || element.serviceName == "Total") {
+                            recieptList.push(
+                                {
+                                    serviceName: element.serviceName,
+                                    servicePrice: "£" + element.servicePrice,
+                                    class: "h5 font-bold"
+                                }
+                            )
+                        } else {
+                            recieptList.push(
+                                {
+                                    serviceName: element.serviceName,
+                                    servicePrice: "£" + element.servicePrice,
+                                    class: "h5"
+                                }
+                            )
+                        }
+                    })
+                    var listview = page.getViewById("recieptList");
+                    listview.items = recieptList;
+                    resolve()
+                }
+                console.log(response)
+            }, (e) => {
+                reject()
+                console.log(e)
+            })
+    })
 }
 
-async function createPhotos(args, sourceForm){
+async function createPhotos(args, sourceForm) {
     const page = args.object.page
-    if (sourceForm.images.length < 1) { return true}
-    setTimeout(()=>{ 
+    if (sourceForm.images.length == 0) { return true }
+    setTimeout(() => {
         const height = (page.getMeasuredWidth() / 4)
-        console.log(height)
         let photos = []
         let i = 0;
         sourceForm.images.forEach(element => {
             photos.push({
-                image: element.image,
+                image: element,
                 height: height + "px",
                 index: i
             })
             i++
         })
         //format photos when uploading
-        try {
-            var listview = page.getViewById("confirmationImageListS");
-            listview.items = photos;
-        } catch (error) {
-            console.log(error)
-        }
-    },250)
+        var listview = page.getViewById("confirmationImageListS");
+        listview.items = photos;
+    }, 250)
 }
 
 
-
-
-
-
-function createPaymentMethodList(args){
+function createPaymentMethodList(args) {
     const page = args.object.page;
     let paymentMethodList = []
     paymentMethodList.push(
@@ -103,10 +103,8 @@ function createPaymentMethodList(args){
         },
 
     )
-
     var listview = page.getViewById("paymentMethodList");
-
-    try{
+    try {
         listview.items = paymentMethodList;
     } catch (error) {
         console.log("error2 " + error)

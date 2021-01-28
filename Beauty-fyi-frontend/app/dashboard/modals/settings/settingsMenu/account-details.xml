@@ -32,7 +32,7 @@
                     </GridLayout>
                     <Label text="Email" color="gray" textWrap="true" paddingLeft="20" fontSize="14"/>
                     <GridLayout rows="35, auto" columns="*, auto">
-                        <TextField col="0" class="textFieldInputSuperSmall" borderWidth="0" hint="" maxLength="64" marginTop="-8" text="{{ email }}" textChange="emailInput"></TextField>
+                        <TextField col="0" class="textFieldInputSuperSmall" keyboardType="email" borderWidth="0" hint="" maxLength="64" marginTop="-8" text="{{ email }}" textChange="emailInput"></TextField>
                         <Label col="1" text="{{ emailValidation[0] ? '&#xf00c;' : '&#xf068;' }}" visibility="{{ emailValidation[1] ? 'visible' : 'collapsed' }}" color="{{ emailValidation[0] ? 'green' : 'black' }}" class="fas" paddingTop="5" fontSize="19" textWrap="true" />
                         <Label row="1" text="" class="fakeTextFieldline" width="91%" marginTop="-8" colSpan="2" textWrap="true" />
 

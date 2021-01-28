@@ -5,21 +5,21 @@ let closeCallback;
 exports.onShownModally = function (args) {
     const context = args.context.context;
     const page = args.object;
-    if (args.context.meta){
+    if (args.context.meta) {
         const meta = args.context.meta;
         loadOptionListWithMeta(page, context, meta)
-    }else {
+    } else {
         loadOptionList(page, context)
     }
     closeCallback = args.closeCallback;
 }
 
-function loadOptionList(page, context){
+function loadOptionList(page, context) {
     var options = [];
     context.forEach(option => {
         options.push(
             {
-            optionList: option
+                optionList: option.trim()
             }
         )
     });
@@ -48,5 +48,5 @@ function loadOptionListWithMeta(page, context, meta) {
 exports.selectedOption = function (args) {
     const text = args.object.text;
     const meta = args.object.meta
-    closeCallback({text: text, meta: meta? meta : null});
+    closeCallback({ text: text, meta: meta ? meta : null });
 }

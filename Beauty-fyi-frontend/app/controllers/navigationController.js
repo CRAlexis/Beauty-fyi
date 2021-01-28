@@ -132,6 +132,10 @@ exports.navigateToModal = function (context, page, index, fullScreen){ // For mo
                 break;
             case 28: 
                 destination = "~/dashboard/modals/salonPage/previewService/preview-service-modal"
+                break;
+            case 29:
+                destination = "~/dashboard/modals/settings/settingsMenu/support"
+                break
         }
         
         const option = {

@@ -5,18 +5,21 @@
             xmlns:topBar="dashboard/includes/topBar">
             <topBar:menu-header row="0" header="Choose a client"/>
             <StackLayout row="1" height="100%" id="chooseDatePageContainer"
-                xmlns:Card="@nstudio/nativescript-cardview">
+                xmlns:Card="@nstudio/nativescript-cardview" tap="pageClicked">
                 <StackLayout paddingTop="" paddingBottom="20">
                     <StackLayout paddingBottom="10"
                         xmlns:lv="nativescript-ui-listview">
-                        <lv:RadListView id="addClientList" class="list-group" style="background-color: transparent" loadOnDemandModeX="Auto" loadMoreDataRequestedX="{{onLoadMoreItemsRequested}}">
+                        <lv:RadListView id="clientList" class="list-group" style="background-color: transparent" loadOnDemandMode="Auto" loadMoreDataRequested="loadClients">
                             <lv:RadListView.listViewLayout>
-                                <lv:ListViewLinearLayout/>
+                                <lv:ListViewLinearLayout spanCount="2" />
                             </lv:RadListView.listViewLayout>
                             <lv:RadListView.itemTemplate >
-                                <GridLayout id="{{ id }}" tap="selectClient" rows="5, 50, 5" columns="10, 50, 10, auto" class="list-group-borders">
-                                    <Image src="{{ clientImage }}" row="1" col="1" height="100%" width="100%" borderRadius="50" stretch="aspectFill" />
-                                    <Label row="1" col="3" text="{{ clientName}}" class="font-bold h4" textWrap="true" />
+                                <GridLayout clientID="{{ clientID }}" tap="selectClient" rows="5, auto, 5" columns="10, auto, 10, *">
+                                    <Label id="clientImageAvatar" row="1" col="1" text="&#xf2bd;" class="fas" color="lightgray" fontSize="50" />
+                                    <Image src="{{ clientImage }}" row="1" col="1" height="50" decodeWidth="50" width="50" load="async" borderRadius="50" stretch="aspectFill" />
+                                    <StackLayout verticalAlignment="center" row="1" col="3" marginTop="10">
+                                        <Label text="{{ clientName }}" fontSize="15" />
+                                    </StackLayout>
                                 </GridLayout>
                             </lv:RadListView.itemTemplate>
                         </lv:RadListView>
@@ -27,35 +30,20 @@
                 <Button col="1" text="&#xf055;" class="fas btn" fontSize="45" tap="addNewClient" />
             </GridLayout>
         </GridLayout>
-        <GridLayout row="0" rows="auto, *" columns="" id="addClientSlide" visibility="collapsed" opacity="0">
-            <StackLayout xmlns:Card="@nstudio/nativescript-cardview" row="0">
-                <Card:CardView class="cardStyle" elevation="10" marginBottom="10" radius="0">
-                    <GridLayout columns="40, *, auto" paddingLeft="20" paddingRight="10" paddingBottom="10">
-                        <StackLayout tap="exit" col="0" orientation="horizontal" paddingTop="15">
-                            <Label text="&#xf00d;" class="fas" fontSize="19" textWrap="true" />
-                        </StackLayout>
-                        <StackLayout col="1">
-                            <Label id="title" text="Add client" textAlignment="center" class="h4 font-bold" color="black" paddingTop="15" />
-                        </StackLayout>
-                        <StackLayout tap="createClient" id="infoContainer" col="2" orientation="horizontal" paddingTop="15" paddingLeft="10" paddingRight="10">
-                            <Label text="&#xf00c;" class="fas" fontSize="19" textWrap="true" />
-                        </StackLayout>
-                    </GridLayout>
-                </Card:CardView>
-                <StackLayout row="1" >
-                    <GridLayout rows="" columns="*, auto, *" paddingBottom="20">
-                        <Image tap="selectPhoto" id="clientImage" src="" col="1" height="75" width="75" borderRadius="37" stretch="aspectFill" visibility="collapsed" />
-                        
-                        <Label tap="selectPhoto" id="clientImageAvatar" col="1" text="&#xf2bd;" class="fas" color="gray" fontSize="75" textWrap="true" />                   
-                    </GridLayout>
-                    <TextField maxLength="60" id="firstName" hint="*First name" class="textFieldInputSmall" paddingBottom="10"/>
-                    <TextField maxLength="60" id="lastName" hint="*Last name" class="textFieldInputSmall" paddingBottom="10" />
-                    <TextField maxLength="60" id="emailAddress"  hint="*Email address" keyboardType="email" class="textFieldInputSmall" paddingBottom="10" />
-                    <TextField maxLength="13" id="phoneNumber" hint="Phone number" keyboardType="number" class="textFieldInputSmall" paddingBottom="10" />
-                    <TextView maxLength="400" id="clientNotes" row="4" borderColor="#DEDEDE" borderWidth="1" hint="Client notes" class="textFieldInputSmall" returnKeyType="done" paddingBottom="10"></TextView>
-                </StackLayout>
+        <Card:CardView id="emailModal" clientID="" row="0" margin="2" elevation="10" height="218" radius="10" width="97%" visibility="collapsed" opacity="0" tap="modalBlocker">
+            <StackLayout padding="20">
+                <Label text="Enter an email address for your client to continue the booking process." class="h5" textWrap="true" paddingBottom="15" />
+                <GridLayout rows="35, auto" columns="*, auto">
+                    <TextField col="0" class="textFieldInputSmall" keyboardType="email" borderWidth="0" hint="" maxLength="64" marginTop="-8" text="{{ email }}" textChange="emailInput"></TextField>
+                    <Label col="1" text="{{ emailValidation[0] ? '&#xf00c;' : '&#xf068;' }}" visibility="{{ emailValidation[1] ? 'visible' : 'collapsed' }}" color="{{ emailValidation[0] ? 'green' : 'black' }}" class="fas" paddingTop="5" fontSize="19" textWrap="true" />
+                    <Label row="1" text="" class="fakeTextFieldline" width="91%" marginTop="-8" colSpan="2" textWrap="true" />
+                </GridLayout>
+                <Button text="Submit" class="btn btn-black" tap="appendClientAndSelect" height="40" width="100%" />
+                <GridLayout rows="" columns="*, auto" marginTop="15">
+                    <Label tap="closeModal" text="cancel" class="font-bold h5" col="1"/>
+                </GridLayout>
             </StackLayout>
-        </GridLayout>
+        </Card:CardView>
     </GridLayout>
 </Page>
 

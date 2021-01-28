@@ -140,7 +140,7 @@ async function sendHTTPFile(httpParameters,
             if (errorParameters.display) {
                 httpRequestFinished(errorParameters.title ? errorParameters.title : "Error", errorParameters.message ? errorParameters.message : "We was unable to process your request. Tap anywhere to exit.").then((alert) => { alertObject = alert })
             }
-            console.log('error2:' + e)
+            console.log('error2:' , e)
             reject(e)
         }
         function respondedHandler(result) {

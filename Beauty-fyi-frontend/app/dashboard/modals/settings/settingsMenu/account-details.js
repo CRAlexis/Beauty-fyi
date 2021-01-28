@@ -127,7 +127,7 @@ exports.save = (args) => {
 
 exports.firstNameInput = (args) => {
     pageStateChanged = true
-    setTimeout(() => {
+    /*setTimeout(() => {
         var regExCheck = /^[a-zA-Z_]*$/;
         if (source.get("firstName").length == 0) { source.set("firstNameValidation", [false, false]); return }
         if (!source.get("firstName").trim().match(regExCheck)) {
@@ -135,7 +135,8 @@ exports.firstNameInput = (args) => {
         } else {
             source.set("firstNameValidation", [true, true])
         }
-    }, 100)
+    }, 100)*/
+    firstNameInput(source, "firstname", "firstNameValidation")
 }
 
 exports.lastNameInput = (args) => {

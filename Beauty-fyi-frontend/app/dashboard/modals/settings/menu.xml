@@ -83,7 +83,7 @@
                     <Label row="0" col="3" text="&#xf054;" class="fas" fontSize="16" textWrap="true" />
                     <Label row="1" col="1" colSpan="4" text="" class="line" textWrap="true" visibility="collapsed" />
                 </GridLayout>
-                <GridLayout rows="40, auto" columns="25, 5, *, auto, 25, 25" paddingTop="5">
+                <GridLayout tap="support" rows="40, auto" columns="25, 5, *, auto, 25, 25" paddingTop="5">
                     <Label row="0" col="2" text="Support" class="h5 font-bold" textWrap="true" />
                     <Label row="0" col="3" text="&#xf054;" class="fas" fontSize="16" textWrap="true" />
                     <Label row="1" col="1" colSpan="4" text="" class="line" textWrap="true" visibility="collapsed" />

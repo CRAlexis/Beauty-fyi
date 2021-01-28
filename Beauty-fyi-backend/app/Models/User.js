@@ -45,6 +45,8 @@ class User extends Model {
   ClientMedia() { return this.hasMany('App/Models/ClientMedia') }
   Client() {return this.belongsToMany('App/Models/UserClient')}
   Appointment() {return this.belongsToMany('App/Models/Appointment')}
+  StripeAttr() { return this.hasOne('App/Models/StripeAttr') }
+
 ervi
 
 }

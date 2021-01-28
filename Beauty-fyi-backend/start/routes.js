@@ -71,7 +71,13 @@ Route.group(() => {
 
   //Appointments
   Route.post('availabletimesget', 'Appointment/AppointmentController.getAvailableTimes')
-  Route.post('getconsultationquestions', 'Appointment/AppointmentController.getConsultationQuestions')
+  Route.post('consultationquestionsget', 'Appointment/AppointmentController.getConsultationQuestions')
+  Route.post('servicereceiptget', 'Appointment/AppointmentController.getServiceReceipt')
+  Route.post('clientemailgetbool', 'Appointment/AppointmentController.clientEmailGetBool')
+  Route.post('clientemailappend', 'Appointment/AppointmentController.clientEmailAppend')
+  Route.post('createappointment', 'Appointment/AppointmentController.createAppointment')
+
+
 
 }).middleware([/*'android'*/])
 

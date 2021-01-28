@@ -4,14 +4,16 @@ let uploadedImageArray = []
 let uploadedImageIndex = 0;
 let formFormmated = []
 exports.initialise = (args, sendHTTP, serviceID) => {
-    console.log("inside file: ", serviceID)
-    const httpParameters = { url: 'getconsultationquestions', method: 'POST', content: { serviceID: serviceID}, }
+    uploadedImageArray = []
+    uploadedImageIndex = 0;
+    formFormmated = []
+    const httpParameters = { url: 'consultationquestionsget', method: 'POST', content: { serviceID: serviceID }, }
     sendHTTP(httpParameters, { display: false }, { display: false }, { display: false })
         .then((response) => {
-            if (response.JSON.status == "success"){
+            if (response.JSON.status == "success") {
                 //console.log(response.JSON.form)
                 createForm(args, response.JSON.form)
-            }else{
+            } else {
                 console.log("failed to get form")
             }
         }, (e) => {
@@ -19,10 +21,10 @@ exports.initialise = (args, sendHTTP, serviceID) => {
         })
 }
 
-function createForm(args, form){
+function createForm(args, form) {
     const page = args.object.page
     const listView = page.getViewById("consultationPageForm");
-    
+
     form.forEach(element => {
         formFormmated.push(
             {
@@ -34,21 +36,21 @@ function createForm(args, form){
             },
         )
     })
-    
+
     listView.items = formFormmated
 }
 
-exports.uploadeReferenceImage = (args) =>{
+exports.uploadeReferenceImage = (args) => {
     const mPicker = require("nativescript-mediafilepicker");
     const mediafilepicker = new mPicker.Mediafilepicker();
     const page = args.object.page
     const listview = page.getViewById("uploadedImageList");
     const height = (page.getMeasuredWidth() / 3)
-    
-    try { 
+
+    try {
         uploadedImageIndex = listview.items.length
         uploadedimagesObject = listview.items
-    } catch (error) {   }
+    } catch (error) { }
 
     let options = {
         android: {
@@ -83,7 +85,7 @@ exports.uploadeReferenceImage = (args) =>{
         if (uploadedImageIndex == 3) { page.getViewById("uploadReferenceImageButton").visibility = "collapsed" }
     });
 
-    
+
 }
 
 exports.referenceimageTapped = (args) => {
@@ -106,45 +108,50 @@ exports.referenceimageTapped = (args) => {
         listview.items = uploadedImageArray;
         if (uploadedImageIndex < 3) { page.getViewById("uploadReferenceImageButton").visibility = "visible" }
     })
-    
+
 }
 
-exports.templateSelector = (item, index, items) =>{
+exports.templateSelector = (item, index, items) => {
     return formFormmated[index].key.toString()
 }
 
 exports.validateConsultationPage = (args) => {
     return new Promise((resolve, reject) => {
-        let page = args.object.page
+        const page = args.object.page
         let formAraryId = []
         let currentState = true
-        setTimeout(async ()=>{
+        setTimeout(async () => {
             formFormmated.forEach(element => {
-                console.log(element.id)
-                if (element.key == 2) {
-                    formAraryId.push(page.getViewById(element.id).checked)
-                } else {
-                    formAraryId.push(page.getViewById(element.id).text)
+                try {
+                    console.log(element.id)
+                    if (element.key == 3) {
+                        formAraryId.push(page.getViewById(element.id).checked)
+                    } else {
+                        formAraryId.push(page.getViewById(element.id).text)
+                    }
+                } catch (error) {
+                    console.log(error)
                 }
             });
             console.log(formAraryId)
             let index = 0
             await formAraryId.forEach(element => {
                 console.log("key: " + formFormmated[index].key)
-                if (formFormmatedrm[index].key != 2 && !element) {
-                    currentState = false           
+                if (formFormmated[index].key != 3 && !element) {
+                    currentState = false
                 }
                 index++
             });
-            if (currentState){
+            if (currentState) {
                 console.log("resolved")
                 resolve()
-            }else{
+            } else {
                 console.log("Rejecte")
                 reject()
             }
-        }, 125)
+        }, 500)
         //validate 
+
     })
 }
 
@@ -153,7 +160,7 @@ exports.getData = (args, sourceForm) => {
     let sourceFormArray = []
     let images = []
     formFormmated.forEach(element => {
-        if (element.key == 2) {
+        if (element.key == 3) {
             sourceFormArray.push(page.getViewById(element.id).checked)
         } else {
             sourceFormArray.push(page.getViewById(element.id).text)
@@ -167,5 +174,5 @@ exports.getData = (args, sourceForm) => {
     sourceForm.set("consultationAnswers", sourceFormArray)
     sourceForm.set("appointmentNotes", page.getViewById("appointmentNotes").text)
 
-    
+
 }
