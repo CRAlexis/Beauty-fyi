@@ -1,0 +1,56 @@
+{
+  "name": "@nativescript/template-hello-world",
+  "main": "app.js",
+  "version": "7.0.4",
+  "author": "NativeScript Team <oss@nativescript.org>",
+  "description": "NativeScript Application",
+  "license": "SEE LICENSE IN <your-license-filename>",
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": [
+    "nstudio",
+    "nativescript",
+    "mobile",
+    "{N}",
+    "tns",
+    "template"
+  ],
+  "repository": "<fill-your-repository-here>",
+  "bugs": {
+    "url": "https://github.com/NativeScript/NativeScript/issues"
+  },
+  "homepage": "https://github.com/NativeScript/nativescript-app-templates",
+  "dependencies": {
+    "@klippa/nativescript-http": "^2.0.1",
+    "@nativescript/background-http": "^5.0.1",
+    "@nativescript/core": "^7.1.4",
+    "@nativescript/datetimepicker": "^2.0.4",
+    "@nativescript/local-notifications": "^5.1.0",
+    "@nativescript/theme": "^2.3.4",
+    "@nativescript/webpack": "3.0.0",
+    "@nstudio/nativescript-cardview": "^2.0.1",
+    "@nstudio/nativescript-checkbox": "^2.0.4",
+    "dateformat": "^4.5.0",
+    "fs": "0.0.1-security",
+    "nativescript-cardview": "^3.2.0",
+    "nativescript-cfalert-dialog": "^1.0.15",
+    "nativescript-contacts-lite": "^0.2.7",
+    "nativescript-mediafilepicker": "^4.0.2",
+    "nativescript-secure-storage": "^2.6.2",
+    "nativescript-social-share": "^1.6.0",
+    "nativescript-sqlite": "^2.6.6",
+    "nativescript-ui-autocomplete": "^7.0.2",
+    "nativescript-ui-calendar": "^7.0.2",
+    "nativescript-ui-chart": "^8.0.2",
+    "nativescript-ui-listview": "^9.1.0",
+    "nativescript-videoplayer": "^5.0.1",
+    "random-string": "^0.2.0"
+  },
+  "devDependencies": {
+    "@nativescript/android": "7.0.1",
+    "@nativescript/webpack": "~4.0.0"
+  },
+  "private": "true",
+  "readme": "NativeScript Application"
+}

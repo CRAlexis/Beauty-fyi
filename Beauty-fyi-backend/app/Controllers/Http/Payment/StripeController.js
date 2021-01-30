@@ -9,7 +9,7 @@ var stripe = Stripe('sk_test_51HsVnrJoko9usn1WUGAUwAmXQSRwBlphuawLN2EVYo9FrH2nFR
 class StripeController {
 
   async test({ }) {
-    
+
 
     //------------Stylist---------------------\\
 
@@ -40,25 +40,7 @@ class StripeController {
 
 
     /*
-    const invoiceItem = await stripe.invoiceItems.create({
-      amount: 1000,
-      currency: 'usd',
-      customer: "cus_Ipua2uJfST0QkA",
-      description: 'Set-up fee',
-    });
-    console.log(invoiceItem)
-
-    const invoice = await stripe.invoices.create({
-      customer: "cus_Ipua2uJfST0QkA",
-      auto_advance: false,
-      collection_method: "send_invoice",
-      description: "Sending an invoice",
-      days_until_due: 1
-    });
-
-    const sendInvoice = await stripe.invoices.finalizeInvoice(
-      invoice.id
-    );
+    
 
     //console.log(invoice)
     //console.log(sendInvoice)
@@ -68,9 +50,7 @@ class StripeController {
 
   }
 
-  async createCustomerNonHttp( userID, Email ) {
-    
-    console.log("hit")
+  async createCustomerNonHttp(userID, Email) {
     return new Promise(async (resolve, reject) => {
       try {
         const customer = await stripe.customers.create({
@@ -91,7 +71,42 @@ class StripeController {
         reject()
       }
     })
+  }
 
+  async sendInvoiceNonHttp(userID, amount) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const query = await Database.table("stripe_attrs").where('user_id', userID).first()
+        const customerID = query.customer_id
+        console.log(customerID)
+        const invoiceItem = await stripe.invoiceItems.create({
+          amount: amount,
+          currency: 'gbp',
+          customer: customerID,
+          description: 'Set-up fee',
+        });
+
+
+        const invoice = await stripe.invoices.create({
+          customer: customerID,
+          auto_advance: true,
+          collection_method: "send_invoice",
+          description: "Sending an invoice",
+          days_until_due: 1
+        });
+
+        const sendInvoice = await stripe.invoices.finalizeInvoice(
+          invoice.id
+        );
+
+        //console.log(sendInvoice)
+        resolve(invoice)
+
+      } catch (error) {
+        console.log(error)
+        reject()
+      }
+    })
 
   }
 

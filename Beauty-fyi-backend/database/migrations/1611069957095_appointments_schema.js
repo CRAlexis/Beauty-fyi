@@ -12,6 +12,7 @@ class AppointmentsSchema extends Schema {
       table.integer('service_id').unsigned().references('id').inTable('services')
       table.integer('transaction_id').unsigned().references('id').inTable('transactions')
       table.string('addon_ids')
+      table.string('status').nullable()
       table.time('client_start_time').notNullable()
       table.time('client_end_time').notNullable()
       table.time('stylist_start_time').notNullable()

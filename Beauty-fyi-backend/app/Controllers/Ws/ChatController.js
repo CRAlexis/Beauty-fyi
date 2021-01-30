@@ -5,15 +5,7 @@ class ChatController {
 
   async onMessage(ws, message){
 
-    //console.log(message.id ? message.id : null)
-    console.log(message.fromUserID)
-    console.log(message.toUserID)
-    console.log(message.type)
-    console.log(message.plainKey)
-    console.log(message.deviceID)
-    console.log(message.content)
-    console.log(message.action)
-    console.log(message.randomCode ? message.randomCode : null)
+
     let id = message.id ? message.id : null
     let fromUserId = message.fromUserID
     let toUserId = message.toUserID
@@ -26,7 +18,7 @@ class ChatController {
     //Check plainKey and deviceID
 
     //Checking what type of message it is and altering the correct database
-    if(type==="plain"){
+    /*if(type==="plain"){
       if(action==="add"){
         this.addToUserMessages(ws, fromUserId, toUserId, content)
       }
@@ -41,9 +33,9 @@ class ChatController {
       if(action==="delete"){
         this.deleteFromMedia(ws, id, fromUserId, toUserId, content)
       }
-    }
+    }*/
   }
-
+/*
   async addToUserMessages(ws, fromUserId, toUserId, content){
     UserMessage
     // Add User Message
@@ -69,7 +61,7 @@ class ChatController {
   async deleteFromMedia(ws, id, fromUserId, toUserId, content){
 
   }
-
+*/
 }
 
 module.exports = ChatController

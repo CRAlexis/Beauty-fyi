@@ -4,8 +4,10 @@ const Mail = use('Mail')
 const cleanStrings = use('App/Controllers/sanitize/cleanStrings').cleanStrings
 const Database = use('Database')
 const Appointment = use('App/Models/Appointment')
+const Transaction = use('App/Models/Transaction')
 const StripeController = use('App/Controllers/Http/Payment/StripeController')
 const stripeController = new StripeController()
+const Drive = use('Drive')
 const dateFormat = require("dateformat");
 
 class AppointmentController {
@@ -156,7 +158,7 @@ class AppointmentController {
         }
       })
 
-      
+
       const serviceBackEndDuration = paddingBefore + paddingAfter + serviceTime
       const appointments = await Database.table("appointments").where('user_id', userID)
       console.log("service duration: " + serviceBackEndDuration)
@@ -422,58 +424,95 @@ class AppointmentController {
 
   async createAppointment({ request, session, response }) {
     //const trx = await Database.beginTransaction()
-    
-      let auth;
-      let content;
-      let uploadedFiles
-      let serviceSteps;
-      let serviceAddons;
+    let auth;
+    let content;
+    let uploadedFiles;
+    let price = 0
+    const trx = await Database.beginTransaction()
     try {
       await request.multipart.field((name, value) => {
-        console.log("in here")
         if (name == "auth") { auth = JSON.parse(value) }
         if (name == "content") { content = JSON.parse(value) }
       })
 
-      //uploadedFiles = await uploadMedia(request, "serviceMedia")
-      
+      uploadedFiles = await uploadMedia(request, "appointmentReferenceImages")
+
       console.log(content)
-      const service = Database.table("services").where('id', content.serviceID).first()
+      const service = await Database.table("services").where('id', content.serviceID).first()
       const paddingBefore = service.padding_before
       const paddingAfter = service.padding_after
-
       let duration = content.duration
-      let stylistStartTime = this.addHoursAndMinutes(content.time, -paddingBefore, true)
+      let stylistStartTime = this.addHoursAndMinutes(content.time, -parseInt(paddingBefore), true)
       let stylistEndTime = this.addHoursAndMinutes(content.time, parseInt(duration + paddingAfter), true)
       let clientEndTime = this.addHoursAndMinutes(content.time, duration, true)
-
-      console.log(duration, stylistStartTime, stylistEndTime, clientEndTime, paddingBefore, paddingAfter)
-
-      
+      let addonArray = content.addons.split(",")
+      if (addonArray.length > 0) {
+        try {
+          await new Promise((resolve) => {
+            // Need to check if this still fires even when array is empty
+            let index = 0
+            addonArray.forEach(async element => {
+              const addon = await Database.table("service_addons").where("id", element).first()
+              console.log(addon)
+              price += addon.price
+              index++
+              if (index == addonArray.length) {
+                resolve()
+              }
+            });
+          })
+        } catch (error) {
+          return { status: "error" }
+        }
+      }
+      price += service.price
+      price = price * 100
+      console.log("price:" + price)
       // add information to database
-      /*Appointment.create({
+
+      const invoice = await new Promise((resolve, reject) => {// send invoice
+        stripeController.sendInvoiceNonHttp(content.clientID, price).then((result) => {
+          resolve(result)
+        }, (e) => {
+          throw '404';
+        })
+      })
+      const transaction = await Transaction.create({
+        //invoice_url: invoice.hosted_invoice_url,
+        invoice_id: invoice.id,
+        recipient_user_id: auth.userID,
+        payee_user_id: content.clientID,
+        meta: "",
+        status: "pending",
+      }, trx)
+
+      const appointment = await Appointment.create({
         user_id: auth.userID,
         client_id: content.clientID,
         service_id: content.serviceID,
         addon_ids: content.addons.toString(),
-        appointment_date: content.date,
+        appointment_date: new Date(content.date),
         stylist_start_time: stylistStartTime,
         stylist_end_time: stylistEndTime,
         client_start_time: content.time,
         client_end_time: clientEndTime,
-       })*/
-      // send invoice
-      // update transactions table
-      // send emails
-      // phone notification
-      //await trx.commit()
+        transaction_id: transaction.id
+      }, trx)
+      await trx.commit()
+      return { status: "success" }
     } catch (error) {
-      // /uploadedFiles.images.forEach(async element => {
-       // await Drive.delete(element)
-      // /})
-// /
-      // /await trx.rollback()
-     console.log(error)
+      await new Promise((resolve) => {
+        let index = 0
+        uploadedFiles.images.forEach(async element => {
+          await Drive.delete(element)
+          index++
+          if (index == uploadedFiles.images.length) { resolve() }
+        })
+      })
+
+      await trx.rollback()
+      console.log(error)
+      return { status: "error" }
     }
   }
 
@@ -658,12 +697,12 @@ class AppointmentController {
       newHour += 1
       newMinute -= 60
     }
-    if (string){
-      return hour + ":" + minute + ":00"
-    }else{
+    if (string) {
+      return newHour + ":" + newMinute + ":00"
+    } else {
       return { hour: newHour, minute: newMinute }
     }
-   
+
   }
 
 }

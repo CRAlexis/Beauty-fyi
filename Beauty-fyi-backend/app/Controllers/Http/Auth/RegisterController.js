@@ -286,6 +286,21 @@ class RegisterController {
     response.send({ status: "success", clientsImported: clientsImportedSuccessfully })  
   };
 
+  async test({ request }){
+    let auth;
+    let content;
+
+    await request.multipart.field((name, value) => {
+      if (name == "auth") { auth = JSON.parse(value) }
+      if (name == "content") { content = JSON.parse(value) }
+    })
+    let uploadedFiles = await uploadMedia(request, "delete")
+
+
+    console.log("content", content)
+    console.log("auth", auth)
+  }
+
 
 }
 

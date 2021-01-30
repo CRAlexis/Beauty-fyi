@@ -1,0 +1,9 @@
+<GridLayout rows="auto, auto, *" columns="">
+    <StackLayout row="0" paddingLeft="5" paddingRight="5" marginBottom="25" paddingTop="75">
+        <Label text="&#xf4da;" class="far" fontSize="90" paddingBottom="20" textAlignment="center" textWrap="true" />
+        <Label text="Awesome!" class="h2" textWrap="true" textAlignment="center"/>
+        <Label text="Your booking has been confirmed." class="h3" textWrap="true" textAlignment="center"/>
+        <Label text="Check your email to find your invoice." class="h3" textWrap="true" textAlignment="center"/>
+    </StackLayout>
+</GridLayout>
+    
