@@ -9,7 +9,7 @@ var stripe = Stripe('sk_test_51HsVnrJoko9usn1WUGAUwAmXQSRwBlphuawLN2EVYo9FrH2nFR
 class StripeController {
 
   async test({ }) {
-
+    
 
     //------------Stylist---------------------\\
 
@@ -27,13 +27,13 @@ class StripeController {
      });
      return accountLinks*/
 
-    const transfer = await stripe.transfers.create({
+    /*const transfer = await stripe.transfers.create({
       amount: 10,
       currency: "gbp",
       destination: "acct_1IEFIuGlR6qPdhPd",
     });
 
-    return paymentIntent
+    return paymentIntent*/
 
     //-------------Customer-------------------//
 

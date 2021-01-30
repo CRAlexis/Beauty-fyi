@@ -2,16 +2,15 @@ const { LocalNotifications } = require('@nativescript/local-notifications');
 const randomString = require('random-string');
 
 exports.newAppointment = (clientName, serviceName, date, time) => {
-    
     LocalNotifications.schedule([
         {
             id: 0 + randomString({ length: 20 }),
             title: 'New Beauty-fyi appointment',
-            body: 'Client name has booked a service',
+            body: clientName + ' has booked a service',
             ticker: '',
             color: 'rgb(220,220,60',
             badge: 1,
-            groupedMessages: ['Client name has booked Service name', 'On Sat, Dec 2 at 1:00pm', 'Tap here to view more details.'], //android only
+            groupedMessages: [clientName + ' has booked ' + serviceName, 'On ' + date + ' at ' + time, 'Tap here to view more details.'], //android only
             groupSummary: '', //android only
             ongoing: false, // makes the notification ongoing (Android only)
             //icon: 'res://heart',
@@ -20,7 +19,7 @@ exports.newAppointment = (clientName, serviceName, date, time) => {
             //interval: 'minute',
             channel: 'My Channel', // default: 'Channel'
             //sound: 'customsound-ios.wav', // falls back to the default sound on Android
-            at: new Date(new Date().getTime() + 10 * 1000), // 10 seconds from now
+            at: new Date(new Date().getTime() + 1 * 1000), // 10 seconds from now
         },
     ]).then(
         (scheduledIds) => {

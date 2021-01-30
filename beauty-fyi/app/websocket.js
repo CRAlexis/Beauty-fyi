@@ -1,6 +1,8 @@
 const { newWebsocketConnection } = require("@klippa/nativescript-http/websocket");
 const { SecureStorage } = require("nativescript-secure-storage");
+const { newAppointment } = require("./controllers/notifications/outsideApp/localNotificationController");
 const secureStorage = new SecureStorage()
+let ws;
 exports.openWebsocketConnection = (args) => {
     newWebsocketConnection({
         url: "ws://192.168.1.208:8080",
@@ -30,44 +32,74 @@ exports.openWebsocketConnection = (args) => {
             console.log("onClosing", code, reason);
         },
         onMessage: (text) => {
-            // Invoked when a text (type 0x1) message has been received.
-            //messageId -> fromuserid, touserid, content
-            console.log("message: ", text);
+            //const message = JSON.parse(text)
+            console.log(text)
+            //switch (message.action) {
+            //    case "notification":
+            //        this.notificationReply((message))
+            //        break;
+            //}
         },
         onBinaryMessage: (data) => {
             // Invoked when a binary (type 0x2) message has been received.
             console.log("onBinaryMessage", data);
         }
-    }).then((webSocket) => {
-        console.log(webSocket)
-            //Give all auth in messages
-            //type: message
-            //fromuserid
-            //touserid
-            //type plain/binary
-            //plainKey
-            //deviceID
-            //content
-            //action add/delete
-            //message id
-            const messageObject = { "fromUserID" : 10, "toUserID": 18, "type": "plain", "plainKey" : "hg9d89h8g5gfg", "deviceID": "75849375893", "content": "This is our first message.", "action": "add"}
-            webSocket.send(JSON.stringify(messageObject))
+    }).then(async (webSocket) => {
+        authenticate(webSocket)
+        ws = webSocket
 
-
-       
-        exports.sendMessage = (toUserId, fromUserId, ) => {
-
-        }
-        exports.sendBinary = (webSocket) => {
-
-        }
-        exports.closeWebsocket = (webSocket) => {
-
-        }
-        exports.cancelWebsocket = (webSocket) => {
-
-        }
         // With the webSocket object you can send messages and close the connection.
         // Receiving a WebSocket here does not mean the connection worked, you have to check onFailure and onOpen for that.
     });
+}
+
+async function authenticate(webSocket){
+    const messageObject = {
+        deviceID: await secureStorage.get({ key: "deviceID" }),
+        plainKey: await secureStorage.get({ key: "plainKey" }),
+        userID: await secureStorage.get({ key: "userID" }),
+        content: "This is our first message.",
+        action: "auth"
+    }
+    webSocket.send(JSON.stringify(messageObject))
+}
+
+exports.sendMessage = async (text) => {
+    console.log("message: ", text);
+    const messageObject = {
+        deviceID: await secureStorage.get({ key: "deviceID" }),
+        plainKey: await secureStorage.get({ key: "plainKey" }),
+        userID: await secureStorage.get({ key: "userID" }),
+        content: "",
+        action: ""
+    }
+    ws.send(JSON.stringify(messageObject))
+}
+
+exports.notificationReply = async (message) =>{
+    console.log("received message:", message)
+    switch (message.content.notification) {
+        case "newAppointment":
+            newAppointment(message.content.clientName, message.content.serviceName, message.content.date, message.content.time)
+            break;
+    }
+    const messageObject = {
+        deviceID: await secureStorage.get({ key: "deviceID" }),
+        plainKey: await secureStorage.get({ key: "plainKey" }),
+        userID: await secureStorage.get({ key: "userID" }),
+        content: "Notification reply",
+        action: "notificationReply"
+    }
+    ws.send(JSON.stringify(messageObject))
+}
+
+
+exports.sendBinary = (webSocket) => {
+
+}
+exports.closeWebsocket = (webSocket) => {
+
+}
+exports.cancelWebsocket = (webSocket) => {
+
 }
